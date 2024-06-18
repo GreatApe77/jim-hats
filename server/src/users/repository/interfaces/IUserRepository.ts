@@ -11,7 +11,7 @@ export interface IUserRepository {
     findByEmail(email:string): Promise<IUser | null>;
     findById(id:number): Promise<IUser | null>;
     findByUsername(username:string): Promise<IUser | null>;
-    findAll(paginationParams:PaginationParams): Promise<IUser[]>;
+    findAll(paginationParams?:PaginationParams): Promise<IUser[]>;
     update(id:number, user:UpdateUserParams): Promise<void>;
     delete(id:number): Promise<void>;
 }
