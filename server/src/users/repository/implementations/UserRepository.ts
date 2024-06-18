@@ -13,26 +13,55 @@ export class UserRepository implements IUserRepository {
     await prisma.user.create({ data: user });
   }
   findByEmail(email: string): Promise<IUser | null> {
-    const prisma = getDb()
+    const prisma = getDb();
     return prisma.user.findUnique({
-        where:{
-            email
-        }
-    })
+      where: {
+        email,
+      },
+    });
   }
   findById(id: number): Promise<IUser | null> {
-    throw new Error("Method not implemented.");
+    const prisma = getDb();
+    return prisma.user.findUnique({
+      where: {
+        id,
+      },
+    });
   }
   findByUsername(username: string): Promise<IUser | null> {
-    throw new Error("Method not implemented.");
+    const prisma = getDb();
+    return prisma.user.findUnique({
+      where: {
+        username,
+      },
+    });
   }
-  findAll(paginationParams: PaginationParams): Promise<IUser[]> {
-    throw new Error("Method not implemented.");
+  findAll({ limit = 30, offset = 0 }: PaginationParams): Promise<IUser[]> {
+    const prisma = getDb();
+    return prisma.user.findMany({
+      take: limit,
+      skip: offset,
+    });
   }
-  update(id: number, user: UpdateUserParams): Promise<void> {
-    throw new Error("Method not implemented.");
+  async update(id: number, user: UpdateUserParams): Promise<void> {
+    const prisma = getDb();
+    await prisma.user.update({
+      where: { id },
+      data: {
+        updatedAt: new Date(),
+        username: user.username,
+        email: user.email,
+        password: user.password,
+        profilePicture: user.profilePicture,
+      },
+    });
   }
-  delete(id: number): Promise<void> {
-    throw new Error("Method not implemented.");
+  async delete(id: number): Promise<void> {
+    const prisma = getDb();
+    await prisma.user.delete({
+      where: {
+        id,
+      },
+    });
   }
 }
