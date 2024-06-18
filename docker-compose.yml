@@ -1,10 +1,8 @@
-# Set the version of docker compose to use
-version: '3.9'
 
 # The containers that compose the project
 services:
   db:
-    image: postgres:13
+    image: postgres:latest
     restart: always
     container_name: integration-tests-prisma
     ports:
