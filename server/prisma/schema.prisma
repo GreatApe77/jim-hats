@@ -18,7 +18,7 @@ model User {
   username       String   @unique
   email          String   @unique
   password       String
-  profilePicture String   @map("profile_picture")
+  profilePicture String?  @map("profile_picture")
   createdAt      DateTime @default(now()) @map("created_at")
   updatedAt      DateTime @updatedAt @map("updated_at")
 
