@@ -1,4 +1,4 @@
-import { getDb } from "../../../db/db";
+import prisma from "../../../db/prisma";
 import { IUser } from "../../IUser";
 import {
   IUserRepository,
@@ -9,11 +9,9 @@ import {
 
 export class UserRepository implements IUserRepository {
   async save(user: SaveUserParams): Promise<void> {
-    const prisma = getDb();
     await prisma.user.create({ data: user });
   }
   findByEmail(email: string): Promise<IUser | null> {
-    const prisma = getDb();
     return prisma.user.findUnique({
       where: {
         email,
@@ -21,7 +19,6 @@ export class UserRepository implements IUserRepository {
     });
   }
   findById(id: number): Promise<IUser | null> {
-    const prisma = getDb();
     return prisma.user.findUnique({
       where: {
         id,
@@ -29,7 +26,6 @@ export class UserRepository implements IUserRepository {
     });
   }
   findByUsername(username: string): Promise<IUser | null> {
-    const prisma = getDb();
     return prisma.user.findUnique({
       where: {
         username,
@@ -37,14 +33,12 @@ export class UserRepository implements IUserRepository {
     });
   }
   findAll({ limit = 30, offset = 0 }: PaginationParams): Promise<IUser[]> {
-    const prisma = getDb();
     return prisma.user.findMany({
       take: limit,
       skip: offset,
     });
   }
   async update(id: number, user: UpdateUserParams): Promise<void> {
-    const prisma = getDb();
     await prisma.user.update({
       where: { id },
       data: {
@@ -57,7 +51,6 @@ export class UserRepository implements IUserRepository {
     });
   }
   async delete(id: number): Promise<void> {
-    const prisma = getDb();
     await prisma.user.delete({
       where: {
         id,
