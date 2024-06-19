@@ -1,5 +1,3 @@
-
-# The containers that compose the project
 services:
   db:
     image: postgres:latest
@@ -8,6 +6,6 @@ services:
     ports:
       - '5432:5432'
     environment:
-      POSTGRES_USER: prisma
-      POSTGRES_PASSWORD: prisma
-      POSTGRES_DB: tests
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root123
+      POSTGRES_DB: jimhats

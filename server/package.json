@@ -7,7 +7,8 @@
     "dev": "npx tsx --watch src/index.ts",
     "test": "npx vitest",
     "test:dev": "npx vitest --watch=false --reporter=verbose",
-    "coverage": "npx vitest run --coverage --watch=false --reporter=verbose"
+    "coverage": "npx vitest run --coverage --watch=false --reporter=verbose",
+    "migrate":"npx prisma migrate deploy"
   },
   "keywords": [],
   "author": "",
