@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { MESSAGES } from "../../constants/MESSAGES";
 import { errorResponse } from "../../utils/responses";
-import jwt from "jsonwebtoken"
+
 export class AuthMiddleWare {
   public  onlyAuth(req: Request, res: Response, next: NextFunction) {
     const token = req.headers["authorization"];
