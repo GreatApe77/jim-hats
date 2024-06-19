@@ -4,9 +4,9 @@ services:
   db:
     image: postgres:latest
     restart: always
-    container_name: integration-tests-prisma
+    container_name: database
     ports:
-      - '5433:5432'
+      - '5432:5432'
     environment:
       POSTGRES_USER: prisma
       POSTGRES_PASSWORD: prisma
