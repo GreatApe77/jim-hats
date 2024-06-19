@@ -1,5 +1,6 @@
+import { environment } from "../../../config/environment";
 import { IUserRepository, SaveUserParams } from "../../../users/repository/interfaces/IUserRepository";
-import { IAuthService } from "../interfaces/IAuthService";
+import { DecodedPayload, IAuthService } from "../interfaces/IAuthService";
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 export class AuthService implements IAuthService {
@@ -23,10 +24,20 @@ export class AuthService implements IAuthService {
         if (!passwordMatch) {
             throw new Error("Invalid password")
         }
-        const token = jwt.s
+        const token = jwt.sign({
+            id:user.id
+        },environment.JWT_SECRET,{
+            expiresIn:"30d"
+        })
+        return token
     }
-    async verifyToken(token: string): Promise<boolean> {
-
+    async verifyToken(token: string): Promise<DecodedPayload> {
+        try {
+            const decodedPayload = jwt.verify(token,environment.JWT_SECRET)
+            return decodedPayload as DecodedPayload
+        } catch (error) {
+            throw new Error("Invalid token")
+        }
     }
 
 }

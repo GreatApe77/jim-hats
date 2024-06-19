@@ -1,3 +1,4 @@
 import { UserRepository } from "./repository/implementations/UserRepository";
 
-export default new UserRepository()
+const userRepo = new UserRepository()
+export default userRepo
