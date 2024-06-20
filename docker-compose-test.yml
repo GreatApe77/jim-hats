@@ -8,4 +8,4 @@ services:
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root123
-      POSTGRES_DB: jimhats
+      POSTGRES_DB: jimhatstest
