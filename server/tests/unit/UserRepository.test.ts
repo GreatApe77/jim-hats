@@ -3,11 +3,11 @@ import { beforeAll, beforeEach, expect, it, vi } from "vitest";
 import {
   IUserRepository,
   SaveUserParams,
-} from "../src/users/repository/interfaces/IUserRepository";
-import { UserRepository } from "../src/users/repository/implementations/UserRepository";
-import prisma from "../src/db/__mocks__/prisma";
-import { IUser } from "../src/users/IUser";
-vi.mock("../src/db/prisma");
+} from "../../src/users/repository/interfaces/IUserRepository";
+import { UserRepository } from "../../src/users/repository/implementations/UserRepository";
+import prisma from "../../src/db/__mocks__/prisma";
+import { IUser } from "../../src/users/IUser";
+vi.mock("../../src/db/prisma");
 
 describe("UserRepository tests", () => {
   const mockedUser: IUser = {
