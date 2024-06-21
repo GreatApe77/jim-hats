@@ -26,6 +26,12 @@ describe("app e2e tests", () => {
       expect(response.status).to.be.eq(201);
       expect(response.body.message).toBe(MESSAGES.REGISTERED_USER);
     });
+    it("( POST /register ) Should NOT register a user ( invalid email )", async () => {
+      const invalidUser = { ...mockValidUser, email: "invalidEmail" };
+      const response = await request(app).post(registerRoute).send(invalidUser);
+      expect(response.status).to.be.eq(422);
+      expect(response.body.message).toBe(MESSAGES.BAD_REQUEST);
+    })
     it("( POST /register ) Should NOT register a user ( username not unique )", async () => {
       await request(app).post(registerRoute).send(mockValidUser);
       const response = await request(app)

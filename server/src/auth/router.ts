@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { authController } from ".";
+import { authController, authMiddleWare } from ".";
 
 const authRouter = Router()
-authRouter.post("/register",(req,res)=>authController.handleRegister(req,res))
-authRouter.post("/login",(req,res)=>authController.handleLogin(req,res))
+authRouter.post("/register", authMiddleWare.validateRegister, (req, res) => authController.handleRegister(req, res))
+authRouter.post("/login", authMiddleWare.validateLogin, (req, res) => authController.handleLogin(req, res))
 export {
     authRouter
 }

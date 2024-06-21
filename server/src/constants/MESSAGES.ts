@@ -6,5 +6,7 @@ export const MESSAGES = {
     LOGIN_USER_SUCCESS:"Logged in",
     INTERNAL_SERVER_ERROR:"Internal server error",
     USER_NOT_FOUND:"User not found",
-    USER_FOUND:"User found"
+    USER_FOUND:"User found",
+    INVALID_USERNAME:"Username cannot contain spaces or @ symbol",
+    BAD_REQUEST:"Bad request",
 }
