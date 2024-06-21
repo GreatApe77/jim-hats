@@ -1,12 +1,11 @@
 import { describe } from "node:test";
-import { beforeAll, beforeEach, expect, it, vi } from "vitest";
+import { expect, it } from "vitest";
 import {
   IUserRepository,
   SaveUserParams,
 } from "../../src/users/repository/interfaces/IUserRepository";
 import { UserRepository } from "../../src/users/repository/implementations/UserRepository";
-import prisma from "../../src/db/prisma";
-import {mockUsers} from "../constants/mockUsers"
+import { setupUsers } from "./setup";
 
 const sampleUserToSave: SaveUserParams = {
   email: "email",
@@ -15,14 +14,9 @@ const sampleUserToSave: SaveUserParams = {
   profilePicture: "profilePicture",
 };
 describe("UserRepository tests", () => {
-  let usersRepo: IUserRepository = new UserRepository();
+  const usersRepo: IUserRepository = new UserRepository();
 
-  beforeEach(async ()=>{
-    await prisma.user.deleteMany()
-    await prisma.user.createMany({
-      data: mockUsers
-    })
-  })
+  setupUsers()
 
 
   it("Should create a a user", async () => {
