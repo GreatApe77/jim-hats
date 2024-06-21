@@ -2,6 +2,9 @@ import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   test: {
-    // ... Specify options here.
+    //exclude: ["**/__mocks__/**"],
+    coverage:{
+      exclude:["**/__mocks__/**"]
+    }
   },
 });

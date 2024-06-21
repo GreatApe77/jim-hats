@@ -5,6 +5,7 @@ import { setupUsers } from "./setup";
 import { SaveUserParams } from "../../src/users/repository/interfaces/IUserRepository";
 import { MESSAGES } from "../../src/constants/MESSAGES";
 import { LoginUserDTO } from "../../src/auth/dto/LoginUserDTO";
+import { mockUsers } from "../constants/mockUsers";
 
 const mockValidUser: SaveUserParams = {
   username: "GreatApe77",
@@ -15,7 +16,7 @@ const mockValidUser: SaveUserParams = {
 describe("app e2e tests", () => {
   describe("auth", () => {
     const registerRoute = "/register";
-    const loginRoute = "/login"
+    const loginRoute = "/login";
     setupUsers();
 
     it("( POST /register ) Should register a user", async () => {
@@ -31,37 +32,51 @@ describe("app e2e tests", () => {
         .post(registerRoute)
         .send(mockValidUser);
       expect(response.status !== 201).to.be.true;
-      expect(response.body.message!==MESSAGES.REGISTERED_USER).to.be.true
+      expect(response.body.message !== MESSAGES.REGISTERED_USER).to.be.true;
     });
 
-    it("( POST /login ) Should login",async ()=>{
-        await request(app).post(registerRoute).send(mockValidUser);
-        const loginUser:LoginUserDTO = {
-            password:mockValidUser.password,
-            username:mockValidUser.username
-        }                                                                                                    
-        const response = await request(app).post(loginRoute).send(
-            loginUser
-        )
-        expect(response.status).to.be.eq(200)
-        expect(response.body.message).to.be.eq(MESSAGES.LOGIN_USER_SUCCESS)
-        expect(response.body.token).toBeDefined
+    it("( POST /login ) Should login", async () => {
+      await request(app).post(registerRoute).send(mockValidUser);
+      const loginUser: LoginUserDTO = {
+        password: mockValidUser.password,
+        username: mockValidUser.username,
+      };
+      const response = await request(app).post(loginRoute).send(loginUser);
+      expect(response.status).to.be.eq(200);
+      expect(response.body.message).to.be.eq(MESSAGES.LOGIN_USER_SUCCESS);
+      expect(response.body.token).toBeDefined;
+    });
 
-    })
+    it("( POST /login ) Should NOT login ( wrong password )", async () => {
+      await request(app).post(registerRoute).send(mockValidUser);
+      const loginUser: LoginUserDTO = {
+        password: "wrongPassword",
+        username: mockValidUser.username,
+      };
+      const response = await request(app).post(loginRoute).send(loginUser);
+      expect(response.status !== 200).to.be.true;
+      expect(response.body.message !== MESSAGES.LOGIN_USER_SUCCESS).to.be.true;
+      expect(response.body.token).toBeUndefined;
+    });
+  });
 
-    it("( POST /login ) Should NOT login ( wrong password )",async ()=>{
-        await request(app).post(registerRoute).send(mockValidUser);
-        const loginUser:LoginUserDTO = {
-            password:"wrongPassword",
-            username:mockValidUser.username
-        }                                                                                                    
-        const response = await request(app).post(loginRoute).send(
-            loginUser
-        )
-        expect(response.status!==200).to.be.true
-        expect(response.body.message!==MESSAGES.LOGIN_USER_SUCCESS).to.be.true
-        expect(response.body.token).toBeUndefined
-    })
-
+  describe("users", () => {
+    const usersRoute = "/users";
+    setupUsers();
+    it("( GET /users/:id ) Should get a user by an unique identifier (username)", async () => {
+      const response = await request(app).get(
+        `${usersRoute}/${mockUsers[0].username}`
+      );
+      //console.log(response.body)
+      expect(response.status).to.be.eq(200);
+      expect(response.body.data.username).to.be.eq(mockUsers[0].username);
+    });
+    it("( GET /users/:id ) Should get a user by an unique identifier (email)", async () => {
+        const response = await request(app).get(
+            `${usersRoute}/${mockUsers[0].email}`
+        );
+        expect(response.status).to.be.eq(200);
+        expect(response.body.data.email).to.be.eq(mockUsers[0].email);
+    });
   });
 });

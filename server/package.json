@@ -8,6 +8,7 @@
     "test": "npx vitest --watch=false --reporter=verbose --exclude=**/*.e2e.test.ts",
     "test:integration": "chmod +x ./scripts/run-integration-tests.sh && ./scripts/run-integration-tests.sh",
     "coverage": "npx vitest run --coverage --watch=false --reporter=verbose",
+    "coverage:integration": "chmod +x ./scripts/run-integration-coverage.sh && ./scripts/run-integration-coverage.sh",
     "migrate": "npx prisma migrate deploy",
     "start:db": "cd .. && docker compose --file docker-compose-dev.yml up -d  && sleep 1 && cd ./server && npm run migrate"
   },
