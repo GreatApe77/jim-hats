@@ -66,4 +66,15 @@ describe("UserRepository tests", () => {
     expect(user?.email).to.equal(sampleUserToSave.email)
     expect(user?.username).to.equal(sampleUserToSave.username)
   })
+  it("Should list all users (Date)", async () => {
+    await usersRepo.save(sampleUserToSave)
+    const users = await usersRepo.findAll(new Date())
+    expect(users.length).to.equal(4)
+    
+  })
+  it("Should list all users (offset and limit)", async () => {
+    await usersRepo.save(sampleUserToSave)
+    const users = await usersRepo.findAll({offset:1,limit:1})
+    expect(users.length).to.equal(1)
+  })
 })

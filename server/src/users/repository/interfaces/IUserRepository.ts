@@ -12,6 +12,7 @@ export interface IUserRepository {
     findById(id: number): Promise<IUser | null>;
     findByUsername(username: string): Promise<IUser | null>;
     findAll(paginationParams?: PaginationParams): Promise<IUser[]>;
+    findAll(dateFilter:Date): Promise<IUser[]>;
     update(id: number, user: UpdateUserParams): Promise<void>;
     delete(id: number): Promise<void>;
 }

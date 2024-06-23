@@ -32,12 +32,25 @@ export class UserRepository implements IUserRepository {
       },
     });
   }
-  findAll({ limit = 30, offset = 0 }: PaginationParams): Promise<IUser[]> {
-    return prisma.user.findMany({
-      take: limit,
-      skip: offset,
-    });
+  findAll(args?: PaginationParams|Date): Promise<IUser[]> {
+    if(args instanceof Date){
+      return prisma.user.findMany({
+        where:{
+          createdAt:{
+            lte:args
+          }
+        },
+        take: 30,
+      })
+    }else{
+      const { limit=30, offset=0 } = args || {};
+      return prisma.user.findMany({
+        take: limit,
+        skip: offset,
+      });
+    }
   }
+  
   
   async update(id: number, user: UpdateUserParams): Promise<void> {
     await prisma.user.update({

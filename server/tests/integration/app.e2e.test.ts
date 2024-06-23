@@ -84,5 +84,6 @@ describe("app e2e tests", () => {
         expect(response.status).to.be.eq(200);
         expect(response.body.data.email).to.be.eq(mockUsers[0].email);
     });
+    
   });
 });

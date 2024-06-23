@@ -14,10 +14,13 @@ export class UserService implements IUserService{
             return this.userRepository.findByEmail(prop)
         }
         
-        if(!isNaN(Number(prop))){
+        if(!isNaN(parseInt(prop))){
             return this.userRepository.findById(Number(prop))
         }
         
         return this.userRepository.findByUsername(prop)
+    }
+    async list(): Promise<IUser[]> {
+        return this.userRepository.findAll()
     }
 }
