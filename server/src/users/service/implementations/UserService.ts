@@ -1,5 +1,5 @@
 import { IUser } from "../../IUser";
-import { IUserRepository } from "../../repository/interfaces/IUserRepository";
+import { IUserRepository, PaginationParams } from "../../repository/interfaces/IUserRepository";
 import { IUserService } from "../interfaces/IUserService";
 
 
@@ -20,7 +20,10 @@ export class UserService implements IUserService{
         
         return this.userRepository.findByUsername(prop)
     }
-    async list(): Promise<IUser[]> {
-        return this.userRepository.findAll()
+    list(args?: PaginationParams | Date): Promise<IUser[]> {
+        if(args instanceof Date){
+            return this.userRepository.findAll(args)
+        }
+        return this.userRepository.findAll(args)
     }
 }

@@ -4,6 +4,7 @@ import { IAuthService } from "../services/interfaces/IAuthService";
 import { errorResponse, successResponse } from "../../utils/responses";
 import { MESSAGES } from "../../constants/MESSAGES";
 import { LoginUserDTO } from "../dto/LoginUserDTO";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
 export class AuthController {
 
@@ -20,7 +21,11 @@ export class AuthController {
             await this.authService.register({ email, password, username, profilePicture })
             return res.status(201).json(successResponse(MESSAGES.REGISTERED_USER))
         } catch (error) {
-            console.error(error)
+            if( error instanceof PrismaClientKnownRequestError){
+                if(error.code === 'P2002'){
+                    return res.status(400).json(errorResponse(MESSAGES.USER_ALREADY_EXISTS))
+                }
+            }
             return res.status(500).send()
 
         }

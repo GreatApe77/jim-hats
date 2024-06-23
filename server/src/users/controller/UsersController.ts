@@ -31,4 +31,22 @@ export class UsersController {
 
     }
 
+    async handleListUsers(req: Request, res: Response) {
+        const { date,page,limit } = req.query
+        try {
+            if (date) {
+                const users = await this.userService.list(new Date(date as string))
+                return res.status(200).json(successResponse(MESSAGES.USERS_FOUND, users))
+            }
+            if(page && limit){
+                const users = await this.userService.list({offset:parseInt(page as string),limit:parseInt(limit as string)})
+                return res.status(200).json(successResponse(MESSAGES.USERS_FOUND, users))
+            }
+            const users = await this.userService.list()
+            return res.status(200).json(successResponse(MESSAGES.USERS_FOUND, users))
+        } catch (error) {
+            return res.status(500).json(errorResponse(MESSAGES.INTERNAL_SERVER_ERROR))
+        }
+    }
+
 }

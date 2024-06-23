@@ -35,10 +35,16 @@ export class UserRepository implements IUserRepository {
   findAll(args?: PaginationParams|Date): Promise<IUser[]> {
     if(args instanceof Date){
       return prisma.user.findMany({
+        orderBy:{
+          createdAt:"desc"
+        },
         where:{
+          
           createdAt:{
-            lte:args
-          }
+            lt:args,
+            
+          },
+          
         },
         take: 30,
       })

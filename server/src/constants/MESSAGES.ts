@@ -9,4 +9,6 @@ export const MESSAGES = {
     USER_FOUND:"User found",
     INVALID_USERNAME:"Username cannot contain spaces or @ symbol",
     BAD_REQUEST:"Bad request",
+    USERS_FOUND:"Users found",
+    USER_ALREADY_EXISTS:"User already exists",
 }
