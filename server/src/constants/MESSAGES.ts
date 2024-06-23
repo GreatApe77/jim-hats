@@ -11,4 +11,5 @@ export const MESSAGES = {
     BAD_REQUEST:"Bad request",
     USERS_FOUND:"Users found",
     USER_ALREADY_EXISTS:"User already exists",
+    WRONG_PASSWORD:"Wrong password",
 }

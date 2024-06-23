@@ -14,7 +14,8 @@ export class UserService implements IUserService{
             return this.userRepository.findByEmail(prop)
         }
         
-        if(!isNaN(parseInt(prop))){
+        if(!isNaN(parseInt(Number(prop).toString()))){
+            
             return this.userRepository.findById(Number(prop))
         }
         

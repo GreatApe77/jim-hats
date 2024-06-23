@@ -3,7 +3,7 @@ import "dotenv/config"
 
 const envSchema = z.object({
     PORT: z.string().default("4000"),
-    NODE_ENV: z.string().default("development"),
+    NODE_ENV: z.enum(["dev","test","prod"]).default("dev"),
     DATABASE_URL: z.string().default(""),
     JWT_SECRET: z.string().default("JWT_SECRET"),
 });

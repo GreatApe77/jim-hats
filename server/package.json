@@ -10,7 +10,7 @@
     "coverage": "npx vitest run --coverage --watch=false --reporter=verbose",
     "coverage:integration": "chmod +x ./scripts/run-integration-coverage.sh && ./scripts/run-integration-coverage.sh",
     "migrate": "npx prisma migrate deploy",
-    "start:db": "cd .. && docker compose --file docker-compose-dev.yml up -d  && sleep 1 && cd ./server && npm run migrate"
+    "start:db": "cd .. && docker compose --file docker-compose-dev.yml up -d  && sleep 2 && cd ./server && npm run migrate"
   },
   "keywords": [],
   "author": "",

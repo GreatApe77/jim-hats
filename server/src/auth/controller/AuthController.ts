@@ -5,6 +5,8 @@ import { errorResponse, successResponse } from "../../utils/responses";
 import { MESSAGES } from "../../constants/MESSAGES";
 import { LoginUserDTO } from "../dto/LoginUserDTO";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+import { HttpError } from "../../errors/HttpError";
+import { handleErrors } from "../../errors/handleErrors";
 
 export class AuthController {
 
@@ -21,12 +23,7 @@ export class AuthController {
             await this.authService.register({ email, password, username, profilePicture })
             return res.status(201).json(successResponse(MESSAGES.REGISTERED_USER))
         } catch (error) {
-            if( error instanceof PrismaClientKnownRequestError){
-                if(error.code === 'P2002'){
-                    return res.status(400).json(errorResponse(MESSAGES.USER_ALREADY_EXISTS))
-                }
-            }
-            return res.status(500).send()
+            return handleErrors(error, res)
 
         }
     }
@@ -38,8 +35,9 @@ export class AuthController {
             const jwtToken = await this.authService.login(username, password)
             return res.status(200).json(successResponse(MESSAGES.LOGIN_USER_SUCCESS, { token: jwtToken }))
         } catch (error) {
-            console.error(error)
-            return res.status(500).json(errorResponse(MESSAGES.INTERNAL_SERVER_ERROR))
+
+            return handleErrors(error, res)
+
         }
     }
 

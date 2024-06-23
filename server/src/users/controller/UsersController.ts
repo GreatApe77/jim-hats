@@ -4,6 +4,7 @@ import { IUser } from "../IUser";
 import { IUserService } from "../service/interfaces/IUserService";
 import { errorResponse, successResponse } from "../../utils/responses";
 import { MESSAGES } from "../../constants/MESSAGES";
+import { handleErrors } from "../../errors/handleErrors";
 
 
 export class UsersController {
@@ -26,7 +27,7 @@ export class UsersController {
             return res.status(200).json(successResponse(MESSAGES.USER_FOUND,userWithNoPassword    
             ))
         } catch (error) {
-            return res.status(500).json(errorResponse(MESSAGES.INTERNAL_SERVER_ERROR))
+            return handleErrors(error, res)
         }
 
     }
@@ -45,7 +46,7 @@ export class UsersController {
             const users = await this.userService.list()
             return res.status(200).json(successResponse(MESSAGES.USERS_FOUND, users))
         } catch (error) {
-            return res.status(500).json(errorResponse(MESSAGES.INTERNAL_SERVER_ERROR))
+            return handleErrors(error, res)
         }
     }
 
