@@ -14,13 +14,24 @@ datasource db {
 }
 
 model User {
-  id             Int      @id @default(autoincrement())
-  username       String   @unique
-  email          String   @unique
+  id             Int            @id @default(autoincrement())
+  username       String         @unique
+  email          String         @unique
   password       String
-  profilePicture String?  @map("profile_picture")
-  createdAt      DateTime @default(now()) @map("created_at")
-  updatedAt      DateTime @updatedAt @map("updated_at")
+  profilePicture String?        @map("profile_picture")
+  createdAt      DateTime       @default(now()) @map("created_at")
+  updatedAt      DateTime       @updatedAt @map("updated_at")
+  gymChallenges  GymChallenge[]
 
   @@map("users")
+}
+
+model GymChallenge {
+  id          Int    @id @default(autoincrement())
+  name        String
+  description String
+  image       String
+  members     User[]
+
+  @@map("gym_challenges")
 }
