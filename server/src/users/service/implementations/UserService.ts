@@ -30,9 +30,9 @@ export class UserService implements IUserService{
         }
         return this.userRepository.findAll(args)
     }
-    delete(id: number): Promise<void> {
+    async delete(id: number): Promise<void> {
         try {
-            return this.userRepository.delete(id)
+            await  this.userRepository.delete(id)
             
         } catch (error) {
             if(error instanceof PrismaClientKnownRequestError){

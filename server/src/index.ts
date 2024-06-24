@@ -1,6 +1,6 @@
 import { app } from "./app";
 import { environment } from "./config/environment";
-
+import "./container"
 
 
 async function main(){

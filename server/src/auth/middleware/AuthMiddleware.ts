@@ -6,7 +6,7 @@ import { LoginUserSchema } from "../dto/schemas/LoginUserSchema";
 import { z } from "zod";
 import { IAuthService } from "../services/interfaces/IAuthService";
 export class AuthMiddleWare {
-  private authService: IAuthService;
+   authService: IAuthService;
   constructor(authService: IAuthService){
     this.authService = authService
   }

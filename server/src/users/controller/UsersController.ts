@@ -1,11 +1,8 @@
 import { Request, Response } from "express";
-import { IUserRepository } from "../repository/interfaces/IUserRepository";
-import { IUser } from "../IUser";
 import { IUserService } from "../service/interfaces/IUserService";
 import { errorResponse, successResponse } from "../../utils/responses";
 import { MESSAGES } from "../../constants/MESSAGES";
 import { handleErrors } from "../../errors/handleErrors";
-import { IAuthService } from "../../auth/services/interfaces/IAuthService";
 
 
 export class UsersController {
@@ -24,6 +21,7 @@ export class UsersController {
                 return res.status(404).json(errorResponse(MESSAGES.USER_NOT_FOUND))
             }
             
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const {password,...userWithNoPassword} = user
             return res.status(200).json(successResponse(MESSAGES.USER_FOUND,userWithNoPassword    
             ))

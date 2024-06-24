@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { userController } from ".";
-import { authMiddleWare } from "../auth";
-
+import {authMiddleware, userService} from "../container"
+import { UsersController } from "./controller/UsersController";
+const usersController = new UsersController(userService)
 const usersRouter = Router()
 
-usersRouter.get("/:id",(req,res)=>userController.handleGetUser(req,res))
-usersRouter.get("/",(req,res)=>userController.handleListUsers(req,res))
-usersRouter.delete("/:id",authMiddleWare.onlyAuth,(req,res)=>userController.handleDeleteUser(req,res))
+usersRouter.get("/:id",(req,res)=>usersController.handleGetUser(req,res))
+usersRouter.get("/",(req,res)=>usersController.handleListUsers(req,res))
+usersRouter.delete("/:id",authMiddleware.onlyAuth.bind(authMiddleware),(req,res)=>usersController.handleDeleteUser(req,res))
 export {
     usersRouter
 }
