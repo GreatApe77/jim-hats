@@ -5,14 +5,15 @@ import { IUserService } from "../service/interfaces/IUserService";
 import { errorResponse, successResponse } from "../../utils/responses";
 import { MESSAGES } from "../../constants/MESSAGES";
 import { handleErrors } from "../../errors/handleErrors";
+import { IAuthService } from "../../auth/services/interfaces/IAuthService";
 
 
 export class UsersController {
 
     private userService: IUserService;
-
     constructor(userService: IUserService) {
         this.userService = userService;
+        
     }
 
     async handleGetUser(req: Request, res: Response) {
@@ -23,7 +24,7 @@ export class UsersController {
                 return res.status(404).json(errorResponse(MESSAGES.USER_NOT_FOUND))
             }
             
-            let {password,...userWithNoPassword} = user
+            const {password,...userWithNoPassword} = user
             return res.status(200).json(successResponse(MESSAGES.USER_FOUND,userWithNoPassword    
             ))
         } catch (error) {
@@ -48,6 +49,20 @@ export class UsersController {
         } catch (error) {
             return handleErrors(error, res)
         }
+    }
+
+    async handleDeleteUser(req: Request, res: Response) {
+        const id = req.params.id
+        try {
+            const userId = res.locals.userId as number
+            if(userId !== Number(id)){
+                return res.status(401).json(errorResponse(MESSAGES.UNAUTHORIZED))
+            }
+            await this.userService.delete(Number(id))
+            return res.status(200).json(successResponse(MESSAGES.USER_DELETED))
+        } catch (error) {
+            return handleErrors(error, res)
+        }       
     }
 
 }

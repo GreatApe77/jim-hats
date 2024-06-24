@@ -6,7 +6,7 @@ import { AuthMiddleWare } from "./middleware/AuthMiddleware";
 
 const authService = new AuthService(userRepo)
 const authController = new AuthController(authService)
-const authMiddleWare = new AuthMiddleWare()
+const authMiddleWare = new AuthMiddleWare(authService)
 export {    
     authService,
     authController,

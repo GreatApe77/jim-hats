@@ -2,11 +2,15 @@ import { NextFunction, Request, Response } from "express";
 import { MESSAGES } from "../../constants/MESSAGES";
 import { errorResponse } from "../../utils/responses";
 import { RegisterUserSchema } from "../dto/schemas/RegisterUserSchema";
-import { LoginUserDTO } from "../dto/LoginUserDTO";
 import { LoginUserSchema } from "../dto/schemas/LoginUserSchema";
 import { z } from "zod";
+import { IAuthService } from "../services/interfaces/IAuthService";
 export class AuthMiddleWare {
-  public onlyAuth(req: Request, res: Response, next: NextFunction) {
+  private authService: IAuthService;
+  constructor(authService: IAuthService){
+    this.authService = authService
+  }
+  public async onlyAuth(req: Request, res: Response, next: NextFunction) {
     const token = req.headers["authorization"];
     if (!token?.startsWith("Bearer ")) {
       return res
@@ -18,9 +22,13 @@ export class AuthMiddleWare {
       return res.status(400).json(errorResponse(MESSAGES.INVALID_JWT_TOKEN));
     }
     try {
-
+      const {id} = await this.authService.verifyToken(jwtToken)
+      res.locals.userId = id
+      
+      return next()
     } catch (error) {
-
+      console.log(error)
+      return res.status(401).json(errorResponse(MESSAGES.UNAUTHORIZED))
     }
   }
   public  validateRegister(req: Request, res: Response, next: NextFunction) {

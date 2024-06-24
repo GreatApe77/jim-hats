@@ -1,6 +1,9 @@
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+import { HttpError } from "../../../errors/HttpError";
 import { IUser } from "../../IUser";
 import { IUserRepository, PaginationParams } from "../../repository/interfaces/IUserRepository";
 import { IUserService } from "../interfaces/IUserService";
+import { MESSAGES } from "../../../constants/MESSAGES";
 
 
 
@@ -26,5 +29,18 @@ export class UserService implements IUserService{
             return this.userRepository.findAll(args)
         }
         return this.userRepository.findAll(args)
+    }
+    delete(id: number): Promise<void> {
+        try {
+            return this.userRepository.delete(id)
+            
+        } catch (error) {
+            if(error instanceof PrismaClientKnownRequestError){
+                if(error.code === 'P2025'){
+                    throw new HttpError(404,MESSAGES.USER_NOT_FOUND)
+                }
+            }
+            throw error
+        }
     }
 }

@@ -5,4 +5,5 @@ export interface IUserService {
     search(prop:string):Promise<IUser|null>
     list(paginationParams?:PaginationParams):Promise<IUser[]>
     list(dateFilter:Date):Promise<IUser[]>
+    delete(id:number):Promise<void>
 }
