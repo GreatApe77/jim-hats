@@ -84,6 +84,25 @@ describe("app e2e tests", () => {
         expect(response.status).to.be.eq(200);
         expect(response.body.data.email).to.be.eq(mockUsers[0].email);
     });
-    
+    it("( DELETE /users/:id ) Should delete a user by an unique identifier (username)", async () => {
+      //create a user
+      //login
+      //delete
+      const createReponse = await request(app).post("/register").send(mockValidUser);
+      const loginUser: LoginUserDTO = {
+        password: mockValidUser.password,
+        username: mockValidUser.username,
+      };
+      expect(createReponse.status).to.be.eq(201);
+      const loginResponse = await request(app).post("/login").send(loginUser);
+      expect(loginResponse.status).to.be.eq(200);
+      const token = loginResponse.body.data.token
+      const getUserResponse = await request(app).get(`${usersRoute}/${mockValidUser.username}`)
+      const user = getUserResponse.body.data
+      
+      const deleteResponse = await request(app).delete(`${usersRoute}/${user.id}`)
+      .set('Authorization', `Bearer ${token}`)
+      expect(deleteResponse.status).to.be.eq(200);
+    })  
   });
 });
