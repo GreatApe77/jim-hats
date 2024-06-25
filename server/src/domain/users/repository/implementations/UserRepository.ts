@@ -59,14 +59,26 @@ export class UserRepository implements IUserRepository {
   
   
   async update(id: number, user: UpdateUserParams): Promise<void> {
+    let userToUpdate = {
+      ...user,
+    };
+    if (!user.password) {
+      delete userToUpdate.password;
+    }
+    if (!user.email) {
+      delete userToUpdate.email;
+    }
+    if (!user.username) {
+      delete userToUpdate.username;
+    }
+    if (!user.profilePicture) {
+      delete userToUpdate.profilePicture;
+    }
     await prisma.user.update({
       where: { id },
       data: {
         updatedAt: new Date(),
-        username: user.username,
-        email: user.email,
-        password: user.password,
-        profilePicture: user.profilePicture,
+        ...userToUpdate,
       },
     });
   }

@@ -52,6 +52,17 @@ describe("UserRepository tests", () => {
     expect(updatedUser).to.not.be.undefined
     expect(updatedUser?.username).to.equal("newUsername")
   })
+  it("Should update a user only username", async () => {
+    await usersRepo.save(sampleUserToSave)
+    const user = await usersRepo.findByUsername(sampleUserToSave.username)
+    await usersRepo.update(user!.id,{
+      username: "newUsername",
+    })
+    const updatedUser = await usersRepo.findByUsername("newUsername")
+    expect(updatedUser).to.not.be.undefined
+    expect(updatedUser?.username).to.equal("newUsername")
+    expect(updatedUser?.email).to.equal(sampleUserToSave.email)
+  })
   it("Should delete a user", async () => {
     await usersRepo.save(sampleUserToSave)
     const user = await usersRepo.findByUsername(sampleUserToSave.username)

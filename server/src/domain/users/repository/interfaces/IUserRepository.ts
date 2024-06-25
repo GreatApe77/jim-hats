@@ -1,7 +1,7 @@
 import { IUser } from "../../IUser";
 
 export type SaveUserParams = Pick<IUser, "email" | "password" | "profilePicture" | "username">;
-export type UpdateUserParams = Pick<IUser, "email" | "password" | "profilePicture" | "username">;
+export type UpdateUserParams = Partial<Pick<IUser, "email" | "password" | "profilePicture" | "username">>;
 export type PaginationParams = {
     offset?: number;
     limit?: number;
