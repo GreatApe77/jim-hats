@@ -53,7 +53,7 @@ export class UsersController {
     async handleDeleteUser(req: Request, res: Response) {
         const id = req.params.id
         try {
-            const userId = res.locals.userId as number
+            const userId = res.locals.authUser.id as number
             if(userId !== Number(id)){
                 return res.status(401).json(errorResponse(MESSAGES.UNAUTHORIZED))
             }
@@ -67,7 +67,7 @@ export class UsersController {
         const id = req.params.id
         const user = req.body as PatchUserDTO
         try {
-            const userId = res.locals.userId as number
+            const userId = res.locals.authUser.id as number
             if(userId !== Number(id)){
                 return res.status(401).json(errorResponse(MESSAGES.UNAUTHORIZED))
             }

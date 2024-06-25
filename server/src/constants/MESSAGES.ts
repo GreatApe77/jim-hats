@@ -1,3 +1,4 @@
+import { INVALID } from "zod";
 
 export const MESSAGES = {
     INVALID_JWT_TOKEN_FORMAT: "Invalid JWT token format. Format should be 'Bearer <token>'",
@@ -14,5 +15,7 @@ export const MESSAGES = {
     WRONG_PASSWORD:"Wrong password",
     UNAUTHORIZED:"Unauthorized",
     USER_DELETED:"User deleted",
-    USER_UPDATED:"User updated"
+    USER_UPDATED:"User updated",
+    PROFILE_PICTURE_UPDATED:"Profile picture updated",
+    INVALID_FILE_TYPE:"Profile picture should be a jpeg or png file",
 }

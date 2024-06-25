@@ -38,7 +38,8 @@ export class AuthService implements IAuthService {
             throw new HttpError(401, MESSAGES.WRONG_PASSWORD)
         }
         const token = jwt.sign({
-            id: user.id
+            id: user.id,
+            username: user.username
         }, environment.JWT_SECRET, {
             expiresIn: "30d"
         })

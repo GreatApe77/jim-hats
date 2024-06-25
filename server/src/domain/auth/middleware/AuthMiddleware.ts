@@ -22,8 +22,8 @@ export class AuthMiddleWare {
       return res.status(400).json(errorResponse(MESSAGES.INVALID_JWT_TOKEN));
     }
     try {
-      const { id } = await this.authService.verifyToken(jwtToken)
-      res.locals.userId = id
+      const userJwtPayload = await this.authService.verifyToken(jwtToken)
+      res.locals.authUser = userJwtPayload
 
       return next()
     } catch (error) {
