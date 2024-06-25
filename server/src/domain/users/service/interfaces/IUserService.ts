@@ -7,4 +7,5 @@ export interface IUserService {
     list(dateFilter:Date):Promise<IUser[]>
     delete(id:number):Promise<void>
     update(id:number,user:UpdateUserParams):Promise<void>
+    
 }
