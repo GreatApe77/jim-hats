@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { IUserService } from "../service/interfaces/IUserService";
-import { errorResponse, successResponse } from "../../utils/responses";
-import { MESSAGES } from "../../constants/MESSAGES";
-import { handleErrors } from "../../errors/handleErrors";
+import { errorResponse, successResponse } from "../../../utils/responses";
+import { MESSAGES } from "../../../constants/MESSAGES";
+import { handleErrors } from "../../../errors/handleErrors";
 
 
 export class UsersController {

@@ -1,9 +1,9 @@
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
-import { HttpError } from "../../../errors/HttpError";
+import { HttpError } from "../../../../errors/HttpError";
 import { IUser } from "../../IUser";
 import { IUserRepository, PaginationParams } from "../../repository/interfaces/IUserRepository";
 import { IUserService } from "../interfaces/IUserService";
-import { MESSAGES } from "../../../constants/MESSAGES";
+import { MESSAGES } from "../../../../constants/MESSAGES";
 
 
 

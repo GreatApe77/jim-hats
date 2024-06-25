@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {authMiddleware, userService} from "../container"
+import {authMiddleware, userService} from "../../container"
 import { UsersController } from "./controller/UsersController";
 const usersController = new UsersController(userService)
 const usersRouter = Router()

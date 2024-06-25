@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
 import { RegisterUserDTO } from "../dto/RegiterUserDTO";
 import { IAuthService } from "../services/interfaces/IAuthService";
-import { errorResponse, successResponse } from "../../utils/responses";
-import { MESSAGES } from "../../constants/MESSAGES";
+import { errorResponse, successResponse } from "../../../utils/responses";
+import { MESSAGES } from "../../../constants/MESSAGES";
 import { LoginUserDTO } from "../dto/LoginUserDTO";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
-import { HttpError } from "../../errors/HttpError";
-import { handleErrors } from "../../errors/handleErrors";
+import { HttpError } from "../../../errors/HttpError";
+import { handleErrors } from "../../../errors/handleErrors";
 
 export class AuthController {
 

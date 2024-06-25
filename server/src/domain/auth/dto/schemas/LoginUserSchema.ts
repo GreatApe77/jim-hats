@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { MESSAGES } from "../../../constants/MESSAGES";
+import { MESSAGES } from "../../../../constants/MESSAGES";
 
 
 
@@ -9,7 +9,7 @@ const LoginUserSchema = z.object({
     username: z.string()
         .min(3)
         .max(20)
-        .regex(/^[^\s@]+$/,MESSAGES.INVALID_USERNAME),
+        .regex(/^[^\s@]+$/, MESSAGES.INVALID_USERNAME),
 });
 
 export {

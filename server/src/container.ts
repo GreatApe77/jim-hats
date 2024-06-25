@@ -1,7 +1,7 @@
-import { AuthService } from './auth/services/implementations/AuthService';
-import { AuthMiddleWare } from './auth/middleware/AuthMiddleware';
-import { UserService } from './users/service/implementations/UserService';
-import { UserRepository } from './users/repository/implementations/UserRepository';
+import { AuthService } from './domain/auth/services/implementations/AuthService';
+import { AuthMiddleWare } from './domain/auth/middleware/AuthMiddleware';
+import { UserService } from './domain/users/service/implementations/UserService';
+import { UserRepository } from './domain/users/repository/implementations/UserRepository';
 
 
 const userRepository = new UserRepository();

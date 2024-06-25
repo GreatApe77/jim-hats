@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { MESSAGES } from "../../../constants/MESSAGES";
+import { MESSAGES } from "../../../../constants/MESSAGES";
 
 
 
@@ -10,7 +10,7 @@ const RegisterUserSchema = z.object({
     username: z.string()
         .min(3)
         .max(20)
-        .regex(/^[^\s@]+$/,MESSAGES.INVALID_USERNAME),
+        .regex(/^[^\s@]+$/, MESSAGES.INVALID_USERNAME),
     profilePicture: z.string().url().nullable().optional(),
 });
 

@@ -3,8 +3,8 @@ import { expect, it } from "vitest";
 import {
   IUserRepository,
   SaveUserParams,
-} from "../../src/users/repository/interfaces/IUserRepository";
-import { UserRepository } from "../../src/users/repository/implementations/UserRepository";
+} from "../../src/domain/users/repository/interfaces/IUserRepository";
+import { UserRepository } from "../../src/domain/users/repository/implementations/UserRepository";
 import { setupUsers } from "./setup";
 
 const sampleUserToSave: SaveUserParams = {
