@@ -13,5 +13,6 @@ export const MESSAGES = {
     USER_ALREADY_EXISTS:"User already exists",
     WRONG_PASSWORD:"Wrong password",
     UNAUTHORIZED:"Unauthorized",
-    USER_DELETED:"User deleted"
+    USER_DELETED:"User deleted",
+    USER_UPDATED:"User updated"
 }

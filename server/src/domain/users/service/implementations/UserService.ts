@@ -12,6 +12,19 @@ export class UserService implements IUserService{
     constructor(userRepository:IUserRepository){
         this.userRepository = userRepository
     }
+    async update(id: number, user: Partial<Pick<IUser, "email" | "password" | "profilePicture" | "username">>): Promise<void> {
+        try {
+            await this.userRepository.update(id,user)
+            
+        } catch (error) {
+            if(error instanceof PrismaClientKnownRequestError){
+                if(error.code === 'P2025'){
+                    throw new HttpError(404,MESSAGES.USER_NOT_FOUND)
+                }
+            }
+            throw error
+        }
+    }
     search(prop: string): Promise<IUser | null> {
         if(prop.includes("@")){
             return this.userRepository.findByEmail(prop)

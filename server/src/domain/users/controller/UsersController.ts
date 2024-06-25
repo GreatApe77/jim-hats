@@ -3,6 +3,7 @@ import { IUserService } from "../service/interfaces/IUserService";
 import { errorResponse, successResponse } from "../../../utils/responses";
 import { MESSAGES } from "../../../constants/MESSAGES";
 import { handleErrors } from "../../../errors/handleErrors";
+import { PatchUserDTO } from "../dto/PatchUserDTO";
 
 
 export class UsersController {
@@ -62,5 +63,18 @@ export class UsersController {
             return handleErrors(error, res)
         }       
     }
-
+    async handleUpdateUser(req: Request, res: Response) {
+        const id = req.params.id
+        const user = req.body as PatchUserDTO
+        try {
+            const userId = res.locals.userId as number
+            if(userId !== Number(id)){
+                return res.status(401).json(errorResponse(MESSAGES.UNAUTHORIZED))
+            }
+            await this.userService.update(Number(id), user)
+            return res.status(200).json(successResponse(MESSAGES.USER_UPDATED))
+        } catch (error) {
+            return handleErrors(error, res)
+        }
+    }
 }
