@@ -1,7 +1,6 @@
 import { Router } from "express";
 import multer from "multer";
-import { HttpError } from "../../errors/HttpError";
-import { MESSAGES } from "../../constants/MESSAGES";
+
 import { FileUploadController } from "./controller/FileUploadController";
 import { authMiddleware, fileUploadService, userService } from "../../container";
 

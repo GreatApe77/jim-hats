@@ -38,12 +38,18 @@ describe("UserRepository tests", () => {
       profilePicture: "https://pic.com",
     };
     const now = new Date();
+    //prisma.user.create.mockResolvedValue({
+    //  ...newUser,
+    //  id: 1,
+    //  createdAt: now,
+    //  updatedAt: now,
+    //});
     prisma.user.create.mockResolvedValue({
       ...newUser,
       id: 1,
       createdAt: now,
       updatedAt: now,
-    });
+    })
     expect(await usersRepo.save(newUser)).to.not.throw;
   });
   it("should find by email", async () => {
