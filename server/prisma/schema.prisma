@@ -15,23 +15,42 @@ datasource db {
 
 model User {
   id             Int            @id @default(autoincrement())
-  username       String         @unique
-  email          String         @unique
-  password       String
-  profilePicture String?        @map("profile_picture")
+  username       String         @unique @db.VarChar(255)
+  email          String         @unique @db.VarChar(255)
+  password       String         @db.VarChar(255)
+  profilePicture String?        @map("profile_picture") @db.VarChar(255)
   createdAt      DateTime       @default(now()) @map("created_at")
   updatedAt      DateTime       @updatedAt @map("updated_at")
   gymChallenges  GymChallenge[]
+  ExerciseLog    ExerciseLog[]
 
   @@map("users")
 }
 
 model GymChallenge {
-  id          Int    @id @default(autoincrement())
-  name        String
+  id          Int           @id @default(autoincrement())
+  name        String        @db.VarChar(255)
   description String
-  image       String
+  image       String?
+  createdAt   DateTime      @default(now()) @map("created_at")
+  startAt     DateTime      @map("start_at")
+  endAt       DateTime      @map("end_at")
   members     User[]
+  logs        ExerciseLog[]
 
   @@map("gym_challenges")
+}
+
+model ExerciseLog {
+  id             Int          @id @default(autoincrement())
+  title          String       @db.VarChar(255)
+  description    String?
+  image          String?
+  date           DateTime
+  user           User         @relation(fields: [userId], references: [id])
+  gymChallenge   GymChallenge @relation(fields: [gymChallengeId], references: [id])
+  userId         Int
+  gymChallengeId Int
+
+  @@map("exercise_logs")
 }
