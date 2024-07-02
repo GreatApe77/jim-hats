@@ -13,6 +13,7 @@ export class GymChallengeMiddleware{
             CreateGymChallengeSchema.parse(req.body)
             next()
         } catch (error) {
+            console.error(error)
             return res.status(400).json(errorResponse(MESSAGES.BAD_REQUEST))
         }
     }

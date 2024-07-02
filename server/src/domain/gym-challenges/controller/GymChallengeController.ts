@@ -4,6 +4,7 @@ import { errorResponse, successResponse } from "../../../utils/responses";
 import { IFileUploadService } from "../../file-upload/services/interfaces/IFileUploadService";
 import { IGymChallengeService } from "../service/interfaces/IGymChallengeService";
 import { CreateGymChallengeDto } from "../dto/CreateGymChallengeDto";
+import { parse } from "date-fns";
 
 export class GymChallengeController {
   private gymChallengeService: IGymChallengeService;
@@ -19,7 +20,11 @@ export class GymChallengeController {
   async save(req: Request, res: Response) {
     try {
         const data = req.body as CreateGymChallengeDto
-        await this.gymChallengeService.save(data)
+        await this.gymChallengeService.save({
+            ...data,
+            startAt:parse(data.startAt,"dd/MM/yyyy",new Date()),
+            endAt:parse(data.endAt,"dd/MM/yyyy",new Date())
+        })
         return res.status(201).json(successResponse(MESSAGES.CREATED))
     } catch (error) {
       return res

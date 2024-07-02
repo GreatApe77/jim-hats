@@ -6,6 +6,7 @@ import { UsersMiddleware } from './domain/users/middleware/UsersMiddleware';
 import { FileUploadService } from './domain/file-upload/services/implementations/FileUploadService';
 import { GymChallengeRepository } from './domain/gym-challenges/repository/implementations/GymChallengeRepository';
 import { GymChallengeService } from './domain/gym-challenges/service/implementations/GymChallengeService';
+import { GymChallengeMiddleware } from './domain/gym-challenges/middleware/GymChallengeMiddleware';
 
 
 const userRepository = new UserRepository();
@@ -16,6 +17,7 @@ const authMiddleware = new AuthMiddleWare(authService);
 const usersMiddleware = new UsersMiddleware();
 const gymChallengeRepo = new GymChallengeRepository()
 const gymChallengeService = new GymChallengeService(gymChallengeRepo)
+const gymChallengeMiddleware = new GymChallengeMiddleware()
 export {
     userRepository,
     authService,
@@ -24,5 +26,6 @@ export {
     usersMiddleware,
     fileUploadService,
     gymChallengeRepo,
-    gymChallengeService
+    gymChallengeService,
+    gymChallengeMiddleware
 }
