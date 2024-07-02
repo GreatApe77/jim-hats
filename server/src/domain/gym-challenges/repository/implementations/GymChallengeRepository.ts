@@ -1,4 +1,5 @@
 import prisma from "../../../../db/prisma";
+import { PaginationParams } from "../../../users/repository/interfaces/IUserRepository";
 import { IGymChallenge } from "../../IGymChallenge";
 import { CreateGymChallengeParams, IGymChallengeRepository } from "../interfaces/IGymChallengeRepository";
 
@@ -8,8 +9,12 @@ export class GymChallengeRepository implements IGymChallengeRepository {
             data: gymChallenge
         })
     }
-    list(): Promise<IGymChallenge[]> {
-        throw new Error("Method not implemented.");
+    async list(paginationParams?:PaginationParams): Promise<IGymChallenge[]> {
+        return prisma.gymChallenge.findMany({
+            take:paginationParams?.limit? paginationParams.limit:20,
+            skip:paginationParams?.offset? paginationParams.offset:0,
+            orderBy:{createdAt:"desc"}
+        })
     }
     async getById(id: number): Promise<IGymChallenge| null> {
         return prisma.gymChallenge.findUnique({
