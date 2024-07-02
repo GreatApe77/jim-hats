@@ -25,8 +25,7 @@ export const CreateGymChallengeSchema = z
       return isAfter(endAtDate, startAtDate);
     },
     {
-      message: "endAt must be after startAt",
-      path: ["endAt"], // specify that the error pertains to the endAt field
+      path: ["endAt"],
     }
   );
 

@@ -35,6 +35,7 @@ model GymChallenge {
   createdAt   DateTime      @default(now()) @map("created_at")
   startAt     DateTime      @map("start_at")
   endAt       DateTime      @map("end_at")
+  creatorId   Int           @map("creator_id")
   members     User[]
   logs        ExerciseLog[]
 

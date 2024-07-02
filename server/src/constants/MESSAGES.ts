@@ -19,4 +19,8 @@ export const MESSAGES = {
     PROFILE_PICTURE_UPDATED:"Profile picture updated",
     INVALID_FILE_TYPE:"Profile picture should be a jpeg or png file",
     CREATED:"Created",
+    UPDATED:"Updated",
+    SUCCESS:"Success",
+    NOT_FOUND:"Not found",
+    FORBIDDEN:"Forbidden",
 }
