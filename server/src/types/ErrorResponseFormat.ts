@@ -1,3 +1,3 @@
 export type ErrorResponseFormat = {
-    message:string,
-}
+  message: string;
+};

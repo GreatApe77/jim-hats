@@ -1,3 +1,3 @@
-export function isInt(value:string){
-    return !isNaN(parseInt(value))
+export function isInt(value: string) {
+  return !isNaN(parseInt(value));
 }

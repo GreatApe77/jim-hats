@@ -1,12 +1,12 @@
-import express from "express"
-import morgan from "morgan"
-import { router } from "./router"
+import express from "express";
+import morgan from "morgan";
+import { router } from "./router";
 
-const app = express()
+const app = express();
 
-app.use(express.json())
-app.use(morgan("tiny"))
+app.use(express.json());
+app.use(morgan("tiny"));
 
-app.use(router)
+app.use(router);
 
-export {app}
+export { app };

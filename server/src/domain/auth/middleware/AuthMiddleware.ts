@@ -8,7 +8,7 @@ import { IAuthService } from "../services/interfaces/IAuthService";
 export class AuthMiddleWare {
   authService: IAuthService;
   constructor(authService: IAuthService) {
-    this.authService = authService
+    this.authService = authService;
   }
   public async onlyAuth(req: Request, res: Response, next: NextFunction) {
     const token = req.headers["authorization"];
@@ -22,38 +22,33 @@ export class AuthMiddleWare {
       return res.status(400).json(errorResponse(MESSAGES.INVALID_JWT_TOKEN));
     }
     try {
-      const userJwtPayload = await this.authService.verifyToken(jwtToken)
-      res.locals.authUser = userJwtPayload
+      const userJwtPayload = await this.authService.verifyToken(jwtToken);
+      res.locals.authUser = userJwtPayload;
 
-      return next()
+      return next();
     } catch (error) {
-      console.log(error)
-      return res.status(401).json(errorResponse(MESSAGES.UNAUTHORIZED))
+      console.log(error);
+      return res.status(401).json(errorResponse(MESSAGES.UNAUTHORIZED));
     }
   }
   public validateRegister(req: Request, res: Response, next: NextFunction) {
     try {
-      RegisterUserSchema.parse(req.body)
-      return next()
+      RegisterUserSchema.parse(req.body);
+      return next();
     } catch (error) {
       if (error instanceof z.ZodError) {
-
-        return res.status(422).json(errorResponse(MESSAGES.BAD_REQUEST))
+        return res.status(422).json(errorResponse(MESSAGES.BAD_REQUEST));
       }
     }
-
-
   }
   public validateLogin(req: Request, res: Response, next: NextFunction) {
     try {
-      LoginUserSchema.parse(req.body)
-      return next()
+      LoginUserSchema.parse(req.body);
+      return next();
     } catch (error) {
       if (error instanceof z.ZodError) {
-
-        return res.status(422).json(errorResponse(MESSAGES.BAD_REQUEST))
+        return res.status(422).json(errorResponse(MESSAGES.BAD_REQUEST));
       }
     }
-
   }
 }

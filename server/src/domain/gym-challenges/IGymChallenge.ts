@@ -1,3 +1,3 @@
 import { GymChallenge } from "@prisma/client";
 
-export interface IGymChallenge extends GymChallenge{}
+export interface IGymChallenge extends GymChallenge {}

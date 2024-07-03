@@ -26,7 +26,7 @@ export const CreateGymChallengeSchema = z
     },
     {
       path: ["endAt"],
-    }
+    },
   );
 
 export type CreateGymChallengeDto = z.infer<typeof CreateGymChallengeSchema>;

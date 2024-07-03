@@ -12,7 +12,7 @@ export class GymChallengeController {
   private fileUploadService: IFileUploadService;
   constructor(
     gymChallengeService: IGymChallengeService,
-    fileUploadService: IFileUploadService
+    fileUploadService: IFileUploadService,
   ) {
     this.gymChallengeService = gymChallengeService;
     this.fileUploadService = fileUploadService;

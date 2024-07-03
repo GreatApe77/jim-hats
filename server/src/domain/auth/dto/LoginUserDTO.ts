@@ -1,3 +1,3 @@
 import { IUser } from "../../users/IUser";
 
-export type LoginUserDTO = Pick<IUser,"username"|"password">
+export type LoginUserDTO = Pick<IUser, "username" | "password">;

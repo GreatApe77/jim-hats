@@ -13,7 +13,7 @@ export class FileUploadController {
   constructor(
     userService: IUserService,
     fileuploadService: IFileUploadService,
-    gymChallengeService: IGymChallengeService
+    gymChallengeService: IGymChallengeService,
   ) {
     this.userService = userService;
     this.fileUploadService = fileuploadService;
@@ -29,22 +29,20 @@ export class FileUploadController {
     }
     const authUser = res.locals.authUser as DecodedPayload;
     const id = parseInt(req.params.id);
-    
+
     const gymChallenge = await this.gymChallengeService.getById(id);
     if (!gymChallenge) {
       return res.status(404).json(errorResponse(MESSAGES.NOT_FOUND));
     }
-    if(gymChallenge.creatorId !== authUser.id){
-        return res.status(403).json(errorResponse(MESSAGES.FORBIDDEN))
+    if (gymChallenge.creatorId !== authUser.id) {
+      return res.status(403).json(errorResponse(MESSAGES.FORBIDDEN));
     }
     try {
       const url = await this.fileUploadService.uploadGymChallengeImage(
         file,
-        gymChallenge.id.toString()
+        gymChallenge.id.toString(),
       );
-      return res
-        .status(200)
-        .json(successResponse(MESSAGES.CREATED, { url }));
+      return res.status(200).json(successResponse(MESSAGES.CREATED, { url }));
     } catch (error) {
       console.log(error);
       return res
@@ -65,7 +63,7 @@ export class FileUploadController {
     try {
       const url = await this.fileUploadService.uploadProfileImage(
         file,
-        authUser.username
+        authUser.username,
       );
       await this.userService.update(authUser.id, { profilePicture: url });
       return res
