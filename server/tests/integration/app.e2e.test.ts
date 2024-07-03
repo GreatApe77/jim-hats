@@ -31,7 +31,7 @@ describe("app e2e tests", () => {
       const response = await request(app).post(registerRoute).send(invalidUser);
       expect(response.status).to.be.eq(422);
       expect(response.body.message).toBe(MESSAGES.BAD_REQUEST);
-    })
+    });
     it("( POST /register ) Should NOT register a user ( username not unique )", async () => {
       await request(app).post(registerRoute).send(mockValidUser);
       const response = await request(app)
@@ -71,24 +71,26 @@ describe("app e2e tests", () => {
     setupUsers();
     it("( GET /users/:id ) Should get a user by an unique identifier (username)", async () => {
       const response = await request(app).get(
-        `${usersRoute}/${mockUsers[0].username}`
+        `${usersRoute}/${mockUsers[0].username}`,
       );
       //console.log(response.body)
       expect(response.status).to.be.eq(200);
       expect(response.body.data.username).to.be.eq(mockUsers[0].username);
     });
     it("( GET /users/:id ) Should get a user by an unique identifier (email)", async () => {
-        const response = await request(app).get(
-            `${usersRoute}/${mockUsers[0].email}`
-        );
-        expect(response.status).to.be.eq(200);
-        expect(response.body.data.email).to.be.eq(mockUsers[0].email);
+      const response = await request(app).get(
+        `${usersRoute}/${mockUsers[0].email}`,
+      );
+      expect(response.status).to.be.eq(200);
+      expect(response.body.data.email).to.be.eq(mockUsers[0].email);
     });
     it("( DELETE /users/:id ) Should delete a user by an unique identifier (username)", async () => {
       //create a user
       //login
       //delete
-      const createReponse = await request(app).post("/register").send(mockValidUser);
+      const createReponse = await request(app)
+        .post("/register")
+        .send(mockValidUser);
       const loginUser: LoginUserDTO = {
         password: mockValidUser.password,
         username: mockValidUser.username,
@@ -96,13 +98,16 @@ describe("app e2e tests", () => {
       expect(createReponse.status).to.be.eq(201);
       const loginResponse = await request(app).post("/login").send(loginUser);
       expect(loginResponse.status).to.be.eq(200);
-      const token = loginResponse.body.data.token
-      const getUserResponse = await request(app).get(`${usersRoute}/${mockValidUser.username}`)
-      const user = getUserResponse.body.data
-      
-      const deleteResponse = await request(app).delete(`${usersRoute}/${user.id}`)
-      .set('Authorization', `Bearer ${token}`)
+      const token = loginResponse.body.data.token;
+      const getUserResponse = await request(app).get(
+        `${usersRoute}/${mockValidUser.username}`,
+      );
+      const user = getUserResponse.body.data;
+
+      const deleteResponse = await request(app)
+        .delete(`${usersRoute}/${user.id}`)
+        .set("Authorization", `Bearer ${token}`);
       expect(deleteResponse.status).to.be.eq(200);
-    })  
+    });
   });
 });

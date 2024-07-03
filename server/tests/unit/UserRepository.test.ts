@@ -49,7 +49,7 @@ describe("UserRepository tests", () => {
       id: 1,
       createdAt: now,
       updatedAt: now,
-    })
+    });
     expect(await usersRepo.save(newUser)).to.not.throw;
   });
   it("should find by email", async () => {
@@ -94,12 +94,14 @@ describe("UserRepository tests", () => {
   it("Should update a user", async () => {
     const updatedUser: IUser = { ...mockedUser, username: "newusername" };
     prisma.user.update.mockResolvedValue(updatedUser);
-    expect(await usersRepo.update(1, {
-      username: "newusername",
-      email: "test@test.com",
-      password: "abc123",
-      profilePicture: "https://pic.com",
-    })).to.not.throw;
+    expect(
+      await usersRepo.update(1, {
+        username: "newusername",
+        email: "test@test.com",
+        password: "abc123",
+        profilePicture: "https://pic.com",
+      }),
+    ).to.not.throw;
     expect(prisma.user.update).toHaveBeenCalledWith({
       where: { id: 1 },
       data: {
