@@ -1,11 +1,11 @@
-import { describe, expect, it } from "vitest";
 import request from "supertest";
+import { describe, expect, it } from "vitest";
 import { app } from "../../src/app";
-import { setupUsers } from "./setup";
-import { SaveUserParams } from "../../src/domain/users/repository/interfaces/IUserRepository";
 import { MESSAGES } from "../../src/constants/MESSAGES";
 import { LoginUserDTO } from "../../src/domain/auth/dto/LoginUserDTO";
+import { SaveUserParams } from "../../src/domain/users/repository/interfaces/IUserRepository";
 import { mockUsers } from "../constants/mockUsers";
+import { setupUsers } from "./setup";
 
 const mockValidUser: SaveUserParams = {
   username: "GreatApe77",

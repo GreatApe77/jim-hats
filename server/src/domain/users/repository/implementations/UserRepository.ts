@@ -55,7 +55,7 @@ export class UserRepository implements IUserRepository {
   }
 
   async update(id: number, user: UpdateUserParams): Promise<void> {
-    let userToUpdate = {
+    const userToUpdate = {
       ...user,
     };
     if (!user.password) {

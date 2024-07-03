@@ -1,10 +1,10 @@
 import { describe } from "node:test";
 import { expect, it } from "vitest";
+import { UserRepository } from "../../src/domain/users/repository/implementations/UserRepository";
 import {
   IUserRepository,
   SaveUserParams,
 } from "../../src/domain/users/repository/interfaces/IUserRepository";
-import { UserRepository } from "../../src/domain/users/repository/implementations/UserRepository";
 import { setupUsers } from "./setup";
 
 const sampleUserToSave: SaveUserParams = {

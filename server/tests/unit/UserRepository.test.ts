@@ -1,12 +1,12 @@
 import { describe } from "node:test";
 import { beforeAll, beforeEach, expect, it, vi } from "vitest";
+import prisma from "../../src/db/__mocks__/prisma";
+import { IUser } from "../../src/domain/users/IUser";
+import { UserRepository } from "../../src/domain/users/repository/implementations/UserRepository";
 import {
   IUserRepository,
   SaveUserParams,
 } from "../../src/domain/users/repository/interfaces/IUserRepository";
-import { UserRepository } from "../../src/domain/users/repository/implementations/UserRepository";
-import prisma from "../../src/db/__mocks__/prisma";
-import { IUser } from "../../src/domain/users/IUser";
 vi.mock("../../src/db/prisma");
 
 describe("UserRepository tests", () => {

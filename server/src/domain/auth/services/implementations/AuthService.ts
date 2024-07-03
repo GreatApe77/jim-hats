@@ -1,14 +1,14 @@
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import { environment } from "../../../../config/environment";
+import { MESSAGES } from "../../../../constants/MESSAGES";
+import { HttpError } from "../../../../errors/HttpError";
 import {
   IUserRepository,
   SaveUserParams,
 } from "../../../users/repository/interfaces/IUserRepository";
 import { DecodedPayload, IAuthService } from "../interfaces/IAuthService";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import { HttpError } from "../../../../errors/HttpError";
-import { MESSAGES } from "../../../../constants/MESSAGES";
 export class AuthService implements IAuthService {
   userRepository: IUserRepository;
 

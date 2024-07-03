@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { GymChallengeController } from "./controller/GymChallengeController";
 import {
   fileUploadService,
   gymChallengeMiddleware,
   gymChallengeService,
 } from "../../container";
+import { GymChallengeController } from "./controller/GymChallengeController";
 
 const gymChallengesController = new GymChallengeController(
   gymChallengeService,

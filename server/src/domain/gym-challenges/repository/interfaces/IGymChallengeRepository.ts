@@ -1,10 +1,10 @@
+import { PaginationParams } from "../../../users/repository/interfaces/IUserRepository";
 import { IGymChallenge } from "../../IGymChallenge";
 export type CreateGymChallengeParams = Pick<
   IGymChallenge,
   "name" | "image" | "startAt" | "endAt" | "description"
 >;
 export type UpdateGymChallengeParams = Partial<CreateGymChallengeParams>;
-import { PaginationParams } from "../../../users/repository/interfaces/IUserRepository";
 export interface IGymChallengeRepository {
   save(gymChallenge: CreateGymChallengeParams): Promise<void>;
   list(): Promise<IGymChallenge[]>;

@@ -1,9 +1,9 @@
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import {
-  profilePicturesRef,
   gymChallengesImagesRef,
+  profilePicturesRef,
 } from "../../../../config/firebase-app";
 import { IFileUploadService } from "../interfaces/IFileUploadService";
-import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
 export class FileUploadService implements IFileUploadService {
   async uploadGymChallengeImage(
     file: Express.Multer.File,

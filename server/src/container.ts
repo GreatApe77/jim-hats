@@ -1,12 +1,12 @@
-import { AuthService } from "./domain/auth/services/implementations/AuthService";
 import { AuthMiddleWare } from "./domain/auth/middleware/AuthMiddleware";
-import { UserService } from "./domain/users/service/implementations/UserService";
-import { UserRepository } from "./domain/users/repository/implementations/UserRepository";
-import { UsersMiddleware } from "./domain/users/middleware/UsersMiddleware";
+import { AuthService } from "./domain/auth/services/implementations/AuthService";
 import { FileUploadService } from "./domain/file-upload/services/implementations/FileUploadService";
+import { GymChallengeMiddleware } from "./domain/gym-challenges/middleware/GymChallengeMiddleware";
 import { GymChallengeRepository } from "./domain/gym-challenges/repository/implementations/GymChallengeRepository";
 import { GymChallengeService } from "./domain/gym-challenges/service/implementations/GymChallengeService";
-import { GymChallengeMiddleware } from "./domain/gym-challenges/middleware/GymChallengeMiddleware";
+import { UsersMiddleware } from "./domain/users/middleware/UsersMiddleware";
+import { UserRepository } from "./domain/users/repository/implementations/UserRepository";
+import { UserService } from "./domain/users/service/implementations/UserService";
 
 const userRepository = new UserRepository();
 const authService = new AuthService(userRepository);
@@ -18,13 +18,13 @@ const gymChallengeRepo = new GymChallengeRepository();
 const gymChallengeService = new GymChallengeService(gymChallengeRepo);
 const gymChallengeMiddleware = new GymChallengeMiddleware();
 export {
-  userRepository,
-  authService,
-  userService,
   authMiddleware,
-  usersMiddleware,
+  authService,
   fileUploadService,
+  gymChallengeMiddleware,
   gymChallengeRepo,
   gymChallengeService,
-  gymChallengeMiddleware,
+  userRepository,
+  userService,
+  usersMiddleware,
 };

@@ -1,10 +1,10 @@
-import { NextFunction, Request, Response } from "express";
-import { IUserService } from "../../users/service/interfaces/IUserService";
-import { errorResponse, successResponse } from "../../../utils/responses";
+import { Request, Response } from "express";
 import { MESSAGES } from "../../../constants/MESSAGES";
-import { IFileUploadService } from "../services/interfaces/IFileUploadService";
+import { errorResponse, successResponse } from "../../../utils/responses";
 import { DecodedPayload } from "../../auth/services/interfaces/IAuthService";
 import { IGymChallengeService } from "../../gym-challenges/service/interfaces/IGymChallengeService";
+import { IUserService } from "../../users/service/interfaces/IUserService";
+import { IFileUploadService } from "../services/interfaces/IFileUploadService";
 
 export class FileUploadController {
   userService: IUserService;

@@ -1,9 +1,9 @@
-import { Request, Response, NextFunction } from "express";
-import { CreateGymChallengeSchema } from "../dto/CreateGymChallengeDto";
-import { errorResponse } from "../../../utils/responses";
+import { NextFunction, Request, Response } from "express";
 import { MESSAGES } from "../../../constants/MESSAGES";
-import { UpdateGymChallengeSchema } from "../dto/UpdateGymChallengeDto";
 import { isInt } from "../../../utils/isInt";
+import { errorResponse } from "../../../utils/responses";
+import { CreateGymChallengeSchema } from "../dto/CreateGymChallengeDto";
+import { UpdateGymChallengeSchema } from "../dto/UpdateGymChallengeDto";
 
 export class GymChallengeMiddleware {
   validateCreate(req: Request, res: Response, next: NextFunction) {

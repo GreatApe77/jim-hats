@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from "express";
+import { z } from "zod";
 import { MESSAGES } from "../../../constants/MESSAGES";
 import { errorResponse } from "../../../utils/responses";
-import { RegisterUserSchema } from "../dto/schemas/RegisterUserSchema";
 import { LoginUserSchema } from "../dto/schemas/LoginUserSchema";
-import { z } from "zod";
+import { RegisterUserSchema } from "../dto/schemas/RegisterUserSchema";
 import { IAuthService } from "../services/interfaces/IAuthService";
 export class AuthMiddleWare {
   authService: IAuthService;

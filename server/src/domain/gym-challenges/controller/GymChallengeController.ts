@@ -1,11 +1,11 @@
+import { parse } from "date-fns";
 import { Request, Response } from "express";
 import { MESSAGES } from "../../../constants/MESSAGES";
 import { errorResponse, successResponse } from "../../../utils/responses";
 import { IFileUploadService } from "../../file-upload/services/interfaces/IFileUploadService";
-import { IGymChallengeService } from "../service/interfaces/IGymChallengeService";
 import { CreateGymChallengeDto } from "../dto/CreateGymChallengeDto";
-import { parse } from "date-fns";
 import { UpdateGymChallengeDto } from "../dto/UpdateGymChallengeDto";
+import { IGymChallengeService } from "../service/interfaces/IGymChallengeService";
 
 export class GymChallengeController {
   private gymChallengeService: IGymChallengeService;

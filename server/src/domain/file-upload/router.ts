@@ -1,13 +1,13 @@
 import { Router } from "express";
 import multer from "multer";
 
-import { FileUploadController } from "./controller/FileUploadController";
 import {
   authMiddleware,
   fileUploadService,
   gymChallengeService,
   userService,
 } from "../../container";
+import { FileUploadController } from "./controller/FileUploadController";
 
 const fileUploadRouter = Router();
 const fileUploadController = new FileUploadController(

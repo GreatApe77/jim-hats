@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { IUserService } from "../service/interfaces/IUserService";
-import { errorResponse, successResponse } from "../../../utils/responses";
 import { MESSAGES } from "../../../constants/MESSAGES";
 import { handleErrors } from "../../../errors/handleErrors";
+import { errorResponse, successResponse } from "../../../utils/responses";
 import { PatchUserDTO } from "../dto/PatchUserDTO";
+import { IUserService } from "../service/interfaces/IUserService";
 
 export class UsersController {
   private userService: IUserService;

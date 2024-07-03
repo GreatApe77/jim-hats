@@ -1,4 +1,5 @@
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+import { MESSAGES } from "../../../../constants/MESSAGES";
 import { HttpError } from "../../../../errors/HttpError";
 import { IUser } from "../../IUser";
 import {
@@ -6,7 +7,6 @@ import {
   PaginationParams,
 } from "../../repository/interfaces/IUserRepository";
 import { IUserService } from "../interfaces/IUserService";
-import { MESSAGES } from "../../../../constants/MESSAGES";
 
 export class UserService implements IUserService {
   private userRepository: IUserRepository;
