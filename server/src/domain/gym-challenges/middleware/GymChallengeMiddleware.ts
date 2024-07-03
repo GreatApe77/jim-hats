@@ -15,7 +15,7 @@ export class GymChallengeMiddleware {
       return res.status(400).json(errorResponse(MESSAGES.BAD_REQUEST));
     }
   }
-  validateUpdate(req: Request, res: Response, next: NextFunction) {
+  validateUpdate(req: Request, res: Response) {
     try {
       const id = parseInt(req.params.id);
       UpdateGymChallengeSchema.parse({ ...req.body, id });

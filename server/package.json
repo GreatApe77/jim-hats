@@ -13,7 +13,8 @@
     "migrate": "npx prisma migrate deploy",
     "start:db": "cd .. && docker compose --file docker-compose-dev.yml up -d  && sleep 2 && cd ./server && npm run migrate",
     "format": "npx prettier ./src --write && npx prettier ./tests --write",
-    "lint": "npx eslint ./src --fix && npx eslint ./tests --fix"
+    "check-format": "npx prettier ./src --check && npx prettier ./tests --check",
+    "lint": "npm run check-format && npx eslint ./src --fix && npx eslint ./tests --fix"
   },
   "keywords": [],
   "author": "",
