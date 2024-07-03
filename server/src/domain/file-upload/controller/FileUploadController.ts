@@ -42,7 +42,8 @@ export class FileUploadController {
         file,
         gymChallenge.id.toString(),
       );
-      return res.status(200).json(successResponse(MESSAGES.CREATED, { url }));
+      await this.gymChallengeService.update(id, { image: url });
+      return res.status(200).json(successResponse(MESSAGES.UPDATED, { url }));
     } catch (error) {
       console.log(error);
       return res

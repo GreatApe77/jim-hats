@@ -8,6 +8,6 @@ const router = Router();
 
 router.use(authRouter);
 router.use("/users", usersRouter);
-router.use("/upload", fileUploadRouter);
+router.use("/uploads", fileUploadRouter);
 router.use("/gym-challenges", gymChallengesRouter);
 export { router };

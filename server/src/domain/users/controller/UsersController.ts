@@ -50,8 +50,10 @@ export class UsersController {
       const users = await this.userService.list();
       const usersWithNoPassword = users.map((user) => {
         return { ...user, password: undefined };
-      })
-      return res.status(200).json(successResponse(MESSAGES.USERS_FOUND, usersWithNoPassword));
+      });
+      return res
+        .status(200)
+        .json(successResponse(MESSAGES.USERS_FOUND, usersWithNoPassword));
     } catch (error) {
       return handleErrors(error, res);
     }

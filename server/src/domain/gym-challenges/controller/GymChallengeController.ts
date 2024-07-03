@@ -21,13 +21,16 @@ export class GymChallengeController {
   async save(req: Request, res: Response) {
     try {
       const data = req.body as CreateGymChallengeDto;
+      const creatorId = res.locals.authUser.id as number;
       await this.gymChallengeService.save({
         ...data,
+        creatorId:creatorId,
         startAt: parse(data.startAt, "dd/MM/yyyy", new Date()),
         endAt: parse(data.endAt, "dd/MM/yyyy", new Date()),
       });
       return res.status(201).json(successResponse(MESSAGES.CREATED));
     } catch (error) {
+      console.log(error);
       return res
         .status(500)
         .json(errorResponse(MESSAGES.INTERNAL_SERVER_ERROR));

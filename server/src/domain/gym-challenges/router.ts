@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  authMiddleware,
   fileUploadService,
   gymChallengeMiddleware,
   gymChallengeService,
@@ -15,6 +16,7 @@ const gymChallengesRouter = Router();
 
 gymChallengesRouter.post(
   "/",
+  authMiddleware.onlyAuth.bind(authMiddleware),
   gymChallengeMiddleware.validateCreate.bind(gymChallengeMiddleware),
   (req, res) => gymChallengesController.save(req, res),
 );

@@ -24,7 +24,7 @@ fileUploadRouter.post(
 );
 
 fileUploadRouter.post(
-  "/gym-challenge/:id",
+  "/gym-challenges/:id",
   authMiddleware.onlyAuth.bind(authMiddleware),
   (req, res) => fileUploadController.handleUploadGymChallengeImage(req, res),
 );

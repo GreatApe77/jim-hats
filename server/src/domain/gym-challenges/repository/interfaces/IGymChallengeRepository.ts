@@ -2,7 +2,7 @@ import { PaginationParams } from "../../../users/repository/interfaces/IUserRepo
 import { IGymChallenge } from "../../IGymChallenge";
 export type CreateGymChallengeParams = Pick<
   IGymChallenge,
-  "name" | "image" | "startAt" | "endAt" | "description"
+  "name" | "image" | "startAt" | "endAt" | "description"|"creatorId"
 >;
 export type UpdateGymChallengeParams = Partial<CreateGymChallengeParams>;
 export interface IGymChallengeRepository {
