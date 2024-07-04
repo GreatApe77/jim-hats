@@ -1,7 +1,9 @@
-import { Box, Button, Container, Link, Stack, Typography } from "@mui/material";
+import { Box, Button, Container, Link as MUILink, Stack, Typography } from "@mui/material";
 import Image from "next/image";
+import Link  from "next/link";
 
 export default function Home() {
+  
   return (
     <main>
       <Container maxWidth="md" sx={{
@@ -26,8 +28,8 @@ export default function Home() {
 
         <Box sx={{ width: '100%', mt: 'auto' }}>
           <Stack direction={"column"} spacing={1}>
-            <Button variant="contained" color="primary" size="large" fullWidth>Create Account</Button>
-            <Typography gutterBottom variant="body1">Already have an account? <Link underline="hover" color="primary">Login</Link></Typography>
+            <Button LinkComponent={Link} href="/register"  variant="contained" color="primary" size="large" fullWidth>Create Account</Button>
+            <Typography gutterBottom variant="body1">Already have an account? <MUILink component={Link} href={"/login"}  underline="hover" color="primary">Login</MUILink></Typography>
           </Stack>
         </Box>
       </Container>
