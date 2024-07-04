@@ -3,7 +3,8 @@ import { Avatar, Box, Button, Container, IconButton, Stack, TextField, Typograph
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import Badge from '@mui/material/Badge';
 import CreateIcon from '@mui/icons-material/Create';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+import Link from "next/link";
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -18,6 +19,7 @@ const VisuallyHiddenInput = styled('input')({
 });
 
 export default function CreateAccountPage() {
+    const [image, setImage] = useState<File | null>(null)
     const fileInputRef = useRef(null);
 
     const handleIconButtonClick = () => {
@@ -33,7 +35,7 @@ export default function CreateAccountPage() {
 
     return (
         <>
-            <IconButton size="small">
+            <IconButton size="small" LinkComponent={Link} href="/">
                 <KeyboardArrowLeftIcon />
             </IconButton>
             <Container maxWidth="md">
