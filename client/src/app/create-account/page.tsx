@@ -19,7 +19,7 @@ const VisuallyHiddenInput = styled('input')({
 });
 
 export default function CreateAccountPage() {
-    const [image, setImage] = useState<File | null>(null)
+    const [image, setImage] = useState<string | null>(null)
     const fileInputRef = useRef(null);
 
     const handleIconButtonClick = () => {
@@ -32,6 +32,13 @@ export default function CreateAccountPage() {
         height: 32,
         border: `2px solid ${theme.palette.background.paper}`,
     }));
+    function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
+        const file = event.target.files?.[0];
+        if (file) {
+            const url = URL.createObjectURL(file)
+            setImage(url)
+        }
+    }
 
     return (
         <>
@@ -59,7 +66,7 @@ export default function CreateAccountPage() {
                     >
                         <VisuallyHiddenInput
                             ref={fileInputRef}
-                            onChange={(event) => console.log(event.target.files)}
+                            onChange={handleFileChange}
                             type="file"
                         />
                         <Badge
@@ -75,7 +82,7 @@ export default function CreateAccountPage() {
                                 </SmallAvatar>
                             }
                         >
-                            <Avatar src=""
+                            <Avatar src={image?image:undefined}
                                 sx={{
                                     width: "100%",
                                     height: "100%",
