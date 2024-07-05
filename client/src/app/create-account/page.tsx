@@ -5,6 +5,7 @@ import Badge from '@mui/material/Badge';
 import CreateIcon from '@mui/icons-material/Create';
 import { useRef, useState } from 'react';
 import Link from "next/link";
+import BackButton from "@/components/BackButton";
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -42,9 +43,7 @@ export default function CreateAccountPage() {
 
     return (
         <>
-            <IconButton size="small" LinkComponent={Link} href="/">
-                <KeyboardArrowLeftIcon />
-            </IconButton>
+            <BackButton to="/" />
             <Container maxWidth="md">
                 <Box>
                     <Typography variant="h6" gutterBottom>Create Account</Typography>

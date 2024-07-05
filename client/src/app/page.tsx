@@ -27,7 +27,7 @@ export default function Home() {
         </Box>
 
         <Box sx={{ width: '100%', mt: 'auto' }}>
-          <Stack direction={"column"} spacing={1}>
+          <Stack direction={"column"} spacing={1} mb={"1rem"}>
             <Button LinkComponent={Link} href="/create-account"  variant="contained" color="primary" size="large" fullWidth>Create Account</Button>
             <Typography gutterBottom variant="body1">Already have an account? <MUILink component={Link} href={"/login"}  underline="hover" color="primary">Login</MUILink></Typography>
           </Stack>
