@@ -6,6 +6,7 @@ import CreateIcon from '@mui/icons-material/Create';
 import { useRef, useState } from 'react';
 import Link from "next/link";
 import BackButton from "@/components/BackButton";
+import { CreateAccountFormData } from "@/types";
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -21,6 +22,13 @@ const VisuallyHiddenInput = styled('input')({
 
 export default function CreateAccountPage() {
     const [image, setImage] = useState<string | null>(null)
+    const [createAccountData, setCreateAccountData] = useState<CreateAccountFormData>({
+        username: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        profilePicture: null
+    })
     const fileInputRef = useRef(null);
 
     const handleIconButtonClick = () => {
@@ -40,7 +48,14 @@ export default function CreateAccountPage() {
             setImage(url)
         }
     }
-
+    function handleFormChange(event: React.ChangeEvent<HTMLInputElement>) {
+        const { name, value } = event.target;
+        setCreateAccountData((prev) => ({
+            ...prev,
+            [name]: value
+        }))
+        console.log(createAccountData)
+    }
     return (
         <>
             <BackButton to="/" />
@@ -81,7 +96,7 @@ export default function CreateAccountPage() {
                                 </SmallAvatar>
                             }
                         >
-                            <Avatar src={image?image:undefined}
+                            <Avatar src={image ? image : undefined}
                                 sx={{
                                     width: "100%",
                                     height: "100%",
@@ -92,13 +107,16 @@ export default function CreateAccountPage() {
                         </Badge>
                     </IconButton>
                 </Box>
-                <Stack spacing={2}>
-                    <TextField variant="outlined" label="Username" />
-                    <TextField variant="outlined" label="Email" />
-                    <TextField variant="outlined" type="password" label="Password" />
-                    <TextField variant="outlined" type="password" label="Confirm Password" />
-                    <Button variant="contained" fullWidth>Create Account</Button>
-                </Stack>
+                <form>
+                    <Stack spacing={2}>
+
+                        <TextField variant="outlined" label="Username" name="username" onChange={handleFormChange} />
+                        <TextField variant="outlined" label="Email" onChange={handleFormChange} name="email" />
+                        <TextField variant="outlined" type="password" label="Password" name="password" onChange={handleFormChange} />
+                        <TextField variant="outlined" type="password" label="Confirm Password" name="confirmPassword" onChange={handleFormChange} />
+                        <Button variant="contained" fullWidth>Create Account</Button>
+                    </Stack>
+                </form>
             </Container>
         </>
     );
