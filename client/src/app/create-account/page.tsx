@@ -7,6 +7,8 @@ import { useRef, useState } from 'react';
 import Link from "next/link";
 import BackButton from "@/components/BackButton";
 import { CreateAccountFormData } from "@/types";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "@/lib/queryClient";
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -62,6 +64,7 @@ export default function CreateAccountPage() {
     }
     return (
         <>
+        <QueryClientProvider client={queryClient}>
             <BackButton to="/" />
             <Container maxWidth="md">
                 <Box>
@@ -122,6 +125,7 @@ export default function CreateAccountPage() {
                     </Stack>
                 </form>
             </Container>
+        </QueryClientProvider>
         </>
     );
 }

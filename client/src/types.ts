@@ -6,7 +6,7 @@ export type ServiceResponse<T> = {
 }
 export type ApiResponse<T> = {
     message: string,
-    data: T
+    data?: T
 }
 export type RegisterDto = {
     username: string,

@@ -1,4 +1,4 @@
-import { ServiceResponse } from "@/types/ServiceReponse"
+import { ApiResponse, ServiceResponse } from "@/types"
 
 export async function login(username:string,password:string){
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/login`,{
@@ -8,6 +8,14 @@ export async function login(username:string,password:string){
             "Content-Type":"application/json"
         }
     })
-    const data = await response.json()
-    return data as ServiceResponse<{token:string} | undefined>
+    const jsonData = await response.json()
+    return {
+        status:response.status,
+        success:response.ok,
+
+        response:{
+            data:jsonData.data,
+            message:jsonData.message
+        } 
+    } as ServiceResponse<{token:string}>
 }
