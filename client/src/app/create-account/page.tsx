@@ -56,6 +56,10 @@ export default function CreateAccountPage() {
         }))
         console.log(createAccountData)
     }
+    function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        console.log(createAccountData)
+    }
     return (
         <>
             <BackButton to="/" />
@@ -107,14 +111,14 @@ export default function CreateAccountPage() {
                         </Badge>
                     </IconButton>
                 </Box>
-                <form>
+                <form onSubmit={handleFormSubmit}>
                     <Stack spacing={2}>
 
                         <TextField variant="outlined" label="Username" name="username" onChange={handleFormChange} />
                         <TextField variant="outlined" label="Email" onChange={handleFormChange} name="email" />
                         <TextField variant="outlined" type="password" label="Password" name="password" onChange={handleFormChange} />
                         <TextField variant="outlined" type="password" label="Confirm Password" name="confirmPassword" onChange={handleFormChange} />
-                        <Button variant="contained" fullWidth>Create Account</Button>
+                        <Button variant="contained" type="submit" fullWidth>Create Account</Button>
                     </Stack>
                 </form>
             </Container>

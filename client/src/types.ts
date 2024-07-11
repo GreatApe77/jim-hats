@@ -8,6 +8,13 @@ export type ApiResponse<T> = {
     message: string,
     data: T
 }
+export type RegisterDto = {
+    username: string,
+    email: string,
+    password: string,
+    profilePicture: string | null
+
+}
 export type CreateAccountFormData = {
     username:string,
     email:string,
