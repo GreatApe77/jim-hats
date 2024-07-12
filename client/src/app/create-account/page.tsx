@@ -3,6 +3,7 @@ import {
   Avatar,
   Box,
   Button,
+  CircularProgress,
   Container,
   IconButton,
   Stack,
@@ -19,6 +20,8 @@ import BackButton from "@/components/BackButton";
 import { CreateAccountFormData } from "@/types";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/lib/queryClient";
+import { register } from "@/services/register";
+import { useRouter } from "next/navigation";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -33,6 +36,7 @@ const VisuallyHiddenInput = styled("input")({
 });
 
 export default function CreateAccountPage() {
+  const router = useRouter()
   const [image, setImage] = useState<string | null>(null);
   const [createAccountData, setCreateAccountData] =
     useState<CreateAccountFormData>({
@@ -42,6 +46,7 @@ export default function CreateAccountPage() {
       confirmPassword: "",
       profilePicture: null,
     });
+  const [formSubmtionLoading, setFormSubmtionLoading] = useState(false);
   const fileInputRef = useRef(null);
 
   const handleIconButtonClick = () => {
@@ -71,9 +76,31 @@ export default function CreateAccountPage() {
   }
   function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    
+    setFormSubmtionLoading(true);
+    register({
+      email: createAccountData.email,
+      password: createAccountData.password,
+      username: createAccountData.username,
+      profilePicture: image,
+    })
+      .then((serviceResponse) => {
+        if(serviceResponse.status === 201) {
+          router.push('/login')
+        }
+        else{
+          alert(serviceResponse.response.message)
+        }
+      })
+      .catch((error) => {
+        alert("An error occurred while creating your account");
+       })
+      .finally(() => {
+        setFormSubmtionLoading(false);
+      });
   }
-  const passwordMatch = createAccountData.password === createAccountData.confirmPassword;
+  const passwordMatch =
+    createAccountData.password === createAccountData.confirmPassword;
+
   return (
     <>
       <QueryClientProvider client={queryClient}>
@@ -138,12 +165,14 @@ export default function CreateAccountPage() {
                 label="Username"
                 name="username"
                 onChange={handleFormChange}
+                required
               />
               <TextField
                 variant="outlined"
                 label="Email"
                 onChange={handleFormChange}
                 name="email"
+                required
               />
               <TextField
                 variant="outlined"
@@ -151,6 +180,7 @@ export default function CreateAccountPage() {
                 label="Password"
                 name="password"
                 onChange={handleFormChange}
+                required
               />
               <TextField
                 variant="outlined"
@@ -158,14 +188,19 @@ export default function CreateAccountPage() {
                 label="Confirm Password"
                 name="confirmPassword"
                 onChange={handleFormChange}
-                error={!passwordMatch && createAccountData.confirmPassword.length > 0}
+                error={
+                  !passwordMatch && createAccountData.confirmPassword.length > 0
+                }
                 helperText={
                   !passwordMatch && createAccountData.confirmPassword.length > 0
                     ? "Passwords do not match"
                     : ""
                 }
+                required
               />
-              <Button variant="contained" type="submit" fullWidth>
+              <Button variant="contained" type="submit" fullWidth startIcon={
+                formSubmtionLoading ? <CircularProgress size={20} /> : null
+              } >
                 Create Account
               </Button>
             </Stack>

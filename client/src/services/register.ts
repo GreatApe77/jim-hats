@@ -2,7 +2,7 @@ import { RegisterDto, ServiceResponse } from "@/types";
 
 export async function register(userData: RegisterDto) {
   const response = await fetch(
-    process.env.NEXT_PUBLIC_API_URL + "/auth/register",
+    process.env.NEXT_PUBLIC_API_ENDPOINT + "/register",
     {
       method: "POST",
       headers: {

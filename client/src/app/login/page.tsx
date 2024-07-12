@@ -1,4 +1,7 @@
+"use client"
 import BackButton from "@/components/BackButton";
+import { login } from "@/services/login";
+import { LoginFormData } from "@/types";
 import {
   Box,
   Button,
@@ -7,8 +10,38 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { useState } from "react";
 
 export default function LoginPage() {
+  const [loginData, setLoginData] = useState<LoginFormData>({
+    username: "",
+    password: "",
+  })
+  
+  function handleFormChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setLoginData({
+      ...loginData,
+      [e.target.name]: e.target.value
+    })
+  }
+  function handleLoginSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    console.log(loginData)
+    login(loginData.username,loginData.password)
+    .then((serviceResponse) => {
+      if(serviceResponse.status === 200) {
+        const token = serviceResponse.response.data?.token as string
+        localStorage.setItem("token", token)
+      }
+      else {
+        alert(serviceResponse.response.message)
+      }
+    })
+    .catch((error) => {
+      alert("An error occurred while logging in")
+    })
+
+  }
   return (
     <>
       <BackButton to="/" />
@@ -21,18 +54,21 @@ export default function LoginPage() {
             Welcome back.
           </Typography>
         </Box>
-        <Stack spacing={2}>
-          <TextField variant="outlined" label="Username" />
-          <TextField variant="outlined" label="Password" type="password" />
-        </Stack>
-        <Stack spacing={2} sx={{ marginTop: "1rem" }}>
-          <Button variant="contained" size="large" fullWidth>
-            Login
-          </Button>
-          <Button variant="outlined" color="inherit" fullWidth>
-            Forgot Password
-          </Button>
-        </Stack>
+        <form onSubmit={handleLoginSubmit}>
+
+          <Stack spacing={2}>
+            <TextField variant="outlined" label="Username" name="username" onChange={handleFormChange} required />
+            <TextField variant="outlined" label="Password" type="password" name="password" onChange={handleFormChange} required />
+          </Stack>
+          <Stack spacing={2} sx={{ marginTop: "1rem" }}>
+            <Button type="submit" variant="contained" size="large" fullWidth>
+              Login
+            </Button>
+            <Button variant="outlined" color="inherit" fullWidth>
+              Forgot Password
+            </Button>
+          </Stack>
+        </form>
       </Container>
     </>
   );

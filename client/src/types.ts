@@ -20,3 +20,9 @@ export type CreateAccountFormData = {
   confirmPassword: string;
   profilePicture: string | null;
 };
+
+export type LoginFormData = {
+    username: string;
+    password: string;
+    
+}

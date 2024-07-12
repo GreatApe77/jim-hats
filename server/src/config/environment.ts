@@ -6,6 +6,7 @@ const envSchema = z.object({
   NODE_ENV: z.enum(["dev", "test", "prod"]).default("dev"),
   DATABASE_URL: z.string().default(""),
   JWT_SECRET: z.string().default("JWT_SECRET"),
+  CLIENT_URL: z.string().default("*"),
 });
 
 export const environment = envSchema.parse(process.env);
