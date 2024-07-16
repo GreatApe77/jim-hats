@@ -1,6 +1,8 @@
+import { PrismaClient } from "@prisma/client";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { MESSAGES } from "../../../../constants/MESSAGES";
 import { HttpError } from "../../../../errors/HttpError";
+import { IGymChallenge } from "../../../gym-challenges/IGymChallenge";
 import { IUser } from "../../IUser";
 import {
   IUserRepository,
@@ -10,9 +12,21 @@ import { IUserService } from "../interfaces/IUserService";
 
 export class UserService implements IUserService {
   private userRepository: IUserRepository;
-  constructor(userRepository: IUserRepository) {
+  private prismaClient: PrismaClient;
+  constructor(userRepository: IUserRepository, prismaClient: PrismaClient) {
     this.userRepository = userRepository;
+    this.prismaClient = prismaClient;
   }
+  async getChallengesOfUser(userId: number): Promise<IGymChallenge[]> {
+    const userWithChallenges = await this.prismaClient.user.findUnique({
+      where: { id: userId },
+      include: {
+        gymChallenges: true,
+      },
+    });
+    return userWithChallenges?.gymChallenges || [];
+  }
+
   async update(
     id: number,
     user: Partial<

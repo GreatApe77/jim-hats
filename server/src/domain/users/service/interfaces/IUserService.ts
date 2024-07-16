@@ -1,3 +1,4 @@
+import { IGymChallenge } from "../../../gym-challenges/IGymChallenge";
 import { IUser } from "../../IUser";
 import {
   PaginationParams,
@@ -10,4 +11,5 @@ export interface IUserService {
   list(dateFilter: Date): Promise<IUser[]>;
   delete(id: number): Promise<void>;
   update(id: number, user: UpdateUserParams): Promise<void>;
+  getChallengesOfUser(userId: number): Promise<IGymChallenge[]>;
 }
