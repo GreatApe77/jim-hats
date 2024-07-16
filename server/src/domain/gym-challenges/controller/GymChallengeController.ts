@@ -63,5 +63,50 @@ export class GymChallengeController {
         .status(500)
         .json(errorResponse(MESSAGES.INTERNAL_SERVER_ERROR));
     }
+
+
+  }
+  async getUsersOfChallenge   (req: Request, res: Response) {
+    try {
+      const id = parseInt(req.params.id);
+      const users = await this.gymChallengeService.getUsersOfChallenge(id)
+      return res.status(200).json(successResponse(MESSAGES.SUCCESS, users));
+    } catch (error) {
+      return res
+        .status(500)
+        .json(errorResponse(MESSAGES.INTERNAL_SERVER_ERROR));
+    }
+  }
+  async addUsertoChallenge  (req: Request, res: Response) {
+    try {
+      const challengeId = parseInt(req.params.challengeId);
+      const userId = parseInt(req.params.userId);
+      const authUserId = res.locals.authUser.id as number;
+      const challenge = await this.gymChallengeService.getById(challengeId)
+      if (!challenge) {
+        return res.status(404).json(errorResponse(MESSAGES.NOT_FOUND));
+      }
+      if (challenge.creatorId !== authUserId) {
+        return res.status(403).json(errorResponse(MESSAGES.UNAUTHORIZED));
+      }
+      await this.gymChallengeService.addUsertoChallenge(challengeId, userId)
+      return res.status(200).json(successResponse(MESSAGES.SUCCESS));
+    } catch (error) {
+      return res
+        .status(500)
+        .json(errorResponse(MESSAGES.INTERNAL_SERVER_ERROR));
+    }
+  }
+  async enterChallengeViaLink  (req: Request, res: Response){
+    try {
+      const challengeId = parseInt(req.params.challengeId);
+      const userId = res.locals.authUser.id as number;
+      await this.gymChallengeService.addUsertoChallenge(challengeId, userId)
+      return res.status(200).json(successResponse(MESSAGES.SUCCESS));
+    } catch (error) {
+      return res
+        .status(500)
+        .json(errorResponse(MESSAGES.INTERNAL_SERVER_ERROR));
+    }
   }
 }

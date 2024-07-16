@@ -1,3 +1,4 @@
+import { PrismaClient } from "@prisma/client";
 import { PaginationParams } from "../../../users/repository/interfaces/IUserRepository";
 import { IGymChallenge } from "../../IGymChallenge";
 import {
@@ -8,8 +9,10 @@ import { IGymChallengeService } from "../interfaces/IGymChallengeService";
 
 export class GymChallengeService implements IGymChallengeService {
   private gymChallengeRepo: IGymChallengeRepository;
-  constructor(gymChallengeRepo: IGymChallengeRepository) {
+  private prismaClient: PrismaClient
+  constructor(gymChallengeRepo: IGymChallengeRepository,prismaClient:PrismaClient) {
     this.gymChallengeRepo = gymChallengeRepo;
+    this.prismaClient = prismaClient
   }
   save(params: CreateGymChallengeParams): Promise<void> {
     return this.gymChallengeRepo.save(params);
@@ -30,5 +33,39 @@ export class GymChallengeService implements IGymChallengeService {
   }
   delete(id: number): Promise<void> {
     return this.gymChallengeRepo.delete(id);
+  }
+  async getUsersOfChallenge(challengeId: number) {
+    const result = await  this.prismaClient.gymChallenge.findUnique({
+      select:{
+        members:{
+          select:{
+            id:true,
+            username:true,
+            email:true,
+            profilePicture:true,
+            createdAt:true,
+            updatedAt:true,
+          }
+        }
+      },
+      where:{
+        id:challengeId
+      }
+    })
+    return result?.members?? []
+  }
+  async addUsertoChallenge(challengeId: number,userId:number){
+    await this.prismaClient.gymChallenge.update({
+      where:{
+        id:challengeId
+      },
+      data:{
+        members:{
+          connect:{
+            id:userId
+          }
+        }
+      }
+    })
   }
 }

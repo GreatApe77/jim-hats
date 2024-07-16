@@ -1,3 +1,4 @@
+import { IUser } from "../../../users/IUser";
 import { PaginationParams } from "../../../users/repository/interfaces/IUserRepository";
 import { IGymChallenge } from "../../IGymChallenge";
 import {
@@ -15,4 +16,6 @@ export interface IGymChallengeService {
     updatedGymChallenge: UpdateGymChallengeParams,
   ): Promise<void>;
   delete(id: number): Promise<void>;
+  getUsersOfChallenge(challengeId: number): Promise<Omit<IUser,"password">[]>;
+  addUsertoChallenge(challengeId: number,userId:number):Promise<void>
 }
