@@ -11,6 +11,13 @@ import { UpdateGymChallengeSchema } from "../dto/UpdateGymChallengeDto";
 import { AddExerciseLogParamsSchema, AddExerciseLogSchema } from "../dto/AddExerciseLogDto";
 
 export class GymChallengeMiddleware {
+  validateSearchLogs(req: Request, res: Response, next: NextFunction) {
+    const challengeId = req.params.challengeId;
+    if (!isInt(challengeId)) {
+      return res.status(400).json(errorResponse(MESSAGES.BAD_REQUEST));
+    }
+    next();
+  }
   validateAddLog(req: Request, res: Response, next: NextFunction) {
     try {
       

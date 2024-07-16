@@ -29,20 +29,19 @@ export class GymChallengeService implements IGymChallengeService {
       where: {
         id: challengeId,
       },
-      include:{
-        logs:{
-          take:1,
-          orderBy:{
-            date:"desc"
-          }
-        }
+      include: {
+        logs: {
+          take: 1,
+          orderBy: {
+            date: "desc",
+          },
+        },
       },
       data: {
         logs: {
           create: exerciseLog,
         },
       },
-      
     });
     return result.logs[0];
   }
@@ -99,5 +98,34 @@ export class GymChallengeService implements IGymChallengeService {
         },
       },
     });
+  }
+  async getLogsGroupedByUsers(
+    challengeId: number,
+    pageSize: number = 10,
+    offset: number = 0,
+  ) {
+    const result = await this.prismaClient.gymChallenge.findUnique({
+      where: {
+        id: challengeId,
+      },
+      include: {
+        logs: {
+          take:pageSize,
+          skip: offset,
+          orderBy: {
+            date: "desc",
+          },
+          include: {
+            user: {
+              select: {
+                username: true,
+                profilePicture: true,
+              },
+            },
+          },
+        },
+      },
+    });
+    return result?.logs ?? [];
   }
 }

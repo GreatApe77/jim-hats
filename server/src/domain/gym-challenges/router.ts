@@ -49,5 +49,11 @@ gymChallengesRouter.post(
   gymChallengeMiddleware.validateAddLog.bind(gymChallengeMiddleware),
   (req, res) => gymChallengesController.addLogToChallenge(req, res),
 )
+gymChallengesRouter.get(
+  "/:challengeId/logs",
+  authMiddleware.onlyAuth.bind(authMiddleware),
+  gymChallengeMiddleware.validateSearchLogs.bind(gymChallengeMiddleware),
+  (req, res) => gymChallengesController.getLogsGroupedByUser(req, res),
+)
 
 export { gymChallengesRouter };

@@ -127,6 +127,11 @@ export class GymChallengeController {
       if (!challenge) {
         return res.status(404).json(errorResponse(MESSAGES.NOT_FOUND));
       }
+      const now = new Date();
+      const isValidTime = now >= challenge.startAt && now <= challenge.endAt;
+      if (!isValidTime) {
+        return res.status(403).json(errorResponse(MESSAGES.UNAUTHORIZED));
+      }
       const usersOfChallenge =
         await this.gymChallengeService.getUsersOfChallenge(challengeId);
       const isMember =
@@ -149,6 +154,32 @@ export class GymChallengeController {
         .json(
           successResponse(MESSAGES.SUCCESS, { createdLogId: createdLog.id }),
         );
+    } catch (error) {
+      console.log(error);
+      return res
+        .status(500)
+        .json(errorResponse(MESSAGES.INTERNAL_SERVER_ERROR));
+    }
+  }
+  async getLogsGroupedByUser(req: Request, res: Response) {
+    try {
+      const challengeId = parseInt(req.params.challengeId);
+      const authUserId = res.locals.authUser.id;
+      const challenge = await this.gymChallengeService.getById(challengeId);
+      if (!challenge) {
+        return res.status(404).json(errorResponse(MESSAGES.NOT_FOUND));
+      }
+      const usersOfChallenge =
+        await this.gymChallengeService.getUsersOfChallenge(challengeId);
+      const isMember =
+        usersOfChallenge.findIndex((user) => user.id === authUserId) !== -1;
+      if (!isMember) {
+        return res.status(403).json(errorResponse(MESSAGES.UNAUTHORIZED));
+      }
+      const logs = await this.gymChallengeService.getLogsGroupedByUsers(
+        challengeId,
+      );
+      return res.status(200).json(successResponse(MESSAGES.SUCCESS, logs));
     } catch (error) {
       console.log(error);
       return res

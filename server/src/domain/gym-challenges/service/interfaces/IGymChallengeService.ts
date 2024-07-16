@@ -20,4 +20,5 @@ export interface IGymChallengeService {
   getUsersOfChallenge(challengeId: number): Promise<Omit<IUser,"password">[]>;
   addMemberToChallenge(challengeId: number,memberId:number):Promise<void>
   addLogToChallenge(challengeId: number,exerciseLog:CreateExerciseLogParams):Promise<IExerciseLog>
+  getLogsGroupedByUsers(challengeId: number,take?:number,offset?:number):Promise<unknown>
 }
