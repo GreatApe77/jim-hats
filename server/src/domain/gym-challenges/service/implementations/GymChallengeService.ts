@@ -14,8 +14,8 @@ export class GymChallengeService implements IGymChallengeService {
     this.gymChallengeRepo = gymChallengeRepo;
     this.prismaClient = prismaClient
   }
-  save(params: CreateGymChallengeParams): Promise<void> {
-    return this.gymChallengeRepo.save(params);
+  async save(params: CreateGymChallengeParams): Promise<IGymChallenge> {
+    return await  this.gymChallengeRepo.save(params);
   }
 
   list(paginationParams?: PaginationParams): Promise<IGymChallenge[]> {
@@ -54,7 +54,7 @@ export class GymChallengeService implements IGymChallengeService {
     })
     return result?.members?? []
   }
-  async addUsertoChallenge(challengeId: number,userId:number){
+  async addMemberToChallenge(challengeId: number,memberId:number){
     await this.prismaClient.gymChallenge.update({
       where:{
         id:challengeId
@@ -62,7 +62,7 @@ export class GymChallengeService implements IGymChallengeService {
       data:{
         members:{
           connect:{
-            id:userId
+            id:memberId
           }
         }
       }

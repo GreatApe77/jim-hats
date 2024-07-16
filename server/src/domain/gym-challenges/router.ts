@@ -4,12 +4,14 @@ import {
   fileUploadService,
   gymChallengeMiddleware,
   gymChallengeService,
+  userService,
 } from "../../container";
 import { GymChallengeController } from "./controller/GymChallengeController";
 
 const gymChallengesController = new GymChallengeController(
   gymChallengeService,
   fileUploadService,
+  userService
 );
 
 const gymChallengesRouter = Router();
@@ -30,5 +32,16 @@ gymChallengesRouter.get(
   gymChallengeMiddleware.validateGetById.bind(gymChallengeMiddleware),
   (req, res) => gymChallengesController.getById(req, res),
 );
+gymChallengesRouter.get(
+  "/:challengeId/members",
+  gymChallengeMiddleware.validateGetMembers.bind(gymChallengeMiddleware),
+  (req, res) => gymChallengesController.getUsersOfChallenge(req, res),
+)
+gymChallengesRouter.post(
+  "/:challengeId/members",
+  authMiddleware.onlyAuth.bind(authMiddleware),
+  gymChallengeMiddleware.validateAddMember.bind(gymChallengeMiddleware),
+  (req, res) => gymChallengesController.addMemberToChallenge(req, res),
+)
 
 export { gymChallengesRouter };

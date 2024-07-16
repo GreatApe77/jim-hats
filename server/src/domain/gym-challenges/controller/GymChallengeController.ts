@@ -6,29 +6,34 @@ import { IFileUploadService } from "../../file-upload/services/interfaces/IFileU
 import { CreateGymChallengeDto } from "../dto/CreateGymChallengeDto";
 import { UpdateGymChallengeDto } from "../dto/UpdateGymChallengeDto";
 import { IGymChallengeService } from "../service/interfaces/IGymChallengeService";
+import { IUserService } from "../../users/service/interfaces/IUserService";
 
 export class GymChallengeController {
   private gymChallengeService: IGymChallengeService;
   private fileUploadService: IFileUploadService;
+  private usersService: IUserService;
   constructor(
     gymChallengeService: IGymChallengeService,
     fileUploadService: IFileUploadService,
+    usersService: IUserService
   ) {
     this.gymChallengeService = gymChallengeService;
     this.fileUploadService = fileUploadService;
+    this.usersService = usersService;
   }
 
   async save(req: Request, res: Response) {
     try {
       const data = req.body as CreateGymChallengeDto;
       const creatorId = res.locals.authUser.id as number;
-      await this.gymChallengeService.save({
+      const createdChallenge = await this.gymChallengeService.save({
         ...data,
         creatorId:creatorId,
         startAt: parse(data.startAt, "dd/MM/yyyy", new Date()),
         endAt: parse(data.endAt, "dd/MM/yyyy", new Date()),
       });
-      return res.status(201).json(successResponse(MESSAGES.CREATED));
+      await this.gymChallengeService.addMemberToChallenge(createdChallenge.id,creatorId)
+      return res.status(201).json(successResponse(MESSAGES.CREATED,{challengeId:createdChallenge.id}));
     } catch (error) {
       console.log(error);
       return res
@@ -68,19 +73,20 @@ export class GymChallengeController {
   }
   async getUsersOfChallenge   (req: Request, res: Response) {
     try {
-      const id = parseInt(req.params.id);
+      const id = parseInt(req.params.challengeId);
       const users = await this.gymChallengeService.getUsersOfChallenge(id)
       return res.status(200).json(successResponse(MESSAGES.SUCCESS, users));
     } catch (error) {
+      console.log(error);
       return res
         .status(500)
         .json(errorResponse(MESSAGES.INTERNAL_SERVER_ERROR));
     }
   }
-  async addUsertoChallenge  (req: Request, res: Response) {
+  async addMemberToChallenge  (req: Request, res: Response) {
     try {
       const challengeId = parseInt(req.params.challengeId);
-      const userId = parseInt(req.params.userId);
+      const {username} = req.body;
       const authUserId = res.locals.authUser.id as number;
       const challenge = await this.gymChallengeService.getById(challengeId)
       if (!challenge) {
@@ -89,24 +95,18 @@ export class GymChallengeController {
       if (challenge.creatorId !== authUserId) {
         return res.status(403).json(errorResponse(MESSAGES.UNAUTHORIZED));
       }
-      await this.gymChallengeService.addUsertoChallenge(challengeId, userId)
+      const newMember = await this.usersService.search(username)
+      if (!newMember) {
+        return res.status(404).json(errorResponse(MESSAGES.NOT_FOUND));
+      }
+      await this.gymChallengeService.addMemberToChallenge(challengeId,newMember.id )
       return res.status(200).json(successResponse(MESSAGES.SUCCESS));
     } catch (error) {
+      console.log(error);
       return res
         .status(500)
         .json(errorResponse(MESSAGES.INTERNAL_SERVER_ERROR));
     }
   }
-  async enterChallengeViaLink  (req: Request, res: Response){
-    try {
-      const challengeId = parseInt(req.params.challengeId);
-      const userId = res.locals.authUser.id as number;
-      await this.gymChallengeService.addUsertoChallenge(challengeId, userId)
-      return res.status(200).json(successResponse(MESSAGES.SUCCESS));
-    } catch (error) {
-      return res
-        .status(500)
-        .json(errorResponse(MESSAGES.INTERNAL_SERVER_ERROR));
-    }
-  }
+  
 }

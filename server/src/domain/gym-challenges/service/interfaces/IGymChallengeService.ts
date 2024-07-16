@@ -7,7 +7,7 @@ import {
 } from "../../repository/interfaces/IGymChallengeRepository";
 
 export interface IGymChallengeService {
-  save(params: CreateGymChallengeParams): Promise<void>;
+  save(params: CreateGymChallengeParams): Promise<IGymChallenge>;
   list(): Promise<IGymChallenge[]>;
   list(paginationParams: PaginationParams): Promise<IGymChallenge[]>;
   getById(id: number): Promise<IGymChallenge | null>;
@@ -17,5 +17,5 @@ export interface IGymChallengeService {
   ): Promise<void>;
   delete(id: number): Promise<void>;
   getUsersOfChallenge(challengeId: number): Promise<Omit<IUser,"password">[]>;
-  addUsertoChallenge(challengeId: number,userId:number):Promise<void>
+  addMemberToChallenge(challengeId: number,memberId:number):Promise<void>
 }

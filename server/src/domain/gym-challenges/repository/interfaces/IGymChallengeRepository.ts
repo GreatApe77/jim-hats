@@ -6,7 +6,7 @@ export type CreateGymChallengeParams = Pick<
 >;
 export type UpdateGymChallengeParams = Partial<CreateGymChallengeParams>;
 export interface IGymChallengeRepository {
-  save(gymChallenge: CreateGymChallengeParams): Promise<void>;
+  save(gymChallenge: CreateGymChallengeParams): Promise<IGymChallenge>;
   list(): Promise<IGymChallenge[]>;
   list(paginationParams?: PaginationParams): Promise<IGymChallenge[]>;
   getById(id: number): Promise<IGymChallenge | null>;

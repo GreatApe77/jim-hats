@@ -1,3 +1,4 @@
+import prisma from "./db/prisma";
 import { AuthMiddleWare } from "./domain/auth/middleware/AuthMiddleware";
 import { AuthService } from "./domain/auth/services/implementations/AuthService";
 import { FileUploadService } from "./domain/file-upload/services/implementations/FileUploadService";
@@ -15,7 +16,7 @@ const fileUploadService = new FileUploadService();
 const authMiddleware = new AuthMiddleWare(authService);
 const usersMiddleware = new UsersMiddleware();
 const gymChallengeRepo = new GymChallengeRepository();
-const gymChallengeService = new GymChallengeService(gymChallengeRepo);
+const gymChallengeService = new GymChallengeService(gymChallengeRepo,prisma);
 const gymChallengeMiddleware = new GymChallengeMiddleware();
 export {
   authMiddleware,

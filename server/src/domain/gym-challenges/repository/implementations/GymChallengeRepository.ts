@@ -7,8 +7,8 @@ import {
 } from "../interfaces/IGymChallengeRepository";
 
 export class GymChallengeRepository implements IGymChallengeRepository {
-  async save(gymChallenge: CreateGymChallengeParams): Promise<void> {
-    await prisma.gymChallenge.create({
+  async save(gymChallenge: CreateGymChallengeParams): Promise<IGymChallenge> {
+    return await prisma.gymChallenge.create({
       data: gymChallenge,
     });
   }
