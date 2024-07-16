@@ -8,8 +8,20 @@ import {
 } from "../dto/AddMemberToChallengeDto";
 import { CreateGymChallengeSchema } from "../dto/CreateGymChallengeDto";
 import { UpdateGymChallengeSchema } from "../dto/UpdateGymChallengeDto";
+import { AddExerciseLogParamsSchema, AddExerciseLogSchema } from "../dto/AddExerciseLogDto";
 
 export class GymChallengeMiddleware {
+  validateAddLog(req: Request, res: Response, next: NextFunction) {
+    try {
+      
+      AddExerciseLogSchema.parse(req.body)
+      AddExerciseLogParamsSchema.parse({ challengeId: req.params.challengeId });
+      next();
+    } catch (error) {
+      console.error(error);
+      return res.status(400).json(errorResponse(MESSAGES.BAD_REQUEST));
+    }
+  }
   validateAddMember(req: Request, res: Response, next: NextFunction) {
     try {
       const challengeId = req.params.challengeId;
