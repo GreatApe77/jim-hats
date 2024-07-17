@@ -88,9 +88,9 @@ export class UsersController {
   }
   async handleGetChallengesOfUser(req: Request, res: Response) {
     const authUser = res.locals.authUser;
-    const userId = req.params.userId;
+    
     try {
-      const user = await this.userService.search(userId);
+      const user = await this.userService.search(authUser.id.toString());
       if (!user) {
         return res.status(404).json(errorResponse(MESSAGES.USER_NOT_FOUND));
       }
