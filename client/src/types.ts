@@ -22,7 +22,23 @@ export type CreateAccountFormData = {
 };
 
 export type LoginFormData = {
-    username: string;
-    password: string;
-    
-}
+  username: string;
+  password: string;
+};
+
+export type GymChallenge = {
+  id: number;
+  name: string;
+  description: string;
+  image: string | null;
+  createdAt: string;
+  startAt: string;
+  endAt: string;
+  creatorId: number;
+};
+export type LoggedUser = {
+  id: number;
+  username: string;
+  email: string;
+  profilePicture: string | null;
+};

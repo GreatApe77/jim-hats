@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import BackButton from "@/components/BackButton";
 import { login } from "@/services/login";
 import { LoginFormData } from "@/types";
@@ -14,38 +14,35 @@ import {
 import { useState } from "react";
 
 export default function LoginPage() {
-  const router = useRouter()
+  const router = useRouter();
   const [loginData, setLoginData] = useState<LoginFormData>({
     username: "",
     password: "",
-  })
-  
+  });
+
   function handleFormChange(e: React.ChangeEvent<HTMLInputElement>) {
     setLoginData({
       ...loginData,
-      [e.target.name]: e.target.value
-    })
+      [e.target.name]: e.target.value,
+    });
   }
   function handleLoginSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    console.log(loginData)
-    login(loginData.username,loginData.password)
-    .then((serviceResponse) => {
-      if(serviceResponse.status === 200) {
-        const token = serviceResponse.response.data?.token as string
-        localStorage.setItem("token", token)
-        
-        router.push("/application/home")
+    e.preventDefault();
+    console.log(loginData);
+    login(loginData.username, loginData.password)
+      .then((serviceResponse) => {
+        if (serviceResponse.status === 200) {
+          const token = serviceResponse.response.data?.token as string;
+          localStorage.setItem("token", token);
 
-      }
-      else {
-        alert(serviceResponse.response.message)
-      }
-    })
-    .catch((error) => {
-      alert("An error occurred while logging in")
-    })
-
+          router.push("/application/home");
+        } else {
+          alert(serviceResponse.response.message);
+        }
+      })
+      .catch((error) => {
+        alert("An error occurred while logging in");
+      });
   }
   return (
     <>
@@ -60,10 +57,22 @@ export default function LoginPage() {
           </Typography>
         </Box>
         <form onSubmit={handleLoginSubmit}>
-
           <Stack spacing={2}>
-            <TextField variant="outlined" label="Username" name="username" onChange={handleFormChange} required />
-            <TextField variant="outlined" label="Password" type="password" name="password" onChange={handleFormChange} required />
+            <TextField
+              variant="outlined"
+              label="Username"
+              name="username"
+              onChange={handleFormChange}
+              required
+            />
+            <TextField
+              variant="outlined"
+              label="Password"
+              type="password"
+              name="password"
+              onChange={handleFormChange}
+              required
+            />
           </Stack>
           <Stack spacing={2} sx={{ marginTop: "1rem" }}>
             <Button type="submit" variant="contained" size="large" fullWidth>

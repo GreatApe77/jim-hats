@@ -36,7 +36,7 @@ const VisuallyHiddenInput = styled("input")({
 });
 
 export default function CreateAccountPage() {
-  const router = useRouter()
+  const router = useRouter();
   const [image, setImage] = useState<string | null>(null);
   const [createAccountData, setCreateAccountData] =
     useState<CreateAccountFormData>({
@@ -84,16 +84,15 @@ export default function CreateAccountPage() {
       profilePicture: image,
     })
       .then((serviceResponse) => {
-        if(serviceResponse.status === 201) {
-          router.push('/login')
-        }
-        else{
-          alert(serviceResponse.response.message)
+        if (serviceResponse.status === 201) {
+          router.push("/login");
+        } else {
+          alert(serviceResponse.response.message);
         }
       })
       .catch((error) => {
         alert("An error occurred while creating your account");
-       })
+      })
       .finally(() => {
         setFormSubmtionLoading(false);
       });
@@ -198,9 +197,14 @@ export default function CreateAccountPage() {
                 }
                 required
               />
-              <Button variant="contained" type="submit" fullWidth startIcon={
-                formSubmtionLoading ? <CircularProgress size={20} /> : null
-              } >
+              <Button
+                variant="contained"
+                type="submit"
+                fullWidth
+                startIcon={
+                  formSubmtionLoading ? <CircularProgress size={20} /> : null
+                }
+              >
                 Create Account
               </Button>
             </Stack>
