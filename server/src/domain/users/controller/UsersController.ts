@@ -10,7 +10,24 @@ export class UsersController {
   constructor(userService: IUserService) {
     this.userService = userService;
   }
-
+  async handleGetMe(req: Request, res: Response) {
+    const authUser = res.locals.authUser;
+    try {
+      const user = await this.userService.search(authUser.id.toString());
+      if (!user) {
+        return res.status(404).json(errorResponse(MESSAGES.USER_NOT_FOUND));
+      }
+      return res
+        .status(200)
+        .json(successResponse(MESSAGES.USER_FOUND, {
+          ...user,
+          password: undefined,
+          
+        }));
+    } catch (error) {
+      return handleErrors(error, res);
+    }
+  }
   async handleGetUser(req: Request, res: Response) {
     const id = req.params.id;
     try {
