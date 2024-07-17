@@ -2,6 +2,7 @@
 import BackButton from "@/components/BackButton";
 import { login } from "@/services/login";
 import { LoginFormData } from "@/types";
+import { useRouter } from "next/navigation";
 import {
   Box,
   Button,
@@ -13,6 +14,7 @@ import {
 import { useState } from "react";
 
 export default function LoginPage() {
+  const router = useRouter()
   const [loginData, setLoginData] = useState<LoginFormData>({
     username: "",
     password: "",
@@ -32,6 +34,9 @@ export default function LoginPage() {
       if(serviceResponse.status === 200) {
         const token = serviceResponse.response.data?.token as string
         localStorage.setItem("token", token)
+        
+        router.push("/application/home")
+
       }
       else {
         alert(serviceResponse.response.message)
