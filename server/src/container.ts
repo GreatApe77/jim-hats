@@ -11,7 +11,7 @@ import { UserService } from "./domain/users/service/implementations/UserService"
 
 const userRepository = new UserRepository();
 const authService = new AuthService(userRepository);
-const userService = new UserService(userRepository);
+const userService = new UserService(userRepository,prisma);
 const fileUploadService = new FileUploadService();
 const authMiddleware = new AuthMiddleWare(authService);
 const usersMiddleware = new UsersMiddleware();

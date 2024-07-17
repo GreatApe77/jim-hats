@@ -83,7 +83,8 @@ export class GymChallengeService implements IGymChallengeService {
         id: challengeId,
       },
     });
-    return result?.members ?? [];
+    console.log(result);
+    return result?.members.length ? result.members : [];
   }
   async addMemberToChallenge(challengeId: number, memberId: number) {
     await this.prismaClient.gymChallenge.update({

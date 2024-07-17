@@ -27,6 +27,10 @@ export class GymChallengeController {
     try {
       const data = req.body as CreateGymChallengeDto;
       const creatorId = res.locals.authUser.id as number;
+      const user = await this.usersService.search(creatorId.toString());
+      if (!user) {
+        return res.status(404).json(errorResponse(MESSAGES.NOT_FOUND));
+      }
       const createdChallenge = await this.gymChallengeService.save({
         ...data,
         creatorId: creatorId,
@@ -81,6 +85,7 @@ export class GymChallengeController {
     try {
       const id = parseInt(req.params.challengeId);
       const users = await this.gymChallengeService.getUsersOfChallenge(id);
+      //console.log(users);
       return res.status(200).json(successResponse(MESSAGES.SUCCESS, users));
     } catch (error) {
       console.log(error);
@@ -132,10 +137,12 @@ export class GymChallengeController {
       if (!isValidTime) {
         return res.status(403).json(errorResponse(MESSAGES.UNAUTHORIZED));
       }
-      const usersOfChallenge =
-        await this.gymChallengeService.getUsersOfChallenge(challengeId);
+      const usersOfChallenge =await this.gymChallengeService.getUsersOfChallenge(challengeId);
+      //console.log(usersOfChallenge)
+      //console.log(authUserId)
       const isMember =
         usersOfChallenge.findIndex((user) => user.id === authUserId) !== -1;
+        console.log(isMember);
       if (!isMember) {
         return res.status(403).json(errorResponse(MESSAGES.UNAUTHORIZED));
       }
