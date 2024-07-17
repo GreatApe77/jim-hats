@@ -18,5 +18,9 @@ usersRouter.patch(
   authMiddleware.onlyAuth.bind(authMiddleware),
   (req, res) => usersController.handleUpdateUser(req, res),
 );
-
+usersRouter.get("/:userId/gym-challenges", 
+  authMiddleware.onlyAuth.bind(authMiddleware),
+  usersMiddleware.validateGetChallengesOfUser.bind(usersMiddleware),
+  (req, res) => usersController.handleGetChallengesOfUser(req, res),
+);
 export { usersRouter };
