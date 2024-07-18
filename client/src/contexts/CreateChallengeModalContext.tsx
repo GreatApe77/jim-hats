@@ -5,9 +5,15 @@ interface CreateChallengeModalContextType {
   setOpen: (open: boolean) => void;
 }
 
-export const CreateChallengeModalContext = createContext<CreateChallengeModalContextType | undefined>(undefined);
+export const CreateChallengeModalContext = createContext<
+  CreateChallengeModalContextType | undefined
+>(undefined);
 
-export function CreateChallengeModalProvider({ children }:{children: React.ReactNode}) {
+export function CreateChallengeModalProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [open, setOpen] = useState(false);
 
   return (

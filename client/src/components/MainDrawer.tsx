@@ -8,6 +8,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { useContext, useState } from "react";
 
+import { CreateChallengeModalContext } from "@/contexts/CreateChallengeModalContext";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import FlagIcon from "@mui/icons-material/Flag";
 import Groups3Icon from "@mui/icons-material/Groups3";
@@ -16,7 +17,6 @@ import InfoIcon from "@mui/icons-material/Info";
 import MenuIcon from "@mui/icons-material/Menu";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { Avatar, Icon, IconButton } from "@mui/material";
-import { CreateChallengeModalContext } from "@/contexts/CreateChallengeModalContext";
 import CreateChallengeModal from "./CreateChallengeModal";
 type Props = {
   user?: {
@@ -46,12 +46,12 @@ export default function MainDrawer({
   ],
 }: Props) {
   const [open, setOpen] = useState(false);
-  const modalContext = useContext(CreateChallengeModalContext)
+  const modalContext = useContext(CreateChallengeModalContext);
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
   function openModal() {
-    console.log(modalContext)
+    console.log(modalContext);
     modalContext?.setOpen(true);
   }
   const DrawerList = (

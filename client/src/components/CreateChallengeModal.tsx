@@ -1,26 +1,27 @@
 "use client";
 import { CreateChallengeModalContext } from "@/contexts/CreateChallengeModalContext";
-import { Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material";
-import Box from "@mui/material/Box";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField,
+} from "@mui/material";
 import Button from "@mui/material/Button";
-import Modal from "@mui/material/Modal";
-import Typography from "@mui/material/Typography";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 
-import TextareaAutosize from "@mui/material";
 export default function CreateChallengeModal() {
-  const context = useContext(CreateChallengeModalContext)
- function handleClose() {
+  const context = useContext(CreateChallengeModalContext);
+  function handleClose() {
     context?.setOpen(false);
   }
   return (
     <>
-      
       <Dialog
         open={context?.open!}
         onClose={handleClose}
         PaperProps={{
-          component: 'form',
+          component: "form",
           onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
             event.preventDefault();
             const formData = new FormData(event.currentTarget);
@@ -33,7 +34,6 @@ export default function CreateChallengeModal() {
       >
         <DialogTitle>Create a Gym Challenge!</DialogTitle>
         <DialogContent>
-          
           <TextField
             autoFocus
             required
@@ -57,11 +57,10 @@ export default function CreateChallengeModal() {
             variant="standard"
             multiline
           />
-          
           DATAS(CAlendario)...
           <p>Input de foto</p>
         </DialogContent>
-        
+
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
           <Button type="submit">Subscribe</Button>
