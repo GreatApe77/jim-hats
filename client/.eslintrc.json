@@ -1,4 +1,4 @@
 {
   "extends": ["next/core-web-vitals"],
-  "plugins": ["@tanstack/query", "prettier-plugin-organize-imports"]
+  "plugins": ["@tanstack/query"]
 }

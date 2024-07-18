@@ -1,4 +1,9 @@
 "use client";
+import BackButton from "@/components/BackButton";
+import { queryClient } from "@/lib/queryClient";
+import { register } from "@/services/register";
+import { CreateAccountFormData } from "@/types";
+import CreateIcon from "@mui/icons-material/Create";
 import {
   Avatar,
   Box,
@@ -11,17 +16,10 @@ import {
   Typography,
   styled,
 } from "@mui/material";
-import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import Badge from "@mui/material/Badge";
-import CreateIcon from "@mui/icons-material/Create";
-import { useRef, useState } from "react";
-import Link from "next/link";
-import BackButton from "@/components/BackButton";
-import { CreateAccountFormData } from "@/types";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { queryClient } from "@/lib/queryClient";
-import { register } from "@/services/register";
 import { useRouter } from "next/navigation";
+import { useRef, useState } from "react";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",

@@ -1,6 +1,5 @@
-import { Container, Stack, Typography } from "@mui/material";
+import { Container, Link as MUILink, Stack, Typography } from "@mui/material";
 import Link from "next/link";
-import { Link as MUILink } from "@mui/material";
 export default function NotFound() {
   return (
     <>

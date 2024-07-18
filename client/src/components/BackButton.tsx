@@ -1,6 +1,6 @@
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import { IconButton } from "@mui/material";
 import Link from "next/link";
-import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 type BackButtonProps = {
   to: string;
 };

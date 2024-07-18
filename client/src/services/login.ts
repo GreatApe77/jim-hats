@@ -1,4 +1,4 @@
-import { ApiResponse, ServiceResponse } from "@/types";
+import { ServiceResponse } from "@/types";
 
 export async function login(username: string, password: string) {
   const response = await fetch(
