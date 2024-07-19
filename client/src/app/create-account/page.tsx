@@ -1,5 +1,6 @@
 "use client";
 import BackButton from "@/components/BackButton";
+import { VisuallyHiddenInput } from "@/components/VisuallyHiddenInput";
 import { queryClient } from "@/lib/queryClient";
 import { register } from "@/services/register";
 import { CreateAccountFormData } from "@/types";
@@ -21,17 +22,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 
-const VisuallyHiddenInput = styled("input")({
-  clip: "rect(0 0 0 0)",
-  clipPath: "inset(50%)",
-  height: 1,
-  overflow: "hidden",
-  position: "absolute",
-  bottom: 0,
-  left: 0,
-  whiteSpace: "nowrap",
-  width: 1,
-});
+
 
 export default function CreateAccountPage() {
   const router = useRouter();
