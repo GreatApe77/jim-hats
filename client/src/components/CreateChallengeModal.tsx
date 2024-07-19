@@ -16,6 +16,7 @@ import Button from "@mui/material/Button";
 import { useContext, useState } from "react";
 import { VisuallyHiddenInput } from "./VisuallyHiddenInput";
 import dayjs from "dayjs";
+import { createChallenge } from "@/services/create-challenge";
 export default function CreateChallengeModal() {
   const [banner, setBanner] = useState<File | null>(null);
   const [formData, setFormData] = useState<CreateChallengeFormData>({
@@ -48,6 +49,14 @@ export default function CreateChallengeModal() {
           onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
             event.preventDefault();
             console.log(formData);
+            const token = localStorage.getItem("token");
+            createChallenge(formData,token!)
+            .then((response)=>{
+              alert(response.response.message)
+            })
+            .catch((error=>{
+              alert("An error occured")
+            }))
           },
         }}
       >
