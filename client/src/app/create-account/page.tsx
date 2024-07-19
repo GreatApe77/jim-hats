@@ -117,6 +117,7 @@ export default function CreateAccountPage() {
               }}
             >
               <VisuallyHiddenInput
+                accept="image/*"
                 ref={fileInputRef}
                 onChange={handleFileChange}
                 type="file"

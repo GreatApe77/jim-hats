@@ -1,9 +1,9 @@
 "use client";
 import { CreateChallengeModalContext } from "@/contexts/CreateChallengeModalContext";
+import { CreateChallengeFormData } from "@/types";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import ImageIcon from "@mui/icons-material/Image";
 import {
-  Box,
   Dialog,
   DialogActions,
   DialogContent,
@@ -15,9 +15,23 @@ import {
 import Button from "@mui/material/Button";
 import { useContext, useState } from "react";
 import { VisuallyHiddenInput } from "./VisuallyHiddenInput";
+import dayjs from "dayjs";
 export default function CreateChallengeModal() {
   const [banner, setBanner] = useState<File | null>(null);
-
+  const [formData, setFormData] = useState<CreateChallengeFormData>({
+    description: null,
+    endAt: "",
+    startAt: "",
+    image: null,
+    name: "",
+  });
+  function handleFormChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = event.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  }
   const context = useContext(CreateChallengeModalContext);
 
   function handleClose() {
@@ -33,11 +47,7 @@ export default function CreateChallengeModal() {
           component: "form",
           onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
             event.preventDefault();
-            const formData = new FormData(event.currentTarget);
-            const formJson = Object.fromEntries((formData as any).entries());
-            const email = formJson.email;
-            console.log(email);
-            handleClose();
+            console.log(formData);
           },
         }}
       >
@@ -49,15 +59,15 @@ export default function CreateChallengeModal() {
               required
               margin="dense"
               id="name"
-              name="email"
+              name="name"
               label="Challenge Title"
               type="text"
               fullWidth
               variant="standard"
+              onChange={handleFormChange}
             />
             <TextField
               autoFocus
-              required
               margin="dense"
               id="name"
               name="description"
@@ -66,6 +76,7 @@ export default function CreateChallengeModal() {
               fullWidth
               variant="standard"
               multiline
+              onChange={handleFormChange}
             />
             <Stack spacing={2} direction={"row"} sx={{ alignItems: "center" }}>
               <TextField
@@ -78,6 +89,12 @@ export default function CreateChallengeModal() {
                 type="date"
                 variant="standard"
                 helperText="When does the challenge start?"
+                onChange={(event) => {
+                  setFormData((prev) => ({
+                    ...prev,
+                    startAt: dayjs(event.target.value).format("DD/MM/YYYY"),
+                  }));
+                }}
               />
               <ArrowRightAltIcon />
               <TextField
@@ -91,7 +108,10 @@ export default function CreateChallengeModal() {
                 variant="standard"
                 helperText="When does the challenge end?"
                 onChange={(event) => {
-                  console.log(event.target.value);
+                  setFormData((prev) => ({
+                    ...prev,
+                    endAt: dayjs(event.target.value).format("DD/MM/YYYY"),
+                  }));
                 }}
               />
             </Stack>
@@ -105,11 +125,14 @@ export default function CreateChallengeModal() {
                 Choose a Banner
                 <VisuallyHiddenInput
                   type="file"
+                  accept="image/*"
                   onChange={(event) => {
                     const file = event.target.files?.[0];
+
                     if (file) {
                       setBanner(file);
                     }
+
                   }}
                 />
               </Button>
@@ -117,13 +140,13 @@ export default function CreateChallengeModal() {
               {banner && (
                 <>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  
-                    <img
-                      src={URL.createObjectURL(banner)}
-                      alt=""
-                      style={{objectFit:"contain"}}
-                    />
-                  
+
+                  <img
+                    src={URL.createObjectURL(banner)}
+                    alt=""
+                    style={{ objectFit: "contain" }}
+                  />
+
                   <Typography variant="caption">{banner.name}</Typography>
                 </>
               )}

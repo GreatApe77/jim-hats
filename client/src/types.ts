@@ -42,3 +42,10 @@ export type LoggedUser = {
   email: string;
   profilePicture: string | null;
 };
+export type CreateChallengeFormData = {
+  name:string
+  description:string|null
+  startAt:string
+  endAt:string
+  image:string|null
+}
