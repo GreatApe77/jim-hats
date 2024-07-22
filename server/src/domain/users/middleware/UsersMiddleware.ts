@@ -5,8 +5,6 @@ import { PatchUserSchema } from "../dto/PatchUserDTO.js";
 
 export class UsersMiddleware {
   validateGetChallengesOfUser(req: Request, res: Response, next: NextFunction) {
-    
-   
     return next();
   }
   validatePatchUser(req: Request, res: Response, next: NextFunction) {
@@ -18,9 +16,6 @@ export class UsersMiddleware {
     }
   }
   validateGetLogsOfUser(req: Request, res: Response, next: NextFunction) {
-    
-   
     return next();
   }
-  
 }

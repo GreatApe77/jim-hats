@@ -137,12 +137,13 @@ export class GymChallengeController {
       if (!isValidTime) {
         return res.status(403).json(errorResponse(MESSAGES.UNAUTHORIZED));
       }
-      const usersOfChallenge =await this.gymChallengeService.getUsersOfChallenge(challengeId);
+      const usersOfChallenge =
+        await this.gymChallengeService.getUsersOfChallenge(challengeId);
       //console.log(usersOfChallenge)
       //console.log(authUserId)
       const isMember =
         usersOfChallenge.findIndex((user) => user.id === authUserId) !== -1;
-        console.log(isMember);
+      console.log(isMember);
       if (!isMember) {
         return res.status(403).json(errorResponse(MESSAGES.UNAUTHORIZED));
       }
@@ -183,9 +184,8 @@ export class GymChallengeController {
       if (!isMember) {
         return res.status(403).json(errorResponse(MESSAGES.UNAUTHORIZED));
       }
-      const logs = await this.gymChallengeService.getLogsGroupedByUsers(
-        challengeId,
-      );
+      const logs =
+        await this.gymChallengeService.getLogsGroupedByUsers(challengeId);
       return res.status(200).json(successResponse(MESSAGES.SUCCESS, logs));
     } catch (error) {
       console.log(error);

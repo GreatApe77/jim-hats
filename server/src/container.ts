@@ -11,12 +11,12 @@ import { UserService } from "./domain/users/service/implementations/UserService.
 
 const userRepository = new UserRepository();
 const authService = new AuthService(userRepository);
-const userService = new UserService(userRepository,prisma);
+const userService = new UserService(userRepository, prisma);
 const fileUploadService = new FileUploadService();
 const authMiddleware = new AuthMiddleWare(authService);
 const usersMiddleware = new UsersMiddleware();
 const gymChallengeRepo = new GymChallengeRepository();
-const gymChallengeService = new GymChallengeService(gymChallengeRepo,prisma);
+const gymChallengeService = new GymChallengeService(gymChallengeRepo, prisma);
 const gymChallengeMiddleware = new GymChallengeMiddleware();
 export {
   authMiddleware,

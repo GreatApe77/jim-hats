@@ -17,11 +17,10 @@ export class UsersController {
       if (!user) {
         return res.status(404).json(errorResponse(MESSAGES.USER_NOT_FOUND));
       }
-      const logs = await this.userService.getLogsOfUser(authUser.id)
+      const logs = await this.userService.getLogsOfUser(authUser.id);
       return res.status(200).json(successResponse(MESSAGES.SUCCESS, logs));
     } catch (error) {
       return handleErrors(error, res);
-    
     }
   }
   async handleGetMe(req: Request, res: Response) {
@@ -31,13 +30,12 @@ export class UsersController {
       if (!user) {
         return res.status(404).json(errorResponse(MESSAGES.USER_NOT_FOUND));
       }
-      return res
-        .status(200)
-        .json(successResponse(MESSAGES.USER_FOUND, {
+      return res.status(200).json(
+        successResponse(MESSAGES.USER_FOUND, {
           ...user,
           password: undefined,
-          
-        }));
+        }),
+      );
     } catch (error) {
       return handleErrors(error, res);
     }
@@ -119,14 +117,18 @@ export class UsersController {
   }
   async handleGetChallengesOfUser(req: Request, res: Response) {
     const authUser = res.locals.authUser;
-    
+
     try {
       const user = await this.userService.search(authUser.id.toString());
       if (!user) {
         return res.status(404).json(errorResponse(MESSAGES.USER_NOT_FOUND));
       }
-      const challenges = await this.userService.getChallengesOfUser(authUser.id)
-      return res.status(200).json(successResponse(MESSAGES.SUCCESS, challenges));
+      const challenges = await this.userService.getChallengesOfUser(
+        authUser.id,
+      );
+      return res
+        .status(200)
+        .json(successResponse(MESSAGES.SUCCESS, challenges));
     } catch (error) {
       console.log(error);
       return handleErrors(error, res);

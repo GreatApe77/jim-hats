@@ -111,7 +111,7 @@ export class GymChallengeService implements IGymChallengeService {
       },
       include: {
         logs: {
-          take:pageSize,
+          take: pageSize,
           skip: offset,
           orderBy: {
             date: "desc",

@@ -3,12 +3,15 @@ import { MESSAGES } from "../../../constants/MESSAGES.js";
 import { isInt } from "../../../utils/isInt.js";
 import { errorResponse } from "../../../utils/responses.js";
 import {
+  AddExerciseLogParamsSchema,
+  AddExerciseLogSchema,
+} from "../dto/AddExerciseLogDto.js";
+import {
   AddMemberToChallengeParamsSchema,
   AddMemberToChallengeSchema,
 } from "../dto/AddMemberToChallengeDto.js";
 import { CreateGymChallengeSchema } from "../dto/CreateGymChallengeDto.js";
 import { UpdateGymChallengeSchema } from "../dto/UpdateGymChallengeDto.js";
-import { AddExerciseLogParamsSchema, AddExerciseLogSchema } from "../dto/AddExerciseLogDto.js";
 
 export class GymChallengeMiddleware {
   validateSearchLogs(req: Request, res: Response, next: NextFunction) {
@@ -20,8 +23,7 @@ export class GymChallengeMiddleware {
   }
   validateAddLog(req: Request, res: Response, next: NextFunction) {
     try {
-      
-      AddExerciseLogSchema.parse(req.body)
+      AddExerciseLogSchema.parse(req.body);
       AddExerciseLogParamsSchema.parse({ challengeId: req.params.challengeId });
       next();
     } catch (error) {

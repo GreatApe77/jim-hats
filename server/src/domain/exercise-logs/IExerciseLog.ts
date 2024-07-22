@@ -1,5 +1,3 @@
 import { ExerciseLog } from "@prisma/client";
 
-
-
-export interface IExerciseLog  extends ExerciseLog{}
+export interface IExerciseLog extends ExerciseLog {}
