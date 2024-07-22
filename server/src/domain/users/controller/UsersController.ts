@@ -10,6 +10,20 @@ export class UsersController {
   constructor(userService: IUserService) {
     this.userService = userService;
   }
+  async handleGetLogsOfUser(req: Request, res: Response) {
+    const authUser = res.locals.authUser;
+    try {
+      const user = await this.userService.search(authUser.id.toString());
+      if (!user) {
+        return res.status(404).json(errorResponse(MESSAGES.USER_NOT_FOUND));
+      }
+      const logs = await this.userService.getLogsOfUser(authUser.id)
+      return res.status(200).json(successResponse(MESSAGES.SUCCESS, logs));
+    } catch (error) {
+      return handleErrors(error, res);
+    
+    }
+  }
   async handleGetMe(req: Request, res: Response) {
     const authUser = res.locals.authUser;
     try {

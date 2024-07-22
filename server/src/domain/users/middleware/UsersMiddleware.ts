@@ -17,5 +17,10 @@ export class UsersMiddleware {
       return res.status(422).json(errorResponse(MESSAGES.BAD_REQUEST));
     }
   }
+  validateGetLogsOfUser(req: Request, res: Response, next: NextFunction) {
+    
+   
+    return next();
+  }
   
 }

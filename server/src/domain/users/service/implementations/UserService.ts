@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { ExerciseLog, PrismaClient } from "@prisma/client";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { MESSAGES } from "../../../../constants/MESSAGES";
 import { HttpError } from "../../../../errors/HttpError";
@@ -60,6 +60,13 @@ export class UserService implements IUserService {
       return this.userRepository.findAll(args);
     }
     return this.userRepository.findAll(args);
+  }
+  getLogsOfUser(userId: number): Promise<ExerciseLog[]> {
+    return this.prismaClient.exerciseLog.findMany({
+      where: {
+        userId,
+      },
+    });
   }
   async delete(id: number): Promise<void> {
     try {

@@ -1,3 +1,4 @@
+import { ExerciseLog } from "@prisma/client";
 import { IGymChallenge } from "../../../gym-challenges/IGymChallenge";
 import { IUser } from "../../IUser";
 import {
@@ -12,4 +13,5 @@ export interface IUserService {
   delete(id: number): Promise<void>;
   update(id: number, user: UpdateUserParams): Promise<void>;
   getChallengesOfUser(userId: number): Promise<IGymChallenge[]>;
+  getLogsOfUser(userId: number): Promise<ExerciseLog[]>;
 }

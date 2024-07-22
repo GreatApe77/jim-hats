@@ -3,6 +3,11 @@ import { authMiddleware, userService, usersMiddleware } from "../../container";
 import { UsersController } from "./controller/UsersController";
 const usersController = new UsersController(userService);
 const usersRouter = Router();
+usersRouter.get("/me/logs", 
+  authMiddleware.onlyAuth.bind(authMiddleware),
+  usersMiddleware.validateGetLogsOfUser.bind(usersMiddleware),
+  (req, res) => usersController.handleGetLogsOfUser(req, res),
+);
 usersRouter.get("/me", authMiddleware.onlyAuth.bind(authMiddleware), (req, res) =>
   usersController.handleGetMe(req, res),
 );
@@ -25,4 +30,5 @@ usersRouter.get("/:userId/gym-challenges",
   usersMiddleware.validateGetChallengesOfUser.bind(usersMiddleware),
   (req, res) => usersController.handleGetChallengesOfUser(req, res),
 );
+
 export { usersRouter };
