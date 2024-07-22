@@ -1,15 +1,19 @@
-"use client"
-import { useParams } from "next/navigation"
+"use client";
+import { useChallenge } from "@/hooks/useChallenge";
+import { Container, Typography } from "@mui/material";
+import { useParams } from "next/navigation";
 
-export default function ChallengePage(){
-    const params = useParams()
-    console.log(params.id)
-    return (
-        <>
-        <div>
-            <h1>Challenge</h1>
-            <p>Welcome to the challenge page {params.id}</p>
-        </div>
-        </>
-    )
+export default function ChallengePage() {
+  const params = useParams();
+  const challengeId = params.id as string;
+  const { data: challengeResponse } = useChallenge(challengeId);
+  const challenge = challengeResponse?.response.data;
+  return (
+    <>
+    <Container maxWidth="sm">
+
+      <Typography variant="h6">{challenge?.name}</Typography>
+    </Container>
+    </>
+  );
 }
