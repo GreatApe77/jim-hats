@@ -43,9 +43,19 @@ export type LoggedUser = {
   profilePicture: string | null;
 };
 export type CreateChallengeFormData = {
-  name:string
-  description:string|null
-  startAt:string
-  endAt:string
-  image:string|null
-}
+  name: string;
+  description: string | null;
+  startAt: string;
+  endAt: string;
+  image: string | null;
+};
+
+export type ExerciseLog = {
+  id: number;
+  title: string;
+  description: string | null;
+  image: string | null;
+  date: string;
+  userId: number;
+  gymChallengeId: number;
+};

@@ -1,6 +1,7 @@
 "use client";
-import MainDrawer from "@/components/MainDrawer";
 import { CreateChallengeModalProvider } from "@/contexts/CreateChallengeModalContext";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const client = new QueryClient();
@@ -13,7 +14,9 @@ export default function ApplicationLayout({
     <>
       <QueryClientProvider client={client}>
         <CreateChallengeModalProvider>
-         {children}
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            {children}
+          </LocalizationProvider>
         </CreateChallengeModalProvider>
       </QueryClientProvider>
     </>
