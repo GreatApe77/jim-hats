@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from "express";
 import { z } from "zod";
-import { MESSAGES } from "../../../constants/MESSAGES";
-import { errorResponse } from "../../../utils/responses";
-import { LoginUserSchema } from "../dto/schemas/LoginUserSchema";
-import { RegisterUserSchema } from "../dto/schemas/RegisterUserSchema";
-import { IAuthService } from "../services/interfaces/IAuthService";
+import { MESSAGES } from "../../../constants/MESSAGES.js";
+import { errorResponse } from "../../../utils/responses.js";
+import { LoginUserSchema } from "../dto/schemas/LoginUserSchema.js";
+import { RegisterUserSchema } from "../dto/schemas/RegisterUserSchema.js";
+import { IAuthService } from "../services/interfaces/IAuthService.js";
 export class AuthMiddleWare {
   authService: IAuthService;
   constructor(authService: IAuthService) {

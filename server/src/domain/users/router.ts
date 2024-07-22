@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { authMiddleware, userService, usersMiddleware } from "../../container";
-import { UsersController } from "./controller/UsersController";
+import { authMiddleware, userService, usersMiddleware } from "../../container.js";
+import { UsersController } from "./controller/UsersController.js";
 const usersController = new UsersController(userService);
 const usersRouter = Router();
 usersRouter.get("/me/logs", 

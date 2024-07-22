@@ -1,4 +1,4 @@
-import { MESSAGES } from "../constants/MESSAGES";
+import { MESSAGES } from "../constants/MESSAGES.js";
 
 export class HttpError extends Error {
   constructor(

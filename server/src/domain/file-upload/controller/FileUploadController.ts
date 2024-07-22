@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import { MESSAGES } from "../../../constants/MESSAGES";
-import { errorResponse, successResponse } from "../../../utils/responses";
-import { DecodedPayload } from "../../auth/services/interfaces/IAuthService";
-import { IGymChallengeService } from "../../gym-challenges/service/interfaces/IGymChallengeService";
-import { IUserService } from "../../users/service/interfaces/IUserService";
-import { IFileUploadService } from "../services/interfaces/IFileUploadService";
+import { MESSAGES } from "../../../constants/MESSAGES.js";
+import { errorResponse, successResponse } from "../../../utils/responses.js";
+import { DecodedPayload } from "../../auth/services/interfaces/IAuthService.js";
+import { IGymChallengeService } from "../../gym-challenges/service/interfaces/IGymChallengeService.js";
+import { IUserService } from "../../users/service/interfaces/IUserService.js";
+import { IFileUploadService } from "../services/interfaces/IFileUploadService.js";
 
 export class FileUploadController {
   userService: IUserService;

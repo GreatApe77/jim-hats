@@ -1,13 +1,13 @@
-import prisma from "./db/prisma";
-import { AuthMiddleWare } from "./domain/auth/middleware/AuthMiddleware";
-import { AuthService } from "./domain/auth/services/implementations/AuthService";
-import { FileUploadService } from "./domain/file-upload/services/implementations/FileUploadService";
-import { GymChallengeMiddleware } from "./domain/gym-challenges/middleware/GymChallengeMiddleware";
-import { GymChallengeRepository } from "./domain/gym-challenges/repository/implementations/GymChallengeRepository";
-import { GymChallengeService } from "./domain/gym-challenges/service/implementations/GymChallengeService";
-import { UsersMiddleware } from "./domain/users/middleware/UsersMiddleware";
-import { UserRepository } from "./domain/users/repository/implementations/UserRepository";
-import { UserService } from "./domain/users/service/implementations/UserService";
+import prisma from "./db/prisma.js";
+import { AuthMiddleWare } from "./domain/auth/middleware/AuthMiddleware.js";
+import { AuthService } from "./domain/auth/services/implementations/AuthService.js";
+import { FileUploadService } from "./domain/file-upload/services/implementations/FileUploadService.js";
+import { GymChallengeMiddleware } from "./domain/gym-challenges/middleware/GymChallengeMiddleware.js";
+import { GymChallengeRepository } from "./domain/gym-challenges/repository/implementations/GymChallengeRepository.js";
+import { GymChallengeService } from "./domain/gym-challenges/service/implementations/GymChallengeService.js";
+import { UsersMiddleware } from "./domain/users/middleware/UsersMiddleware.js";
+import { UserRepository } from "./domain/users/repository/implementations/UserRepository.js";
+import { UserService } from "./domain/users/service/implementations/UserService.js";
 
 const userRepository = new UserRepository();
 const authService = new AuthService(userRepository);

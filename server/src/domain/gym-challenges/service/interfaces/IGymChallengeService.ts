@@ -1,11 +1,11 @@
-import { IExerciseLog } from "../../../exercise-logs/IExerciseLog";
-import { IUser } from "../../../users/IUser";
-import { PaginationParams } from "../../../users/repository/interfaces/IUserRepository";
-import { IGymChallenge } from "../../IGymChallenge";
+import { IExerciseLog } from "../../../exercise-logs/IExerciseLog.js";
+import { IUser } from "../../../users/IUser.js";
+import { PaginationParams } from "../../../users/repository/interfaces/IUserRepository.js";
+import { IGymChallenge } from "../../IGymChallenge.js";
 import {
   CreateGymChallengeParams,
   UpdateGymChallengeParams,
-} from "../../repository/interfaces/IGymChallengeRepository";
+} from "../../repository/interfaces/IGymChallengeRepository.js";
 export type CreateExerciseLogParams = Pick<IExerciseLog,"date"|"description"|"title"|"userId"|"image">
 export interface IGymChallengeService {
   save(params: CreateGymChallengeParams): Promise<IGymChallenge>;

@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { authMiddleware, authService } from "../../container";
-import { AuthController } from "./controller/AuthController";
+import { authMiddleware, authService } from "../../container.js";
+import { AuthController } from "./controller/AuthController.js";
 const authController = new AuthController(authService);
 const authRouter = Router();
 authRouter.post("/register", authMiddleware.validateRegister, (req, res) =>

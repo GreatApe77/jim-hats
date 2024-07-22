@@ -1,5 +1,5 @@
-import { PaginationParams } from "../../../users/repository/interfaces/IUserRepository";
-import { IGymChallenge } from "../../IGymChallenge";
+import { PaginationParams } from "../../../users/repository/interfaces/IUserRepository.js";
+import { IGymChallenge } from "../../IGymChallenge.js";
 export type CreateGymChallengeParams = Pick<
   IGymChallenge,
   "name" | "image" | "startAt" | "endAt" | "description"|"creatorId"

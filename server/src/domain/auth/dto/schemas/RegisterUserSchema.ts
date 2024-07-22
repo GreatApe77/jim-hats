@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { MESSAGES } from "../../../../constants/MESSAGES";
+import { MESSAGES } from "../../../../constants/MESSAGES.js";
 
 const RegisterUserSchema = z.object({
   email: z.string().email(),

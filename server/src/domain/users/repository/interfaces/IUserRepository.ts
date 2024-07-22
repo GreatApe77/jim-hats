@@ -1,4 +1,4 @@
-import { IUser } from "../../IUser";
+import { IUser } from "../../IUser.js";
 
 export type SaveUserParams = Pick<
   IUser,

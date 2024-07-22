@@ -1,14 +1,14 @@
 import { NextFunction, Request, Response } from "express";
-import { MESSAGES } from "../../../constants/MESSAGES";
-import { isInt } from "../../../utils/isInt";
-import { errorResponse } from "../../../utils/responses";
+import { MESSAGES } from "../../../constants/MESSAGES.js";
+import { isInt } from "../../../utils/isInt.js";
+import { errorResponse } from "../../../utils/responses.js";
 import {
   AddMemberToChallengeParamsSchema,
   AddMemberToChallengeSchema,
-} from "../dto/AddMemberToChallengeDto";
-import { CreateGymChallengeSchema } from "../dto/CreateGymChallengeDto";
-import { UpdateGymChallengeSchema } from "../dto/UpdateGymChallengeDto";
-import { AddExerciseLogParamsSchema, AddExerciseLogSchema } from "../dto/AddExerciseLogDto";
+} from "../dto/AddMemberToChallengeDto.js";
+import { CreateGymChallengeSchema } from "../dto/CreateGymChallengeDto.js";
+import { UpdateGymChallengeSchema } from "../dto/UpdateGymChallengeDto.js";
+import { AddExerciseLogParamsSchema, AddExerciseLogSchema } from "../dto/AddExerciseLogDto.js";
 
 export class GymChallengeMiddleware {
   validateSearchLogs(req: Request, res: Response, next: NextFunction) {

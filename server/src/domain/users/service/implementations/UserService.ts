@@ -1,14 +1,14 @@
 import { ExerciseLog, PrismaClient } from "@prisma/client";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
-import { MESSAGES } from "../../../../constants/MESSAGES";
-import { HttpError } from "../../../../errors/HttpError";
-import { IGymChallenge } from "../../../gym-challenges/IGymChallenge";
-import { IUser } from "../../IUser";
+import { MESSAGES } from "../../../../constants/MESSAGES.js";
+import { HttpError } from "../../../../errors/HttpError.js";
+import { IGymChallenge } from "../../../gym-challenges/IGymChallenge.js";
+import { IUser } from "../../IUser.js";
 import {
   IUserRepository,
   PaginationParams,
-} from "../../repository/interfaces/IUserRepository";
-import { IUserService } from "../interfaces/IUserService";
+} from "../../repository/interfaces/IUserRepository.js";
+import { IUserService } from "../interfaces/IUserService.js";
 
 export class UserService implements IUserService {
   private userRepository: IUserRepository;

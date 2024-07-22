@@ -1,15 +1,15 @@
 import { PrismaClient } from "@prisma/client";
-import { IExerciseLog } from "../../../exercise-logs/IExerciseLog";
-import { PaginationParams } from "../../../users/repository/interfaces/IUserRepository";
-import { IGymChallenge } from "../../IGymChallenge";
+import { IExerciseLog } from "../../../exercise-logs/IExerciseLog.js";
+import { PaginationParams } from "../../../users/repository/interfaces/IUserRepository.js";
+import { IGymChallenge } from "../../IGymChallenge.js";
 import {
   CreateGymChallengeParams,
   IGymChallengeRepository,
-} from "../../repository/interfaces/IGymChallengeRepository";
+} from "../../repository/interfaces/IGymChallengeRepository.js";
 import {
   CreateExerciseLogParams,
   IGymChallengeService,
-} from "../interfaces/IGymChallengeService";
+} from "../interfaces/IGymChallengeService.js";
 
 export class GymChallengeService implements IGymChallengeService {
   private gymChallengeRepo: IGymChallengeRepository;

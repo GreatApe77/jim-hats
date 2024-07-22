@@ -1,11 +1,11 @@
-import prisma from "../../../../db/prisma";
-import { IUser } from "../../IUser";
+import prisma from "../../../../db/prisma.js";
+import { IUser } from "../../IUser.js";
 import {
   IUserRepository,
   PaginationParams,
   SaveUserParams,
   UpdateUserParams,
-} from "../interfaces/IUserRepository";
+} from "../interfaces/IUserRepository.js";
 
 export class UserRepository implements IUserRepository {
   async save(user: SaveUserParams): Promise<void> {

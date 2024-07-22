@@ -6,8 +6,8 @@ import {
   fileUploadService,
   gymChallengeService,
   userService,
-} from "../../container";
-import { FileUploadController } from "./controller/FileUploadController";
+} from "../../container.js";
+import { FileUploadController } from "./controller/FileUploadController.js";
 
 const fileUploadRouter = Router();
 const fileUploadController = new FileUploadController(

@@ -1,8 +1,8 @@
 import { Response } from "express";
-import { environment } from "../config/environment";
-import { MESSAGES } from "../constants/MESSAGES";
-import { errorResponse } from "../utils/responses";
-import { HttpError } from "./HttpError";
+import { environment } from "../config/environment.js";
+import { MESSAGES } from "../constants/MESSAGES.js";
+import { errorResponse } from "../utils/responses.js";
+import { HttpError } from "./HttpError.js";
 
 export function handleErrors(error: unknown, res: Response) {
   if (error instanceof HttpError) {

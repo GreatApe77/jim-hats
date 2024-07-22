@@ -1,5 +1,5 @@
-import { app } from "./app";
-import { environment } from "./config/environment";
+import { app } from "./app.js";
+import { environment } from "./config/environment.js";
 import "./container";
 
 async function main() {

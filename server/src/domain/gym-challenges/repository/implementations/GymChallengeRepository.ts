@@ -1,10 +1,10 @@
-import prisma from "../../../../db/prisma";
-import { PaginationParams } from "../../../users/repository/interfaces/IUserRepository";
-import { IGymChallenge } from "../../IGymChallenge";
+import prisma from "../../../../db/prisma.js";
+import { PaginationParams } from "../../../users/repository/interfaces/IUserRepository.js";
+import { IGymChallenge } from "../../IGymChallenge.js";
 import {
   CreateGymChallengeParams,
   IGymChallengeRepository,
-} from "../interfaces/IGymChallengeRepository";
+} from "../interfaces/IGymChallengeRepository.js";
 
 export class GymChallengeRepository implements IGymChallengeRepository {
   async save(gymChallenge: CreateGymChallengeParams): Promise<IGymChallenge> {

@@ -1,8 +1,8 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors"
-import { router } from "./router";
-import { environment } from "./config/environment";
+import { router } from "./router.js";
+import { environment } from "./config/environment.js";
 
 const app = express();
 

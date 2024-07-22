@@ -5,13 +5,13 @@ import {
   gymChallengeMiddleware,
   gymChallengeService,
   userService,
-} from "../../container";
-import { GymChallengeController } from "./controller/GymChallengeController";
+} from "../../container.js";
+import { GymChallengeController } from "./controller/GymChallengeController.js";
 
 const gymChallengesController = new GymChallengeController(
   gymChallengeService,
   fileUploadService,
-  userService
+  userService,
 );
 
 const gymChallengesRouter = Router();
@@ -36,24 +36,24 @@ gymChallengesRouter.get(
   "/:challengeId/members",
   gymChallengeMiddleware.validateGetMembers.bind(gymChallengeMiddleware),
   (req, res) => gymChallengesController.getUsersOfChallenge(req, res),
-)
+);
 gymChallengesRouter.post(
   "/:challengeId/members",
   authMiddleware.onlyAuth.bind(authMiddleware),
   gymChallengeMiddleware.validateAddMember.bind(gymChallengeMiddleware),
   (req, res) => gymChallengesController.addMemberToChallenge(req, res),
-)
+);
 gymChallengesRouter.post(
   "/:challengeId/logs",
   authMiddleware.onlyAuth.bind(authMiddleware),
   gymChallengeMiddleware.validateAddLog.bind(gymChallengeMiddleware),
   (req, res) => gymChallengesController.addLogToChallenge(req, res),
-)
+);
 gymChallengesRouter.get(
   "/:challengeId/logs",
   authMiddleware.onlyAuth.bind(authMiddleware),
   gymChallengeMiddleware.validateSearchLogs.bind(gymChallengeMiddleware),
   (req, res) => gymChallengesController.getLogsGroupedByUser(req, res),
-)
+);
 
 export { gymChallengesRouter };

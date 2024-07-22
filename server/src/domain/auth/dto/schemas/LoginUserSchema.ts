@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { MESSAGES } from "../../../../constants/MESSAGES";
+import { MESSAGES } from "../../../../constants/MESSAGES.js";
 
 const LoginUserSchema = z.object({
   password: z.string().min(6).max(20),

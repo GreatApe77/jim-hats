@@ -1,10 +1,10 @@
 import { ExerciseLog } from "@prisma/client";
-import { IGymChallenge } from "../../../gym-challenges/IGymChallenge";
-import { IUser } from "../../IUser";
+import { IGymChallenge } from "../../../gym-challenges/IGymChallenge.js";
+import { IUser } from "../../IUser.js";
 import {
   PaginationParams,
   UpdateUserParams,
-} from "../../repository/interfaces/IUserRepository";
+} from "../../repository/interfaces/IUserRepository.js";
 
 export interface IUserService {
   search(prop: string): Promise<IUser | null>;

@@ -1,13 +1,13 @@
 import { parse } from "date-fns";
 import { Request, Response } from "express";
-import { MESSAGES } from "../../../constants/MESSAGES";
-import { errorResponse, successResponse } from "../../../utils/responses";
-import { IFileUploadService } from "../../file-upload/services/interfaces/IFileUploadService";
-import { IUserService } from "../../users/service/interfaces/IUserService";
-import { AddExerciseLogDto } from "../dto/AddExerciseLogDto";
-import { CreateGymChallengeDto } from "../dto/CreateGymChallengeDto";
-import { UpdateGymChallengeDto } from "../dto/UpdateGymChallengeDto";
-import { IGymChallengeService } from "../service/interfaces/IGymChallengeService";
+import { MESSAGES } from "../../../constants/MESSAGES.js";
+import { errorResponse, successResponse } from "../../../utils/responses.js";
+import { IFileUploadService } from "../../file-upload/services/interfaces/IFileUploadService.js";
+import { IUserService } from "../../users/service/interfaces/IUserService.js";
+import { AddExerciseLogDto } from "../dto/AddExerciseLogDto.js";
+import { CreateGymChallengeDto } from "../dto/CreateGymChallengeDto.js";
+import { UpdateGymChallengeDto } from "../dto/UpdateGymChallengeDto.js";
+import { IGymChallengeService } from "../service/interfaces/IGymChallengeService.js";
 
 export class GymChallengeController {
   private gymChallengeService: IGymChallengeService;

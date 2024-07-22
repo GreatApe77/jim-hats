@@ -1,5 +1,5 @@
-import { ErrorResponseFormat } from "../types/ErrorResponseFormat";
-import { SuccessResponseFormat } from "../types/SuccessResponseFormat";
+import { ErrorResponseFormat } from "../types/ErrorResponseFormat.js";
+import { SuccessResponseFormat } from "../types/SuccessResponseFormat.js";
 
 export function successResponse<T>(
   message: string,

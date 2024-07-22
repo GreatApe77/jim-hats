@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import { MESSAGES } from "../../../constants/MESSAGES";
-import { handleErrors } from "../../../errors/handleErrors";
-import { successResponse } from "../../../utils/responses";
-import { LoginUserDTO } from "../dto/LoginUserDTO";
-import { RegisterUserDTO } from "../dto/RegiterUserDTO";
-import { IAuthService } from "../services/interfaces/IAuthService";
+import { MESSAGES } from "../../../constants/MESSAGES.js";
+import { handleErrors } from "../../../errors/handleErrors.js";
+import { successResponse } from "../../../utils/responses.js";
+import { LoginUserDTO } from "../dto/LoginUserDTO.js";
+import { RegisterUserDTO } from "../dto/RegiterUserDTO.js";
+import { IAuthService } from "../services/interfaces/IAuthService.js";
 
 export class AuthController {
   authService: IAuthService;

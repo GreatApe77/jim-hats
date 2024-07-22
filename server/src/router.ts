@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { authRouter } from "./domain/auth/router";
-import { fileUploadRouter } from "./domain/file-upload/router";
-import { gymChallengesRouter } from "./domain/gym-challenges/router";
-import { usersRouter } from "./domain/users/router";
+import { authRouter } from "./domain/auth/router.js";
+import { fileUploadRouter } from "./domain/file-upload/router.js";
+import { gymChallengesRouter } from "./domain/gym-challenges/router.js";
+import { usersRouter } from "./domain/users/router.js";
 
 const router = Router();
 
