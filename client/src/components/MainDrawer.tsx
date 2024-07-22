@@ -18,6 +18,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { Avatar, Icon, IconButton } from "@mui/material";
 import CreateChallengeModal from "./CreateChallengeModal";
+import { usePathname, useRouter } from "next/navigation";
 type Props = {
   user?: {
     username: string;
@@ -27,6 +28,7 @@ type Props = {
   challenges?: {
     image: string | null;
     name: string;
+    id: string;
   }[];
 };
 export default function MainDrawer({
@@ -38,15 +40,19 @@ export default function MainDrawer({
     {
       image: "https://www.google.com",
       name: "Challenge 1",
+      id: "1",
     },
     {
       image: "https://www.google.com",
       name: "Challenge 2",
+      id: "2",
     },
   ],
 }: Props) {
   const [open, setOpen] = useState(false);
+  const router = useRouter()
   const modalContext = useContext(CreateChallengeModalContext);
+  const pathName = usePathname()
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
@@ -58,22 +64,29 @@ export default function MainDrawer({
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
       <List>
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton selected={pathName==="/application/checkins"}
+          onClick={()=>{
+            router.push("/application/checkins")
+          }}>
             <ListItemIcon>
               <Avatar
                 alt={user.username}
                 src={user.profilePicture || undefined}
               />
             </ListItemIcon>
-            <ListItemText primary={user.username} />
+            <ListItemText  primary={user.username} />
           </ListItemButton>
         </ListItem>
       </List>
       <Divider />
       <List>
         {challenges.map((challenge, index) => (
-          <ListItem key={challenge.name} disablePadding>
-            <ListItemButton>
+          <ListItem key={challenge.name} disablePadding >
+            <ListItemButton selected={pathName===`/application/challenges/${challenge.id}`} 
+            onClick={()=>{
+              router.push(`/application/challenges/${challenge.id}`)
+            }}
+            >
               <ListItemIcon>
                 <Avatar
                   sx={{ height: 36, width: 36 }}

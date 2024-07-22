@@ -1,4 +1,5 @@
 "use client";
+import MainDrawer from "@/components/MainDrawer";
 import { CreateChallengeModalProvider } from "@/contexts/CreateChallengeModalContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -11,7 +12,9 @@ export default function ApplicationLayout({
   return (
     <>
       <QueryClientProvider client={client}>
-        <CreateChallengeModalProvider>{children}</CreateChallengeModalProvider>
+        <CreateChallengeModalProvider>
+         {children}
+        </CreateChallengeModalProvider>
       </QueryClientProvider>
     </>
   );

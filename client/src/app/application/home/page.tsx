@@ -1,27 +1,26 @@
 "use client";
 import MainDrawer from "@/components/MainDrawer";
-import { getUserGymChallenges } from "@/services/get-user-gym-challenges";
-import { getMe } from "@/services/getMe";
-import { useQuery } from "@tanstack/react-query";
+import { useChallengesOfUser } from "@/hooks/useChallengesOfUser";
+import { useLoggedUser } from "@/hooks/useLoggedUser";
 
 export default function MainAppPage() {
-  const { data: gymChallengesResponse } = useQuery({
-    queryKey: ["getUserGymChallenges"],
-    queryFn: () =>
-      getUserGymChallenges(localStorage.getItem("token") as string),
-  });
+  const { data: gymChallengesResponse } = useChallengesOfUser();
   //const user = useLoggedUser()
-  const { data: response } = useQuery({
-    queryKey: ["getMe"],
-    queryFn: () => getMe(localStorage.getItem("token") as string),
-    enabled: !!localStorage.getItem("token"),
-  });
+  const { data: response } = useLoggedUser();
   const user = response?.response.data;
   const challenges = gymChallengesResponse?.response.data;
 
   return (
     <>
-      <MainDrawer user={user} challenges={challenges} />
+      <MainDrawer
+        user={user}
+        challenges={challenges?.map((challenge) => {
+          return {
+            ...challenge,
+            id: challenge.id.toString(),
+          };
+        })}
+      />
       <div>
         <h1>Home</h1>
         <p>Welcome to the home page</p>
