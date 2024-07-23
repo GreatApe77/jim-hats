@@ -54,12 +54,18 @@ export type ExerciseLog = {
   id: number;
   title: string;
   description: string | null;
-  image: string | null;
+  image: string;
   date: string;
   userId: number;
   gymChallengeId: number;
 };
+export type ExerciseLogWithUser = ExerciseLog & {
+  user:{
+    username: string;
+    profilePicture: string | null;
 
+  }
+}
 
 export type Ranking ={
   id: number;

@@ -37,13 +37,17 @@ export default function ChallengeBanner({
         />
         <CardContent
           sx={{
-            padding: 0,
+            paddingX: 0,
+            paddingTop: 0,
+            paddingBottom: 0,
+            alignItems: "center",
           }}
         >
-          <Stack direction="row" justifyContent={"center"} spacing={0}>
+          <Stack direction="row" justifyContent={"space-around"} spacing={0}>
             <CardHeader
               sx={{
                 paddingX: 1,
+                
               }}
               avatar={
                 <Avatar
