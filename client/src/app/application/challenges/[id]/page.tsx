@@ -5,9 +5,24 @@ import { useChallenge } from "@/hooks/useChallenge";
 import { useLoggedUser } from "@/hooks/useLoggedUser";
 import { useLogsOfChallenge } from "@/hooks/useLogsOfChallenge";
 import { useRanking } from "@/hooks/useRanking";
-import { Container, Typography } from "@mui/material";
+import { ExerciseLogWithUser } from "@/types";
+import { Container, Stack, Typography } from "@mui/material";
+import dayjs from "dayjs";
 import { useParams, /*useRouter */} from "next/navigation";
 
+function groupLogsByDate (logs:ExerciseLogWithUser[])  {
+  return logs.reduce((groups, log) => {
+    const date = log.date.split('T')[0]; 
+    //@ts-ignore
+    if (!groups[date]) {
+      //@ts-ignore
+      groups[date] = [];
+    }
+    //@ts-ignore
+    groups[date].push(log);
+    return groups;
+  }, {});
+};
 export default function ChallengePage() {
   const params = useParams();
   //const router = useRouter();
@@ -24,6 +39,9 @@ export default function ChallengePage() {
   //  router.push("/");
   //  return null;
   //}
+  const groupedLogs = groupLogsByDate(logsOfChallenge || []);
+  const today = dayjs().format("YYYY-MM-DD");
+  const yesterday = dayjs().subtract(1, "day").format("YYYY-MM-DD");
   return (
     <>
       <Container maxWidth="sm">
@@ -42,30 +60,34 @@ export default function ChallengePage() {
         />
         <br />
         
-        <LogCard
-          logDate={new Date().toISOString()}
-          logImage="https://www.google.com"
-          logTitle="My log"
-          username="Jim"
-          usernameProfilePic={user?.profilePicture}
-        />
-        <h1>
-          logs
-        </h1>
-        {
-          logsOfChallenge?.map((log) => {
-            return (
-              <LogCard
-                key={log.id}
-                logDate={log.date}
-                logImage={log.image}
-                logTitle={log.title}
-                username={log.user.username}
-                usernameProfilePic={log.user.profilePicture}
-              />
-            );
-          })
-        }
+        
+        
+
+{Object.keys(groupedLogs).map((date) => (
+        <>
+          <Typography variant="h6" color={"GrayText"} marginTop={1} textAlign={"center"} gutterBottom>{
+            dayjs(date).isSame(today)
+            ? "Today"
+            : dayjs(date).isSame(yesterday)
+            ? "Yesterday"
+            :
+          dayjs(date).format("DD/MM/YYYY")
+          }</Typography>
+          <Stack spacing={2}>
+          {/*@ts-ignore*/}
+          {groupedLogs[date].map((log) => (
+            <LogCard
+            key={log.id}
+            logDate={log.date}
+            logImage={log.image}
+            logTitle={log.title}
+            username={log.user.username}
+            usernameProfilePic={log.user.profilePicture}
+            />
+          ))}
+          </Stack>
+        </>
+      ))}
       </Container>
     </>
   );
