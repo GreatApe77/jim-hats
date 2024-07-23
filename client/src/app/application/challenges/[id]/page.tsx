@@ -1,5 +1,6 @@
 "use client";
 import ChallengeBanner from "@/components/ChallengeBanner";
+import LogCard from "@/components/LogCard";
 import { useChallenge } from "@/hooks/useChallenge";
 import { useLoggedUser } from "@/hooks/useLoggedUser";
 import { useRanking } from "@/hooks/useRanking";
@@ -33,6 +34,15 @@ export default function ChallengePage() {
           profilePicture: ranking?.[0]?.profilePicture || "",
         }}
 
+      />
+      <br />
+      <LogCard
+        logDate={new Date().toISOString()}
+        logImage="https://www.google.com"
+        logTitle="My log"
+        username="Jim"
+        usernameProfilePic={user?.profilePicture}
+      
       />
     </Container>
     </>
