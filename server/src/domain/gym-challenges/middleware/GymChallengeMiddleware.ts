@@ -14,6 +14,13 @@ import { CreateGymChallengeSchema } from "../dto/CreateGymChallengeDto.js";
 import { UpdateGymChallengeSchema } from "../dto/UpdateGymChallengeDto.js";
 
 export class GymChallengeMiddleware {
+  validateSearchRanking(req: Request, res: Response, next: NextFunction) {
+    const challengeId = req.params.challengeId;
+    if (!isInt(challengeId)) {
+      return res.status(400).json(errorResponse(MESSAGES.BAD_REQUEST));
+    }
+    next();
+  }
   validateSearchLogs(req: Request, res: Response, next: NextFunction) {
     const challengeId = req.params.challengeId;
     if (!isInt(challengeId)) {

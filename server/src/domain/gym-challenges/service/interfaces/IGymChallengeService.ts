@@ -31,4 +31,12 @@ export interface IGymChallengeService {
     take?: number,
     offset?: number,
   ): Promise<unknown>;
+  getRankingOfChallenge(challengeId: number): Promise<
+    {
+      id: number;
+      username: string;
+      profilePicture: string | null;
+      logCount: number;
+    }[]
+  >;
 }

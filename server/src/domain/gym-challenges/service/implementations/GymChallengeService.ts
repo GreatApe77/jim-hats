@@ -129,4 +129,44 @@ export class GymChallengeService implements IGymChallengeService {
     });
     return result?.logs ?? [];
   }
+
+  
+  async  getRankingOfChallenge(challengeId:number) {
+    const result = await this.prismaClient.user.findMany({
+      where: {
+        gymChallenges: {
+          some: {
+            id: challengeId
+          }
+        }
+      },
+      select: {
+        id: true,
+        username: true,
+        profilePicture: true,
+        _count: {
+          select: {
+            ExerciseLog: {
+              where: {
+                gymChallengeId: challengeId
+              }
+            }
+          }
+        }
+      },
+      orderBy: {
+        ExerciseLog: {
+          _count: 'asc'
+        }
+      }
+    });
+  
+    return result.map(user => ({
+      id: user.id,
+      username: user.username,
+      profilePicture: user.profilePicture,
+      logCount: user._count.ExerciseLog
+    }));
+  }
+  
 }

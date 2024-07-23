@@ -22,7 +22,21 @@ export class GymChallengeController {
     this.fileUploadService = fileUploadService;
     this.usersService = usersService;
   }
-
+  
+  async handleGetRankingOfChallenge(req: Request, res: Response) {
+    try {
+      const challengeId = parseInt(req.params.challengeId);
+      const ranking = await this.gymChallengeService.getRankingOfChallenge(
+        challengeId,
+      );
+      return res.status(200).json(successResponse(MESSAGES.SUCCESS, ranking));
+    } catch (error) {
+      console.log(error);
+      return res
+        .status(500)
+        .json(errorResponse(MESSAGES.INTERNAL_SERVER_ERROR));
+    }
+  }
   async save(req: Request, res: Response) {
     try {
       const data = req.body as CreateGymChallengeDto;

@@ -55,5 +55,12 @@ gymChallengesRouter.get(
   gymChallengeMiddleware.validateSearchLogs.bind(gymChallengeMiddleware),
   (req, res) => gymChallengesController.getLogsGroupedByUser(req, res),
 );
+gymChallengesRouter.get(
+  "/:challengeId/ranking",
+  authMiddleware.onlyAuth.bind(authMiddleware),
+  gymChallengeMiddleware.validateSearchRanking.bind(gymChallengeMiddleware),
+  (req, res) => gymChallengesController.handleGetRankingOfChallenge(req, res),
+);
+
 
 export { gymChallengesRouter };
