@@ -83,7 +83,7 @@ export class GymChallengeService implements IGymChallengeService {
         id: challengeId,
       },
     });
-    console.log(result);
+    //console.log(result);
     return result?.members.length ? result.members : [];
   }
   async addMemberToChallenge(challengeId: number, memberId: number) {
@@ -166,7 +166,7 @@ export class GymChallengeService implements IGymChallengeService {
       username: user.username,
       profilePicture: user.profilePicture,
       logCount: user._count.ExerciseLog
-    }));
+    })).sort((a, b) => b.logCount - a.logCount);
   }
   
 }
