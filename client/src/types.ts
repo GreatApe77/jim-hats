@@ -59,3 +59,11 @@ export type ExerciseLog = {
   userId: number;
   gymChallengeId: number;
 };
+
+
+export type Ranking ={
+  id: number;
+  username: string;
+  profilePicture: string | null;
+  logCount: number;
+};

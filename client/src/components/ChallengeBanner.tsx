@@ -15,15 +15,15 @@ export default function ChallengeBanner({
   you,
   leader,
 }: {
-  challengeImage: string;
+  challengeImage?: string| null;
   endDate: string;
   you: {
     count: number;
-    profilePicture: string;
+    profilePicture?: string | null ;
   };
   leader: {
     count: number;
-    profilePicture: string;
+    profilePicture?: string | null;
   };
 }) {
   return (
@@ -47,7 +47,7 @@ export default function ChallengeBanner({
               }}
               avatar={
                 <Avatar
-                  src={leader.profilePicture}
+                  src={leader.profilePicture || ""}
                   alt="Leader"
                 
                     sx={{
@@ -56,7 +56,7 @@ export default function ChallengeBanner({
                     }}
                 />
               }
-              title={you.count}
+              title={leader.count}
               subheader={<Typography variant="caption">
                Leader
               </Typography>}
@@ -72,7 +72,7 @@ export default function ChallengeBanner({
                     width: 36,
                     height: 36,
                 }}
-                  src={you.profilePicture}
+                  src={you.profilePicture || ""}
                   alt="You"
                 />
               }
