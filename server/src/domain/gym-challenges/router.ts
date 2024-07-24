@@ -32,6 +32,12 @@ gymChallengesRouter.get(
   gymChallengeMiddleware.validateGetById.bind(gymChallengeMiddleware),
   (req, res) => gymChallengesController.getById(req, res),
 );
+gymChallengesRouter.delete(
+  "/:id",
+  authMiddleware.onlyAuth.bind(authMiddleware),
+  gymChallengeMiddleware.validateDelete.bind(gymChallengeMiddleware),
+  (req, res) => gymChallengesController.handleChallengeDelete(req, res),
+)
 gymChallengesRouter.get(
   "/:challengeId/members",
   gymChallengeMiddleware.validateGetMembers.bind(gymChallengeMiddleware),

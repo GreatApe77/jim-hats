@@ -22,7 +22,25 @@ export class GymChallengeController {
     this.fileUploadService = fileUploadService;
     this.usersService = usersService;
   }
-  
+  async handleChallengeDelete(req: Request, res: Response) {
+    try {
+      const id = parseInt(req.params.id);
+      const authUserId = res.locals.authUser.id as number;
+      const challenge = await this.gymChallengeService.getById(id);
+      if (!challenge) {
+        return res.status(404).json(errorResponse(MESSAGES.NOT_FOUND));
+      }
+      if (challenge.creatorId !== authUserId) {
+        return res.status(403).json(errorResponse(MESSAGES.UNAUTHORIZED));
+      }
+      await this.gymChallengeService.delete(id);
+      return res.status(200).json(successResponse(MESSAGES.DELETED));
+    } catch (error) {
+      return res
+        .status(500)
+        .json(errorResponse(MESSAGES.INTERNAL_SERVER_ERROR));
+    }
+  }
   async handleGetRankingOfChallenge(req: Request, res: Response) {
     try {
       const challengeId = parseInt(req.params.challengeId);

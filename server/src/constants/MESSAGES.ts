@@ -22,4 +22,5 @@ export const MESSAGES = {
   SUCCESS: "Success",
   NOT_FOUND: "Not found",
   FORBIDDEN: "Forbidden",
+  DELETED: "Deleted",
 };
