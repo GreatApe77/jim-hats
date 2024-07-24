@@ -36,6 +36,7 @@ export class GymChallengeController {
       await this.gymChallengeService.delete(id);
       return res.status(200).json(successResponse(MESSAGES.DELETED));
     } catch (error) {
+      console.log(error);
       return res
         .status(500)
         .json(errorResponse(MESSAGES.INTERNAL_SERVER_ERROR));
