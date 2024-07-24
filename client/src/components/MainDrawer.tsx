@@ -20,6 +20,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import { Avatar, Icon, IconButton } from "@mui/material";
 import CreateChallengeModal from "./CreateChallengeModal";
 import { usePathname, useRouter } from "next/navigation";
+import LogoutIcon from '@mui/icons-material/Logout';
 type Props = {
   user?: {
     username: string;
@@ -151,6 +152,24 @@ export default function MainDrawer({
               <InfoIcon />
             </ListItemIcon>
             <ListItemText primary="About" />
+          </ListItemButton>
+        </ListItem>
+        <Divider />
+        <ListItem disablePadding color="error">
+          <ListItemButton onClick={()=>{
+            if(typeof window !== "undefined"){
+              localStorage.removeItem("token")
+              router.push("/")
+            }
+          }} >
+            <ListItemIcon>
+              <LogoutIcon sx={{
+                color:"crimson"
+              }} />
+            </ListItemIcon>
+            <ListItemText sx={{
+              color:"crimson"
+            }} primary="Log out" />
           </ListItemButton>
         </ListItem>
       </List>

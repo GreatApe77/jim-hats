@@ -15,6 +15,7 @@ import { useState } from "react";
 
 export default function LoginPage() {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const [loginData, setLoginData] = useState<LoginFormData>({
     username: "",
     password: "",
@@ -28,7 +29,8 @@ export default function LoginPage() {
   }
   function handleLoginSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log(loginData);
+    //console.log(loginData);
+    setLoading(true);
     login(loginData.username, loginData.password)
       .then((serviceResponse) => {
         if (serviceResponse.status === 200) {
@@ -42,6 +44,9 @@ export default function LoginPage() {
       })
       .catch((error) => {
         alert("An error occurred while logging in");
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }
   return (
@@ -75,8 +80,9 @@ export default function LoginPage() {
             />
           </Stack>
           <Stack spacing={2} sx={{ marginTop: "1rem" }}>
-            <Button type="submit" variant="contained" size="large" fullWidth>
-              Login
+            <Button type="submit" variant="contained" size="large" fullWidth disabled={loading}>
+              
+              {loading ? "Logging in..." : "Login"}
             </Button>
             <Button variant="outlined" color="inherit" fullWidth>
               Forgot Password
