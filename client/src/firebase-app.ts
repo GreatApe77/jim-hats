@@ -19,3 +19,4 @@ export const firebaseApp = initializeApp(firebaseConfig);
 export const storage = getStorage(firebaseApp);
 export const profilePicturesRef = ref(storage, "profile-pictures");
 export const gymChallengesImagesRef = ref(storage, "gym-challenges");
+export const exerciseLogsImagesRef = ref(storage, "exercise-logs");
