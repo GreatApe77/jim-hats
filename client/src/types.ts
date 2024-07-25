@@ -42,6 +42,8 @@ export type LoggedUser = {
   email: string;
   profilePicture: string | null;
 };
+export type ChallengeMember = Omit<LoggedUser, "email"> 
+
 export type CreateChallengeFormData = {
   name: string;
   description: string | null;

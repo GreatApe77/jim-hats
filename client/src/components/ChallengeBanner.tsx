@@ -14,6 +14,7 @@ export default function ChallengeBanner({
   endDate,
   you,
   leader,
+  onClick,
 }: {
   challengeImage?: string| null;
   endDate: string;
@@ -25,10 +26,13 @@ export default function ChallengeBanner({
     count: number;
     profilePicture?: string | null;
   };
+  onClick?: () => void;
 }) {
   return (
     <>
-      <Card>
+      <Card component={"div"} onClick={
+        onClick
+      } >
         <CardMedia
           component="img"
           height="194"
@@ -36,6 +40,7 @@ export default function ChallengeBanner({
           alt="Challenge Image"
         />
         <CardContent
+        
           sx={{
             paddingX: 0,
             paddingTop: 0,

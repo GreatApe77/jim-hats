@@ -65,6 +65,9 @@ export default function ChallengePage() {
               count: ranking?.[0]?.logCount || 0,
               profilePicture: ranking?.[0]?.profilePicture || "",
             }}
+            onClick={
+              () => router.push(`/application/leaderboards/${challengeId}`)
+            }
           />
         ) : (
           <Skeleton variant="rectangular" height={200} />
