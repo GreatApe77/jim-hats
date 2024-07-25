@@ -11,6 +11,10 @@ import dayjs from "dayjs";
 import AddIcon from "@mui/icons-material/Add";
 import { useParams, useRouter } from "next/navigation";
 import { VisuallyHiddenInput } from "@/components/VisuallyHiddenInput";
+import LogExerciseModal from "@/components/LogExerciseModal";
+import { useContext } from "react";
+import { ExercisePictureContext } from "@/contexts/ExercisePictureContext";
+import { ExerciseModalContext } from "@/contexts/ExerciseModalContext";
 
 function groupLogsByDate(logs: ExerciseLogWithUser[]) {
   return logs.reduce((groups, log) => {
@@ -28,6 +32,8 @@ function groupLogsByDate(logs: ExerciseLogWithUser[]) {
 export default function ChallengePage() {
   const params = useParams();
   const router = useRouter();
+  const exercisePicContext = useContext(ExercisePictureContext)
+  const exerciseModalContext = useContext(ExerciseModalContext)
   const challengeId = params.id as string;
   const { data: loggedUserResponse } = useLoggedUser();
   const { data: rankingResponse } = useRanking(challengeId);
@@ -37,6 +43,7 @@ export default function ChallengePage() {
     isError,
     isLoading,
   } = useLogsOfChallenge(challengeId);
+
   if (!isLoading && logsResult?.status !== 200) {
     return router.push("/");
   }
@@ -113,10 +120,17 @@ export default function ChallengePage() {
       color="primary">
         <VisuallyHiddenInput type="file" 
           accept="image/*"
-          
+          onChange={(event) => {
+            const file = event.target.files?.[0];
+            if (file) {
+              exercisePicContext?.setExercisePictureFile(file)
+              exerciseModalContext?.setOpen(true)
+            }
+          }}
         />
         <AddIcon />
       </Fab>
+      <LogExerciseModal/>
     </>
   );
 }

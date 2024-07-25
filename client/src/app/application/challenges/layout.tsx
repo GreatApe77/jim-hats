@@ -1,5 +1,6 @@
 "use client";
 import MainDrawer from "@/components/MainDrawer";
+import { ExerciseModalProvider } from "@/contexts/ExerciseModalContext";
 import { ExercisePictureProvider } from "@/contexts/ExercisePictureContext";
 import { useChallengesOfUser } from "@/hooks/useChallengesOfUser";
 import { useLoggedUser } from "@/hooks/useLoggedUser";
@@ -21,8 +22,10 @@ export default function ChallengesLayout({
   return (
     <>
       <ExercisePictureProvider>
-        <MainDrawer user={user} challenges={challenges} />
-        {children}
+        <ExerciseModalProvider>
+          <MainDrawer user={user} challenges={challenges} />
+          {children}
+        </ExerciseModalProvider>
       </ExercisePictureProvider>
     </>
   );
