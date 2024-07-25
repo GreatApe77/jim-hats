@@ -4,11 +4,12 @@ import { useChallenge } from "@/hooks/useChallenge";
 import { useLoggedUser } from "@/hooks/useLoggedUser";
 import { useMembersOfChallenge } from "@/hooks/useMembersOfChallenge";
 import { useRanking } from "@/hooks/useRanking";
+import MonitorHeartSharpIcon from "@mui/icons-material/MonitorHeartSharp";
 import { Avatar, Box, Container, Stack, Typography } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
+import CalendarMonthSharpIcon from '@mui/icons-material/CalendarMonthSharp';
 import dayjs from "dayjs";
 import { useParams } from "next/navigation";
-
 export default function LeaderboardsOfChallengePage() {
   const params = useParams();
   const challengeId = params.id as string;
@@ -29,6 +30,10 @@ export default function LeaderboardsOfChallengePage() {
       : 0;
   const progress = (daysPassed / total) * 100;
   const challengeIsOver = dayjs().isAfter(dayjs(challenge?.endAt));
+  const totalCheckIns =ranking?.reduce((accumulator, current) => {
+    return accumulator + current.logCount;
+  }, 0)
+  const averagePerDay = totalCheckIns? totalCheckIns / daysPassed : 0;
   return (
     <>
       <BackButton to={`/application/challenges/${challengeId}`} />
@@ -36,9 +41,7 @@ export default function LeaderboardsOfChallengePage() {
         <Typography variant="h6" gutterBottom>
           {challenge?.name}
         </Typography>
-        <Typography  gutterBottom>
-            {challenge?.description}
-        </Typography>
+        <Typography gutterBottom>{challenge?.description}</Typography>
         <LinearProgress
           variant="determinate"
           value={challengeIsOver ? 100 : progress}
@@ -52,44 +55,76 @@ export default function LeaderboardsOfChallengePage() {
           </Typography>
         </Stack>
         <br />
-        <Typography  gutterBottom>
-            {members?.length} members
-        </Typography>
-        <Stack spacing={1} direction={"row"} sx={{
+        <Typography gutterBottom>{members?.length} members</Typography>
+        <Stack
+          spacing={1}
+          direction={"row"}
+          sx={{
             overflowX: "auto",
-        }}>
-            {members?.map((member)=>{
-                return <>
-                <Avatar src={member.profilePicture || ""} alt={member.username} />
-                </>
-            })}
-            
+          }}
+        >
+          {members?.map((member) => {
+            return (
+              <>
+                <Avatar
+                  src={member.profilePicture || ""}
+                  alt={member.username}
+                />
+              </>
+            );
+          })}
         </Stack>
         <br />
-        <Typography  gutterBottom>
-            Rankings
-        </Typography>
-        <Stack spacing={1} >
-            {ranking?.map((rank)=>{
-                return <>
-                    <Stack direction={"row"} justifyContent={"space-between"}>
-                        <Stack direction={"row"} spacing={2}>
-                            <Avatar src={rank.profilePicture || ""} alt={rank.username} />
-                            <Box>
-                                <Typography >
-                                    {rank.username}
-                                </Typography>
-                                <Typography variant="body2">
-                                    {rank.logCount} check-ins
-                                </Typography>
-                            </Box>
-                        </Stack>
-                        <Typography variant="body2">
-                            
-                        </Typography>
-                    </Stack>
-                </>
-            })}
+        <Typography gutterBottom>Rankings</Typography>
+        <Stack spacing={1}>
+          {ranking?.map((rank) => {
+            return (
+              <>
+                <Stack direction={"row"} justifyContent={"space-between"}>
+                  <Stack direction={"row"} spacing={2}>
+                    <Avatar
+                      src={rank.profilePicture || ""}
+                      alt={rank.username}
+                    />
+                    <Box>
+                      <Typography>{rank.username}</Typography>
+                      <Typography variant="body2">
+                        {rank.logCount} check-ins
+                      </Typography>
+                    </Box>
+                  </Stack>
+                  <Typography variant="h6">Xst</Typography>
+                </Stack>
+              </>
+            );
+          })}
+        </Stack>
+        <br />
+        <Typography gutterBottom>Group stats</Typography>
+        <Stack spacing={1}>
+          <Stack direction={"row"} spacing={2}>
+            <Avatar alt={"rank"}>
+              <MonitorHeartSharpIcon />
+            </Avatar>
+            <Box>
+              <Typography>
+                {totalCheckIns}
+              </Typography>
+              <Typography variant="body2">Total check-ins</Typography>
+            </Box>
+          </Stack>
+
+          <Stack direction={"row"} spacing={2}>
+            <Avatar alt={"calendar"}>
+              <CalendarMonthSharpIcon />
+            </Avatar>
+            <Box>
+              <Typography>
+                {averagePerDay}
+              </Typography>
+              <Typography variant="body2">Average workouts per day</Typography>
+            </Box>
+          </Stack>
         </Stack>
       </Container>
     </>
