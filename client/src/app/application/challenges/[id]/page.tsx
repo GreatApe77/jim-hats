@@ -6,9 +6,11 @@ import { useLoggedUser } from "@/hooks/useLoggedUser";
 import { useLogsOfChallenge } from "@/hooks/useLogsOfChallenge";
 import { useRanking } from "@/hooks/useRanking";
 import { ExerciseLogWithUser } from "@/types";
-import { Container, Skeleton, Stack, Typography } from "@mui/material";
+import { Container, Fab, Skeleton, Stack, Typography } from "@mui/material";
 import dayjs from "dayjs";
+import AddIcon from "@mui/icons-material/Add";
 import { useParams, useRouter } from "next/navigation";
+import { VisuallyHiddenInput } from "@/components/VisuallyHiddenInput";
 
 function groupLogsByDate(logs: ExerciseLogWithUser[]) {
   return logs.reduce((groups, log) => {
@@ -106,6 +108,15 @@ export default function ChallengePage() {
           </>
         ))}
       </Container>
+      <Fab 
+        component="label"
+      color="primary">
+        <VisuallyHiddenInput type="file" 
+          accept="image/*"
+          
+        />
+        <AddIcon />
+      </Fab>
     </>
   );
 }
