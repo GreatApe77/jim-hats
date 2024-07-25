@@ -191,7 +191,7 @@ export class GymChallengeController {
         },
       );
       return res
-        .status(200)
+        .status(201)
         .json(
           successResponse(MESSAGES.SUCCESS, { createdLogId: createdLog.id }),
         );

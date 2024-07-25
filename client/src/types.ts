@@ -61,6 +61,7 @@ export type ExerciseLog = {
   userId: number;
   gymChallengeId: number;
 };
+export type CreateExerciseLogFormData = Pick<ExerciseLog, "title" | "description" | "image">;
 export type ExerciseLogWithUser = ExerciseLog & {
   user:{
     username: string;
