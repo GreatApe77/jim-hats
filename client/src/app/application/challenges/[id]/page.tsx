@@ -61,7 +61,12 @@ export default function ChallengePage() {
   return (
     <>
       <Container maxWidth="sm">
-        <Typography variant="h6">{challenge?.name}</Typography>
+        {
+          challenge?.name?
+          
+          <Typography variant="h6">{challenge?.name}</Typography>
+          : <Skeleton variant="text" />
+        }
         {!isLoading && !isError && challenge && ranking && user ? (
           <ChallengeBanner
             challengeImage={challenge?.image}
