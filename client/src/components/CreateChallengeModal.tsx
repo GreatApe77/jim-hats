@@ -65,8 +65,10 @@ export default function CreateChallengeModal() {
                   createChallenge({ ...formData, image: url }, token)
                     .then((response) => {
                       if (response.status !== 201) {
-                        alert("Error creating challenge");
+                        return alert("Error creating challenge");
                       }
+                      alert(response.response.message);
+                      window.location.reload();
                     })
                     .catch((error) => {
                       alert(errorMsgIfFailed);
@@ -82,7 +84,11 @@ export default function CreateChallengeModal() {
               //console.log(formData);
               createChallenge(formData, token)
                 .then((response) => {
+                  if (response.status !== 201) {
+                    return alert("Error creating challenge");
+                  }
                   alert(response.response.message);
+                  window.location.reload();
                 })
                 .catch((error) => {
                   alert("An error occured");

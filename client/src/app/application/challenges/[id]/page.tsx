@@ -116,6 +116,16 @@ export default function ChallengePage() {
         ))}
       </Container>
       <Fab 
+      sx={
+        {
+          margin: 0,
+          top: 'auto',
+          right: 20,
+          bottom: 40,
+          left: 'auto',
+          position: 'fixed',
+      }
+      }
         component="label"
       color="primary">
         <VisuallyHiddenInput type="file" 
