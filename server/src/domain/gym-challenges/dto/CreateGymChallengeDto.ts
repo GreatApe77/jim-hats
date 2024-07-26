@@ -13,7 +13,7 @@ function dateInFutureOrPresent(value: string) {
 export const CreateGymChallengeSchema = z
   .object({
     name: z.string(),
-    description: z.string().nullable(),
+    description: z.string(),
     image: z.string().url().nullable(),
     startAt: z.string().refine(dateInFutureOrPresent),
     endAt: z.string().refine(dateInFutureOrPresent),

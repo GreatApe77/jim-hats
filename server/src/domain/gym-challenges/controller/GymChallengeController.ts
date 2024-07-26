@@ -147,7 +147,7 @@ export class GymChallengeController {
         challengeId,
         newMember.id,
       );
-      return res.status(200).json(successResponse(MESSAGES.SUCCESS));
+      return res.status(201).json(successResponse(MESSAGES.SUCCESS));
     } catch (error) {
       console.log(error);
       return res
