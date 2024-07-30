@@ -31,9 +31,20 @@ export default function LogCard({
                       width: 20,
                       height: 20,
                     }}
-                    alt={username}
+                    
                     src={usernameProfilePic || undefined}
-                  />
+                    
+                  >
+                    
+                    {username?.length?
+                      <>
+                        <Typography variant="body2">
+                          {username[0].toUpperCase()}
+                        </Typography>
+                      </>
+                    :""}
+                  </Avatar>
+
                   <Typography variant="body2">{username}</Typography>
                   
                 </Stack>

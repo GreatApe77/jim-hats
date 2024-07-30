@@ -1,11 +1,6 @@
 "use client";
-import { CreateChallengeModalContext } from "@/contexts/CreateChallengeModalContext";
-import { createChallenge } from "@/services/create-challenge";
-import { uploadGymChallengeBanner } from "@/services/upload-gym-challenge-banner";
-import { CreateChallengeFormData } from "@/types";
-import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
-import ImageIcon from "@mui/icons-material/Image";
-import {validate} from "uuid"
+import { JoinChallengeModalContext } from "@/contexts/JoinChallengeModalContext";
+import { joinChallenge } from "@/services/join-challenge";
 import {
   Dialog,
   DialogActions,
@@ -13,14 +8,11 @@ import {
   DialogTitle,
   Stack,
   TextField,
-  Typography,
 } from "@mui/material";
 import Button from "@mui/material/Button";
-import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
-import { VisuallyHiddenInput } from "./VisuallyHiddenInput";
-import { JoinChallengeModalContext } from "@/contexts/JoinChallengeModalContext";
+import { validate } from "uuid";
 export default function JoinChallengeModal() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -48,16 +40,28 @@ export default function JoinChallengeModal() {
             event.preventDefault();
             setLoading(true);
             const token = localStorage.getItem("token");
-            const errorMsgIfFailed =
-              "An error occured while joining challenge";
+            const errorMsgIfFailed = "An error occured while joining challenge";
             if (!token) {
-                return router.push("/login");
+              return router.push("/login");
             }
             if (!validChallengeId) {
               return;
             }
-             
-          }
+            joinChallenge(challengeIdInputValue, token)
+              .then((response) => {
+                if (response.success) {
+                  window.location.reload();
+                } else {
+                  alert(response.response.message);
+                }
+              })
+              .catch(() => {
+                alert(errorMsgIfFailed);
+              })
+              .finally(() => {
+                setLoading(false);
+              });
+          },
         }}
       >
         <DialogTitle>Join a Challenge!</DialogTitle>
@@ -77,16 +81,12 @@ export default function JoinChallengeModal() {
               onChange={handleFormChange}
               error={!validChallengeId && challengeIdInputValue.length > 0}
             />
-            
-           
-          
           </Stack>
         </DialogContent>
 
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
           <Button variant="contained" type="submit" disabled={loading}>
-            
             {loading ? "Joining..." : "Join"}
           </Button>
         </DialogActions>
