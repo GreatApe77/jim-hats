@@ -4,16 +4,18 @@ import { useChallenge } from "@/hooks/useChallenge";
 import { useLoggedUser } from "@/hooks/useLoggedUser";
 import { useMembersOfChallenge } from "@/hooks/useMembersOfChallenge";
 import { useRanking } from "@/hooks/useRanking";
+import CalendarMonthSharpIcon from "@mui/icons-material/CalendarMonthSharp";
 import MonitorHeartSharpIcon from "@mui/icons-material/MonitorHeartSharp";
-import { Avatar, Box, Container, Stack, Typography } from "@mui/material";
+import { Avatar, Box, Container, IconButton, Stack, Typography } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
-import CalendarMonthSharpIcon from '@mui/icons-material/CalendarMonthSharp';
 import dayjs from "dayjs";
 import { useParams } from "next/navigation";
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import { useState } from "react";
 export default function LeaderboardsOfChallengePage() {
   const params = useParams();
   const challengeId = params.id as string;
-
+  const [copied, setCopied] = useState(false);
   const { data: loggedUserResponse } = useLoggedUser();
   const { data: rankingResponse } = useRanking(challengeId);
   const { data: challengeResponse } = useChallenge(challengeId);
@@ -30,10 +32,10 @@ export default function LeaderboardsOfChallengePage() {
       : 0;
   const progress = (daysPassed / total) * 100;
   const challengeIsOver = dayjs().isAfter(dayjs(challenge?.endAt));
-  const totalCheckIns =ranking?.reduce((accumulator, current) => {
+  const totalCheckIns = ranking?.reduce((accumulator, current) => {
     return accumulator + current.logCount;
-  }, 0)
-  const averagePerDay = totalCheckIns? totalCheckIns / daysPassed : 0;
+  }, 0);
+  const averagePerDay = totalCheckIns ? totalCheckIns / daysPassed : 0;
   return (
     <>
       <BackButton to={`/application/challenges/${challengeId}`} />
@@ -107,9 +109,7 @@ export default function LeaderboardsOfChallengePage() {
               <MonitorHeartSharpIcon />
             </Avatar>
             <Box>
-              <Typography>
-                {totalCheckIns}
-              </Typography>
+              <Typography>{totalCheckIns}</Typography>
               <Typography variant="body2">Total check-ins</Typography>
             </Box>
           </Stack>
@@ -119,13 +119,39 @@ export default function LeaderboardsOfChallengePage() {
               <CalendarMonthSharpIcon />
             </Avatar>
             <Box>
-              <Typography>
-                {averagePerDay}
-              </Typography>
+              <Typography>{averagePerDay}</Typography>
               <Typography variant="body2">Average workouts per day</Typography>
             </Box>
           </Stack>
         </Stack>
+        {challenge?.joinId && (
+          <>
+            <Typography gutterBottom variant="h6" mt={2}>
+              Join code :
+            </Typography>
+            <Typography gutterBottom>
+              Share this code with your friends to join the challenge
+            </Typography>
+            <Typography variant="caption">{challenge?.joinId}
+
+              <IconButton size="small"
+              onClick={
+                () => {
+                  navigator.clipboard.writeText(challenge?.joinId!);
+                  setCopied(true);
+                  setTimeout(() => {
+                    setCopied(false);
+                  }, 2000);
+                }
+              }>
+                <ContentCopyIcon color={copied?"info":"inherit"} />
+              </IconButton>
+              {
+                copied && <Typography variant="caption" component={"span"} color="info">Copied to clipboard!</Typography>
+              }
+            </Typography>
+          </>
+        )}
       </Container>
     </>
   );

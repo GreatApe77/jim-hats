@@ -1,7 +1,8 @@
+import { API_URL } from "@/constants";
 import { ChallengeMember, ServiceResponse } from "@/types";
 
 export async function getUsersOfChallenge(challengeId: string, token: string) {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/gym-challenges/${challengeId}/members`, {
+  const response = await fetch(`${API_URL}/gym-challenges/${challengeId}/members`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,

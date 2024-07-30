@@ -21,6 +21,8 @@ import { Avatar, Icon, IconButton } from "@mui/material";
 import CreateChallengeModal from "./CreateChallengeModal";
 import { usePathname, useRouter } from "next/navigation";
 import LogoutIcon from '@mui/icons-material/Logout';
+import { JoinChallengeModalContext } from "@/contexts/JoinChallengeModalContext";
+import JoinChallengeModal from "./JoinChallengeModal";
 type Props = {
   user?: {
     username: string;
@@ -54,6 +56,7 @@ export default function MainDrawer({
   const [open, setOpen] = useState(false);
   const router = useRouter()
   const modalContext = useContext(CreateChallengeModalContext);
+  const joinChallengeModalContext = useContext(JoinChallengeModalContext);
   const pathName = usePathname()
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -62,6 +65,10 @@ export default function MainDrawer({
     console.log(modalContext);
     modalContext?.setOpen(true);
   }
+  function openJoinChallengeModal() {
+    joinChallengeModalContext?.setOpen(true);
+  }
+
   const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
       <List>
@@ -112,7 +119,7 @@ export default function MainDrawer({
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton onClick={openJoinChallengeModal}>
             <ListItemIcon>
               <Groups3Icon />
             </ListItemIcon>
@@ -187,6 +194,7 @@ export default function MainDrawer({
         {DrawerList}
       </Drawer>
       <CreateChallengeModal />
+      <JoinChallengeModal />
     </div>
   );
 }

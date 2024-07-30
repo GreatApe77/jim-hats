@@ -1,8 +1,9 @@
+import { API_URL } from "@/constants";
 import { LoggedUser, ServiceResponse } from "@/types";
 
 export async function getMe(token: string) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/users/me`,
+    `${API_URL}/users/me`,
     {
       method: "GET",
       headers: {

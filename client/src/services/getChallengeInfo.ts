@@ -1,8 +1,9 @@
+import { API_URL } from "@/constants";
 import { GymChallenge, ServiceResponse } from "@/types";
 
 export async function getChallengeInfo(token: string, id: string) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/gym-challenges/${id}`,
+    `${API_URL}/gym-challenges/${id}`,
     {
       method: "GET",
       headers: {

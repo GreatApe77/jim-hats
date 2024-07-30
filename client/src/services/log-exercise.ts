@@ -1,3 +1,4 @@
+import { API_URL } from "@/constants";
 import { CreateExerciseLogFormData, ServiceResponse } from "@/types";
 
 export async function logExercise(
@@ -6,7 +7,7 @@ export async function logExercise(
   exerciseFormData: CreateExerciseLogFormData,
 ) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/gym-challenges/${challengeId}/logs`,
+    `${API_URL}/gym-challenges/${challengeId}/logs`,
     {
       method: "POST",
       headers: {

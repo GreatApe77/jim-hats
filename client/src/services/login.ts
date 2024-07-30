@@ -1,8 +1,9 @@
+import { API_URL } from "@/constants";
 import { ServiceResponse } from "@/types";
 
 export async function login(username: string, password: string) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/login`,
+    `${API_URL}/login`,
     {
       method: "POST",
       body: JSON.stringify({ username, password }),

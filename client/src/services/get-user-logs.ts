@@ -1,8 +1,9 @@
+import { API_URL } from "@/constants";
 import { ServiceResponse, ExerciseLog } from "@/types";
 
 export async function getUserLogs(token: string) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/users/me/logs`,
+    `${API_URL}/users/me/logs`,
     {
       method: "GET",
       headers: {

@@ -35,6 +35,7 @@ export type GymChallenge = {
   startAt: string;
   endAt: string;
   creatorId: number;
+  joinId?: string;
 };
 export type LoggedUser = {
   id: number;

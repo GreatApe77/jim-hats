@@ -1,7 +1,8 @@
+import { API_URL } from "@/constants";
 import { ExerciseLog, ExerciseLogWithUser, ServiceResponse } from "@/types";
 
 export async function getLogsOfChallenge(challengeId: string, token: string) {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/gym-challenges/${challengeId}/logs`, {
+    const response = await fetch(`${API_URL}/gym-challenges/${challengeId}/logs`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
