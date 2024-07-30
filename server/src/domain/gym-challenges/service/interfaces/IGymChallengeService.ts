@@ -11,6 +11,7 @@ export type CreateExerciseLogParams = Pick<
   "date" | "description" | "title" | "userId" | "image"
 >;
 export interface IGymChallengeService {
+  searchByJoinId(joinId: string): Promise<IGymChallenge | null>;
   save(params: CreateGymChallengeParams): Promise<IGymChallenge>;
   list(): Promise<IGymChallenge[]>;
   list(paginationParams: PaginationParams): Promise<IGymChallenge[]>;

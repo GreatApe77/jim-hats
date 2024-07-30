@@ -15,6 +15,12 @@ const gymChallengesController = new GymChallengeController(
 );
 
 const gymChallengesRouter = Router();
+gymChallengesRouter.get(
+  "/:joinId/join",
+  authMiddleware.onlyAuth.bind(authMiddleware),
+  gymChallengeMiddleware.validateJoinChallenge.bind(gymChallengeMiddleware),
+  (req, res) => gymChallengesController.handleJoinChallenge(req, res),
+);
 
 gymChallengesRouter.post(
   "/",

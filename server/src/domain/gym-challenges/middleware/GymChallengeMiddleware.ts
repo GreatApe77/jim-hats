@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { MESSAGES } from "../../../constants/MESSAGES.js";
 import { isInt } from "../../../utils/isInt.js";
 import { errorResponse } from "../../../utils/responses.js";
+
 import {
   AddExerciseLogParamsSchema,
   AddExerciseLogSchema,
@@ -12,8 +13,19 @@ import {
 } from "../dto/AddMemberToChallengeDto.js";
 import { CreateGymChallengeSchema } from "../dto/CreateGymChallengeDto.js";
 import { UpdateGymChallengeSchema } from "../dto/UpdateGymChallengeDto.js";
+import { JoinChallengeDtoParamsSchema } from "../dto/JoinChallengeDto.js";
 
 export class GymChallengeMiddleware {
+  validateJoinChallenge(req: Request, res: Response, next: NextFunction) {
+    const joinId = req.params.joinId;
+    try {
+      JoinChallengeDtoParamsSchema.parse({ joinId });
+      return next();
+    } catch (error) {
+      console.error(error);
+      return res.status(400).json(errorResponse(MESSAGES.BAD_REQUEST));
+    }
+  }
   validateSearchRanking(req: Request, res: Response, next: NextFunction) {
     const challengeId = req.params.challengeId;
     if (!isInt(challengeId)) {

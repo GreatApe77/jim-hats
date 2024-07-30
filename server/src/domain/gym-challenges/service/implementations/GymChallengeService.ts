@@ -21,6 +21,13 @@ export class GymChallengeService implements IGymChallengeService {
     this.gymChallengeRepo = gymChallengeRepo;
     this.prismaClient = prismaClient;
   }
+  searchByJoinId(joinId: string): Promise<IGymChallenge | null> {
+    return this.prismaClient.gymChallenge.findFirst({
+      where: {
+        joinId: joinId,
+      },
+    })
+  }
   async addLogToChallenge(
     challengeId: number,
     exerciseLog: CreateExerciseLogParams,
