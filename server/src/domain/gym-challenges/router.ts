@@ -35,6 +35,7 @@ gymChallengesRouter.patch(
 );
 gymChallengesRouter.get(
   "/:id",
+  authMiddleware.onlyAuth.bind(authMiddleware),
   gymChallengeMiddleware.validateGetById.bind(gymChallengeMiddleware),
   (req, res) => gymChallengesController.getById(req, res),
 );

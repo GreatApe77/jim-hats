@@ -125,12 +125,27 @@ export class GymChallengeController {
     try {
       const id = parseInt(req.params.id);
       const gymChallenge = await this.gymChallengeService.getById(id);
+      
       if (!gymChallenge)
         return res.status(404).json(errorResponse(MESSAGES.NOT_FOUND));
+      const isMember = await this.gymChallengeService.isMemberOfChallenge(
+        id,
+        res.locals.authUser.id as number,
+      );
+      if(!isMember) {
+        return res.status(403).json(errorResponse(MESSAGES.UNAUTHORIZED));
+      }
+      const isCreator = gymChallenge.creatorId === res.locals.authUser.id;
       return res
         .status(200)
-        .json(successResponse(MESSAGES.SUCCESS, gymChallenge));
+        .json(successResponse(MESSAGES.SUCCESS, 
+          {
+            ...gymChallenge,
+            joinId: isCreator ? gymChallenge.joinId : undefined,
+          }
+        ));
     } catch (error) {
+      console.log(error);
       return res
         .status(500)
         .json(errorResponse(MESSAGES.INTERNAL_SERVER_ERROR));

@@ -136,7 +136,21 @@ export class GymChallengeService implements IGymChallengeService {
     });
     return result?.logs ?? [];
   }
-
+ async isMemberOfChallenge(challengeId: number, userId: number) {
+    const result = await this.prismaClient.gymChallenge.findUnique({
+      where: {
+        id: challengeId,
+      },
+      select: {
+        members: {
+          where: {
+            id: userId,
+          },
+        },
+      },
+    });
+    return result?.members.length ? true : false;
+ }
   
   async  getRankingOfChallenge(challengeId:number) {
     const result = await this.prismaClient.user.findMany({
