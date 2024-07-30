@@ -32,6 +32,7 @@ model GymChallenge {
   name        String        @db.VarChar(255)
   description String
   image       String?
+  joinId      String?       @unique @default(uuid()) @db.VarChar(255)
   createdAt   DateTime      @default(now()) @map("created_at")
   startAt     DateTime      @map("start_at")
   endAt       DateTime      @map("end_at")
@@ -50,8 +51,8 @@ model ExerciseLog {
   date           DateTime
   user           User         @relation(fields: [userId], references: [id])
   gymChallenge   GymChallenge @relation(fields: [gymChallengeId], references: [id])
-  userId         Int @map("user_id")
-  gymChallengeId Int @map("gym_challenge_id")
+  userId         Int          @map("user_id")
+  gymChallengeId Int          @map("gym_challenge_id")
 
   @@map("exercise_logs")
 }
