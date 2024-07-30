@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "node dist/index.js",
-    "build": "npx tsc",
+    "build": "npx prisma generate && npx tsc",
     "dev": "npx tsx --watch src/index.ts",
     "test": "npx vitest --watch=false --reporter=verbose --exclude=**/*.e2e.test.ts",
     "test:integration": "chmod +x ./scripts/run-integration-tests.sh && ./scripts/run-integration-tests.sh",
