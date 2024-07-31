@@ -3,6 +3,7 @@ import BackButton from "@/components/BackButton";
 import { VisuallyHiddenInput } from "@/components/VisuallyHiddenInput";
 import { queryClient } from "@/lib/queryClient";
 import { register } from "@/services/register";
+import { uploadProfilePicture } from "@/services/upload-profile-picture";
 import { CreateAccountFormData } from "@/types";
 import CreateIcon from "@mui/icons-material/Create";
 import {
@@ -22,11 +23,9 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 
-
-
 export default function CreateAccountPage() {
   const router = useRouter();
-  const [image, setImage] = useState<string | null>(null);
+  const [image, setImage] = useState<File | null>(null);
   const [createAccountData, setCreateAccountData] =
     useState<CreateAccountFormData>({
       username: "",
@@ -51,8 +50,7 @@ export default function CreateAccountPage() {
   function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
     if (file) {
-      const url = URL.createObjectURL(file);
-      setImage(url);
+      setImage(file);
     }
   }
   function handleFormChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -66,25 +64,54 @@ export default function CreateAccountPage() {
   function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setFormSubmtionLoading(true);
-    register({
-      email: createAccountData.email,
-      password: createAccountData.password,
-      username: createAccountData.username,
-      profilePicture: image,
-    })
-      .then((serviceResponse) => {
-        if (serviceResponse.status === 201) {
-          router.push("/login");
-        } else {
-          alert(serviceResponse.response.message);
-        }
+    if (image) {
+      uploadProfilePicture(image).then((url) => {
+        register({
+          email: createAccountData.email,
+          password: createAccountData.password,
+          username: createAccountData.username,
+          profilePicture: url,
+        })
+          .then((serviceResponse) => {
+            if (serviceResponse.status === 201) {
+              router.push("/login");
+            } else {
+              alert(serviceResponse.response.message);
+            }
+          })
+          .catch((error) => {
+            alert("An error occurred while creating your account");
+          })
+          .finally(() => {
+            setFormSubmtionLoading(false);
+          });
       })
       .catch((error) => {
-        alert("An error occurred while creating your account");
-      })
-      .finally(() => {
+        alert("An error occurred while uploading your profile picture");
         setFormSubmtionLoading(false);
-      });
+      })
+
+    } else {
+      register({
+        email: createAccountData.email,
+        password: createAccountData.password,
+        username: createAccountData.username,
+        profilePicture: null,
+      })
+        .then((serviceResponse) => {
+          if (serviceResponse.status === 201) {
+            router.push("/login");
+          } else {
+            alert(serviceResponse.response.message);
+          }
+        })
+        .catch((error) => {
+          alert("An error occurred while creating your account");
+        })
+        .finally(() => {
+          setFormSubmtionLoading(false);
+        });
+    }
   }
   const passwordMatch =
     createAccountData.password === createAccountData.confirmPassword;
@@ -136,7 +163,7 @@ export default function CreateAccountPage() {
                 }
               >
                 <Avatar
-                  src={image ? image : undefined}
+                  src={image ? URL.createObjectURL(image) : undefined}
                   sx={{
                     width: "100%",
                     height: "100%",
@@ -194,6 +221,7 @@ export default function CreateAccountPage() {
                 startIcon={
                   formSubmtionLoading ? <CircularProgress size={20} /> : null
                 }
+                disabled={formSubmtionLoading}
               >
                 Create Account
               </Button>
