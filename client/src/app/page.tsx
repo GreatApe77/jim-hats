@@ -1,15 +1,36 @@
+"use client"
+import { getMe } from "@/services/getMe";
+import { getLocalStorageToken } from "@/utils/getLocalStorageToken";
 import {
   Box,
   Button,
   Container,
   Link as MUILink,
+  Skeleton,
   Stack,
   Typography,
 } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
-
+import { useEffect } from "react";
+import {useRouter} from "next/navigation"
 export default function Home() {
+  const router = useRouter()
+  useEffect(() => {
+    const token = getLocalStorageToken();
+    if (token) {
+      getMe(token).then((serviceResponse) => {
+        if (serviceResponse.status===200) {
+          router.push("/application/home");
+        }
+        else{
+          localStorage.removeItem("token")
+        }
+      });
+    }
+  }, []);
+
+  
   return (
     <main>
       <Container
