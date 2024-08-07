@@ -119,7 +119,7 @@ export default function LeaderboardsOfChallengePage() {
               <CalendarMonthSharpIcon />
             </Avatar>
             <Box>
-              <Typography>{daysPassed ===0?totalCheckIns:averagePerDay}</Typography>
+              <Typography>{daysPassed ===0?totalCheckIns:averagePerDay.toFixed(2)}</Typography>
               <Typography variant="body2">Average workouts per day</Typography>
             </Box>
           </Stack>
