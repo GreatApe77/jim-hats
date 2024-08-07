@@ -59,7 +59,7 @@
 Jim Hats is a web application that allows you to compete with your friends in a Gym Group. You can create a group, invite your friends, and compete with them in different challenges. You can also track your progress and see how you are doing compared to your friends. The original app is called GymRats and can be found [here](https://www.gymrats.app/).
 
 <div  align="center">
-    <img src="./readme-assets/first-screen.png" alt="Logo" style="max-width:200px;width:100%">
+    <img src="./readme-assets/first-screen.png" alt="Logo" style="max-width:200px;width:100%" width="150px">
 </div>
 
 ### Built With
@@ -81,13 +81,13 @@ Soon...
 ## Screenshots
 
 <div  align="center">
-    <img src="./readme-assets/challenge-logs.png" alt="Logo" style="max-width:200px;width:100%">
+    <img src="./readme-assets/challenge-logs.png" alt="Logo" style="max-width:200px;width:100%" width="150px" width="150px">
 </div>
 <div  align="center">
-    <img src="./readme-assets/leaderboards-page.png" alt="Logo" style="max-width:200px;width:100%">
+    <img src="./readme-assets/leaderboards-page.png" alt="Logo" style="max-width:200px;width:100%" width="150px">
 </div>
 <div  align="center">
-    <img src="./readme-assets/my-checkins.png" alt="Logo" style="max-width:200px;width:100%">
+    <img src="./readme-assets/my-checkins.png" alt="Logo" style="max-width:200px;width:100%" width="150px">
 </div>
 
 ## License
