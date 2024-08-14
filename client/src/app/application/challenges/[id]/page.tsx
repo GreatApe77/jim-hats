@@ -12,7 +12,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { useParams, useRouter } from "next/navigation";
 import { VisuallyHiddenInput } from "@/components/VisuallyHiddenInput";
 import LogExerciseModal from "@/components/LogExerciseModal";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ExercisePictureContext } from "@/contexts/ExercisePictureContext";
 import { ExerciseModalContext } from "@/contexts/ExerciseModalContext";
 
@@ -30,6 +30,10 @@ function groupLogsByDate(logs: ExerciseLogWithUser[]) {
   }, {});
 }
 export default function ChallengePage() {
+  useEffect(()=>{
+    
+    localStorage.setItem("lastVisitedChallengeId", challengeId)
+  },[])
   const params = useParams();
   const router = useRouter();
   const exercisePicContext = useContext(ExercisePictureContext)

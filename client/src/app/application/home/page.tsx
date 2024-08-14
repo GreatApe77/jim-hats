@@ -6,9 +6,17 @@ import { useChallengesOfUser } from "@/hooks/useChallengesOfUser";
 import { useLoggedUser } from "@/hooks/useLoggedUser";
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import Image from "next/image";
-import { useContext } from "react";
+import { useRouter } from "next/navigation";
+import { useContext, useEffect } from "react";
 
 export default function MainAppPage() {
+  const router =useRouter()
+  useEffect(() => {
+    const lastVisitedChallengeId = localStorage.getItem("lastVisitedChallengeId")
+    if(lastVisitedChallengeId){
+      router.push(`/application/challenges/${lastVisitedChallengeId}`)
+    }
+  },[])
   const { data: gymChallengesResponse } = useChallengesOfUser();
   const createChallengeContext = useContext(CreateChallengeModalContext)
   const joinChallengeContext = useContext(JoinChallengeModalContext)

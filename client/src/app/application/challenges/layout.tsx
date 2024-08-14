@@ -4,12 +4,14 @@ import { ExerciseModalProvider } from "@/contexts/ExerciseModalContext";
 import { ExercisePictureProvider } from "@/contexts/ExercisePictureContext";
 import { useChallengesOfUser } from "@/hooks/useChallengesOfUser";
 import { useLoggedUser } from "@/hooks/useLoggedUser";
+import { useEffect } from "react";
 
 export default function ChallengesLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  
   const { data: gymChallengesResponse } = useChallengesOfUser();
   const { data: loggedUserResponse } = useLoggedUser();
   const user = loggedUserResponse?.response.data;

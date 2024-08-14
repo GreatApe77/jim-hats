@@ -5,12 +5,19 @@ import { useLoggedUser } from "@/hooks/useLoggedUser";
 import { useMembersOfChallenge } from "@/hooks/useMembersOfChallenge";
 import { useRanking } from "@/hooks/useRanking";
 import CalendarMonthSharpIcon from "@mui/icons-material/CalendarMonthSharp";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import MonitorHeartSharpIcon from "@mui/icons-material/MonitorHeartSharp";
-import { Avatar, Box, Container, IconButton, Stack, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Container,
+  IconButton,
+  Stack,
+  Typography,
+} from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
 import dayjs from "dayjs";
 import { useParams } from "next/navigation";
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { useState } from "react";
 export default function LeaderboardsOfChallengePage() {
   const params = useParams();
@@ -119,7 +126,9 @@ export default function LeaderboardsOfChallengePage() {
               <CalendarMonthSharpIcon />
             </Avatar>
             <Box>
-              <Typography>{daysPassed ===0?totalCheckIns:averagePerDay.toFixed(2)}</Typography>
+              <Typography>
+                {daysPassed === 0 ? totalCheckIns : averagePerDay.toFixed(2)}
+              </Typography>
               <Typography variant="body2">Average workouts per day</Typography>
             </Box>
           </Stack>
@@ -132,23 +141,26 @@ export default function LeaderboardsOfChallengePage() {
             <Typography gutterBottom>
               Share this code with your friends to join the challenge
             </Typography>
-            <Typography variant="caption">{challenge?.joinId}
+            <Typography variant="caption">
+              {challenge?.joinId}
 
-              <IconButton size="small"
-              onClick={
-                () => {
+              <IconButton
+                size="small"
+                onClick={() => {
                   navigator.clipboard.writeText(challenge?.joinId!);
                   setCopied(true);
                   setTimeout(() => {
                     setCopied(false);
                   }, 2000);
-                }
-              }>
-                <ContentCopyIcon color={copied?"info":"inherit"} />
+                }}
+              >
+                <ContentCopyIcon color={copied ? "info" : "inherit"} />
               </IconButton>
-              {
-                copied && <Typography variant="caption" component={"span"} color="info">Copied to clipboard!</Typography>
-              }
+              {copied && (
+                <Typography variant="caption" component={"span"} color="info">
+                  Copied to clipboard!
+                </Typography>
+              )}
             </Typography>
           </>
         )}
