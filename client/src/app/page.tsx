@@ -58,6 +58,7 @@ export default function Home() {
               style={{
                 width: "100%",
                 maxWidth: "200px",
+                borderRadius: "50%",
               }}
               src={"/rat.jpg"}
               alt="rat"
