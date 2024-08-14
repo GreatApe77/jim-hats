@@ -146,7 +146,12 @@ export default function MainDrawer({
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton selected={pathName==="/application/help"}
+          onClick={()=>{
+            router.push("/application/help")
+          }}
+          
+          >
             <ListItemIcon>
               <HelpOutlineIcon />
             </ListItemIcon>
@@ -154,7 +159,11 @@ export default function MainDrawer({
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton selected={pathName==="/application/about"}
+          onClick={()=>{
+            router.push("/application/about")
+          }}
+          >
             <ListItemIcon>
               <InfoIcon />
             </ListItemIcon>
