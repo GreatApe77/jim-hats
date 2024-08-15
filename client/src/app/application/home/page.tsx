@@ -11,12 +11,7 @@ import { useContext, useEffect } from "react";
 
 export default function MainAppPage() {
   const router =useRouter()
-  useEffect(() => {
-    const lastVisitedChallengeId = localStorage.getItem("lastVisitedChallengeId")
-    if(lastVisitedChallengeId){
-      router.push(`/application/challenges/${lastVisitedChallengeId}`)
-    }
-  },[])
+  
   const { data: gymChallengesResponse } = useChallengesOfUser();
   const createChallengeContext = useContext(CreateChallengeModalContext)
   const joinChallengeContext = useContext(JoinChallengeModalContext)
@@ -24,7 +19,12 @@ export default function MainAppPage() {
   const { data: response } = useLoggedUser();
   const user = response?.response.data;
   const challenges = gymChallengesResponse?.response.data;
-
+  useEffect(() => {
+    const lastVisitedChallengeId = localStorage.getItem("lastVisitedChallengeId")
+    if(lastVisitedChallengeId && user){
+      router.push(`/application/challenges/${lastVisitedChallengeId}`)
+    }
+  },[user])
   return (
     <>
       <MainDrawer
