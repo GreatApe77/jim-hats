@@ -6,25 +6,17 @@ import { useChallengesOfUser } from "@/hooks/useChallengesOfUser";
 import { useLoggedUser } from "@/hooks/useLoggedUser";
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 
 export default function MainAppPage() {
-  const router =useRouter()
-  
   const { data: gymChallengesResponse } = useChallengesOfUser();
-  const createChallengeContext = useContext(CreateChallengeModalContext)
-  const joinChallengeContext = useContext(JoinChallengeModalContext)
+  const createChallengeContext = useContext(CreateChallengeModalContext);
+  const joinChallengeContext = useContext(JoinChallengeModalContext);
   //const user = useLoggedUser()
   const { data: response } = useLoggedUser();
   const user = response?.response.data;
   const challenges = gymChallengesResponse?.response.data;
-  useEffect(() => {
-    const lastVisitedChallengeId = localStorage.getItem("lastVisitedChallengeId")
-    if(lastVisitedChallengeId && user){
-      router.push(`/application/challenges/${lastVisitedChallengeId}`)
-    }
-  },[user])
+
   return (
     <>
       <MainDrawer
@@ -38,13 +30,13 @@ export default function MainAppPage() {
       />
       <>
         <Container
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "100vh",
-        }}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            height: "100vh",
+          }}
         >
           <Box>
             <Image
@@ -63,23 +55,27 @@ export default function MainAppPage() {
             Welcome, {user?.username} !
           </Typography>
           <Typography variant="body1" gutterBottom textAlign={"center"}>
-            You are not currently participating in any challenges.
+            {"Create or join challenges to get started!"}
           </Typography>
-          
-          <Stack direction={"row"} spacing={1}>
-            <Button  variant="contained"
-            onClick={()=>joinChallengeContext?.setOpen(true)}>
-            
-              Join 
-            </Button>
+
+          {challenges?.length && (
+            <Typography variant="body1" gutterBottom textAlign={"center"}>
+              Or Check your active challenges! on the top left corner
+            </Typography>
+          )}
+
+          <Stack direction={"row"}  spacing={1} >
             <Button
-              
-              
-              onClick={()=>createChallengeContext?.setOpen(true)}
+              variant="contained"
+              onClick={() => joinChallengeContext?.setOpen(true)}
             >
+              Join
+            </Button>
+            <Button onClick={() => createChallengeContext?.setOpen(true)}>
               Create
             </Button>
           </Stack>
+          
         </Container>
       </>
     </>
