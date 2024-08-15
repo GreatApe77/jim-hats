@@ -138,7 +138,11 @@ export default function MainDrawer({
       <Divider />
       <List>
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton selected={pathName==="/application/settings"}
+          onClick={()=>{
+            router.push("/application/settings")
+          }}
+          >
             <ListItemIcon>
               <SettingsIcon />
             </ListItemIcon>

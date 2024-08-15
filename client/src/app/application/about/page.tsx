@@ -1,11 +1,27 @@
+"use client"
 import MainDrawer from "@/components/MainDrawer";
+import { GITHUB_REPO_URL } from "@/constants";
+import { useChallengesOfUser } from "@/hooks/useChallengesOfUser";
+import { useLoggedUser } from "@/hooks/useLoggedUser";
 import { Container, Link, Typography } from "@mui/material";
 
 export default function AboutPage() {
+  const { data: response } = useLoggedUser();
+  const {data:gymChallengesResponse} = useChallengesOfUser();
+  const user = response?.response.data;
+  const challenges = gymChallengesResponse?.response.data?.map((challenge) => {
+      return {
+        ...challenge,
+        id: challenge.id.toString(),
+      };
+    });
   return (
     <>
-      <MainDrawer />
-      <Container>
+      <MainDrawer
+      challenges={challenges}
+      user={user}
+      />
+      <Container maxWidth="md">
         <Typography variant="h5" gutterBottom>
           About
         </Typography>
@@ -22,7 +38,7 @@ export default function AboutPage() {
         </Typography>
         <Typography variant="body1" mb={2}>
           The source code of this project can be found on my
-            <Link href="https://github.com/GreatApe77/jim-hats" target="_blank">
+            <Link href={GITHUB_REPO_URL} target="_blank">
                 {" "}
                 GitHub
             </Link>.
