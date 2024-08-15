@@ -20,19 +20,23 @@ export default function HelpPage() {
           Help & feedback
         </Typography>
         <List>
-          <ListItem>
+          <ListItem disablePadding>
+          <ListItemButton >
             <ListItemAvatar>
               <GitHubIcon />
             </ListItemAvatar>
             <ListItemText primary="Source Code" />
+          </ListItemButton>
           </ListItem>
-          <ListItem>
+          <ListItem disablePadding>
+          <ListItemButton >
             <ListItemAvatar>
               <LinkedInIcon />
             </ListItemAvatar>
             <ListItemText primary="My Linkedin" />
+          </ListItemButton>
           </ListItem>
-          <ListItem >
+          <ListItem  disablePadding>
             <ListItemButton >
               <ListItemAvatar>
                 <EmailIcon />
