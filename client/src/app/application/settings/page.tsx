@@ -6,8 +6,10 @@ import { Avatar, Container, List, ListItem, ListItemAvatar, ListItemButton, List
 import KeyOutlinedIcon from '@mui/icons-material/KeyOutlined';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import { useRouter } from "next/navigation";
 export default function SettingsPage() {
     const { data: response } = useLoggedUser();
+    const router = useRouter();
     const {data:gymChallengesResponse} = useChallengesOfUser();
     const user = response?.response.data;
     const challenges = gymChallengesResponse?.response.data?.map((challenge) => {
@@ -39,7 +41,9 @@ export default function SettingsPage() {
             </ListItem>
 
             <ListItem disablePadding>
-                <ListItemButton disableGutters>
+                <ListItemButton disableGutters
+                    onClick={() => router.push('/application/settings/change-name')}
+                >
                     <ListItemAvatar>
                         
                             <Avatar>
