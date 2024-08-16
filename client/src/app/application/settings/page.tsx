@@ -55,7 +55,9 @@ export default function SettingsPage() {
                 </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
-                <ListItemButton disableGutters>
+                <ListItemButton disableGutters
+                    onClick={() => router.push('/application/settings/change-email')}
+                >
                     <ListItemAvatar>
                         <Avatar>
                             <EmailOutlinedIcon />
@@ -65,7 +67,10 @@ export default function SettingsPage() {
                 </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
-                <ListItemButton disableGutters>
+                <ListItemButton disableGutters
+                
+                    onClick={() => router.push('/application/settings/change-password')}
+                >
                     <ListItemAvatar>
                         <Avatar>
                             <KeyOutlinedIcon />
