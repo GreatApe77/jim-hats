@@ -35,7 +35,7 @@ export default function MainAppPage() {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            height: "100vh",
+            height: "100dvh",
           }}
         >
           <Box>

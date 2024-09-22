@@ -36,7 +36,7 @@ export default function Home() {
       <Container
         maxWidth="md"
         sx={{
-          minHeight: "100vh",
+          minHeight: "100dvh",
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
