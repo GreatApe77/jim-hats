@@ -1,0 +1,5 @@
+abstract class AppRoutes {
+  static const welcome='/welcome';
+  static const sigin ='/sigin';
+  static const createAccount ='/create-account';
+}
