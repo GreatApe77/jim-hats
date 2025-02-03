@@ -21,9 +21,12 @@ class WelcomePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  FilledButton(onPressed: () {
-                    Navigator.of(context).pushNamed(AppRoutes.createAccount);
-                  }, child: Text('Create account')),
+                  FilledButton(
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushNamed(AppRoutes.createAccount);
+                      },
+                      child: Text('Create account')),
                   SizedBox(
                     height: 8,
                   ),
@@ -31,6 +34,9 @@ class WelcomePage extends StatelessWidget {
                     children: [
                       Text('Already have an account? '),
                       GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pushNamed(AppRoutes.sigin);
+                        },
                         child: Text(
                           'Sign in.',
                           style: TextStyle(
