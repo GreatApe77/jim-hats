@@ -39,7 +39,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                 height: 100,
                 width: 100,
                 child: Material(
-                  color: Theme.of(context).colorScheme.surfaceDim,
+                  color: Theme.of(context).colorScheme.surfaceContainer,
                   shape: CircleBorder(),
                   child: InkWell(
                     customBorder: CircleBorder(),
