@@ -2,13 +2,13 @@
 import 'package:flutter/material.dart';
 
 class HidePasswordController extends ChangeNotifier {
-  bool hideBalance;
+  bool isHidden;
   HidePasswordController({
-    this.hideBalance = false,
+    this.isHidden = true,
   });
 
   void toggle() {
-    hideBalance = !hideBalance;
+    isHidden = !isHidden;
     notifyListeners();
   }
 }

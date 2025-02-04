@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jim_hats_mobile/shared/ui/constants/app_spacings.dart';
+import 'package:jim_hats_mobile/shared/ui/controllers/hide_password_controller.dart';
 
 class CreateAccountPage extends StatefulWidget {
   const CreateAccountPage({super.key});
@@ -9,7 +10,9 @@ class CreateAccountPage extends StatefulWidget {
 }
 
 class _CreateAccountPageState extends State<CreateAccountPage> {
-  final hidePassword = ValueNotifier<bool>(false);
+  final hidePasswordController = HidePasswordController(
+    isHidden: true
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -103,11 +106,11 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
               height: 16,
             ),
             ListenableBuilder(
-                listenable: hidePassword,
+                listenable: hidePasswordController,
                 builder: (context, child) {
-                  if (hidePassword.value) {
+                  if (hidePasswordController.isHidden) {
                     return TextField(
-                      obscureText: hidePassword.value,
+                      obscureText: hidePasswordController.isHidden,
                       decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           label: Text('Password'),
@@ -118,7 +121,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   }
 
                   return TextField(
-                    obscureText: hidePassword.value,
+                    obscureText: hidePasswordController.isHidden,
                     decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         label: Text('Password'),
@@ -131,11 +134,11 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
               height: 16,
             ),
             ListenableBuilder(
-                listenable: hidePassword,
+                listenable: hidePasswordController,
                 builder: (context, child) {
-                  if (hidePassword.value) {
+                  if (hidePasswordController.isHidden) {
                     return TextField(
-                      obscureText: hidePassword.value,
+                      obscureText: hidePasswordController.isHidden,
                       decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           label: Text('Confirm password'),
@@ -146,7 +149,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   }
 
                   return TextField(
-                    obscureText: hidePassword.value,
+                    obscureText: hidePasswordController.isHidden,
                     decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         label: Text('Confirm password'),
@@ -179,6 +182,6 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   }
 
   void _toggleHidePassword() {
-    hidePassword.value = !hidePassword.value;
+    hidePasswordController.toggle();
   }
 }

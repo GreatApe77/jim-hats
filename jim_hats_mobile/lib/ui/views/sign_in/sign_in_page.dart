@@ -49,9 +49,9 @@ class _SignInPageState extends State<SignInPage> {
                   ListenableBuilder(
                       listenable: hidePasswordController,
                       builder: (context, child) {
-                        if (hidePasswordController.hideBalance) {
+                        if (hidePasswordController.isHidden) {
                           return TextField(
-                            obscureText: hidePasswordController.hideBalance,
+                            obscureText: hidePasswordController.isHidden,
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(),
                                 label: Text('Password'),
@@ -62,7 +62,7 @@ class _SignInPageState extends State<SignInPage> {
                         }
 
                         return TextField(
-                          obscureText: hidePasswordController.hideBalance,
+                          obscureText: hidePasswordController.isHidden,
                           decoration: InputDecoration(
                               border: OutlineInputBorder(),
                               label: Text('Password'),
