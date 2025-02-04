@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jim_hats_mobile/routing/app_routes.dart';
 import 'package:jim_hats_mobile/ui/views/create_account/create_account_page.dart';
+import 'package:jim_hats_mobile/ui/views/home/home_page.dart';
 import 'package:jim_hats_mobile/ui/views/sign_in/sign_in_page.dart';
 import 'package:jim_hats_mobile/ui/views/welcome/welcome_page.dart';
 
@@ -19,6 +20,10 @@ abstract class AppRouter {
       case AppRoutes.sigin:
         return MaterialPageRoute(
           builder: (context) => SignInPage(),
+        );
+      case AppRoutes.home:
+        return MaterialPageRoute(
+          builder: (context) => HomePage(),
         );
       default:
         return null;

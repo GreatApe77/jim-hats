@@ -71,6 +71,24 @@ class _SignInPageState extends State<SignInPage> {
                                   icon: Icon(Icons.visibility))),
                         );
                       }),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  FilledButton(onPressed: () {}, child: Text('Sign in')),
+                  FilledButton.tonal(
+                      onPressed: () {}, child: Text('Reset password')),
+                  Row(
+                    children: [
+                      Text('Trouble signing in? '),
+                      GestureDetector(
+                        child: Text(
+                          'Contact support.',
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary),
+                        ),
+                      )
+                    ],
+                  )
                 ],
               ))),
     );

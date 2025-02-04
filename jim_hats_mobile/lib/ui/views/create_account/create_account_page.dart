@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jim_hats_mobile/routing/app_routes.dart';
 import 'package:jim_hats_mobile/shared/ui/constants/app_spacings.dart';
 import 'package:jim_hats_mobile/shared/ui/controllers/hide_password_controller.dart';
 
@@ -10,9 +11,7 @@ class CreateAccountPage extends StatefulWidget {
 }
 
 class _CreateAccountPageState extends State<CreateAccountPage> {
-  final hidePasswordController = HidePasswordController(
-    isHidden: true
-  );
+  final hidePasswordController = HidePasswordController(isHidden: true);
 
   @override
   Widget build(BuildContext context) {
@@ -165,7 +164,11 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                FilledButton(onPressed: () {}, child: Text('Create account'))
+                FilledButton(
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(AppRoutes.home);
+                    },
+                    child: Text('Create account'))
               ],
             ),
             SizedBox(
