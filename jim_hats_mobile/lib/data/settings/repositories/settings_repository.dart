@@ -2,7 +2,7 @@ import 'package:jim_hats_mobile/data/settings/data_sources/settings_data_source.
 import 'package:jim_hats_mobile/data/settings/models/settings.dart';
 
 class SettingsRepository {
-  late Settings _settings;
+   late Settings _settings;
   final SettingsDataSource _settingsDataSource;
 
   Settings get settings => _settings;
@@ -13,5 +13,9 @@ class SettingsRepository {
     final isDarkTheme = await  _settingsDataSource.get<bool>('isDarkTheme');
 
     _settings = Settings(isDarkTheme: isDarkTheme ?? false);
+  }
+  Future<void> setIsDarkTheme(bool isDarkTheme)async{
+     _settings.isDarkTheme = isDarkTheme; 
+     await _settingsDataSource.set<bool>('isDarkTheme',isDarkTheme );
   }
 }

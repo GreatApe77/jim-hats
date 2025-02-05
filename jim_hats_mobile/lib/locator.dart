@@ -45,6 +45,7 @@ Future<void> setupDependencies() async {
   );
   locator.registerSingleton<ThemeBloc>(
     ThemeBloc(
+      settingsRepository: locator.get<SettingsRepository>(),
       themeState: locator.get<SettingsRepository>().settings.isDarkTheme? ThemeDark():ThemeLight()
     )
   );

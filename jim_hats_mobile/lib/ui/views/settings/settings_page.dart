@@ -90,7 +90,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           leading: state is ThemeDark
                               ? Icon(Icons.dark_mode)
                               : Icon(Icons.light_mode),
-                          title: Text('Toggle Dark/Light Theme'),
+                          title: Text('Toggle'),
                           trailing: Switch(value: 
                           state is ThemeDark
                           , onChanged: (value) {

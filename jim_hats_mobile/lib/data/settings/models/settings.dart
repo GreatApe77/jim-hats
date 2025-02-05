@@ -1,5 +1,5 @@
 class Settings {
-  final bool isDarkTheme;
+   bool isDarkTheme;
 
   Settings({required this.isDarkTheme});
 }
