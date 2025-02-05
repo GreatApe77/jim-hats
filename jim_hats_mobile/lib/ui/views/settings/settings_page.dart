@@ -4,6 +4,7 @@ import 'package:jim_hats_mobile/locator.dart';
 import 'package:jim_hats_mobile/shared/ui/constants/app_spacings.dart';
 import 'package:jim_hats_mobile/shared/ui/widgets/app_drawer/app_drawer.dart';
 import 'package:jim_hats_mobile/shared/ui/widgets/app_drawer/cubit/app_drawer_cubit.dart';
+import 'package:jim_hats_mobile/ui/theme/bloc/theme_bloc.dart';
 import 'package:jim_hats_mobile/ui/views/settings/cubit/settings_cubit.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -73,7 +74,6 @@ class _SettingsPageState extends State<SettingsPage> {
                     ListTile(
                       leading: Icon(Icons.key_outlined),
                       title: Text('Password'),
-
                       subtitle: Text('••••••••'),
                     ),
                     SizedBox(
@@ -83,9 +83,21 @@ class _SettingsPageState extends State<SettingsPage> {
                       'Theme',
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
-                    ListTile(
-                      leading: Icon(Icons.format_paint),
-                      title: Text('Theme'),
+                    BlocBuilder<ThemeBloc, ThemeState>(
+                      bloc: locator.get<ThemeBloc>(),
+                      builder: (context, state) {
+                        return ListTile(
+                          leading: state is ThemeDark
+                              ? Icon(Icons.dark_mode)
+                              : Icon(Icons.light_mode),
+                          title: Text('Toggle Dark/Light Theme'),
+                          trailing: Switch(value: 
+                          state is ThemeDark
+                          , onChanged: (value) {
+                            locator.get<ThemeBloc>().add(ThemeToggledEvent());
+                          },),
+                        );
+                      },
                     ),
                     Text(
                       'Account',
@@ -97,10 +109,11 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                     ListTile(
                       textColor: Theme.of(context).colorScheme.error,
-                      leading: Icon(Icons.person_remove_outlined,
-                      color: Theme.of(context).colorScheme.error,),
+                      leading: Icon(
+                        Icons.person_remove_outlined,
+                        color: Theme.of(context).colorScheme.error,
+                      ),
                       title: Text('Delete account'),
-                      
                     ),
                   ],
                 ),

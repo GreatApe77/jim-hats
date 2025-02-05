@@ -35,18 +35,18 @@ Future<void> setupDependencies() async {
   await loadSettings();
 
   //Cubits
-  locator.registerFactory<AppDrawerCubit>(
-    () => AppDrawerCubit(
+  locator.registerSingleton<AppDrawerCubit>(
+    AppDrawerCubit(
         gymChallengesRepository: locator.get<GymChallengesRepository>(),
         loggedUserRepository: locator.get<LoggedUserRepository>()),
   );
-  locator.registerFactory(
-    () => SettingsCubit(loggedUserRepository: locator.get<LoggedUserRepository>()),
+  locator.registerSingleton(
+     SettingsCubit(loggedUserRepository: locator.get<LoggedUserRepository>()),
   );
-  locator.registerFactory<ThemeBloc>(
-    () => ThemeBloc(
+  locator.registerSingleton<ThemeBloc>(
+    ThemeBloc(
       themeState: locator.get<SettingsRepository>().settings.isDarkTheme? ThemeDark():ThemeLight()
-    ),
+    )
   );
 }
 
