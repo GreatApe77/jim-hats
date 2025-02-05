@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:jim_hats_mobile/data/logged_user/repositories/logged_user_repository.dart';
 import 'package:jim_hats_mobile/locator.dart';
+import 'package:jim_hats_mobile/routing/app_router.dart';
+import 'package:jim_hats_mobile/routing/app_routes.dart';
 import 'package:jim_hats_mobile/shared/ui/widgets/app_drawer/cubit/app_drawer_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,12 +18,13 @@ class _AppDrawerState extends State<AppDrawer> {
   @override
   void initState() {
     super.initState();
-    widget.appDrawerCubit.loadLoggedUser();
+    widget.appDrawerCubit.loadDrawerData();
   }
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      
       child: ListView(
         children: [
           BlocBuilder<AppDrawerCubit, AppDrawerState>(
@@ -30,12 +33,12 @@ class _AppDrawerState extends State<AppDrawer> {
               if (state is AppDrawerInitial) {
                 return SizedBox.shrink();
               }
-              if (state is AppDrawerLoadUserInProgress) {
+              if (state is AppDrawerLoadDataInProgress) {
                 return ListTile(
                   leading: CircularProgressIndicator(),
                 );
               }
-              if (state is AppDrawerLoadUserSuccess) {
+              if (state is AppDrawerLoadDataSuccess) {
                 return ListTile(
                   leading: CircleAvatar(
                     backgroundImage:
@@ -50,11 +53,37 @@ class _AppDrawerState extends State<AppDrawer> {
           Divider(
             height: 32,
           ),
-          ...List.generate(
-            2,
-            (index) => ListTile(
-              title: Text('$index'),
-            ),
+          BlocBuilder<AppDrawerCubit, AppDrawerState>(
+            bloc: widget.appDrawerCubit,
+            builder: (context, state) {
+              if (state is AppDrawerInitial) {
+                return SizedBox.shrink();
+              }
+              if (state is AppDrawerLoadDataInProgress) {
+                return ListTile(
+                  leading: CircularProgressIndicator(),
+                );
+              }
+              if (state is AppDrawerLoadDataSuccess) {
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: state.challenges
+                      .map(
+                        (e) => ListTile(
+                          title: Text(e.name),
+                          leading: CircleAvatar(
+                            backgroundImage: NetworkImage(e.image ?? ''),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                );
+              }
+              return SizedBox.shrink();
+            },
+          ),
+          Divider(
+            height: 32,
           ),
           ListTile(
             leading: Icon(Icons.add_circle_outline),
@@ -70,6 +99,10 @@ class _AppDrawerState extends State<AppDrawer> {
           ),
           Divider(),
           ListTile(
+            selected: ModalRoute.of(context)?.settings.name==AppRoutes.settings,
+            onTap: () {
+              Navigator.of(context).pushNamed(AppRoutes.settings);
+            },
             leading: Icon(Icons.settings_outlined),
             title: Text('Settings'),
           ),

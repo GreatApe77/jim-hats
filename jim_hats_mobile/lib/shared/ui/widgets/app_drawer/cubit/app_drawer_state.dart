@@ -1,25 +1,23 @@
 part of 'app_drawer_cubit.dart';
 
-
 @immutable
 sealed class AppDrawerState {
-  
-  final List<dynamic> challenges = [];
+  //final List<dynamic> challenges = [];
 
-  AppDrawerState();
+  const AppDrawerState();
 }
 
 final class AppDrawerInitial extends AppDrawerState {
-  AppDrawerInitial();
-
+  const AppDrawerInitial();
 }
 
-final class AppDrawerLoadUserInProgress extends AppDrawerState{
-  AppDrawerLoadUserInProgress();
+final class AppDrawerLoadDataInProgress extends AppDrawerState {
+  const AppDrawerLoadDataInProgress();
 }
-final class AppDrawerLoadUserSuccess extends AppDrawerState{
+
+final class AppDrawerLoadDataSuccess extends AppDrawerState {
   final LoggedUser loggedUser;
-  AppDrawerLoadUserSuccess({
-    required this.loggedUser
-  });
+  final List<GymChallenge> challenges;
+  const AppDrawerLoadDataSuccess(
+      {required this.loggedUser, required this.challenges});
 }

@@ -3,4 +3,5 @@ abstract class AppRoutes {
   static const sigin ='/sigin';
   static const createAccount ='/create-account';
   static const home ='/home';
+  static const settings='/settings';
 }
