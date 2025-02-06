@@ -11,6 +11,7 @@ import 'package:jim_hats_mobile/data/settings/repositories/settings_repository.d
 import 'package:jim_hats_mobile/shared/ui/widgets/app_drawer/cubit/app_drawer_cubit.dart';
 import 'package:jim_hats_mobile/ui/theme/bloc/theme_bloc.dart';
 import 'package:jim_hats_mobile/ui/views/settings/cubit/settings_cubit.dart';
+import 'package:jim_hats_mobile/ui/views/user_stats/cubit/user_stats_cubit.dart';
 
 final locator = GetIt.instance;
 
@@ -20,16 +21,14 @@ Future<void> setupDependencies() async {
   locator.registerSingleton<GymChallengeDataSource>(
       MemoryGymChallengeDataSource());
   locator.registerSingleton<SettingsDataSource>(
-    SharedPreferencesSettingsDataSource()
-  );
+      SharedPreferencesSettingsDataSource());
   //Repositories
   locator.registerSingleton<LoggedUserRepository>(LoggedUserRepository(
       loggedUserDataSource: locator.get<LoggedUserDataSource>()));
   locator.registerSingleton<GymChallengesRepository>(GymChallengesRepository(
       gymChallengeDataSource: locator.get<GymChallengeDataSource>()));
-  locator.registerSingleton<SettingsRepository>(
-    SettingsRepository(settingsDataSource: locator.get<SettingsDataSource>())
-  );
+  locator.registerSingleton<SettingsRepository>(SettingsRepository(
+      settingsDataSource: locator.get<SettingsDataSource>()));
 
   //load settings
   await loadSettings();
@@ -41,16 +40,19 @@ Future<void> setupDependencies() async {
         loggedUserRepository: locator.get<LoggedUserRepository>()),
   );
   locator.registerSingleton(
-     SettingsCubit(loggedUserRepository: locator.get<LoggedUserRepository>()),
+    SettingsCubit(loggedUserRepository: locator.get<LoggedUserRepository>()),
   );
-  locator.registerSingleton<ThemeBloc>(
-    ThemeBloc(
+  locator.registerSingleton<ThemeBloc>(ThemeBloc(
       settingsRepository: locator.get<SettingsRepository>(),
-      themeState: locator.get<SettingsRepository>().settings.isDarkTheme? ThemeDark():ThemeLight()
-    )
+      themeState: locator.get<SettingsRepository>().settings.isDarkTheme
+          ? ThemeDark()
+          : ThemeLight()));
+
+  locator.registerSingleton<UserStatsCubit>(
+    UserStatsCubit(loggedUserRepository: locator.get<LoggedUserRepository>())
   );
 }
 
-Future<void> loadSettings()async{
-    await locator.get<SettingsRepository>().loadSettings();
+Future<void> loadSettings() async {
+  await locator.get<SettingsRepository>().loadSettings();
 }

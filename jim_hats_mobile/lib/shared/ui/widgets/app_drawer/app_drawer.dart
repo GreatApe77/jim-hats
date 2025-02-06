@@ -5,6 +5,7 @@ import 'package:jim_hats_mobile/routing/app_router.dart';
 import 'package:jim_hats_mobile/routing/app_routes.dart';
 import 'package:jim_hats_mobile/shared/ui/widgets/app_drawer/cubit/app_drawer_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jim_hats_mobile/ui/views/gym_challenge/gym_challenge_page_arguments.dart';
 
 class AppDrawer extends StatefulWidget {
   final AppDrawerCubit appDrawerCubit;
@@ -24,7 +25,6 @@ class _AppDrawerState extends State<AppDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      
       child: ListView(
         children: [
           BlocBuilder<AppDrawerCubit, AppDrawerState>(
@@ -40,9 +40,14 @@ class _AppDrawerState extends State<AppDrawer> {
               }
               if (state is AppDrawerLoadDataSuccess) {
                 return ListTile(
+                  selected: ModalRoute.of(context)?.settings.name ==
+                      AppRoutes.userStats,
+                  onTap: () {
+                    Navigator.of(context).pushNamed(AppRoutes.userStats);
+                  },
                   leading: CircleAvatar(
                     backgroundImage:
-                        NetworkImage(state.loggedUser.profilePicture ?? ''),
+                        NetworkImage(state.loggedUser.profilePicture ?? 'https://ui-avatars.com/api/?name=${state.loggedUser.username}'),
                   ),
                   title: Text(state.loggedUser.username),
                 );
@@ -70,6 +75,10 @@ class _AppDrawerState extends State<AppDrawer> {
                   children: state.challenges
                       .map(
                         (e) => ListTile(
+                          onTap: () {
+                            final gymChallengePageArgs = GymChallengePageArguments(challengeId: e.id);
+                            Navigator.of(context).pushNamed(AppRoutes.gymChallenge,arguments: gymChallengePageArgs);
+                          },
                           title: Text(e.name),
                           leading: CircleAvatar(
                             backgroundImage: NetworkImage(e.image ?? ''),
@@ -99,7 +108,8 @@ class _AppDrawerState extends State<AppDrawer> {
           ),
           Divider(),
           ListTile(
-            selected: ModalRoute.of(context)?.settings.name==AppRoutes.settings,
+            selected:
+                ModalRoute.of(context)?.settings.name == AppRoutes.settings,
             onTap: () {
               Navigator.of(context).pushNamed(AppRoutes.settings);
             },

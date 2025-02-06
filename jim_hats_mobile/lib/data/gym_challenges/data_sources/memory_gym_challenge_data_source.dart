@@ -34,7 +34,7 @@ class MemoryGymChallengeDataSource implements GymChallengeDataSource {
               DateTime.now().millisecondsSinceEpoch + 80000000),
           creatorId: 1),
       GymChallenge(
-          id: 5,
+          id: 6,
           name: 'Challenge 6',
           description: 'Challenge Description 6',
           image: null,
@@ -46,7 +46,7 @@ class MemoryGymChallengeDataSource implements GymChallengeDataSource {
               DateTime.now().millisecondsSinceEpoch + 80000000),
           creatorId: 1),
       GymChallenge(
-          id: 5,
+          id: 7,
           name: 'Challenge 7',
           description: 'Challenge Description 7',
           image: null,
