@@ -46,8 +46,9 @@ class _AppDrawerState extends State<AppDrawer> {
                     Navigator.of(context).pushNamed(AppRoutes.userStats);
                   },
                   leading: CircleAvatar(
-                    backgroundImage:
-                        NetworkImage(state.loggedUser.profilePicture ?? 'https://ui-avatars.com/api/?name=${state.loggedUser.username}'),
+                    backgroundImage: NetworkImage(state
+                            .loggedUser.profilePicture ??
+                        'https://ui-avatars.com/api/?name=${state.loggedUser.username}'),
                   ),
                   title: Text(state.loggedUser.username),
                 );
@@ -72,20 +73,33 @@ class _AppDrawerState extends State<AppDrawer> {
               if (state is AppDrawerLoadDataSuccess) {
                 return Column(
                   mainAxisSize: MainAxisSize.min,
-                  children: state.challenges
-                      .map(
-                        (e) => ListTile(
-                          onTap: () {
-                            final gymChallengePageArgs = GymChallengePageArguments(challengeId: e.id);
-                            Navigator.of(context).pushNamed(AppRoutes.gymChallenge,arguments: gymChallengePageArgs);
-                          },
-                          title: Text(e.name),
-                          leading: CircleAvatar(
-                            backgroundImage: NetworkImage(e.image ?? ''),
-                          ),
+                  children: state.challenges.map(
+                    (e) {
+                      GymChallengePageArguments? args;
+                      if (ModalRoute.of(context)?.settings.arguments
+                          is GymChallengePageArguments) {
+                        args = ModalRoute.of(context)?.settings.arguments
+                            as GymChallengePageArguments?;
+                      }
+                      return ListTile(
+                        selected: args?.challengeId ==
+                            e.id, //ModalRoute.of(context)?.settings.arguments.challengeId ==
+                        //e.id,
+
+                        onTap: () {
+                          final gymChallengePageArgs =
+                              GymChallengePageArguments(challengeId: e.id);
+                          Navigator.of(context).pushNamed(
+                              AppRoutes.gymChallenge,
+                              arguments: gymChallengePageArgs);
+                        },
+                        title: Text(e.name),
+                        leading: CircleAvatar(
+                          backgroundImage: NetworkImage(e.image ?? ''),
                         ),
-                      )
-                      .toList(),
+                      );
+                    },
+                  ).toList(),
                 );
               }
               return SizedBox.shrink();

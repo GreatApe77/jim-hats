@@ -54,6 +54,7 @@ abstract class AppRouter {
       final arguments = settings.arguments as GymChallengePageArguments;
       
       return MaterialPageRoute(
+        
           settings: settings,
           builder: (context) => GymChallengePage(
             gymChallengePageArguments: arguments,
