@@ -1,22 +1,94 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jim_hats_mobile/locator.dart';
+import 'package:jim_hats_mobile/shared/ui/constants/app_spacings.dart';
 import 'package:jim_hats_mobile/shared/ui/widgets/app_drawer/app_drawer.dart';
 import 'package:jim_hats_mobile/shared/ui/widgets/app_drawer/cubit/app_drawer_cubit.dart';
+import 'package:jim_hats_mobile/ui/views/gym_challenge/cubit/gym_challenge_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge/gym_challenge_page_arguments.dart';
 
-class GymChallengePage extends StatelessWidget {
+class GymChallengePage extends StatefulWidget {
+  final GymChallengePageCubit gymChallengePageCubit;
   final GymChallengePageArguments gymChallengePageArguments;
-  const GymChallengePage({super.key, required this.gymChallengePageArguments});
+  const GymChallengePage(
+      {super.key,
+      required this.gymChallengePageArguments,
+      required this.gymChallengePageCubit});
+
+  @override
+  State<GymChallengePage> createState() => _GymChallengePageState();
+}
+
+class _GymChallengePageState extends State<GymChallengePage> {
+  @override
+  void initState() {
+    super.initState();
+    int challengeIdFromRouteArguments =
+        widget.gymChallengePageArguments.challengeId;
+    widget.gymChallengePageCubit.loadLogs(challengeIdFromRouteArguments);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: AppDrawer(appDrawerCubit: locator.get<AppDrawerCubit>()),
       appBar: AppBar(),
-      body: SafeArea(child: Center(child: Text(
-
-        'ARGUMENT: ${gymChallengePageArguments.challengeId}'
-      ),)),
+      body: BlocBuilder<GymChallengePageCubit, GymChallengePageState>(
+        bloc: widget.gymChallengePageCubit,
+        builder: (context, state) {
+          if (state is GymChallengePageInitial) {
+            return SizedBox.shrink();
+          }
+          if (state is GymChallengePageDataLoadInProgress) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (state is GymChallengePageDataSuccess) {
+            return SafeArea(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: AppSpacings.horizontalPadding.toDouble()),
+                child: ListView.builder(
+                  itemCount: state.logs.length,
+                  itemBuilder: (context, index) => Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 2),
+                    child: ListTile(
+                      onTap: () {},
+                      tileColor:
+                          Theme.of(context).colorScheme.surfaceContainerHigh,
+                      title: Text(state.logs[index].title),
+                      subtitle: Row(
+                        children: [
+                          Row(
+                            children: [
+                              CircleAvatar(
+                                radius: 10,
+                              ),
+                              SizedBox(
+                                width: 4,
+                              ),
+                              Text(state.logs[index].user.username)
+                            ],
+                          ),
+                          Text(
+                            '${state.logs[index].date.hour}:${state.logs[index].date.minute}'
+                          )
+                        ],
+                      ),
+                      leading: CircleAvatar(
+                        backgroundImage:
+                            NetworkImage(state.logs[index].image ?? ''),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            );
+          }
+          return SizedBox.shrink();
+        },
+      ),
     );
   }
 }

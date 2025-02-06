@@ -14,6 +14,8 @@ class App extends StatelessWidget {
       builder: (context, state) {
         return MaterialApp(
           darkTheme: ThemeData.dark(),
+          
+          theme: ThemeData.light(),
           onGenerateRoute: AppRouter.ongenerateRoute,
           initialRoute: AppRouter.initialRoute,
           //themeMode: ThemeMode.dark,

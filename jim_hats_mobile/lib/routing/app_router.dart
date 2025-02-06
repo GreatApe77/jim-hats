@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jim_hats_mobile/locator.dart';
 import 'package:jim_hats_mobile/routing/app_routes.dart';
 import 'package:jim_hats_mobile/ui/views/create_account/create_account_page.dart';
+import 'package:jim_hats_mobile/ui/views/gym_challenge/cubit/gym_challenge_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge/gym_challenge_page.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge/gym_challenge_page_arguments.dart';
 import 'package:jim_hats_mobile/ui/views/home/home_page.dart';
@@ -54,9 +55,10 @@ abstract class AppRouter {
       final arguments = settings.arguments as GymChallengePageArguments;
       
       return MaterialPageRoute(
-        
+
           settings: settings,
           builder: (context) => GymChallengePage(
+            gymChallengePageCubit: locator.get<GymChallengePageCubit>(),
             gymChallengePageArguments: arguments,
           ),
         );
