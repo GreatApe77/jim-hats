@@ -43,7 +43,10 @@ Future<void> setupDependencies() async {
 
   //Cubits
   locator.registerFactory(
-    () => GymChallengePageCubit(exerciseLogsRepository: locator.get<ExerciseLogsRepository>()),
+    () => GymChallengePageCubit(
+        gymChallengesRepository: locator.get<GymChallengesRepository>(),
+        loggedUserRepository: locator.get<LoggedUserRepository>(),
+        exerciseLogsRepository: locator.get<ExerciseLogsRepository>()),
   );
   locator.registerSingleton<AppDrawerCubit>(
     AppDrawerCubit(

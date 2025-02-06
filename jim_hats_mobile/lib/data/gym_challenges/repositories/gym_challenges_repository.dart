@@ -21,5 +21,5 @@ class GymChallengesRepository {
     //final challenges = await _gymChallengeDataSource.getGymChallengesOfUser(userId);
     return Future.value(challenges);
   }
-  
+
 }

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log_with_user.dart';
 import 'package:jim_hats_mobile/locator.dart';
 import 'package:jim_hats_mobile/shared/ui/constants/app_spacings.dart';
 import 'package:jim_hats_mobile/shared/ui/widgets/app_drawer/app_drawer.dart';
 import 'package:jim_hats_mobile/shared/ui/widgets/app_drawer/cubit/app_drawer_cubit.dart';
+import 'package:jim_hats_mobile/shared/ui/widgets/exercise_log_tile/exercise_log_tile.dart';
+import 'package:jim_hats_mobile/shared/utils/readable_date.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge/cubit/gym_challenge_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge/gym_challenge_page_arguments.dart';
 
@@ -50,38 +53,53 @@ class _GymChallengePageState extends State<GymChallengePage> {
                 padding: EdgeInsets.symmetric(
                     horizontal: AppSpacings.horizontalPadding.toDouble()),
                 child: ListView.builder(
-                  itemCount: state.logs.length,
-                  itemBuilder: (context, index) => Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 2),
-                    child: ListTile(
-                      onTap: () {},
-                      tileColor:
-                          Theme.of(context).colorScheme.surfaceContainerHigh,
-                      title: Text(state.logs[index].title),
-                      subtitle: Row(
-                        children: [
-                          Row(
-                            children: [
-                              CircleAvatar(
-                                radius: 10,
-                              ),
-                              SizedBox(
-                                width: 4,
-                              ),
-                              Text(state.logs[index].user.username)
-                            ],
-                          ),
-                          Text(
-                            '${state.logs[index].date.hour}:${state.logs[index].date.minute}'
-                          )
-                        ],
+                  itemCount: state.logs.length + 2,
+                  itemBuilder: (context, index) {
+                    if (index == 0) {
+                      return Text(
+                        state.challenge.name,
+                        style: Theme.of(context).textTheme.headlineMedium,
+                      );
+                    }
+                    if (index == 1) {
+                      return Container(
+                        height: 200,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Expanded(
+                                flex: 3,
+                                child: Container(
+                                  color: Colors.amber,
+                                )),
+                            Expanded(
+                                child: Row(
+                              children: [
+                                Expanded(
+                                    child: Container(
+                                  color: Colors.red,
+                                )),
+                                Expanded(
+                                    child: Container(
+                                  color: Colors.green,
+                                )),
+                                Expanded(
+                                    child: Container(
+                                  color: Colors.purple,
+                                )),
+                              ],
+                            )),
+                          ],
+                        ),
+                      );
+                    }
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 2),
+                      child: ExerciseLogTile(
+                        exerciseLogWithUser: state.logs[index - 2],
                       ),
-                      leading: CircleAvatar(
-                        backgroundImage:
-                            NetworkImage(state.logs[index].image ?? ''),
-                      ),
-                    ),
-                  ),
+                    );
+                  },
                 ),
               ),
             );
