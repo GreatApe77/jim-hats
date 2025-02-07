@@ -25,6 +25,7 @@ class _AppDrawerState extends State<AppDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      
       child: ListView(
         children: [
           BlocBuilder<AppDrawerCubit, AppDrawerState>(
@@ -43,6 +44,7 @@ class _AppDrawerState extends State<AppDrawer> {
                   selected: ModalRoute.of(context)?.settings.name ==
                       AppRoutes.userStats,
                   onTap: () {
+                    Navigator.of(context).pop();
                     Navigator.of(context).pushNamed(AppRoutes.userStats);
                   },
                   leading: CircleAvatar(
@@ -87,6 +89,7 @@ class _AppDrawerState extends State<AppDrawer> {
                         //e.id,
 
                         onTap: () {
+                          Navigator.of(context).pop();
                           final gymChallengePageArgs =
                               GymChallengePageArguments(challengeId: e.id);
                           Navigator.of(context).pushNamed(
@@ -125,6 +128,7 @@ class _AppDrawerState extends State<AppDrawer> {
             selected:
                 ModalRoute.of(context)?.settings.name == AppRoutes.settings,
             onTap: () {
+              Navigator.of(context).pop();
               Navigator.of(context).pushNamed(AppRoutes.settings);
             },
             leading: Icon(Icons.settings_outlined),
