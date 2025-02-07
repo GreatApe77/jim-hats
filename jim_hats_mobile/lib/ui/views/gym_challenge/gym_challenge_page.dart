@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log_with_user.dart';
+import 'package:jim_hats_mobile/data/gym_challenges/models/gym_challenge.dart';
 import 'package:jim_hats_mobile/locator.dart';
 import 'package:jim_hats_mobile/shared/ui/constants/app_spacings.dart';
 import 'package:jim_hats_mobile/shared/ui/widgets/app_drawer/app_drawer.dart';
@@ -9,6 +10,7 @@ import 'package:jim_hats_mobile/shared/ui/widgets/exercise_log_tile/exercise_log
 import 'package:jim_hats_mobile/shared/utils/readable_date.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge/cubit/gym_challenge_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge/gym_challenge_page_arguments.dart';
+import 'package:jim_hats_mobile/ui/views/gym_challenge/widgets/challenge_banner.dart';
 
 class GymChallengePage extends StatefulWidget {
   final GymChallengePageCubit gymChallengePageCubit;
@@ -62,34 +64,12 @@ class _GymChallengePageState extends State<GymChallengePage> {
                       );
                     }
                     if (index == 1) {
-                      return Container(
-                        height: 200,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Expanded(
-                                flex: 3,
-                                child: Container(
-                                  color: Colors.amber,
-                                )),
-                            Expanded(
-                                child: Row(
-                              children: [
-                                Expanded(
-                                    child: Container(
-                                  color: Colors.red,
-                                )),
-                                Expanded(
-                                    child: Container(
-                                  color: Colors.green,
-                                )),
-                                Expanded(
-                                    child: Container(
-                                  color: Colors.purple,
-                                )),
-                              ],
-                            )),
-                          ],
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 25),
+                        child: ChallengeBanner(
+                          leader: state.leader,
+                          user: state.userRanking,
+                          challenge: state.challenge,
                         ),
                       );
                     }

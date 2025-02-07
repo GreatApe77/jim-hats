@@ -10,6 +10,10 @@ final class GymChallengePageDataLoadInProgress extends GymChallengePageState{}
 final class GymChallengePageDataSuccess extends GymChallengePageState{
   final List<ExerciseLogWithUser> logs;
   final GymChallenge challenge;
-
-  GymChallengePageDataSuccess({required this.logs,required this.challenge}); 
+  final Ranking leader;
+  final Ranking userRanking;
+  GymChallengePageDataSuccess({
+    required this.leader,
+    required this.userRanking,
+    required this.logs,required this.challenge}); 
 }
