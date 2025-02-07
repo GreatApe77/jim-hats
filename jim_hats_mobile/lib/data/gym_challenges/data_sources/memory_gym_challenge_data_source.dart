@@ -29,10 +29,8 @@ class MemoryGymChallengeDataSource implements GymChallengeDataSource {
           image: null,
           joinId: null,
           createdAt: DateTime.now(),
-          startAt: DateTime.fromMillisecondsSinceEpoch(
-              DateTime.now().millisecondsSinceEpoch + 20000000),
-          endAt: DateTime.fromMillisecondsSinceEpoch(
-              DateTime.now().millisecondsSinceEpoch + 80000000),
+          startAt: DateTime(2026,6),
+          endAt: DateTime(2027),
           creatorId: 1),
       GymChallenge(
           id: 6,
