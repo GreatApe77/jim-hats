@@ -5,6 +5,7 @@ import 'package:jim_hats_mobile/ui/views/create_account/create_account_page.dart
 import 'package:jim_hats_mobile/ui/views/gym_challenge/cubit/gym_challenge_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge/gym_challenge_page.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge/gym_challenge_page_arguments.dart';
+import 'package:jim_hats_mobile/ui/views/gym_challenge_details/gym_challenge_details_page.dart';
 import 'package:jim_hats_mobile/ui/views/home/home_page.dart';
 import 'package:jim_hats_mobile/ui/views/settings/cubit/settings_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/settings/settings_page.dart';
@@ -43,6 +44,11 @@ abstract class AppRouter {
           builder: (context) => SettingsPage(
             settingsCubit: locator.get<SettingsCubit>(),
           ),
+        );
+      case AppRoutes.gymChallengeDetails:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => GymChallengeDetailsPage(pageArguments: settings.arguments as GymChallengePageArguments)
         );
       case AppRoutes.userStats:
         return MaterialPageRoute(

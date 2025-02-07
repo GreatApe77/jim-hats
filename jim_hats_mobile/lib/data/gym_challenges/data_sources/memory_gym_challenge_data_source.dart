@@ -1,4 +1,5 @@
 import 'package:jim_hats_mobile/data/gym_challenges/data_sources/gym_challenge_data_source.dart';
+import 'package:jim_hats_mobile/data/gym_challenges/models/challenge_member.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/gym_challenge.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/ranking.dart';
 
@@ -72,4 +73,25 @@ class MemoryGymChallengeDataSource implements GymChallengeDataSource {
       Ranking(id: 8, username: 'User8', profilePicture: 'url8', logCount: 3),
     ]);
   }
+
+  @override
+Future<List<ChallengeMember>> getMembersOfChallenge(int challengeId) {
+  return Future.value([
+    ChallengeMember(id: 1, username: 'user1', profilePicture: 'https://example.com/user1.jpg'),
+    ChallengeMember(id: 2, username: 'user2', profilePicture: 'https://example.com/user2.jpg'),
+    ChallengeMember(id: 3, username: 'user3', profilePicture: 'https://example.com/user3.jpg'),
+    ChallengeMember(id: 4, username: 'user4', profilePicture: 'https://example.com/user4.jpg'),
+    ChallengeMember(id: 5, username: 'user5', profilePicture: 'https://example.com/user5.jpg'),
+    ChallengeMember(id: 6, username: 'user6', profilePicture: 'https://example.com/user6.jpg'),
+    ChallengeMember(id: 7, username: 'user7', profilePicture: 'https://example.com/user7.jpg'),
+    ChallengeMember(id: 8, username: 'user8', profilePicture: 'https://example.com/user8.jpg'),
+    ChallengeMember(id: 9, username: 'user9', profilePicture: 'https://example.com/user9.jpg'),
+    ChallengeMember(id: 10, username: 'user10', profilePicture: 'https://example.com/user10.jpg'),
+    ChallengeMember(id: 11, username: 'user11', profilePicture: 'https://example.com/user11.jpg'),
+    ChallengeMember(id: 12, username: 'user12', profilePicture: 'https://example.com/user12.jpg'),
+    ChallengeMember(id: 13, username: 'user13', profilePicture: 'https://example.com/user13.jpg'),
+    ChallengeMember(id: 14, username: 'user14', profilePicture: 'https://example.com/user14.jpg'),
+    ChallengeMember(id: 15, username: 'user15', profilePicture: 'https://example.com/user15.jpg'),
+  ]);
+}
 }

@@ -5,6 +5,7 @@ import 'package:jim_hats_mobile/data/logged_user/models/logged_user.dart';
 import 'package:jim_hats_mobile/shared/utils/get_days_between_dates.dart';
 
 class ChallengeBanner extends StatelessWidget {
+  final Function() onTap;
   final GymChallenge challenge;
   final Ranking leader;
   final Ranking user;
@@ -12,14 +13,14 @@ class ChallengeBanner extends StatelessWidget {
     required this.challenge,
     super.key,
     required this.leader,
-    required this.user,
+    required this.user, required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: BorderRadius.circular(8),
-      onTap: () {},
+      onTap: () => onTap(),
       child: SizedBox(
         height: 220,
         child: Column(

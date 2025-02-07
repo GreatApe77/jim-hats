@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log_with_user.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/gym_challenge.dart';
 import 'package:jim_hats_mobile/locator.dart';
+import 'package:jim_hats_mobile/routing/app_routes.dart';
 import 'package:jim_hats_mobile/shared/ui/constants/app_spacings.dart';
 import 'package:jim_hats_mobile/shared/ui/widgets/app_drawer/app_drawer.dart';
 import 'package:jim_hats_mobile/shared/ui/widgets/app_drawer/cubit/app_drawer_cubit.dart';
@@ -84,6 +85,11 @@ class _GymChallengePageState extends State<GymChallengePage> {
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 25),
                         child: ChallengeBanner(
+                          onTap: () {
+                            Navigator.of(context).pushNamed(
+                                AppRoutes.gymChallengeDetails,
+                                arguments: widget.gymChallengePageArguments);
+                          },
                           leader: state.leader,
                           user: state.userRanking,
                           challenge: state.challenge,
