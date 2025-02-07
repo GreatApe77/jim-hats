@@ -36,8 +36,25 @@ class _GymChallengePageState extends State<GymChallengePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: NavigationBar(
+        destinations: [
+          NavigationDestination(icon: Icon(Icons.book), label: 'Details'),
+          NavigationDestination(icon: Icon(Icons.list), label: 'Rankings'),
+          NavigationDestination(icon: Icon(Icons.chat), label: 'Chat'),
+        ],
+      ),
       drawer: AppDrawer(appDrawerCubit: locator.get<AppDrawerCubit>()),
-      appBar: AppBar(),
+      floatingActionButton: FloatingActionButton(
+        shape: CircleBorder(),
+        onPressed: () {},
+        child: Icon(Icons.add),
+      ),
+      appBar: AppBar(
+        actions: [
+          IconButton(onPressed: () {}, icon: Icon(Icons.notifications)),
+          IconButton(onPressed: () {}, icon: Icon(Icons.more_horiz))
+        ],
+      ),
       body: BlocBuilder<GymChallengePageCubit, GymChallengePageState>(
         bloc: widget.gymChallengePageCubit,
         builder: (context, state) {
