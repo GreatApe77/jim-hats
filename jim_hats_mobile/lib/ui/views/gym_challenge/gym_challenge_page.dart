@@ -8,6 +8,7 @@ import 'package:jim_hats_mobile/shared/ui/constants/app_spacings.dart';
 import 'package:jim_hats_mobile/shared/ui/widgets/app_drawer/app_drawer.dart';
 import 'package:jim_hats_mobile/shared/ui/widgets/app_drawer/cubit/app_drawer_cubit.dart';
 import 'package:jim_hats_mobile/shared/ui/widgets/exercise_log_tile/exercise_log_tile.dart';
+import 'package:jim_hats_mobile/shared/ui/widgets/take_photo_widget/take_photo_widget.dart';
 import 'package:jim_hats_mobile/shared/utils/readable_date.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge/cubit/gym_challenge_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge/gym_challenge_page_arguments.dart';
@@ -47,7 +48,12 @@ class _GymChallengePageState extends State<GymChallengePage> {
       drawer: AppDrawer(appDrawerCubit: locator.get<AppDrawerCubit>()),
       floatingActionButton: FloatingActionButton(
         shape: CircleBorder(),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            fullscreenDialog: true,
+            builder: (context) => TakePhotoWidget(),
+          ));
+        },
         child: Icon(Icons.add),
       ),
       appBar: AppBar(

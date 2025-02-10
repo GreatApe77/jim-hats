@@ -40,6 +40,8 @@ dependencies:
   bloc: ^9.0.0
   flutter_bloc: ^9.0.0
   meta: ^1.15.0
+  camera: ^0.11.1
+  image_picker: ^1.1.2
 
 dev_dependencies:
   flutter_test:
