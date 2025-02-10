@@ -39,6 +39,7 @@ dependencies:
   shared_preferences: ^2.5.1
   bloc: ^9.0.0
   flutter_bloc: ^9.0.0
+  meta: ^1.15.0
 
 dev_dependencies:
   flutter_test:

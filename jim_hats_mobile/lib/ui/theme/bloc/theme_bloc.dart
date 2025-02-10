@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:jim_hats_mobile/data/settings/repositories/settings_repository.dart';
 import 'package:meta/meta.dart';
+
+import 'package:jim_hats_mobile/data/settings/repositories/settings_repository.dart';
 
 part 'theme_event.dart';
 part 'theme_state.dart';
