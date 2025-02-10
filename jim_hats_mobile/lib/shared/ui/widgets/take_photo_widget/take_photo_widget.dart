@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:jim_hats_mobile/routing/app_routes.dart';
 
 class TakePhotoWidget extends StatefulWidget {
   const TakePhotoWidget({super.key});
@@ -129,7 +130,12 @@ class _TakePhotoWidgetState extends State<TakePhotoWidget> {
                                 });
                               },
                               icon: Icon(Icons.close)),
-                          IconButton(onPressed: () {}, icon: Icon(Icons.check))
+                          IconButton(
+                              onPressed: () {
+                                Navigator.of(context)
+                                    .pushNamed(AppRoutes.newCheckIn);
+                              },
+                              icon: Icon(Icons.check))
                         ],
                 ),
               )),
