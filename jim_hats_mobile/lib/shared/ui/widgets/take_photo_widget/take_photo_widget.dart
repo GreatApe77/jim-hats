@@ -17,6 +17,8 @@ class _TakePhotoWidgetState extends State<TakePhotoWidget> {
   CameraController? cameraController;
   XFile? photo;
   Size? size;
+  bool isFlashOn = false;
+  bool isFrontCamera = false;
 
   @override
   void initState() {
@@ -46,6 +48,7 @@ class _TakePhotoWidgetState extends State<TakePhotoWidget> {
         enableAudio: false, imageFormatGroup: ImageFormatGroup.jpeg);
     try {
       await cameraController?.initialize();
+      //await cameraController?.setFlashMode(FlashMode.off);
     } on CameraException catch (e) {
       print(e.description);
     }
@@ -71,17 +74,42 @@ class _TakePhotoWidgetState extends State<TakePhotoWidget> {
 
     return CameraPreview(camController);
   }
-
+  
   _takePicture() async {
     final CameraController? camController = cameraController;
     if (camController == null || !camController.value.isInitialized) {
       return;
     }
     try {
+      //await camController.setFlashMode(FlashMode.off);
       XFile photoTaken = await camController.takePicture();
       if (mounted) {
         setState(() {
           photo = photoTaken;
+        });
+      }
+    } on CameraException catch (e) {
+      print(e.description);
+    }
+  }
+
+
+
+  _toggleFlash() async {
+    final CameraController? camController = cameraController;
+    if (camController == null || !camController.value.isInitialized) {
+      return;
+    }
+    try {
+      if (isFlashOn) {
+        await camController.setFlashMode(FlashMode.off);
+        setState(() {
+          isFlashOn = false;
+        });
+      } else {
+        await camController.setFlashMode(FlashMode.always);
+        setState(() {
+          isFlashOn = true;
         });
       }
     } on CameraException catch (e) {
@@ -112,7 +140,12 @@ class _TakePhotoWidgetState extends State<TakePhotoWidget> {
                   children: photo == null
                       ? [
                           IconButton(
-                              onPressed: () {}, icon: Icon(Icons.flash_on)),
+                              onPressed: () async {
+                                await _toggleFlash();
+                              },
+                              icon: Icon(isFlashOn
+                                  ? Icons.flash_on
+                                  : Icons.flash_off)),
                           IconButton(
                               iconSize: 40,
                               onPressed: () {

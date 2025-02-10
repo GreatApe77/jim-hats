@@ -42,6 +42,7 @@ dependencies:
   meta: ^1.15.0
   camera: ^0.11.1
   image_picker: ^1.1.2
+  camera_android: ^0.10.10
 
 dev_dependencies:
   flutter_test:
