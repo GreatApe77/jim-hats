@@ -7,4 +7,5 @@ abstract class AppRoutes {
   static const userStats = '/user-stats';
   static const gymChallenge ='/gym-challenge';
   static const gymChallengeDetails = '/gym-challenge-details';
+  static const newCheckIn = '/new-check-in';
 }
