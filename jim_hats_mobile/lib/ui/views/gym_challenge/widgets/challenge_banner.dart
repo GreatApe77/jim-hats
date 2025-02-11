@@ -13,7 +13,8 @@ class ChallengeBanner extends StatelessWidget {
     required this.challenge,
     super.key,
     required this.leader,
-    required this.user, required this.onTap,
+    required this.user,
+    required this.onTap,
   });
 
   @override
@@ -80,8 +81,8 @@ class ChallengeBanner extends StatelessWidget {
                   ),
                   child: ListTile(
                     contentPadding: EdgeInsets.zero,
-                    title: Text('Days left'),
-                    subtitle: Text('${_daysLeft()}'),
+                    title: Text('${_daysLeft()}'),
+                    subtitle: Text('Days left'),
                     leading: Icon(
                       Icons.calendar_month,
                       size: 20,

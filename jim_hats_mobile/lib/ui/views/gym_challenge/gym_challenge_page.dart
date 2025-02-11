@@ -13,6 +13,7 @@ import 'package:jim_hats_mobile/shared/utils/readable_date.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge/cubit/gym_challenge_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge/gym_challenge_page_arguments.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge/widgets/challenge_banner.dart';
+import 'package:jim_hats_mobile/ui/views/new_check_in/new_check_in_page_arguments.dart';
 
 class GymChallengePage extends StatefulWidget {
   final GymChallengePageCubit gymChallengePageCubit;
@@ -51,7 +52,12 @@ class _GymChallengePageState extends State<GymChallengePage> {
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
             fullscreenDialog: true,
-            builder: (context) => TakePhotoWidget(),
+            builder: (context) => TakePhotoWidget(
+              onPhotoChosen: (photo) {
+                Navigator.of(context).pushNamed(AppRoutes.newCheckIn,
+                    arguments: NewCheckInPageArguments(photo: photo));
+              },
+            ),
           ));
         },
         child: Icon(Icons.add),

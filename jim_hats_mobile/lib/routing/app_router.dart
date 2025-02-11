@@ -8,6 +8,7 @@ import 'package:jim_hats_mobile/ui/views/gym_challenge/gym_challenge_page_argume
 import 'package:jim_hats_mobile/ui/views/gym_challenge_details/gym_challenge_details_page.dart';
 import 'package:jim_hats_mobile/ui/views/home/home_page.dart';
 import 'package:jim_hats_mobile/ui/views/new_check_in/new_check_in_page.dart';
+import 'package:jim_hats_mobile/ui/views/new_check_in/new_check_in_page_arguments.dart';
 import 'package:jim_hats_mobile/ui/views/settings/cubit/settings_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/settings/settings_page.dart';
 import 'package:jim_hats_mobile/ui/views/sign_in/sign_in_page.dart';
@@ -48,18 +49,17 @@ abstract class AppRouter {
         );
       case AppRoutes.gymChallengeDetails:
         return MaterialPageRoute(
-          settings: settings,
-          builder: (context) => GymChallengeDetailsPage(pageArguments: settings.arguments as GymChallengePageArguments)
-        );
+            settings: settings,
+            builder: (context) => GymChallengeDetailsPage(
+                pageArguments:
+                    settings.arguments as GymChallengePageArguments));
       case AppRoutes.newCheckIn:
+        final arguments = settings.arguments as NewCheckInPageArguments;
         return MaterialPageRoute(
-          settings: settings,
-          builder: (context) => 
-          NewCheckInPage(
-            
-          )
-
-        );
+            settings: settings,
+            builder: (context) => NewCheckInPage(
+                  pageArguments: arguments,
+                ));
       case AppRoutes.userStats:
         return MaterialPageRoute(
           settings: settings,
@@ -68,10 +68,9 @@ abstract class AppRouter {
           ),
         );
       case AppRoutes.gymChallenge:
-      final arguments = settings.arguments as GymChallengePageArguments;
-      
-      return MaterialPageRoute(
+        final arguments = settings.arguments as GymChallengePageArguments;
 
+        return MaterialPageRoute(
           settings: settings,
           builder: (context) => GymChallengePage(
             gymChallengePageCubit: locator.get<GymChallengePageCubit>(),

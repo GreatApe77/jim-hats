@@ -6,8 +6,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:jim_hats_mobile/routing/app_routes.dart';
 
 class TakePhotoWidget extends StatefulWidget {
-  const TakePhotoWidget({super.key});
-
+  const TakePhotoWidget({super.key, required this.onPhotoChosen});
+  final Function(XFile ? photo) onPhotoChosen;
   @override
   State<TakePhotoWidget> createState() => _TakePhotoWidgetState();
 }
@@ -74,7 +74,7 @@ class _TakePhotoWidgetState extends State<TakePhotoWidget> {
 
     return CameraPreview(camController);
   }
-  
+
   _takePicture() async {
     final CameraController? camController = cameraController;
     if (camController == null || !camController.value.isInitialized) {
@@ -93,8 +93,6 @@ class _TakePhotoWidgetState extends State<TakePhotoWidget> {
     }
   }
 
-
-
   _toggleFlash() async {
     final CameraController? camController = cameraController;
     if (camController == null || !camController.value.isInitialized) {
@@ -110,6 +108,31 @@ class _TakePhotoWidgetState extends State<TakePhotoWidget> {
         await camController.setFlashMode(FlashMode.always);
         setState(() {
           isFlashOn = true;
+        });
+      }
+    } on CameraException catch (e) {
+      print(e.description);
+    }
+  }
+
+
+
+  _toggleCamera() async {
+    final CameraController? camController = cameraController;
+    if (camController == null || !camController.value.isInitialized) {
+      return;
+    }
+
+    try {
+      if (isFrontCamera) {
+        await camController.setDescription(cameras[0]);
+        setState(() {
+          isFrontCamera = false;
+        });
+      } else {
+        await camController.setDescription(cameras[1]);
+        setState(() {
+          isFrontCamera = true;
         });
       }
     } on CameraException catch (e) {
@@ -153,7 +176,12 @@ class _TakePhotoWidgetState extends State<TakePhotoWidget> {
                               },
                               icon: Icon(Icons.photo_camera)),
                           IconButton(
-                              onPressed: () {}, icon: Icon(Icons.cameraswitch))
+                              onPressed: () {
+                                _toggleCamera();
+                              },
+                              icon: Icon(isFrontCamera
+                                  ? Icons.camera_front
+                                  : Icons.camera_rear))
                         ]
                       : [
                           IconButton(
@@ -164,10 +192,7 @@ class _TakePhotoWidgetState extends State<TakePhotoWidget> {
                               },
                               icon: Icon(Icons.close)),
                           IconButton(
-                              onPressed: () {
-                                Navigator.of(context)
-                                    .pushNamed(AppRoutes.newCheckIn);
-                              },
+                              onPressed:()=>widget.onPhotoChosen(photo),
                               icon: Icon(Icons.check))
                         ],
                 ),
