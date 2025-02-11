@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log_with_user.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/repositories/exercise_logs_repository.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/gym_challenge.dart';
@@ -48,6 +49,7 @@ class GymChallengePageCubit extends Cubit<GymChallengePageState> {
         leader: _getLeader(rankings),
         userRanking: _getUserRanking(rankings, loggedUser),
         logs: logs,
+        logsGroupedByDate: _groupLogsByDay(logs),
         challenge: currentChallenge));
   }
 
@@ -61,10 +63,25 @@ class GymChallengePageCubit extends Cubit<GymChallengePageState> {
     }
     return leader;
   }
+  Map<String,List<ExerciseLogWithUser>> _groupLogsByDay(List<ExerciseLogWithUser> exerciseLogs){
+    Map<String,List<ExerciseLogWithUser>> grouped = {};
 
+    for (var exerciseLog in exerciseLogs) {
+      final String formatedDateByDay = _formatDateText(exerciseLog.date);
+      if(!grouped.containsKey(_formatDateText(exerciseLog.date))){
+        grouped[formatedDateByDay] = [];
+      }
+      grouped[formatedDateByDay]!.add(exerciseLog);
+    }
+      return grouped;
+  }
   Ranking _getUserRanking(List<Ranking> rankings, LoggedUser user) {
     return rankings.firstWhere(
       (element) => element.id == user.id,
     );
+  }
+  _formatDateText(DateTime date){
+    // YYYY/MM/DD
+    return '${date.year}-${date.month.toString().padLeft(2,'0')}-${date.day.toString().padLeft(2,'0')}';
   }
 }

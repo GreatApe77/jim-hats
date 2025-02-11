@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:jim_hats_mobile/data/exercise_logs/data_sources/exercise_log_data_source.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log_with_user.dart';
 
+final  dayInMiliseconds = 8.64 *pow(10,7);
 class MemoryExerciseLogDataSource  implements ExerciseLogDataSource{
   @override
   Future<List<ExerciseLogWithUser>> getLogsOfChallenge(int challengeId) {
@@ -10,7 +13,7 @@ return Future.value([
         'title': 'Morning Run',
         'description': '5km run in the park',
         'image': null,
-        'date': DateTime.now().millisecondsSinceEpoch,
+        'date': DateTime.now().millisecondsSinceEpoch-dayInMiliseconds.toInt()*13,
         'userId': 1,
         'gymChallengeId': challengeId,
         'user': {
@@ -23,7 +26,7 @@ return Future.value([
         'title': 'Weight Lifting',
         'description': 'Chest and triceps workout',
         'image': null,
-        'date': DateTime.now().millisecondsSinceEpoch,
+        'date': DateTime.now().millisecondsSinceEpoch-dayInMiliseconds.toInt()*12,
         'userId': 2,
         'gymChallengeId': challengeId,
         'user': {
@@ -36,7 +39,7 @@ return Future.value([
         'title': 'Yoga Session',
         'description': '1-hour yoga class',
         'image': null,
-        'date': DateTime.now().millisecondsSinceEpoch,
+        'date': DateTime.now().millisecondsSinceEpoch-dayInMiliseconds.toInt()*11,
         'userId': 3,
         'gymChallengeId': challengeId,
         'user': {
@@ -49,7 +52,7 @@ return Future.value([
         'title': 'Cycling',
         'description': '20km cycling route',
         'image': null,
-        'date': DateTime.now().millisecondsSinceEpoch,
+        'date': DateTime.now().millisecondsSinceEpoch-dayInMiliseconds.toInt()*10,
         'userId': 4,
         'gymChallengeId': challengeId,
         'user': {
@@ -62,7 +65,7 @@ return Future.value([
         'title': 'Swimming',
         'description': '30 minutes of swimming',
         'image': null,
-        'date': DateTime.now().millisecondsSinceEpoch,
+        'date': DateTime.now().millisecondsSinceEpoch-dayInMiliseconds.toInt()*10, //10 days ago
         'userId': 5,
         'gymChallengeId': challengeId,
         'user': {
@@ -75,7 +78,7 @@ return Future.value([
         'title': 'HIIT Workout',
         'description': 'High-intensity interval training',
         'image': null,
-        'date': DateTime.now().millisecondsSinceEpoch,
+        'date': DateTime.now().millisecondsSinceEpoch-dayInMiliseconds.toInt(),
         'userId': 6,
         'gymChallengeId': challengeId,
         'user': {
@@ -88,7 +91,7 @@ return Future.value([
         'title': 'Pilates',
         'description': 'Pilates class',
         'image': null,
-        'date': DateTime.now().millisecondsSinceEpoch,
+        'date': DateTime.now().millisecondsSinceEpoch-dayInMiliseconds.toInt(),
         'userId': 7,
         'gymChallengeId': challengeId,
         'user': {

@@ -43,12 +43,34 @@ class GymChallengeDetailsPage extends StatelessWidget {
                 )
               ],
             ),
-            ListView(
-              scrollDirection: Axis.horizontal,
-              // children: List.generate(
-              //   2,
-              //   (index) => CircleAvatar(),
-              // ),
+            SizedBox(
+              height: 60,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                separatorBuilder: (context, index) {
+                  return SizedBox(
+                    width: 10,
+                  );
+                },
+                //children: [],
+                itemCount: 20,
+                itemBuilder: (context, index) {
+                  return CircleAvatar();
+                },
+                //  List.generate(
+                //   20,
+                //   (index) => CircleAvatar(),
+                // ),
+              ),
+            ),
+            ListTile(
+              contentPadding: EdgeInsets.zero,
+              onTap: () {
+                
+              },
+              textColor: Theme.of(context).colorScheme.error,
+              leading: Icon(Icons.logout,color: Theme.of(context).colorScheme.error,),
+              title: Text('Leave'),
             )
           ],
         ),

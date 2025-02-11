@@ -40,6 +40,20 @@ class _GymChallengePageState extends State<GymChallengePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: NavigationBar(
+        indicatorColor: Colors.transparent,
+        onDestinationSelected: (value) {
+          switch (value) {
+            case 0:
+              Navigator.of(context).pushNamed(AppRoutes.gymChallengeDetails,
+                  arguments: widget.gymChallengePageArguments);
+              break;
+            case 1:
+              break;
+            case 2:
+              break;
+            default:
+          }
+        },
         destinations: [
           NavigationDestination(icon: Icon(Icons.book), label: 'Details'),
           NavigationDestination(icon: Icon(Icons.list), label: 'Rankings'),
@@ -82,41 +96,75 @@ class _GymChallengePageState extends State<GymChallengePage> {
           if (state is GymChallengePageDataSuccess) {
             return SafeArea(
               child: Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: AppSpacings.horizontalPadding.toDouble()),
-                child: ListView.builder(
-                  itemCount: state.logs.length + 2,
-                  itemBuilder: (context, index) {
-                    if (index == 0) {
-                      return Text(
-                        state.challenge.name,
-                        style: Theme.of(context).textTheme.headlineMedium,
+                  padding: EdgeInsets.symmetric(
+                      horizontal: AppSpacings.horizontalPadding.toDouble()),
+                  child: ListView.builder(
+                    itemCount: state.logsGroupedByDate.keys.length,
+                    itemBuilder: (context, index1) {
+                      final date =
+                          state.logsGroupedByDate.keys.elementAt(index1);
+                      return Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            child: Text(
+                              date,
+                              style: Theme.of(context).textTheme.titleLarge,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          ListView.builder(
+                            physics: ClampingScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: state.logsGroupedByDate[date]!.length,
+                            itemBuilder: (context, index2) {
+                              final exerciseLog = state.logsGroupedByDate[date]![index2];
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 2),
+                                child: ExerciseLogTile(
+                                  exerciseLogWithUser: exerciseLog,
+                                ),
+                              );
+                            },
+                          )
+                        ],
                       );
-                    }
-                    if (index == 1) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 25),
-                        child: ChallengeBanner(
-                          onTap: () {
-                            Navigator.of(context).pushNamed(
-                                AppRoutes.gymChallengeDetails,
-                                arguments: widget.gymChallengePageArguments);
-                          },
-                          leader: state.leader,
-                          user: state.userRanking,
-                          challenge: state.challenge,
-                        ),
-                      );
-                    }
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 2),
-                      child: ExerciseLogTile(
-                        exerciseLogWithUser: state.logs[index - 2],
-                      ),
-                    );
-                  },
-                ),
-              ),
+                    },
+                  )
+                  // ListView.builder(
+                  //   itemCount: state.logs.length + 2,
+                  //   itemBuilder: (context, index) {
+                  //     if (index == 0) {
+                  //       return Text(
+                  //         state.challenge.name,
+                  //         style: Theme.of(context).textTheme.headlineMedium,
+                  //       );
+                  //     }
+                  //     if (index == 1) {
+                  //       return Padding(
+                  //         padding: const EdgeInsets.symmetric(vertical: 25),
+                  //         child: ChallengeBanner(
+                  //           onTap: () {
+                  //             Navigator.of(context).pushNamed(
+                  //                 AppRoutes.gymChallengeDetails,
+                  //                 arguments: widget.gymChallengePageArguments);
+                  //           },
+                  //           leader: state.leader,
+                  //           user: state.userRanking,
+                  //           challenge: state.challenge,
+                  //         ),
+                  //       );
+                  //     }
+                  //     return Padding(
+                  //       padding: const EdgeInsets.symmetric(vertical: 2),
+                  //       child: ExerciseLogTile(
+                  //         exerciseLogWithUser: state.logs[index - 2],
+                  //       ),
+                  //     );
+                  //   },
+                  // ),
+                  ),
             );
           }
           return SizedBox.shrink();
