@@ -48,6 +48,8 @@ class _GymChallengePageState extends State<GymChallengePage> {
                   arguments: widget.gymChallengePageArguments);
               break;
             case 1:
+            Navigator.of(context).pushNamed(AppRoutes.ranking,
+                  arguments: widget.gymChallengePageArguments);
               break;
             case 2:
               break;
@@ -113,7 +115,7 @@ class _GymChallengePageState extends State<GymChallengePage> {
                             child: ChallengeBanner(
                               onTap: () {
                                 Navigator.of(context).pushNamed(
-                                    AppRoutes.gymChallengeDetails,
+                                    AppRoutes.ranking,
                                     arguments:
                                         widget.gymChallengePageArguments);
                               },

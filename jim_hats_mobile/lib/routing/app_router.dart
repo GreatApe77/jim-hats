@@ -9,6 +9,8 @@ import 'package:jim_hats_mobile/ui/views/gym_challenge_details/gym_challenge_det
 import 'package:jim_hats_mobile/ui/views/home/home_page.dart';
 import 'package:jim_hats_mobile/ui/views/new_check_in/new_check_in_page.dart';
 import 'package:jim_hats_mobile/ui/views/new_check_in/new_check_in_page_arguments.dart';
+import 'package:jim_hats_mobile/ui/views/ranking/cubit/ranking_page_cubit.dart';
+import 'package:jim_hats_mobile/ui/views/ranking/ranking_page.dart';
 import 'package:jim_hats_mobile/ui/views/settings/cubit/settings_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/settings/settings_page.dart';
 import 'package:jim_hats_mobile/ui/views/sign_in/sign_in_page.dart';
@@ -60,6 +62,13 @@ abstract class AppRouter {
             builder: (context) => NewCheckInPage(
                   pageArguments: arguments,
                 ));
+      case AppRoutes.ranking:
+        final arguments = settings.arguments as GymChallengePageArguments;
+        return MaterialPageRoute(
+          builder: (context) => RankingPage(
+              arguments: arguments,
+              rankingPageCubit: locator.get<RankingPageCubit>()),
+        );
       case AppRoutes.userStats:
         return MaterialPageRoute(
           settings: settings,
