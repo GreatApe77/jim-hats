@@ -99,39 +99,75 @@ class _GymChallengePageState extends State<GymChallengePage> {
                   padding: EdgeInsets.symmetric(
                       horizontal: AppSpacings.horizontalPadding.toDouble()),
                   child: ListView.builder(
-                    itemCount: state.logsGroupedByDate.keys.length,
-                    itemBuilder: (context, index1) {
-                      final date =
-                          state.logsGroupedByDate.keys.elementAt(index1);
-                      return Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8),
-                            child: Text(
-                              date,
-                              style: Theme.of(context).textTheme.titleLarge,
-                              textAlign: TextAlign.center,
+                      itemCount: 3,
+                      itemBuilder: (context, index) {
+                        if (index == 0) {
+                          return Text(
+                            state.challenge.name,
+                            style: Theme.of(context).textTheme.headlineMedium,
+                          );
+                        }
+                        if (index == 1) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 25),
+                            child: ChallengeBanner(
+                              onTap: () {
+                                Navigator.of(context).pushNamed(
+                                    AppRoutes.gymChallengeDetails,
+                                    arguments:
+                                        widget.gymChallengePageArguments);
+                              },
+                              leader: state.leader,
+                              user: state.userRanking,
+                              challenge: state.challenge,
                             ),
-                          ),
-                          ListView.builder(
-                            physics: ClampingScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: state.logsGroupedByDate[date]!.length,
-                            itemBuilder: (context, index2) {
-                              final exerciseLog = state.logsGroupedByDate[date]![index2];
-                              return Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 2),
-                                child: ExerciseLogTile(
-                                  exerciseLogWithUser: exerciseLog,
+                          );
+                        }
+                        return ListView.builder(
+                          reverse: true,
+                          physics: ClampingScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: state.logsGroupedByDate.keys.length,
+                          itemBuilder: (context, index1) {
+                            String date =
+                                state.logsGroupedByDate.keys.elementAt(index1);
+
+                            //final String year = date.substring(0,5);
+
+                            return Column(
+                              children: [
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 8),
+                                  child: Text(
+                                    _formatDayStringFromKey(date),
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge,
+                                    textAlign: TextAlign.center,
+                                  ),
                                 ),
-                              );
-                            },
-                          )
-                        ],
-                      );
-                    },
-                  )
+                                ListView.builder(
+                                  physics: ClampingScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount:
+                                      state.logsGroupedByDate[date]!.length,
+                                  itemBuilder: (context, index2) {
+                                    final exerciseLog =
+                                        state.logsGroupedByDate[date]![index2];
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 2),
+                                      child: ExerciseLogTile(
+                                        exerciseLogWithUser: exerciseLog,
+                                      ),
+                                    );
+                                  },
+                                )
+                              ],
+                            );
+                          },
+                        );
+                      })
                   // ListView.builder(
                   //   itemCount: state.logs.length + 2,
                   //   itemBuilder: (context, index) {
@@ -171,5 +207,28 @@ class _GymChallengePageState extends State<GymChallengePage> {
         },
       ),
     );
+  }
+
+  String _formatDayStringFromKey(String key) {
+    final splittedDate = key.split('-');
+    final int year = int.parse(splittedDate[0]);
+    final int month = int.parse(splittedDate[1]);
+    final int day = int.parse(splittedDate[2]);
+    final dayOfChallenges = DateTime(year, month, day);
+    switch (_calculateDifference(dayOfChallenges)) {
+      case 0:
+        return 'Today';
+      case -1:
+        return 'Yesterday';
+      default:
+        return key;
+    }
+  }
+
+  int _calculateDifference(DateTime date) {
+    DateTime now = DateTime.now();
+    return DateTime(date.year, date.month, date.day)
+        .difference(DateTime(now.year, now.month, now.day))
+        .inDays;
   }
 }
