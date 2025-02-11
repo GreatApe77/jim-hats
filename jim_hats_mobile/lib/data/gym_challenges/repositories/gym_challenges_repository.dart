@@ -1,14 +1,15 @@
 import 'package:jim_hats_mobile/data/gym_challenges/data_sources/gym_challenge_data_source.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/gym_challenge.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/ranking.dart';
+import 'package:jim_hats_mobile/locator.dart';
 import 'package:jim_hats_mobile/shared/utils/memory_cache.dart';
 
 class GymChallengesRepository {
   final GymChallengeDataSource _gymChallengeDataSource;
 
   GymChallengesRepository(
-      {required GymChallengeDataSource gymChallengeDataSource})
-      : _gymChallengeDataSource = gymChallengeDataSource;
+      {required GymChallengeDataSource? gymChallengeDataSource})
+      : _gymChallengeDataSource = gymChallengeDataSource ?? locator.get<GymChallengeDataSource>();
 
   Future<List<GymChallenge>> getGymChallengesOfUser(int userId) async {
     List<GymChallenge>? challenges =

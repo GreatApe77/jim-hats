@@ -1,13 +1,14 @@
 import 'package:jim_hats_mobile/data/settings/data_sources/settings_data_source.dart';
 import 'package:jim_hats_mobile/data/settings/models/settings.dart';
+import 'package:jim_hats_mobile/locator.dart';
 
 class SettingsRepository {
    late Settings _settings;
   final SettingsDataSource _settingsDataSource;
 
   Settings get settings => _settings;
-  SettingsRepository({required SettingsDataSource settingsDataSource})
-      : _settingsDataSource = settingsDataSource;
+  SettingsRepository({required SettingsDataSource? settingsDataSource})
+      : _settingsDataSource = settingsDataSource??locator.get<SettingsDataSource>();
 
   Future<void> loadSettings() async {
     final isDarkTheme = await  _settingsDataSource.get<bool>('isDarkTheme');

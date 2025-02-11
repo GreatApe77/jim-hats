@@ -1,11 +1,12 @@
 import 'package:jim_hats_mobile/data/exercise_logs/data_sources/exercise_log_data_source.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log_with_user.dart';
+import 'package:jim_hats_mobile/locator.dart';
 
 class ExerciseLogsRepository {
   final ExerciseLogDataSource _exerciseLogDataSource;
 
-  ExerciseLogsRepository({required ExerciseLogDataSource exerciseLogDataSource})
-      : _exerciseLogDataSource = exerciseLogDataSource;
+  ExerciseLogsRepository({required ExerciseLogDataSource? exerciseLogDataSource})
+      : _exerciseLogDataSource = exerciseLogDataSource?? locator.get<ExerciseLogDataSource>();
 
   
   Future<List<ExerciseLogWithUser>> getLogsOfChallenge(int challengeId) async {

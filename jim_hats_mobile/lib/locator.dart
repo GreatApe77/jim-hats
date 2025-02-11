@@ -21,49 +21,47 @@ final locator = GetIt.instance;
 
 Future<void> setupDependencies() async {
   //Data Sources
-  locator.registerSingleton<LoggedUserDataSource>(MemoryLoggedUserDataSource());
-  locator.registerSingleton<GymChallengeDataSource>(
-      MemoryGymChallengeDataSource());
-  locator.registerSingleton<SettingsDataSource>(
-      SharedPreferencesSettingsDataSource());
-
   locator
-      .registerSingleton<ExerciseLogDataSource>(MemoryExerciseLogDataSource());
-  //Repositories
-  locator.registerSingleton<LoggedUserRepository>(LoggedUserRepository(
-      loggedUserDataSource: locator.get<LoggedUserDataSource>()));
-  locator.registerSingleton<GymChallengesRepository>(GymChallengesRepository(
-      gymChallengeDataSource: locator.get<GymChallengeDataSource>()));
-  locator.registerSingleton<SettingsRepository>(SettingsRepository(
-      settingsDataSource: locator.get<SettingsDataSource>()));
-  locator.registerSingleton<ExerciseLogsRepository>(ExerciseLogsRepository(
-      exerciseLogDataSource: locator.get<ExerciseLogDataSource>()));
+    ..registerSingleton<LoggedUserDataSource>(MemoryLoggedUserDataSource())
+    ..registerSingleton<GymChallengeDataSource>(MemoryGymChallengeDataSource())
+    ..registerSingleton<SettingsDataSource>(
+        SharedPreferencesSettingsDataSource())
+    ..registerSingleton<ExerciseLogDataSource>(MemoryExerciseLogDataSource())
+    //Repositories
+    ..registerSingleton<LoggedUserRepository>(LoggedUserRepository(
+        loggedUserDataSource: locator.get<LoggedUserDataSource>()))
+    ..registerSingleton<GymChallengesRepository>(GymChallengesRepository(
+        gymChallengeDataSource: locator.get<GymChallengeDataSource>()))
+    ..registerSingleton<SettingsRepository>(SettingsRepository(
+        settingsDataSource: locator.get<SettingsDataSource>()))
+    ..registerSingleton<ExerciseLogsRepository>(ExerciseLogsRepository(
+        exerciseLogDataSource: locator.get<ExerciseLogDataSource>()));
   //load settings
   await loadSettings();
 
   //Cubits
-  locator.registerFactory(
-    () => GymChallengePageCubit(
-        gymChallengesRepository: locator.get<GymChallengesRepository>(),
-        loggedUserRepository: locator.get<LoggedUserRepository>(),
-        exerciseLogsRepository: locator.get<ExerciseLogsRepository>()),
-  );
-  locator.registerSingleton<AppDrawerCubit>(
-    AppDrawerCubit(
-        gymChallengesRepository: locator.get<GymChallengesRepository>(),
-        loggedUserRepository: locator.get<LoggedUserRepository>()),
-  );
-  locator.registerSingleton(
-    SettingsCubit(loggedUserRepository: locator.get<LoggedUserRepository>()),
-  );
-  locator.registerSingleton<ThemeBloc>(ThemeBloc(
-      settingsRepository: locator.get<SettingsRepository>(),
-      themeState: locator.get<SettingsRepository>().settings.isDarkTheme
-          ? ThemeDark()
-          : ThemeLight()));
-
-  locator.registerSingleton<UserStatsCubit>(UserStatsCubit(
-      loggedUserRepository: locator.get<LoggedUserRepository>()));
+  locator
+    ..registerFactory(
+      () => GymChallengePageCubit(
+          gymChallengesRepository: locator.get<GymChallengesRepository>(),
+          loggedUserRepository: locator.get<LoggedUserRepository>(),
+          exerciseLogsRepository: locator.get<ExerciseLogsRepository>()),
+    )
+    ..registerSingleton<AppDrawerCubit>(
+      AppDrawerCubit(
+          gymChallengesRepository: locator.get<GymChallengesRepository>(),
+          loggedUserRepository: locator.get<LoggedUserRepository>()),
+    )
+    ..registerSingleton(
+      SettingsCubit(loggedUserRepository: locator.get<LoggedUserRepository>()),
+    )
+    ..registerSingleton<ThemeBloc>(ThemeBloc(
+        settingsRepository: locator.get<SettingsRepository>(),
+        themeState: locator.get<SettingsRepository>().settings.isDarkTheme
+            ? ThemeDark()
+            : ThemeLight()))
+    ..registerSingleton<UserStatsCubit>(UserStatsCubit(
+        loggedUserRepository: locator.get<LoggedUserRepository>()));
 }
 
 Future<void> loadSettings() async {
