@@ -30,7 +30,7 @@ class MemoryGymChallengeDataSource implements GymChallengeDataSource {
           image: null,
           joinId: null,
           createdAt: DateTime.now(),
-          startAt: DateTime(2026,6),
+          startAt: DateTime(2024),
           endAt: DateTime(2027),
           creatorId: 1),
       GymChallenge(

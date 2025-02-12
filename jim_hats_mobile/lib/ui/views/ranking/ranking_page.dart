@@ -43,7 +43,68 @@ class _RankingPageState extends State<RankingPage> {
                         horizontal: AppSpacings.horizontalPadding.toDouble()),
                     child: ListView(
                       children: [
-                        Text(state.challenge.name),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: Text(
+                            state.challenge.name,
+                            style: Theme.of(context).textTheme.headlineSmall,
+                          ),
+                        ),
+                        LinearProgressIndicator(
+                          value: _getRemainingDaysPercentage(
+                              startDate: state.challenge.startAt,
+                              endDate: state.challenge.endAt),
+                          minHeight: 20,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                  'Starts ${_formatDateToString(state.challenge.startAt)}'),
+                              Text(
+                                  'Finishes ${_formatDateToString(state.challenge.endAt)}'),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 10),
+                          child: Text(
+                            'Rankings',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                        ),
+                        ListView.builder(
+                          itemCount: state.rankings.length,
+                          shrinkWrap: true,
+                          physics: ClampingScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              title: Text(state.rankings[index].username),
+                              subtitle: Text(
+                                  '${state.rankings[index].logCount} days active'),
+                              leading: CircleAvatar(
+                                backgroundImage: NetworkImage(
+                                    state.rankings[index].profilePicture ?? ''),
+                              ),
+                            );
+                          },
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 10),
+                          child: Text(
+                            'Group stats',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                        ),
+                        ListTile(
+                          title: Text(
+                              '${widget.rankingPageCubit.countTotalOfLogs(state.rankings)}'),
+                        subtitle: Text('Total check-ins'),
+                        leading: Icon(Icons.monitor_heart),
+                        )
                       ],
                     )));
           }
@@ -51,5 +112,35 @@ class _RankingPageState extends State<RankingPage> {
         },
       ),
     );
+  }
+
+  String _formatDateToString(DateTime date) {
+    Map<int, String> monthNumberToName = {
+      1: 'January',
+      2: 'February',
+      3: 'March',
+      4: 'April',
+      5: 'May',
+      6: 'June',
+      7: 'July',
+      8: 'August',
+      9: 'September',
+      10: 'October',
+      11: 'November',
+      12: 'December',
+    };
+    return '${monthNumberToName[date.month]} ${date.day}, ${date.year}';
+  }
+
+  double _getRemainingDaysPercentage({
+    required DateTime startDate,
+    required DateTime endDate,
+  }) {
+    final today = DateTime.now();
+
+    final challengeTimeInDays = endDate.difference(startDate).inDays;
+    final daysPassed = today.difference(startDate).inDays;
+    final percentage = daysPassed.toDouble() / challengeTimeInDays.toDouble();
+    return percentage;
   }
 }

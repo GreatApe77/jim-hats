@@ -14,6 +14,7 @@ import 'package:jim_hats_mobile/data/settings/repositories/settings_repository.d
 import 'package:jim_hats_mobile/shared/ui/widgets/app_drawer/cubit/app_drawer_cubit.dart';
 import 'package:jim_hats_mobile/ui/theme/bloc/theme_bloc.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge/cubit/gym_challenge_page_cubit.dart';
+import 'package:jim_hats_mobile/ui/views/ranking/cubit/ranking_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/settings/cubit/settings_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/user_stats/cubit/user_stats_cubit.dart';
 
@@ -61,7 +62,13 @@ Future<void> setupDependencies() async {
             ? ThemeDark()
             : ThemeLight()))
     ..registerSingleton<UserStatsCubit>(UserStatsCubit(
-        loggedUserRepository: locator.get<LoggedUserRepository>()));
+        loggedUserRepository: locator.get<LoggedUserRepository>()))
+    ..registerSingleton<RankingPageCubit>(
+      RankingPageCubit(
+        //gymChallengesRepository: null,
+        //loggedUserRepository: null
+      )
+    );
 }
 
 Future<void> loadSettings() async {
