@@ -43,6 +43,7 @@ dependencies:
   camera: ^0.11.1
   image_picker: ^1.1.2
   camera_android: ^0.10.10
+  google_fonts: ^6.2.1
 
 dev_dependencies:
   flutter_test:
