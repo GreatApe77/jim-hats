@@ -19,6 +19,15 @@ export class FileUploadController {
     this.fileUploadService = fileuploadService;
     this.gymChallengeService = gymChallengeService;
   }
+  async upload(req: Request, res: Response) {
+    try{
+      const fullPath = req.body.fullPath as string;
+      return res.status(200).json(successResponse(MESSAGES.CREATED, { fullPath }));
+    }catch(error){
+      console.log(error);
+      return res.status(500).json(errorResponse(MESSAGES.INTERNAL_SERVER_ERROR));
+    }
+  }
   async handleUploadGymChallengeImage(req: Request, res: Response) {
     const file = req.file;
     if (!file) {
