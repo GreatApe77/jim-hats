@@ -50,7 +50,7 @@
   },
   "dependencies": {
     "@prisma/client": "^5.15.0",
-    "bcrypt": "^5.1.1",
+    "bcryptjs":"^2.4.3",
     "cors": "^2.8.5",
     "date-fns": "^3.6.0",
     "dayjs": "^1.11.11",

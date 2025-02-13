@@ -1,5 +1,5 @@
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { environment } from "../../../../config/environment.js";
 import { MESSAGES } from "../../../../constants/MESSAGES.js";
