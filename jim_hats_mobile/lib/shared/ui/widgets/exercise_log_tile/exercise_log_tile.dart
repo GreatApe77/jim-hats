@@ -4,15 +4,17 @@ import 'package:jim_hats_mobile/shared/utils/readable_date.dart';
 
 class ExerciseLogTile extends StatelessWidget {
   final ExerciseLogWithUser exerciseLogWithUser;
+  final Function() onTap;
   const ExerciseLogTile({
     super.key,
     required this.exerciseLogWithUser,
+    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () {},
+      onTap: onTap,
       tileColor: Theme.of(context).colorScheme.surfaceContainerHigh,
       title: Text(exerciseLogWithUser.title),
       subtitle: Row(

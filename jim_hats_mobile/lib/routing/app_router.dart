@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:jim_hats_mobile/locator.dart';
 import 'package:jim_hats_mobile/routing/app_routes.dart';
+import 'package:jim_hats_mobile/ui/views/check_in_page/check_in_page.dart';
+import 'package:jim_hats_mobile/ui/views/check_in_page/check_in_page_arguments.dart';
 import 'package:jim_hats_mobile/ui/views/create_account/create_account_page.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge/cubit/gym_challenge_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge/gym_challenge_page.dart';
@@ -86,6 +88,17 @@ abstract class AppRouter {
             gymChallengePageArguments: arguments,
           ),
         );
+      case AppRoutes.checkIn:
+        final arguments = settings.arguments as CheckInPageArguments;
+
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => CheckInPage(
+            checkInPageArguments: arguments,
+          ),
+
+        );
+
       default:
         return null;
     }

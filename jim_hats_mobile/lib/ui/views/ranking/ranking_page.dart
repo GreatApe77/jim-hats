@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jim_hats_mobile/shared/ui/constants/app_spacings.dart';
+import 'package:jim_hats_mobile/shared/utils/date_helper.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge/gym_challenge_page_arguments.dart';
 import 'package:jim_hats_mobile/ui/views/ranking/cubit/ranking_page_cubit.dart';
 
@@ -63,9 +64,9 @@ class _RankingPageState extends State<RankingPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                  'Starts ${_formatDateToString(state.challenge.startAt)}'),
+                                  'Starts ${DateHelper.formatDateToReadableText(state.challenge.startAt)}'),
                               Text(
-                                  'Finishes ${_formatDateToString(state.challenge.endAt)}'),
+                                  'Finishes ${DateHelper.formatDateToReadableText(state.challenge.endAt)}'),
                             ],
                           ),
                         ),
@@ -114,23 +115,7 @@ class _RankingPageState extends State<RankingPage> {
     );
   }
 
-  String _formatDateToString(DateTime date) {
-    Map<int, String> monthNumberToName = {
-      1: 'January',
-      2: 'February',
-      3: 'March',
-      4: 'April',
-      5: 'May',
-      6: 'June',
-      7: 'July',
-      8: 'August',
-      9: 'September',
-      10: 'October',
-      11: 'November',
-      12: 'December',
-    };
-    return '${monthNumberToName[date.month]} ${date.day}, ${date.year}';
-  }
+  
 
   double _getRemainingDaysPercentage({
     required DateTime startDate,

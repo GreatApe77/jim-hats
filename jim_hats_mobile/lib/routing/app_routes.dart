@@ -9,4 +9,5 @@ abstract class AppRoutes {
   static const gymChallengeDetails = '/gym-challenge-details';
   static const newCheckIn = '/new-check-in';
   static const ranking = '/ranking';
+  static const checkIn = '/check-in';
 }
