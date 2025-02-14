@@ -11,4 +11,5 @@ class CreateAccountFormData {
   final Validatable validatableImageUrl = ImageUrlValidator();
 
   
+  
 }

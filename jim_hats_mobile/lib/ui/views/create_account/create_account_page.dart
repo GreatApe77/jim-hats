@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jim_hats_mobile/routing/app_routes.dart';
 import 'package:jim_hats_mobile/shared/ui/constants/app_spacings.dart';
 import 'package:jim_hats_mobile/shared/ui/controllers/hide_password_controller.dart';
+import 'package:jim_hats_mobile/ui/views/create_account/create_account_form_data.dart';
 
 class CreateAccountPage extends StatefulWidget {
   const CreateAccountPage({super.key});
@@ -11,8 +12,13 @@ class CreateAccountPage extends StatefulWidget {
 }
 
 class _CreateAccountPageState extends State<CreateAccountPage> {
-  final hidePasswordController = HidePasswordController(isHidden: true);
-
+  late final HidePasswordController hidePasswordController;
+  
+  @override
+  void initState() {
+    super.initState();
+    hidePasswordController=HidePasswordController(isHidden: true);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
