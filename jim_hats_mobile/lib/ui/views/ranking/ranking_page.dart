@@ -64,9 +64,9 @@ class _RankingPageState extends State<RankingPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                  'Starts ${DateHelper.formatDateToReadableText(state.challenge.startAt)}'),
+                                  'Starts ${DateHelper.formatDateShort(state.challenge.startAt)}'),
                               Text(
-                                  'Finishes ${DateHelper.formatDateToReadableText(state.challenge.endAt)}'),
+                                'Finishes ${DateHelper.formatDateShort(state.challenge.endAt)}'),
                             ],
                           ),
                         ),

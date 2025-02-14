@@ -13,7 +13,21 @@ abstract class DateHelper {
     11: 'November',
     12: 'December',
   };
-  static String formatDateToReadableText(DateTime date) {
+  static const Map<int, String> weekDayToName = {
+    1: 'Monday',
+    2: 'Tuesday',
+    3: 'Wednesday',
+    4: 'Thursday',
+    5: 'Friday',
+    6: 'Saturday',
+    7: 'Sunday',
+  };
+  ///Example: February 4, 2025
+  static String formatDateShort(DateTime date) {
     return '${monthNumberToName[date.month]} ${date.day}, ${date.year}';
+  }
+  static String formatDateExtended(DateTime date){
+    return '${weekDayToName[date.weekday]}, ${monthNumberToName[date.month]} ${date.day} ${date.hour}:${date.minute}';
+    //return '${}'
   }
 }

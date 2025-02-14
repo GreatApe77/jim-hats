@@ -24,6 +24,7 @@ class ExerciseLogTile extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 10,
+                foregroundImage: NetworkImage(exerciseLogWithUser.user.profilePicture??''),
               ),
               SizedBox(
                 width: 4,

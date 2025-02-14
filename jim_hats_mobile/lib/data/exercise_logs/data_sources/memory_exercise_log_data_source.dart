@@ -44,7 +44,7 @@ return Future.value([
         'gymChallengeId': challengeId,
         'user': {
           'username': 'alice_jones',
-          'profilePicture': null,
+          'profilePicture': 'https://avatars.githubusercontent.com/u/99892395?s=200&v=4',
         },
       }),
       ExerciseLogWithUser.fromMap({
@@ -57,7 +57,7 @@ return Future.value([
         'gymChallengeId': challengeId,
         'user': {
           'username': 'bob_brown',
-          'profilePicture': null,
+          'profilePicture': 'https://avatars.githubusercontent.com/u/97892495?s=200&v=4',
         },
       }),
       ExerciseLogWithUser.fromMap({
@@ -70,7 +70,7 @@ return Future.value([
         'gymChallengeId': challengeId,
         'user': {
           'username': 'charlie_davis',
-          'profilePicture': null,
+          'profilePicture': 'https://avatars.githubusercontent.com/u/99892595?s=200&v=4',
         },
       }),
       ExerciseLogWithUser.fromMap({
