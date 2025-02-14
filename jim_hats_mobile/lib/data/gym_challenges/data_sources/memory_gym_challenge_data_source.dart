@@ -27,7 +27,7 @@ class MemoryGymChallengeDataSource implements GymChallengeDataSource {
           id: 5,
           name: 'Challenge 5',
           description: 'Challenge Description 5',
-          image: null,
+          image: 'https://avatars.githubusercontent.com/u/97452495?s=200&v=4',
           joinId: null,
           createdAt: DateTime.now(),
           startAt: DateTime(2024),
@@ -37,7 +37,7 @@ class MemoryGymChallengeDataSource implements GymChallengeDataSource {
           id: 6,
           name: 'Challenge 6',
           description: 'Challenge Description 6',
-          image: null,
+          image: 'https://avatars.githubusercontent.com/u/98452395?s=200&v=4',
           joinId: null,
           createdAt: DateTime.now(),
           startAt: DateTime.fromMillisecondsSinceEpoch(
