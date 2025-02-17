@@ -1,7 +1,9 @@
 /* eslint-disable no-undef */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import express from "express";
+import morgan from "morgan";
 const app = express();
+app.use(morgan("tiny"));
 app.use(express.json());
 
 // MESSAGES Object
