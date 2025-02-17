@@ -1,4 +1,6 @@
-const express = require("express");
+/* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import express from "express";
 const app = express();
 app.use(express.json());
 
@@ -142,8 +144,12 @@ app.delete("/gym-challenge/:challengeId/logs/:logId", (req, res) => {
   // Mock response for deleting an exercise log
   return res.status(200).json(successResponse(MESSAGES.DELETED));
 });
-
+// Route to check the health of the API
+app.get("/health", (req, res) => {
+    return res.status(200).json(successResponse(MESSAGES.SUCCESS, { status: "API is running" }));
+  });
 // Start the server
 app.listen(3000, () => {
+  
   console.log("Mock API server running on port 3000");
 });
