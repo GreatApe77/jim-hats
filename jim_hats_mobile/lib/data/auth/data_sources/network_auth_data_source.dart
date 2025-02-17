@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:jim_hats_mobile/data/auth/data_sources/auth_data_source.dart';
 import 'package:jim_hats_mobile/data/auth/dtos/login_dto.dart';
 import 'package:jim_hats_mobile/data/auth/dtos/register_dto.dart';
@@ -9,13 +11,15 @@ class NetworkAuthDataSource implements AuthDataSource {
   NetworkAuthDataSource({required this.httpClient});
 
   @override
-  Future<void> login(LoginDto loginDto) async {
+  Future<String> login(LoginDto loginDto) async {
     try {
       final response =
           await httpClient.dio.post('/login', data: loginDto.toMap());
       if (response.statusCode != 200) {
         throw Exception('Http error: ${response.statusCode}');
       }
+      //final decoded = jsonDecode(response.data);
+      return response.data['data']['token'] as String;
     } catch (e) {
       rethrow;
     }
@@ -26,7 +30,7 @@ class NetworkAuthDataSource implements AuthDataSource {
     try {
       final response =
           await httpClient.dio.post('/register', data: registerDto.toMap());
-      if (response.statusCode != 200) {
+      if (response.statusCode != 201) {
         throw Exception('Http error: ${response.statusCode}');
       }
     } catch (e) {

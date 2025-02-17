@@ -13,6 +13,7 @@ import 'package:jim_hats_mobile/data/settings/data_sources/shared_preferences_se
 import 'package:jim_hats_mobile/data/settings/repositories/settings_repository.dart';
 import 'package:jim_hats_mobile/shared/ui/widgets/app_drawer/cubit/app_drawer_cubit.dart';
 import 'package:jim_hats_mobile/ui/theme/bloc/theme_bloc.dart';
+import 'package:jim_hats_mobile/ui/views/create_account/cubit/create_account_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge/cubit/gym_challenge_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/ranking/cubit/ranking_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/settings/cubit/settings_cubit.dart';
@@ -42,6 +43,7 @@ Future<void> setupDependencies() async {
 
   //Cubits
   locator
+    ..registerSingleton<CreateAccountPageCubit>(CreateAccountPageCubit())
     ..registerFactory(
       () => GymChallengePageCubit(
           gymChallengesRepository: locator.get<GymChallengesRepository>(),
@@ -63,12 +65,10 @@ Future<void> setupDependencies() async {
             : ThemeLight()))
     ..registerSingleton<UserStatsCubit>(UserStatsCubit(
         loggedUserRepository: locator.get<LoggedUserRepository>()))
-    ..registerSingleton<RankingPageCubit>(
-      RankingPageCubit(
+    ..registerSingleton<RankingPageCubit>(RankingPageCubit(
         //gymChallengesRepository: null,
         //loggedUserRepository: null
-      )
-    );
+        ));
 }
 
 Future<void> loadSettings() async {

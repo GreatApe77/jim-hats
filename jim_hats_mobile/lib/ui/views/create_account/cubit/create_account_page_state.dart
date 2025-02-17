@@ -1,7 +1,6 @@
 part of 'create_account_page_cubit.dart';
 
-@immutable
-sealed class CreateAccountPageState {
+ class CreateAccountPageState {
   final String username;
   final String email;
   final String password;
@@ -14,13 +13,18 @@ sealed class CreateAccountPageState {
       required this.password,
       required this.confirmPassword,
       required this.image});
+  CreateAccountPageState copyWith(
+      {String? username,
+      String? email,
+      String? password,
+      String? confirmPassword,
+      Nullable<XFile>? image}) {
+    return CreateAccountPageState(
+        username: username ?? this.username,
+        email: email ?? this.email,
+        password: password ?? this.password,
+        confirmPassword: confirmPassword ?? this.confirmPassword,
+        image: image.value ?? this.image);
+  }
 }
 
-final class CreateAccountPageInitial extends CreateAccountPageState {
-  const CreateAccountPageInitial(
-      {required super.username,
-      required super.email,
-      required super.password,
-      required super.confirmPassword,
-      required super.image});
-}

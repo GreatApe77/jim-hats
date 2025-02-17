@@ -13,10 +13,3 @@ class HttpClient {
     dio.options.receiveTimeout = Duration(seconds: 3);
   }
 }
-
-
-void main(List<String> args) async {
-  final httpClient = HttpClient(dio: Dio());
-  //final res = await httpClient.dio.get<String>('/health');
-  
-}
