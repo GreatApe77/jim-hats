@@ -35,7 +35,7 @@ class WelcomePage extends StatelessWidget {
                       Text('Already have an account? '),
                       GestureDetector(
                         onTap: () {
-                          Navigator.of(context).pushNamed(AppRoutes.sigin);
+                          Navigator.of(context).pushNamed(AppRoutes.signin);
                         },
                         child: Text(
                           'Sign in.',

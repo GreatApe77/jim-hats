@@ -16,6 +16,7 @@ import 'package:jim_hats_mobile/ui/views/ranking/cubit/ranking_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/ranking/ranking_page.dart';
 import 'package:jim_hats_mobile/ui/views/settings/cubit/settings_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/settings/settings_page.dart';
+import 'package:jim_hats_mobile/ui/views/sign_in/bloc/sign_in_page_bloc.dart';
 import 'package:jim_hats_mobile/ui/views/sign_in/sign_in_page.dart';
 import 'package:jim_hats_mobile/ui/views/user_stats/cubit/user_stats_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/user_stats/user_stats_page.dart';
@@ -37,10 +38,12 @@ abstract class AppRouter {
             createAccountPageCubit: locator.get<CreateAccountPageCubit>(),
           ),
         );
-      case AppRoutes.sigin:
+      case AppRoutes.signin:
         return MaterialPageRoute(
           settings: settings,
-          builder: (context) => SignInPage(),
+          builder: (context) => SignInPage(
+            signInPageBloc: locator.get<SignInPageBloc>(),
+          ),
         );
       case AppRoutes.home:
         return MaterialPageRoute(

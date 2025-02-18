@@ -50,7 +50,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       content: Text('Error')));
                 break;
               case Status.success:
-                Navigator.of(context).pushNamed(AppRoutes.sigin);
+                Navigator.of(context).pushNamed(AppRoutes.signin);
                 break;
               default:
                 return;
