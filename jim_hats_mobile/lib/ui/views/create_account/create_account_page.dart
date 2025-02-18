@@ -41,7 +41,6 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
         child: BlocListener<CreateAccountPageCubit, CreateAccountPageState>(
           bloc: widget.createAccountPageCubit,
           listener: (context, state) {
-            print('RODOU');
             switch (state.status) {
               case Status.error:
                 ScaffoldMessenger.of(context)
@@ -51,17 +50,13 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       content: Text('Error')));
                 break;
               case Status.success:
-                ScaffoldMessenger.of(context)
-                  ..clearSnackBars()
-                  ..showSnackBar(SnackBar(content: Text('Success')));
+                Navigator.of(context).pushNamed(AppRoutes.sigin);
                 break;
               default:
                 return;
             }
           },
           listenWhen: (previous, current) {
-           
-
             return current.status == Status.error ||
                 current.status == Status.success;
           },
@@ -254,6 +249,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   height: 16,
                 ),
                 TextFormField(
+                  initialValue: widget.createAccountPageCubit.state.username,
                   validator: FormValidators.validateUsername,
                   onChanged: (value) {
                     widget.createAccountPageCubit
@@ -268,6 +264,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   height: 16,
                 ),
                 TextFormField(
+                  initialValue: widget.createAccountPageCubit.state.email,
                   validator: FormValidators.validateEmail,
                   onChanged: (value) {
                     widget.createAccountPageCubit
@@ -285,6 +282,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     listenable: hidePasswordController,
                     builder: (context, child) {
                       return TextFormField(
+                        initialValue:
+                            widget.createAccountPageCubit.state.password,
                         obscureText: hidePasswordController.isHidden,
                         validator: FormValidators.validatePassword,
                         decoration: InputDecoration(
@@ -305,6 +304,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     builder: (context, child) {
                       return TextFormField(
                         obscureText: hidePasswordController.isHidden,
+                        initialValue:
+                            widget.createAccountPageCubit.state.confirmPassword,
                         validator: FormValidators.validatePassword,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(),
@@ -323,9 +324,21 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    FilledButton(
-                        onPressed: () => _submitForm(context),
-                        child: Text('Create account'))
+                    BlocBuilder<CreateAccountPageCubit, CreateAccountPageState>(
+                      bloc: widget.createAccountPageCubit,
+                      buildWhen: (previous, current) =>
+                          current.status != previous.status,
+                      builder: (context, state) {
+                        return FilledButton(
+                          onPressed: state.status == Status.loading
+                              ? null
+                              : () => _submitForm(context),
+                          child: Text(state.status == Status.loading
+                              ? 'Creating...'
+                              : 'Create account'),
+                        );
+                      },
+                    )
                   ],
                 ),
                 SizedBox(

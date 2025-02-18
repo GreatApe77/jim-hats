@@ -53,6 +53,7 @@ const errorResponse = (message) => {
 // Route to register a user
 app.post("/register", (req, res) => {
   const { username, email, password, profilePicture } = req.body;
+  console.log(req.body)
   // Mock response for user registration
   return res.status(201).json(successResponse(MESSAGES.REGISTERED_USER));
 });

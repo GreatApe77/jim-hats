@@ -42,6 +42,7 @@ class CreateAccountPageCubit extends Cubit<CreateAccountPageState> {
     try {
       emit(state.copyWith(status: Status.loading));
       //UPLOAD PHOTO USE URL IN REGISTER
+      await Future.delayed(Duration(seconds: 1));
       await _authRepository.register(RegisterDto(
           username: state.username,
           email: state.email,
@@ -50,9 +51,10 @@ class CreateAccountPageCubit extends Cubit<CreateAccountPageState> {
       emit(state.copyWith(
         status: Status.success
       ));
+      emit(CreateAccountPageState.empty());
     } catch (e) {
       emit(state.copyWith(status: Status.error));
-      emit(state.copyWith(status: Status.writingForm));
+      emit(CreateAccountPageState.empty());
     }
   }
 }
