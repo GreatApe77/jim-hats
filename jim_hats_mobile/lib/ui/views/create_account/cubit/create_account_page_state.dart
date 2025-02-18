@@ -24,7 +24,7 @@ part of 'create_account_page_cubit.dart';
         email: email ?? this.email,
         password: password ?? this.password,
         confirmPassword: confirmPassword ?? this.confirmPassword,
-        image: image.value ?? this.image);
+        image: image!=null?image.value:this.image);
   }
 }
 

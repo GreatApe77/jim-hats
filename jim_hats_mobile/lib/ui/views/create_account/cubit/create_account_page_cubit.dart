@@ -16,11 +16,10 @@ class CreateAccountPageCubit extends Cubit<CreateAccountPageState> {
             username: ''));
 
   void addImage(XFile image) {
-   
-     
-    
+    emit(state.copyWith(image: Nullable<XFile>(image)));
   }
-  void clearImage(){
-    
+
+  void clearImage() {
+    emit(state.copyWith(image: Nullable<XFile>(null)));
   }
 }

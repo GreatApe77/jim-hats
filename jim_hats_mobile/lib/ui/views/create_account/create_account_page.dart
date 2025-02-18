@@ -199,12 +199,13 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
             BlocBuilder<CreateAccountPageCubit, CreateAccountPageState>(
               bloc: widget.createAccountPageCubit,
               builder: (context, state) {
-                if (state is CreateAccountPageInitial && state.image!=null) {
+                if (state.image != null) {
                   return Align(
                     child: TextButton(
                         onPressed: () {
                           widget.createAccountPageCubit.clearImage();
-                        }, child: Text('Clear profile picture')),
+                        },
+                        child: Text('Clear profile picture')),
                   );
                 }
                 return SizedBox.shrink();
