@@ -5,7 +5,7 @@ class HttpClient {
   final Dio _dio;
   Dio get dio => _dio;
   HttpClient({required Dio dio}) : _dio = dio {
-    dio.options.baseUrl = localhost;
+    dio.options.baseUrl = mobileLocalhost;
     dio.options.headers ={
       'Accept':"apllication/json"
     };
