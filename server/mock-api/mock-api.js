@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import express from "express";
 import morgan from "morgan";
+import multer from "multer";
 const app = express();
 app.use(morgan("tiny"));
 app.use(express.json());
