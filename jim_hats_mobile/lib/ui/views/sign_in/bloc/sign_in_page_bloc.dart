@@ -7,6 +7,7 @@ part 'sign_in_page_state.dart';
 
 class SignInPageBloc extends Bloc<SignInPageEvent, SignInPageState> {
   final AuthRepository _authRepository;
+  
   SignInPageBloc({required AuthRepository authRepository})
       : _authRepository = authRepository,
         super(SignInPageState.empty()) {
@@ -25,7 +26,7 @@ class SignInPageBloc extends Bloc<SignInPageEvent, SignInPageState> {
         try {
           emit(state.copywith(status: SignInPageStatus.loading));
           await Future.delayed(Duration(seconds: 2));
-          final token = await _authRepository.login(
+           await _authRepository.login(
               LoginDto(username: state.username, password: state.password));
           
           emit(state.copywith(status: SignInPageStatus.success));

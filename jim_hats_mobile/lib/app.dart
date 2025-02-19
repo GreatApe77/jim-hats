@@ -18,11 +18,11 @@ class App extends StatelessWidget {
       bloc: locator.get<ThemeBloc>(),
       builder: (context, state) {
         return MaterialApp(
+          
             darkTheme: theme.dark(),
             theme: theme.light(),
             onGenerateRoute: AppRouter.ongenerateRoute,
             initialRoute: AppRouter.initialRoute,
-
             //themeMode: ThemeMode.dark,
             themeMode: state is ThemeDark ? ThemeMode.dark : ThemeMode.light);
       },

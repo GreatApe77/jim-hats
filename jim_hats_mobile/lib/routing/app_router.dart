@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jim_hats_mobile/locator.dart';
 import 'package:jim_hats_mobile/routing/app_routes.dart';
+import 'package:jim_hats_mobile/shared/ui/cubits/auth/auth_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/check_in_page/check_in_page.dart';
 import 'package:jim_hats_mobile/ui/views/check_in_page/check_in_page_arguments.dart';
 import 'package:jim_hats_mobile/ui/views/create_account/create_account_page.dart';
@@ -29,7 +31,19 @@ abstract class AppRouter {
       case AppRoutes.welcome:
         return MaterialPageRoute(
           settings: settings,
-          builder: (context) => WelcomePage(),
+          builder: (context) => BlocListener<AuthCubit, AuthState>(
+            bloc: locator.get<AuthCubit>()..checkAuthStatus(),
+            listener: (context, state) {
+              switch (state.authStatus) {
+                case AuthStatus.authenticated:
+                  Navigator.of(context).pushNamedAndRemoveUntil(AppRoutes.home, (route) =>false ,);
+                  break;
+                
+                default:
+              }
+            },
+            child: WelcomePage(),
+          ),
         );
       case AppRoutes.createAccount:
         return MaterialPageRoute(
@@ -102,7 +116,6 @@ abstract class AppRouter {
           builder: (context) => CheckInPage(
             checkInPageArguments: arguments,
           ),
-
         );
 
       default:

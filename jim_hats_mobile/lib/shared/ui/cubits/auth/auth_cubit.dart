@@ -34,5 +34,10 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  void logOut() {}
+  void logOut() async {
+    await _authRepository.logout();
+    emit(state.copyWith(
+      authStatus: AuthStatus.unauthenticated
+    ));
+  }
 }

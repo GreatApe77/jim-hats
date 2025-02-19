@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jim_hats_mobile/locator.dart';
 import 'package:jim_hats_mobile/shared/ui/constants/app_spacings.dart';
+import 'package:jim_hats_mobile/shared/ui/cubits/auth/auth_cubit.dart';
 import 'package:jim_hats_mobile/shared/ui/widgets/app_drawer/app_drawer.dart';
 import 'package:jim_hats_mobile/shared/ui/widgets/app_drawer/cubit/app_drawer_cubit.dart';
 import 'package:jim_hats_mobile/ui/theme/bloc/theme_bloc.dart';
@@ -104,6 +105,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     ListTile(
+                      onTap: () => _logOut(),
                       leading: Icon(Icons.logout_outlined),
                       title: Text('Sign out'),
                     ),
@@ -124,5 +126,10 @@ class _SettingsPageState extends State<SettingsPage> {
         },
       )),
     );
+    
+  }
+
+  void _logOut(){
+    locator.get<AuthCubit>().logOut();
   }
 }
