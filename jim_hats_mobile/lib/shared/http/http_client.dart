@@ -9,7 +9,8 @@ class HttpClient {
     dio.options.headers ={
       'Accept':"apllication/json"
     };
-    dio.options.connectTimeout = Duration(seconds: 2);
-    dio.options.receiveTimeout = Duration(seconds: 3);
+    dio.options.connectTimeout = Duration(seconds: 5);
+    dio.options.receiveTimeout = Duration(seconds: 5);
+    
   }
 }

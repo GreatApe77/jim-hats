@@ -16,6 +16,7 @@ import 'package:jim_hats_mobile/data/settings/data_sources/settings_data_source.
 import 'package:jim_hats_mobile/data/settings/data_sources/shared_preferences_settings_data_source.dart';
 import 'package:jim_hats_mobile/data/settings/repositories/settings_repository.dart';
 import 'package:jim_hats_mobile/shared/http/http_client.dart';
+import 'package:jim_hats_mobile/shared/ui/cubits/auth/auth_cubit.dart';
 import 'package:jim_hats_mobile/shared/ui/widgets/app_drawer/cubit/app_drawer_cubit.dart';
 import 'package:jim_hats_mobile/ui/theme/bloc/theme_bloc.dart';
 import 'package:jim_hats_mobile/ui/views/create_account/cubit/create_account_page_cubit.dart';
@@ -31,7 +32,7 @@ Future<void> setupDependencies() async {
   //OTHER
   locator
     ..registerSingleton<HttpClient>(HttpClient(dio: Dio()))
-    
+
     //Data Sources
     ..registerSingleton<LoggedUserDataSource>(MemoryLoggedUserDataSource())
     ..registerSingleton<GymChallengeDataSource>(MemoryGymChallengeDataSource())
@@ -41,8 +42,9 @@ Future<void> setupDependencies() async {
     ..registerSingleton<AuthDataSource>(
         NetworkAuthDataSource(httpClient: locator.get<HttpClient>()))
     //Repositories
-    ..registerSingleton<AuthRepository>(
-        AuthRepository(authDataSource: locator.get<AuthDataSource>()))
+    ..registerSingleton<AuthRepository>(AuthRepository(
+        settingsDatasource: locator.get<SettingsDataSource>(),
+        authDataSource: locator.get<AuthDataSource>()))
     ..registerSingleton<LoggedUserRepository>(LoggedUserRepository(
         loggedUserDataSource: locator.get<LoggedUserDataSource>()))
     ..registerSingleton<GymChallengesRepository>(GymChallengesRepository(
@@ -55,11 +57,13 @@ Future<void> setupDependencies() async {
   await loadSettings();
 
   //Cubits
-  locator
-    ..registerSingleton<SignInPageBloc>(SignInPageBloc(
-      authRepository: locator.get<AuthRepository>()
 
-    ))
+  locator
+    ..registerSingleton<AuthCubit>(AuthCubit(
+        authRepository: locator.get<AuthRepository>(),
+        loggedUserRepository: locator.get<LoggedUserRepository>()))
+    ..registerSingleton<SignInPageBloc>(
+        SignInPageBloc(authRepository: locator.get<AuthRepository>()))
     ..registerSingleton<CreateAccountPageCubit>(CreateAccountPageCubit())
     ..registerFactory(
       () => GymChallengePageCubit(

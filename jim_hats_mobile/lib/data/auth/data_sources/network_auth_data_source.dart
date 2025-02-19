@@ -15,9 +15,9 @@ class NetworkAuthDataSource implements AuthDataSource {
     try {
       final response =
           await httpClient.dio.post('/login', data: loginDto.toMap());
-      if (response.statusCode != 200) {
-        throw Exception('Http error: ${response.statusCode}');
-      }
+      // if (response.statusCode != 200) {
+      //   throw Exception('Http error: ${response.statusCode}');
+      // }
       //final decoded = jsonDecode(response.data);
       return response.data['data']['token'] as String;
     } catch (e) {
