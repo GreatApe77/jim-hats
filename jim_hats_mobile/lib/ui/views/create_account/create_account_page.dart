@@ -285,6 +285,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                         initialValue:
                             widget.createAccountPageCubit.state.password,
                         obscureText: hidePasswordController.isHidden,
+                        onChanged: (value) {
+                          widget.createAccountPageCubit.updatePassword(value);
+                        },
                         validator: FormValidators.validatePassword,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(),
@@ -307,6 +310,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                         initialValue:
                             widget.createAccountPageCubit.state.confirmPassword,
                         validator: FormValidators.validatePassword,
+                        onChanged: (value) {
+                          widget.createAccountPageCubit.updatePassword(value);
+                        },
                         decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             label: Text('Confirm password'),
