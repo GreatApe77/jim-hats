@@ -1,6 +1,5 @@
 part of 'gym_challenge_page_cubit.dart';
 
-@immutable
 sealed class GymChallengePageState {}
 
 final class GymChallengePageInitial extends GymChallengePageState {}

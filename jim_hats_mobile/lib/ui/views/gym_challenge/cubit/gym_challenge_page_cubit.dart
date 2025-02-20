@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log_with_user.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/repositories/exercise_logs_repository.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/gym_challenge.dart';
@@ -7,7 +6,7 @@ import 'package:jim_hats_mobile/data/gym_challenges/models/ranking.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/repositories/gym_challenges_repository.dart';
 import 'package:jim_hats_mobile/data/logged_user/models/logged_user.dart';
 import 'package:jim_hats_mobile/data/logged_user/repositories/logged_user_repository.dart';
-import 'package:meta/meta.dart';
+
 
 part 'gym_challenge_page_state.dart';
 
