@@ -3,6 +3,7 @@
 import express from "express";
 import morgan from "morgan";
 import multer from "multer";
+import "dotenv/config";
 const app = express();
 app.use(morgan("tiny"));
 app.use(express.json());
@@ -50,7 +51,38 @@ const errorResponse = (message) => {
     message: message
   };
 };
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "public/uploads");
+  },
+  filename: (req, file, cb) => {
+    const fileName = `${Date.now()}-${file.originalname}`;
+    cb(null, fileName);
+    const fullPath = `${process.env.BASE_URL}/uploads/${fileName}`;
+    req.body.fullPath = fullPath;
+  },
+});
 
+const upload = multer({ storage: storage ,
+  fileFilter: (req, file, cb) => {
+    //png or jpeg
+    if (file.mimetype === "image/png" || file.mimetype === "image/jpeg") {
+      cb(null, true);
+    } else {
+      //custom error message how to send in the reponse?
+      
+      cb(new HttpError(400, `file type ${file.mimetype} is not supported`));
+    }
+  },
+});
+
+const uploadPhoto = upload.single("file");
+
+app.use(express.static("public"))
+app.post("/uploads",uploadPhoto,(req,res)=>{
+  const fullPath= req.body.fullPath
+  return res.status(200).json(successResponse(MESSAGES.CREATED,{fullPath}))
+})
 // Route to register a user
 app.post("/register", (req, res) => {
   const { username, email, password, profilePicture } = req.body;
