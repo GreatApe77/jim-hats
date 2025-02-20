@@ -33,14 +33,14 @@ class _SignInPageState extends State<SignInPage> {
         listener: (context, state) {
           switch (state.status) {
             case SignInPageStatus.success:
-              locator.get<AuthCubit>().checkAuthStatus();
-              //Navigator.of(context).pushReplacementNamed(AppRoutes.home);
+              //locator.get<AuthCubit>().checkAuthStatus();
+              Navigator.of(context).pushReplacementNamed(AppRoutes.splash);
               break;
             case SignInPageStatus.failure:
               ScaffoldMessenger.of(context)
                 ..clearSnackBars()
                 ..showSnackBar(
-                    SnackBar(content: Text('Error while logging in')));
+                    SnackBar(content: Text('Error while signing in')));
               break;
             default:
           }
@@ -113,7 +113,7 @@ class _SignInPageState extends State<SignInPage> {
                           onPressed: state.status == SignInPageStatus.loading
                               ? null
                               : () => _submitSignIn(),
-                          child: Text('Sign in'));
+                          child: Text(state.status == SignInPageStatus.loading?'Signing in...':'Sign in'));
                     },
                   ),
                   FilledButton.tonal(

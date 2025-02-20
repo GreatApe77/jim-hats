@@ -20,30 +20,46 @@ import 'package:jim_hats_mobile/ui/views/settings/cubit/settings_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/settings/settings_page.dart';
 import 'package:jim_hats_mobile/ui/views/sign_in/bloc/sign_in_page_bloc.dart';
 import 'package:jim_hats_mobile/ui/views/sign_in/sign_in_page.dart';
+import 'package:jim_hats_mobile/ui/views/splash/splah_page.dart';
 import 'package:jim_hats_mobile/ui/views/user_stats/cubit/user_stats_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/user_stats/user_stats_page.dart';
 import 'package:jim_hats_mobile/ui/views/welcome/welcome_page.dart';
 
 abstract class AppRouter {
-  static String initialRoute = AppRoutes.welcome;
+  static String initialRoute = AppRoutes.splash;
   static Route? ongenerateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case AppRoutes.welcome:
+      case AppRoutes.splash:
         return MaterialPageRoute(
-          settings: settings,
           builder: (context) => BlocListener<AuthCubit, AuthState>(
             bloc: locator.get<AuthCubit>()..checkAuthStatus(),
             listener: (context, state) {
+              
               switch (state.authStatus) {
                 case AuthStatus.authenticated:
-                  Navigator.of(context).pushNamedAndRemoveUntil(AppRoutes.home, (route) =>false ,);
+                  
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    AppRoutes.home,
+                    (route) => false,
+                  );
+
                   break;
-                
+                case AuthStatus.unauthenticated:
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    AppRoutes.welcome,
+                    (route) => false,
+                  );
                 default:
+
               }
             },
-            child: WelcomePage(),
+            child: const SplahPage(),
           ),
+        );
+      case AppRoutes.welcome:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => WelcomePage(),
         );
       case AppRoutes.createAccount:
         return MaterialPageRoute(

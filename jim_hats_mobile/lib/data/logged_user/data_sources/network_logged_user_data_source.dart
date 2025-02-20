@@ -15,6 +15,7 @@ class NetworkLoggedUserDataSource implements LoggedUserDataSource {
   @override
   Future<LoggedUser> getLoggedUser() {
     //_httpClient.dio.get('', options: Options());
+    print('Called');
     return Future.value(LoggedUser.fromMap({
       'username': 'Mateus',
       'id': 4,

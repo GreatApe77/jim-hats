@@ -10,4 +10,5 @@ abstract class AppRoutes {
   static const newCheckIn = '/new-check-in';
   static const ranking = '/ranking';
   static const checkIn = '/check-in';
+  static const splash = '/splash';
 }

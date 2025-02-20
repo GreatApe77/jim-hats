@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jim_hats_mobile/locator.dart';
+import 'package:jim_hats_mobile/routing/app_routes.dart';
 import 'package:jim_hats_mobile/shared/ui/constants/app_spacings.dart';
 import 'package:jim_hats_mobile/shared/ui/cubits/auth/auth_cubit.dart';
 import 'package:jim_hats_mobile/shared/ui/widgets/app_drawer/app_drawer.dart';
@@ -92,11 +93,12 @@ class _SettingsPageState extends State<SettingsPage> {
                               ? Icon(Icons.dark_mode)
                               : Icon(Icons.light_mode),
                           title: Text('Toggle'),
-                          trailing: Switch(value: 
-                          state is ThemeDark
-                          , onChanged: (value) {
-                            locator.get<ThemeBloc>().add(ThemeToggledEvent());
-                          },),
+                          trailing: Switch(
+                            value: state is ThemeDark,
+                            onChanged: (value) {
+                              locator.get<ThemeBloc>().add(ThemeToggledEvent());
+                            },
+                          ),
                         );
                       },
                     ),
@@ -104,10 +106,18 @@ class _SettingsPageState extends State<SettingsPage> {
                       'Account',
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
-                    ListTile(
-                      onTap: () => _logOut(),
-                      leading: Icon(Icons.logout_outlined),
-                      title: Text('Sign out'),
+                    BlocListener<AuthCubit, AuthState>(
+                      bloc: locator.get<AuthCubit>(),
+                      listener: (context, state) {
+                        if(state.authStatus==AuthStatus.unauthenticated){
+                          Navigator.of(context).pushNamedAndRemoveUntil(AppRoutes.welcome, (route) => false,);
+                        }
+                      },
+                      child: ListTile(
+                        onTap: () => _logOut(),
+                        leading: Icon(Icons.logout_outlined),
+                        title: Text('Sign out'),
+                      ),
                     ),
                     ListTile(
                       textColor: Theme.of(context).colorScheme.error,
@@ -126,10 +136,9 @@ class _SettingsPageState extends State<SettingsPage> {
         },
       )),
     );
-    
   }
 
-  void _logOut(){
+  void _logOut() {
     locator.get<AuthCubit>().logOut();
   }
 }
