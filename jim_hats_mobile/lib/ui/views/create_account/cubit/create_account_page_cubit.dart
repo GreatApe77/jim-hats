@@ -2,16 +2,20 @@ import 'package:bloc/bloc.dart';
 import 'package:camera/camera.dart';
 import 'package:jim_hats_mobile/data/auth/dtos/register_dto.dart';
 import 'package:jim_hats_mobile/data/auth/repositories/auth_repository.dart';
+import 'package:jim_hats_mobile/data/uploads/dtos/upload_dto.dart';
+import 'package:jim_hats_mobile/data/uploads/repositories/upload_repository.dart';
 import 'package:jim_hats_mobile/locator.dart';
 import 'package:jim_hats_mobile/shared/utils/nullable.dart';
-import 'package:meta/meta.dart';
 
 part 'create_account_page_state.dart';
 
 class CreateAccountPageCubit extends Cubit<CreateAccountPageState> {
   final AuthRepository _authRepository;
-  CreateAccountPageCubit({AuthRepository? authRepository})
-      : _authRepository = authRepository ?? locator.get<AuthRepository>(),
+  final UploadRepository _uploadRepository;
+  CreateAccountPageCubit(
+      {AuthRepository? authRepository, UploadRepository? uploadRepository})
+      : _uploadRepository = uploadRepository ?? locator.get<UploadRepository>(),
+        _authRepository = authRepository ?? locator.get<AuthRepository>(),
         super(CreateAccountPageState.empty());
 
   void addImage(XFile image) {
@@ -42,17 +46,24 @@ class CreateAccountPageCubit extends Cubit<CreateAccountPageState> {
     try {
       emit(state.copyWith(status: Status.loading));
       //UPLOAD PHOTO USE URL IN REGISTER
+      String? profilePicture;
+      if (state.image != null) {
+        print("ANTES DO ERRO");
+        profilePicture = await _uploadRepository
+            .uploadFile(UploadDto(fileToUpload: state.image!));
+              print("Depois do erro");
+
+      }
       await Future.delayed(Duration(seconds: 1));
       await _authRepository.register(RegisterDto(
           username: state.username,
           email: state.email,
           password: state.password,
-          profilePicture: 'https://someUploadedUrl'));
-      emit(state.copyWith(
-        status: Status.success
-      ));
+          profilePicture: profilePicture));
+      emit(state.copyWith(status: Status.success));
       emit(CreateAccountPageState.empty());
     } catch (e) {
+      print(e);
       emit(state.copyWith(status: Status.error));
       emit(CreateAccountPageState.empty());
     }

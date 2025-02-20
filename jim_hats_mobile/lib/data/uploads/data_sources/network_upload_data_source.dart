@@ -12,14 +12,20 @@ class NetworkUploadDataSource implements UploadDataSource {
       : _httpClient = httpClient;
   @override
   Future<String> uploadFile(UploadDto uploadDto) async {
-    final form = FormData.fromMap(
-        {'file': await MultipartFile.fromFile(uploadDto.fileToUpload.path)});
+    final form = FormData.fromMap({
+      'file': await MultipartFile.fromFile(uploadDto.fileToUpload.path,
+          contentType: DioMediaType.parse('image/png'))
+    });
     try {
-      final response = await _httpClient.dio.post('/uploads',
+      final response = await _httpClient.dio.post<Map<String,dynamic>>('/uploads',
           data: form,
           options: Options(headers: {'Content-Type': 'multipart/form-data'}));
-      return jsonDecode(response.data)['data']['fullPath'];
+      final data = response.data;
+      //final mappedData = jsonDecode(response.data);
+      //print(mappedData);
+      return data?['data']['fullPath'];
     } catch (e) {
+      print(e.toString());
       rethrow;
     }
   }

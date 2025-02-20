@@ -206,7 +206,7 @@ class _TakePhotoWidgetState extends State<TakePhotoWidget> {
                       style: TextButton.styleFrom(),
                       onPressed: () async {
                         final file = await ImagePicker()
-                            .pickImage(source: ImageSource.gallery);
+                            .pickImage(source: ImageSource.gallery,);
                         if (file == null) {
                           return;
                         }

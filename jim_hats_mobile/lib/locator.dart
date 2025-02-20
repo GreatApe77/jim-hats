@@ -10,12 +10,14 @@ import 'package:jim_hats_mobile/data/gym_challenges/data_sources/gym_challenge_d
 import 'package:jim_hats_mobile/data/gym_challenges/data_sources/memory_gym_challenge_data_source.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/repositories/gym_challenges_repository.dart';
 import 'package:jim_hats_mobile/data/logged_user/data_sources/logged_user_data_source.dart';
-import 'package:jim_hats_mobile/data/logged_user/data_sources/memory_logged_user_data_source.dart';
 import 'package:jim_hats_mobile/data/logged_user/data_sources/network_logged_user_data_source.dart';
 import 'package:jim_hats_mobile/data/logged_user/repositories/logged_user_repository.dart';
 import 'package:jim_hats_mobile/data/settings/data_sources/settings_data_source.dart';
 import 'package:jim_hats_mobile/data/settings/data_sources/shared_preferences_settings_data_source.dart';
 import 'package:jim_hats_mobile/data/settings/repositories/settings_repository.dart';
+import 'package:jim_hats_mobile/data/uploads/data_sources/network_upload_data_source.dart';
+import 'package:jim_hats_mobile/data/uploads/data_sources/upload_data_source.dart';
+import 'package:jim_hats_mobile/data/uploads/repositories/upload_repository.dart';
 import 'package:jim_hats_mobile/shared/http/http_client.dart';
 import 'package:jim_hats_mobile/shared/ui/cubits/auth/auth_cubit.dart';
 import 'package:jim_hats_mobile/shared/ui/widgets/app_drawer/cubit/app_drawer_cubit.dart';
@@ -37,6 +39,8 @@ Future<void> setupDependencies() async {
     ..registerSingleton<HttpClient>(HttpClient(dio: Dio()))
 
     //Data Sources
+    ..registerSingleton<UploadDataSource>(
+        NetworkUploadDataSource(httpClient: locator.get<HttpClient>()))
     ..registerSingleton<LoggedUserDataSource>(NetworkLoggedUserDataSource(
         httpClient: locator.get<HttpClient>(),
         settingsDataSource: locator.get<SettingsDataSource>()))
@@ -45,6 +49,8 @@ Future<void> setupDependencies() async {
     ..registerSingleton<AuthDataSource>(
         NetworkAuthDataSource(httpClient: locator.get<HttpClient>()))
     //Repositories
+    ..registerSingleton<UploadRepository>(UploadRepository(
+        networkUploadDataSource: locator.get<UploadDataSource>()))
     ..registerSingleton<AuthRepository>(AuthRepository(
         settingsDatasource: locator.get<SettingsDataSource>(),
         authDataSource: locator.get<AuthDataSource>()))
@@ -67,7 +73,9 @@ Future<void> setupDependencies() async {
         loggedUserRepository: locator.get<LoggedUserRepository>()))
     ..registerSingleton<SignInPageBloc>(
         SignInPageBloc(authRepository: locator.get<AuthRepository>()))
-    ..registerSingleton<CreateAccountPageCubit>(CreateAccountPageCubit())
+    ..registerSingleton<CreateAccountPageCubit>(CreateAccountPageCubit(
+        authRepository: locator.get<AuthRepository>(),
+        uploadRepository: locator.get<UploadRepository>()))
     ..registerFactory(
       () => GymChallengePageCubit(
           gymChallengesRepository: locator.get<GymChallengesRepository>(),

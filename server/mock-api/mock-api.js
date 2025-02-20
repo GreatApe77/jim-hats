@@ -71,7 +71,7 @@ const upload = multer({ storage: storage ,
     } else {
       //custom error message how to send in the reponse?
       
-      cb(new HttpError(400, `file type ${file.mimetype} is not supported`));
+      cb(new Error(`file type ${file.mimetype} is not supported`));
     }
   },
 });
