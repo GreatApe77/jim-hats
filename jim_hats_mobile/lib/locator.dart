@@ -76,8 +76,8 @@ Future<void> setupDependencies() async {
     ..registerSingleton<CreateAccountPageCubit>(CreateAccountPageCubit(
         authRepository: locator.get<AuthRepository>(),
         uploadRepository: locator.get<UploadRepository>()))
-    ..registerFactory(
-      () => GymChallengePageCubit(
+    ..registerSingleton<GymChallengePageCubit>(
+       GymChallengePageCubit(
           gymChallengesRepository: locator.get<GymChallengesRepository>(),
           loggedUserRepository: locator.get<LoggedUserRepository>(),
           exerciseLogsRepository: locator.get<ExerciseLogsRepository>()),
