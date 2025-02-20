@@ -1,7 +1,5 @@
-import 'package:jim_hats_mobile/data/auth/repositories/auth_repository.dart';
 import 'package:jim_hats_mobile/data/logged_user/data_sources/logged_user_data_source.dart';
 import 'package:jim_hats_mobile/data/logged_user/models/logged_user.dart';
-import 'package:jim_hats_mobile/data/settings/data_sources/settings_data_source.dart';
 import 'package:jim_hats_mobile/locator.dart';
 import 'package:jim_hats_mobile/shared/utils/memory_cache.dart';
 
@@ -18,7 +16,7 @@ class LoggedUserRepository {
   Future<LoggedUser> getLoggedUser() async {
     var loggedUser = MemoryCache.get<LoggedUser>('loggedUser');
     if (loggedUser == null) {
-      await Future.delayed(Duration(seconds: 2));
+      //await Future.delayed(Duration(seconds: 2));
       loggedUser = await _loggedUserDataSource.getLoggedUser();
       MemoryCache.store('loggedUser', loggedUser,
           duration: Duration(minutes: 1));

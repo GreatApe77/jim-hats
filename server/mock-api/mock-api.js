@@ -84,13 +84,14 @@ app.get("/users/me/logs",(req,res)=>{
 })
 
 app.get("/users/me",(req,res)=>{
+  console.log(req.headers["authorization"])
   const user ={
     'username': 'Mateus',
     'id': 4,
     'email': 'mateus@gmail.com',
     'profilePicture': 'https://avatars.githubusercontent.com/u/67892495?s=200&v=4'
   }
-  return res.status(200).json(user)
+  return res.status(200).json(successResponse(MESSAGES.USER_FOUND,{user:user}))
 })
 app.get(
   "/users/:userId/gym-challenges",(req,res)=>{

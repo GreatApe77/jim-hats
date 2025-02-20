@@ -13,15 +13,23 @@ class NetworkLoggedUserDataSource implements LoggedUserDataSource {
       : _httpClient = httpClient,
         _settingsDataSource = settingsDataSource;
   @override
-  Future<LoggedUser> getLoggedUser() {
+  Future<LoggedUser> getLoggedUser() async {
     //_httpClient.dio.get('', options: Options());
-    print('Called');
-    return Future.value(LoggedUser.fromMap({
-      'username': 'Mateus',
-      'id': 4,
-      'email': 'mateus@gmail.com',
-      'profilePicture':
-          'https://avatars.githubusercontent.com/u/67892495?s=200&v=4'
-    }));
+    try {
+      final jwtToken = await _settingsDataSource.get<String>('token');
+      final response = await _httpClient.dio.get<Map<String, dynamic>>(
+          '/users/me',
+          options: Options(headers: {'Authorization': 'Bearer $jwtToken'}));
+      return LoggedUser.fromMap(response.data?['data']['user']);
+    } catch (e) {
+      rethrow;
+    }
+    // return Future.value(LoggedUser.fromMap({
+    //   'username': 'Mateus',
+    //   'id': 4,
+    //   'email': 'mateus@gmail.com',
+    //   'profilePicture':
+    //       'https://avatars.githubusercontent.com/u/67892495?s=200&v=4'
+    // }));
   }
 }
