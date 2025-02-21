@@ -12,5 +12,6 @@ class HttpClient {
     dio.options.connectTimeout = Duration(seconds: 5);
     dio.options.receiveTimeout = Duration(seconds: 5);
     
+    
   }
 }

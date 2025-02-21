@@ -3,7 +3,8 @@ import 'package:jim_hats_mobile/data/auth/repositories/auth_repository.dart';
 import 'package:jim_hats_mobile/data/logged_user/models/logged_user.dart';
 import 'package:jim_hats_mobile/data/logged_user/repositories/logged_user_repository.dart';
 import 'package:jim_hats_mobile/exceptions/invalid_token_exception.dart';
-import 'package:jim_hats_mobile/exceptions/token_not_found.dart';
+import 'package:jim_hats_mobile/exceptions/time_out_exception.dart';
+import 'package:jim_hats_mobile/exceptions/token_not_found_exception.dart';
 import 'package:jim_hats_mobile/shared/utils/nullable.dart';
 part 'auth_state.dart';
 
@@ -15,7 +16,7 @@ class AuthCubit extends Cubit<AuthState> {
       required LoggedUserRepository loggedUserRepository})
       : _authRepository = authRepository,
         _loggedUserRepository = loggedUserRepository,
-        super(AuthState(authStatus: AuthStatus.unknown));
+        super(AuthState(authStatus: AuthStatus.unknown, failed: false));
 
   void checkAuthStatus() async {
     try {
@@ -33,14 +34,14 @@ class AuthCubit extends Cubit<AuthState> {
       emit(state.copyWith(authStatus: AuthStatus.unauthenticated));
     } on InvalidTokenException {
       emit(state.copyWith(authStatus: AuthStatus.unauthenticated));
+    } on TimeOutException {
+      emit(state.copyWith(failed: true));
     }
   }
 
   void logOut() async {
     await _authRepository.logout();
     emit(state.copyWith(
-      loggedUser: Nullable(null),
-      authStatus: AuthStatus.unauthenticated
-    ));
+        loggedUser: Nullable(null), authStatus: AuthStatus.unauthenticated));
   }
 }

@@ -4,7 +4,6 @@ import 'package:jim_hats_mobile/data/auth/data_sources/network_auth_data_source.
 import 'package:jim_hats_mobile/data/auth/dtos/login_dto.dart';
 import 'package:jim_hats_mobile/data/auth/dtos/register_dto.dart';
 import 'package:jim_hats_mobile/data/settings/data_sources/settings_data_source.dart';
-import 'package:jim_hats_mobile/exceptions/token_not_found.dart';
 import 'package:jim_hats_mobile/shared/http/http_client.dart';
 
 class AuthRepository {

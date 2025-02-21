@@ -16,6 +16,7 @@ import 'package:jim_hats_mobile/ui/views/new_check_in/new_check_in_page.dart';
 import 'package:jim_hats_mobile/ui/views/new_check_in/new_check_in_page_arguments.dart';
 import 'package:jim_hats_mobile/ui/views/ranking/cubit/ranking_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/ranking/ranking_page.dart';
+import 'package:jim_hats_mobile/ui/views/server_down/server_down_alert_page.dart';
 import 'package:jim_hats_mobile/ui/views/settings/cubit/settings_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/settings/settings_page.dart';
 import 'package:jim_hats_mobile/ui/views/sign_in/bloc/sign_in_page_bloc.dart';
@@ -34,10 +35,12 @@ abstract class AppRouter {
           builder: (context) => BlocListener<AuthCubit, AuthState>(
             bloc: locator.get<AuthCubit>()..checkAuthStatus(),
             listener: (context, state) {
-              
+              if (state.failed) {
+                Navigator.of(context)
+                    .pushReplacementNamed(AppRoutes.serverDown);
+              }
               switch (state.authStatus) {
                 case AuthStatus.authenticated:
-                  
                   Navigator.of(context).pushNamedAndRemoveUntil(
                     AppRoutes.home,
                     (route) => false,
@@ -50,7 +53,6 @@ abstract class AppRouter {
                     (route) => false,
                   );
                 default:
-
               }
             },
             child: const SplahPage(),
@@ -133,7 +135,10 @@ abstract class AppRouter {
             checkInPageArguments: arguments,
           ),
         );
-
+      case AppRoutes.serverDown:
+        return MaterialPageRoute(
+          builder: (context) => ServerDownAlertPage(),
+        );
       default:
         return null;
     }

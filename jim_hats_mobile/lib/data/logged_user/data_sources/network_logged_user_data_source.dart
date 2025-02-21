@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:jim_hats_mobile/data/logged_user/data_sources/logged_user_data_source.dart';
 import 'package:jim_hats_mobile/data/logged_user/models/logged_user.dart';
 import 'package:jim_hats_mobile/data/settings/data_sources/settings_data_source.dart';
+import 'package:jim_hats_mobile/exceptions/time_out_exception.dart';
 import 'package:jim_hats_mobile/shared/http/http_client.dart';
 
 class NetworkLoggedUserDataSource implements LoggedUserDataSource {
@@ -21,6 +24,11 @@ class NetworkLoggedUserDataSource implements LoggedUserDataSource {
           '/users/me',
           options: Options(headers: {'Authorization': 'Bearer $jwtToken'}));
       return LoggedUser.fromMap(response.data?['data']['user']);
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout) {
+        throw TimeOutException();
+      }
+      rethrow;
     } catch (e) {
       rethrow;
     }

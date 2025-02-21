@@ -130,7 +130,7 @@ app.get(
         creatorId: 1
       }
     ];
-    return res.status(200).json(gymChallenges)
+    return res.status(200).json(successResponse(MESSAGES.SUCCESS,gymChallenges))
   }
 )
 app.get("/gym-challenges/:challengeId/logs",(req,res)=>{
@@ -268,7 +268,7 @@ const exerciseLogs = [
     }
   }
 ];
-return res.status(200).json(exerciseLogs)
+return res.status(200).json(successResponse(MESSAGES.SUCCESS,exerciseLogs))
 })
 app.get("/gym-challenges/:challengeId/ranking",(req,res)=>{
   const rankings = [
@@ -321,7 +321,7 @@ app.get("/gym-challenges/:challengeId/ranking",(req,res)=>{
       logCount: 3
     }
   ];
-  return res.status(200).json(rankings)
+  return res.status(200).json(successResponse(MESSAGES.SUCCESS,rankings))
 })
 app.post("/uploads",uploadPhoto,(req,res)=>{
   const fullPath= req.body.fullPath
