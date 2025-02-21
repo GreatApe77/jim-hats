@@ -42,6 +42,11 @@ class _GymChallengeDetailsPageState extends State<GymChallengeDetailsPage> {
                 child: const CircularProgressIndicator(),
               );
             }
+            if(state is GymChallengeDetailsPageLoadError){
+              return Center(
+                child: const Text('Error'),
+              );
+            }
             if (state is GymChallengeDetailsPageLoadSuccess) {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -49,21 +54,21 @@ class _GymChallengeDetailsPageState extends State<GymChallengeDetailsPage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 20),
                     child: Text(
-                      'TITLE',
+                      state.challenge.name,
                       style: Theme.of(context).textTheme.headlineMedium,
                       textAlign: TextAlign.center,
                     ),
                   ),
                   ListTile(
                     contentPadding: EdgeInsets.zero,
-                    title: Text('SomeUserName'),
-                    subtitle: Text('GroupAdmin'),
-                    leading: CircleAvatar(),
+                    title: Text(state.admin.username),
+                    subtitle: Text('Group Admin'),
+                    leading: CircleAvatar(backgroundImage: NetworkImage(state.admin.profilePicture??''),),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('2 Members'),
+                      Text('${state.members.length} Members'),
                       InkWell(
                         child: Text(
                           'All',
@@ -83,9 +88,11 @@ class _GymChallengeDetailsPageState extends State<GymChallengeDetailsPage> {
                         );
                       },
                       //children: [],
-                      itemCount: 20,
+                      itemCount: state.members.length,
                       itemBuilder: (context, index) {
-                        return CircleAvatar();
+                        return CircleAvatar(
+                          backgroundImage: NetworkImage(state.members[index].profilePicture?? ''),
+                        );
                       },
                       //  List.generate(
                       //   20,

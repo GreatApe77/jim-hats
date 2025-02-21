@@ -16,6 +16,7 @@ final class GymChallengeDetailsPageLoadSuccess
     extends GymChallengeDetailsPageState {
   final ChallengeMember admin;
   final List<ChallengeMember> members;
-  GymChallengeDetailsPageLoadSuccess(
-      {required this.members, required this.admin});
+  final GymChallenge challenge;
+  GymChallengeDetailsPageLoadSuccess( 
+      {required this.members, required this.admin,required this.challenge});
 }

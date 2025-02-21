@@ -42,6 +42,7 @@ class GymChallengeDetailsPageCubit extends Cubit<GymChallengeDetailsPageState> {
 
 ''');
       emit(GymChallengeDetailsPageLoadSuccess(
+        challenge: currentChallenge,
           members: members,
           admin: _getAdminOfChallenge(currentChallenge, members)));
     } catch (e) {
