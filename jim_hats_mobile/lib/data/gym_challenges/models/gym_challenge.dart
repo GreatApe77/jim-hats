@@ -60,7 +60,7 @@ class GymChallenge {
       'creatorId': creatorId,
     };
   }
-
+  
   factory GymChallenge.fromMap(Map<String, dynamic> map) {
     return GymChallenge(
       id: map['id'] as int,

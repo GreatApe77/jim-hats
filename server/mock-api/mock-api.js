@@ -102,9 +102,9 @@ app.get(
         description: 'Challenge Description 5',
         image: 'https://avatars.githubusercontent.com/u/97452495?s=200&v=4',
         joinId: null,
-        createdAt: new Date(),
-        startAt: new Date('2024-01-01T00:00:00Z'),
-        endAt: new Date('2027-01-01T00:00:00Z'),
+        createdAt: new Date().getTime(),
+        startAt: new Date('2024-01-01T00:00:00Z').getTime(),
+        endAt: new Date('2027-01-01T00:00:00Z').getTime(),
         creatorId: 1
       },
       {
@@ -113,9 +113,9 @@ app.get(
         description: 'Challenge Description 6',
         image: 'https://avatars.githubusercontent.com/u/98452395?s=200&v=4',
         joinId: null,
-        createdAt: new Date(),
-        startAt: new Date(Date.now() + 20000000),
-        endAt: new Date(Date.now() + 80000000),
+        createdAt: new Date().getTime(),
+        startAt: new Date(Date.now() + 20000000).getTime(),
+        endAt: new Date(Date.now() + 80000000).getTime(),
         creatorId: 1
       },
       {
@@ -124,18 +124,98 @@ app.get(
         description: 'Challenge Description 7',
         image: null,
         joinId: null,
-        createdAt: new Date(),
-        startAt: new Date(Date.now() + 20000000),
-        endAt: new Date(Date.now() + 80000000),
+        createdAt: new Date().getTime(),
+        startAt: new Date(Date.now() + 20000000).getTime(),
+        endAt: new Date(Date.now() + 80000000).getTime(),
         creatorId: 1
       }
     ];
     return res.status(200).json(successResponse(MESSAGES.SUCCESS,gymChallenges))
   }
 )
+app.get("/gym-challenges/:challengeId/members",(req,res)=>{
+  const challengeMembers = [
+    {
+      id: 1,
+      username: 'user1',
+      profilePicture: 'https://example.com/user1.jpg'
+    },
+    {
+      id: 2,
+      username: 'user2',
+      profilePicture: 'https://example.com/user2.jpg'
+    },
+    {
+      id: 3,
+      username: 'user3',
+      profilePicture: 'https://example.com/user3.jpg'
+    },
+    {
+      id: 4,
+      username: 'user4',
+      profilePicture: 'https://example.com/user4.jpg'
+    },
+    {
+      id: 5,
+      username: 'user5',
+      profilePicture: 'https://example.com/user5.jpg'
+    },
+    {
+      id: 6,
+      username: 'user6',
+      profilePicture: 'https://example.com/user6.jpg'
+    },
+    {
+      id: 7,
+      username: 'user7',
+      profilePicture: 'https://example.com/user7.jpg'
+    },
+    {
+      id: 8,
+      username: 'user8',
+      profilePicture: 'https://example.com/user8.jpg'
+    },
+    {
+      id: 9,
+      username: 'user9',
+      profilePicture: 'https://example.com/user9.jpg'
+    },
+    {
+      id: 10,
+      username: 'user10',
+      profilePicture: 'https://example.com/user10.jpg'
+    },
+    {
+      id: 11,
+      username: 'user11',
+      profilePicture: 'https://example.com/user11.jpg'
+    },
+    {
+      id: 12,
+      username: 'user12',
+      profilePicture: 'https://example.com/user12.jpg'
+    },
+    {
+      id: 13,
+      username: 'user13',
+      profilePicture: 'https://example.com/user13.jpg'
+    },
+    {
+      id: 14,
+      username: 'user14',
+      profilePicture: 'https://example.com/user14.jpg'
+    },
+    {
+      id: 15,
+      username: 'user15',
+      profilePicture: 'https://example.com/user15.jpg'
+    }
+  ];
+  return res.status(200).json(successResponse(MESSAGES.SUCCESS,challengeMembers))
+})
 app.get("/gym-challenges/:challengeId/logs",(req,res)=>{
   const dayInMilliseconds = 8.64 * Math.pow(10, 7);
-const challengeId = req.params.challengeId
+const challengeId = Number(req.params.challengeId)
 const exerciseLogs = [
   {
     id: 1,
@@ -404,18 +484,6 @@ app.post("/gym-challenge/:challengeId/logs", (req, res) => {
   return res.status(201).json(successResponse(MESSAGES.CREATED, newLog));
 });
 
-// New Route to get logs for a specific gym challenge
-app.get("/gym-challenge/:challengeId/logs", (req, res) => {
-  const challengeId = req.params.challengeId;
-
-  // Mock response for getting exercise logs of a gym challenge
-  const logs = [
-    { logId: 1, exerciseId: "squat", date: "2025-02-17", duration: 30, repetitions: 20, sets: 3 },
-    { logId: 2, exerciseId: "bench_press", date: "2025-02-17", duration: 25, repetitions: 15, sets: 3 }
-  ];
-
-  return res.status(200).json(successResponse(MESSAGES.SUCCESS, logs));
-});
 
 // New Route to delete an exercise log from a gym challenge
 app.delete("/gym-challenge/:challengeId/logs/:logId", (req, res) => {

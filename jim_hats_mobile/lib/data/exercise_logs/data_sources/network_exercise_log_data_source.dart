@@ -11,8 +11,9 @@ class NetworkExerciseLogDataSource implements ExerciseLogDataSource {
   Future<List<ExerciseLogWithUser>> getLogsOfChallenge(int challengeId) async {
     try {
       final response = await _httpClient.dio
-          .get<Map<String, dynamic>>('/gym-challenge/$challengeId/logs');
+          .get<Map<String, dynamic>>('/gym-challenges/$challengeId/logs');
       final data = response.data?['data'] as List;
+      print(data);
       return data
           .map(
             (e) => ExerciseLogWithUser.fromMap(e),

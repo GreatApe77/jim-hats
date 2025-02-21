@@ -5,9 +5,11 @@ import 'package:jim_hats_mobile/data/auth/data_sources/network_auth_data_source.
 import 'package:jim_hats_mobile/data/auth/repositories/auth_repository.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/data_sources/exercise_log_data_source.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/data_sources/memory_exercise_log_data_source.dart';
+import 'package:jim_hats_mobile/data/exercise_logs/data_sources/network_exercise_log_data_source.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/repositories/exercise_logs_repository.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/data_sources/gym_challenge_data_source.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/data_sources/memory_gym_challenge_data_source.dart';
+import 'package:jim_hats_mobile/data/gym_challenges/data_sources/network_gym_challenge_data_source.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/repositories/gym_challenges_repository.dart';
 import 'package:jim_hats_mobile/data/logged_user/data_sources/logged_user_data_source.dart';
 import 'package:jim_hats_mobile/data/logged_user/data_sources/network_logged_user_data_source.dart';
@@ -44,8 +46,12 @@ Future<void> setupDependencies() async {
     ..registerSingleton<LoggedUserDataSource>(NetworkLoggedUserDataSource(
         httpClient: locator.get<HttpClient>(),
         settingsDataSource: locator.get<SettingsDataSource>()))
-    ..registerSingleton<GymChallengeDataSource>(MemoryGymChallengeDataSource())
-    ..registerSingleton<ExerciseLogDataSource>(MemoryExerciseLogDataSource())
+    ..registerSingleton<GymChallengeDataSource>(NetworkGymChallengeDataSource(
+      httpClient: locator.get<HttpClient>()
+    ))
+    ..registerSingleton<ExerciseLogDataSource>(NetworkExerciseLogDataSource(
+      httpClient: locator.get<HttpClient>()
+    ))
     ..registerSingleton<AuthDataSource>(
         NetworkAuthDataSource(httpClient: locator.get<HttpClient>()))
     //Repositories

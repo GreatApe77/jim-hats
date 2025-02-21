@@ -83,6 +83,7 @@ class ExerciseLogWithUser extends ExerciseLog {
     };
   }
   factory ExerciseLogWithUser.fromMap(Map<String, dynamic> map) {
+    print(map['user']);
     return ExerciseLogWithUser(
       user: User.fromMap(map['user']),
       id: map['id'] as int,

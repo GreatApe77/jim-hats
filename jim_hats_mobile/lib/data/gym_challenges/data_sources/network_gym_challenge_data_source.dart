@@ -18,26 +18,42 @@ class NetworkGymChallengeDataSource implements MemoryGymChallengeDataSource {
   }
 
   @override
-  Future<List<GymChallenge>> getGymChallengesOfUser(int userId) {
-    // TODO: implement getGymChallengesOfUser
-    throw UnimplementedError();
+  Future<List<GymChallenge>> getGymChallengesOfUser(int userId) async {
+    try {
+      final response = await _httpClient.dio
+          .get<Map<String, dynamic>>('/users/$userId/gym-challenges');
+      final data = response.data?['data'] as List;
+      return data
+          .map(
+            (e) => GymChallenge.fromMap(e),
+          )
+          .toList();
+    } catch (e) {
+      rethrow;
+    }
   }
 
   @override
   Future<List<ChallengeMember>> getMembersOfChallenge(int challengeId) async {
-    throw Error();
-    //
-    // try {
-    //   final response = await _httpClient.dio.get<Map<String,dynamic>>('/gym-challenge/${challengeId}/log')
-
-    // } catch (e) {}
+    try {
+      final response = await _httpClient.dio
+          .get<Map<String, dynamic>>('/gym-challenge/$challengeId/members');
+      final data = response.data?['data'] as List;
+      return data
+          .map(
+            (e) => ChallengeMember.fromMap(e),
+          )
+          .toList();
+    } catch (e) {
+      rethrow;
+    }
   }
 
   @override
   Future<List<Ranking>> getRankingOfChallenge(int challengeId) async {
     try {
       final response = await _httpClient.dio
-          .get<Map<String, dynamic>>('/gym-challenge/$challengeId/ranking');
+          .get<Map<String, dynamic>>('/gym-challenges/$challengeId/ranking');
       final data = response.data?['data'] as List;
       return data
           .map(
