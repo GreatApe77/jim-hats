@@ -10,6 +10,7 @@ import 'package:jim_hats_mobile/ui/views/create_account/cubit/create_account_pag
 import 'package:jim_hats_mobile/ui/views/gym_challenge/cubit/gym_challenge_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge/gym_challenge_page.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge/gym_challenge_page_arguments.dart';
+import 'package:jim_hats_mobile/ui/views/gym_challenge_details/cubit/gym_challenge_details_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge_details/gym_challenge_details_page.dart';
 import 'package:jim_hats_mobile/ui/views/home/home_page.dart';
 import 'package:jim_hats_mobile/ui/views/new_check_in/new_check_in_page.dart';
@@ -93,6 +94,7 @@ abstract class AppRouter {
         return MaterialPageRoute(
             settings: settings,
             builder: (context) => GymChallengeDetailsPage(
+              gymChallengeDetailsPageCubit: locator.get<GymChallengeDetailsPageCubit>(),
                 pageArguments:
                     settings.arguments as GymChallengePageArguments));
       case AppRoutes.newCheckIn:

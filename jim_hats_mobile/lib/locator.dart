@@ -26,6 +26,8 @@ import 'package:jim_hats_mobile/shared/ui/widgets/app_drawer/cubit/app_drawer_cu
 import 'package:jim_hats_mobile/ui/theme/bloc/theme_bloc.dart';
 import 'package:jim_hats_mobile/ui/views/create_account/cubit/create_account_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge/cubit/gym_challenge_page_cubit.dart';
+import 'package:jim_hats_mobile/ui/views/gym_challenge_details/cubit/gym_challenge_details_page_cubit.dart';
+import 'package:jim_hats_mobile/ui/views/gym_challenge_details/gym_challenge_details_page.dart';
 import 'package:jim_hats_mobile/ui/views/ranking/cubit/ranking_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/settings/cubit/settings_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/sign_in/bloc/sign_in_page_bloc.dart';
@@ -46,12 +48,10 @@ Future<void> setupDependencies() async {
     ..registerSingleton<LoggedUserDataSource>(NetworkLoggedUserDataSource(
         httpClient: locator.get<HttpClient>(),
         settingsDataSource: locator.get<SettingsDataSource>()))
-    ..registerSingleton<GymChallengeDataSource>(NetworkGymChallengeDataSource(
-      httpClient: locator.get<HttpClient>()
-    ))
-    ..registerSingleton<ExerciseLogDataSource>(NetworkExerciseLogDataSource(
-      httpClient: locator.get<HttpClient>()
-    ))
+    ..registerSingleton<GymChallengeDataSource>(
+        NetworkGymChallengeDataSource(httpClient: locator.get<HttpClient>()))
+    ..registerSingleton<ExerciseLogDataSource>(
+        NetworkExerciseLogDataSource(httpClient: locator.get<HttpClient>()))
     ..registerSingleton<AuthDataSource>(
         NetworkAuthDataSource(httpClient: locator.get<HttpClient>()))
     //Repositories
@@ -74,6 +74,10 @@ Future<void> setupDependencies() async {
   //Cubits
 
   locator
+    ..registerSingleton<GymChallengeDetailsPageCubit>(
+        GymChallengeDetailsPageCubit(
+            gymChallengesRepository: locator.get<GymChallengesRepository>(),
+            loggedUserRepository: locator.get<LoggedUserRepository>()))
     ..registerSingleton<AuthCubit>(AuthCubit(
         authRepository: locator.get<AuthRepository>(),
         loggedUserRepository: locator.get<LoggedUserRepository>()))
@@ -83,7 +87,7 @@ Future<void> setupDependencies() async {
         authRepository: locator.get<AuthRepository>(),
         uploadRepository: locator.get<UploadRepository>()))
     ..registerSingleton<GymChallengePageCubit>(
-       GymChallengePageCubit(
+      GymChallengePageCubit(
           gymChallengesRepository: locator.get<GymChallengesRepository>(),
           loggedUserRepository: locator.get<LoggedUserRepository>(),
           exerciseLogsRepository: locator.get<ExerciseLogsRepository>()),

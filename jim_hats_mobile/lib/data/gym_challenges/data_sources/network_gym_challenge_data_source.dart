@@ -37,7 +37,7 @@ class NetworkGymChallengeDataSource implements MemoryGymChallengeDataSource {
   Future<List<ChallengeMember>> getMembersOfChallenge(int challengeId) async {
     try {
       final response = await _httpClient.dio
-          .get<Map<String, dynamic>>('/gym-challenge/$challengeId/members');
+          .get<Map<String, dynamic>>('/gym-challenges/$challengeId/members');
       final data = response.data?['data'] as List;
       return data
           .map(

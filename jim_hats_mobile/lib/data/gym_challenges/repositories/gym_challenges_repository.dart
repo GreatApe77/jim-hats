@@ -1,4 +1,5 @@
 import 'package:jim_hats_mobile/data/gym_challenges/data_sources/gym_challenge_data_source.dart';
+import 'package:jim_hats_mobile/data/gym_challenges/models/challenge_member.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/gym_challenge.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/ranking.dart';
 import 'package:jim_hats_mobile/locator.dart';
@@ -9,7 +10,8 @@ class GymChallengesRepository {
 
   GymChallengesRepository(
       {required GymChallengeDataSource? gymChallengeDataSource})
-      : _gymChallengeDataSource = gymChallengeDataSource ?? locator.get<GymChallengeDataSource>();
+      : _gymChallengeDataSource =
+            gymChallengeDataSource ?? locator.get<GymChallengeDataSource>();
 
   Future<List<GymChallenge>> getGymChallengesOfUser(int userId) async {
     List<GymChallenge>? challenges =
@@ -26,13 +28,28 @@ class GymChallengesRepository {
 
   Future<List<Ranking>> getRankingsOfChallenge(int challengeId) async {
     List<Ranking>? rankings =
-        MemoryCache.get<List<Ranking>>('ranking');
-    if(rankings==null){
+        MemoryCache.get<List<Ranking>>('ranking-$challengeId');
+    if (rankings == null) {
       //await Future.delayed(Duration(seconds: 2));
-      rankings = await _gymChallengeDataSource.getRankingOfChallenge(challengeId);
-      MemoryCache.store<List<Ranking>>('ranking',rankings ,
+      rankings =
+          await _gymChallengeDataSource.getRankingOfChallenge(challengeId);
+      MemoryCache.store<List<Ranking>>('ranking-$challengeId', rankings,
           duration: Duration(minutes: 1));
     }
     return rankings;
+  }
+
+  Future<List<ChallengeMember>> getMembersOfChallenge(int challengeId) async {
+    List<ChallengeMember>? challengeMembers =
+        MemoryCache.get<List<ChallengeMember>>('members-$challengeId');
+    if (challengeMembers == null) {
+      //await Future.delayed(Duration(seconds: 2));
+      challengeMembers =
+          await _gymChallengeDataSource.getMembersOfChallenge(challengeId);
+      MemoryCache.store<List<ChallengeMember>>(
+          'members-$challengeId', challengeMembers,
+          duration: Duration(minutes: 1));
+    }
+    return challengeMembers;
   }
 }
