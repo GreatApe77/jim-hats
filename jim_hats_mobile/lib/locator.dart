@@ -49,9 +49,13 @@ Future<void> setupDependencies() async {
         httpClient: locator.get<HttpClient>(),
         settingsDataSource: locator.get<SettingsDataSource>()))
     ..registerSingleton<GymChallengeDataSource>(
-        NetworkGymChallengeDataSource(httpClient: locator.get<HttpClient>()))
+        NetworkGymChallengeDataSource(
+          settingsDataSource: locator.get<SettingsDataSource>(),
+          httpClient: locator.get<HttpClient>()))
     ..registerSingleton<ExerciseLogDataSource>(
-        NetworkExerciseLogDataSource(httpClient: locator.get<HttpClient>()))
+        NetworkExerciseLogDataSource(
+            settingsDataSource: locator.get<SettingsDataSource>(),
+          httpClient: locator.get<HttpClient>()))
     ..registerSingleton<AuthDataSource>(
         NetworkAuthDataSource(httpClient: locator.get<HttpClient>()))
     //Repositories

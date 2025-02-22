@@ -23,7 +23,7 @@ class NetworkLoggedUserDataSource implements LoggedUserDataSource {
       final response = await _httpClient.dio.get<Map<String, dynamic>>(
           '/users/me',
           options: Options(headers: {'Authorization': 'Bearer $jwtToken'}));
-      return LoggedUser.fromMap(response.data?['data']['user']);
+      return LoggedUser.fromMap(response.data?['data']);
     } on DioException catch (e) {
       if (e.type == DioExceptionType.connectionTimeout) {
         throw TimeOutException();

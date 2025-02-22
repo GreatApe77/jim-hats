@@ -91,7 +91,7 @@ app.get("/users/me",(req,res)=>{
     'email': 'mateus@gmail.com',
     'profilePicture': 'https://avatars.githubusercontent.com/u/67892495?s=200&v=4'
   }
-  return res.status(200).json(successResponse(MESSAGES.USER_FOUND,{user:user}))
+  return res.status(200).json(successResponse(MESSAGES.USER_FOUND,user))
 })
 app.get(
   "/users/:userId/gym-challenges",(req,res)=>{

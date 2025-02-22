@@ -3,13 +3,21 @@ import 'package:jim_hats_mobile/data/gym_challenges/data_sources/memory_gym_chal
 import 'package:jim_hats_mobile/data/gym_challenges/models/challenge_member.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/gym_challenge.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/ranking.dart';
+import 'package:jim_hats_mobile/data/settings/data_sources/settings_data_source.dart';
 import 'package:jim_hats_mobile/shared/http/http_client.dart';
 
 class NetworkGymChallengeDataSource implements MemoryGymChallengeDataSource {
   final HttpClient _httpClient;
-
-  NetworkGymChallengeDataSource({required HttpClient httpClient})
-      : _httpClient = httpClient;
+  final SettingsDataSource  _settingsDataSource;
+  NetworkGymChallengeDataSource({
+     
+    required HttpClient httpClient,
+    required SettingsDataSource settingsDataSource,
+    })
+      : 
+        _settingsDataSource = settingsDataSource,
+        
+      _httpClient = httpClient;
 
   @override
   Future<GymChallenge> getGymChallengeById(int id) {
@@ -20,8 +28,11 @@ class NetworkGymChallengeDataSource implements MemoryGymChallengeDataSource {
   @override
   Future<List<GymChallenge>> getGymChallengesOfUser(int userId) async {
     try {
+      final jwtToken = await _settingsDataSource.get<String>('token');
       final response = await _httpClient.dio
-          .get<Map<String, dynamic>>('/users/$userId/gym-challenges');
+          .get<Map<String, dynamic>>('/users/$userId/gym-challenges',
+          options: Options(headers: {'Authorization': 'Bearer $jwtToken'})
+          );
       final data = response.data?['data'] as List;
       return data
           .map(
@@ -36,8 +47,10 @@ class NetworkGymChallengeDataSource implements MemoryGymChallengeDataSource {
   @override
   Future<List<ChallengeMember>> getMembersOfChallenge(int challengeId) async {
     try {
+      final   jwtToken = await _settingsDataSource.get<String>('token');
       final response = await _httpClient.dio
-          .get<Map<String, dynamic>>('/gym-challenges/$challengeId/members');
+          .get<Map<String, dynamic>>('/gym-challenges/$challengeId/members',
+          options: Options(headers: {'Authorization': 'Bearer $jwtToken'}));
       final data = response.data?['data'] as List;
       return data
           .map(
@@ -52,8 +65,11 @@ class NetworkGymChallengeDataSource implements MemoryGymChallengeDataSource {
   @override
   Future<List<Ranking>> getRankingOfChallenge(int challengeId) async {
     try {
+      final  jwtToken = await _settingsDataSource.get<String>('token');
       final response = await _httpClient.dio
-          .get<Map<String, dynamic>>('/gym-challenges/$challengeId/ranking');
+          .get<Map<String, dynamic>>('/gym-challenges/$challengeId/ranking',
+          options: Options(headers: {'Authorization': 'Bearer $jwtToken'})
+          );
       final data = response.data?['data'] as List;
       return data
           .map(

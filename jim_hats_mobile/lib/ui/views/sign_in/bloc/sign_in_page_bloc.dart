@@ -18,14 +18,16 @@ class SignInPageBloc extends Bloc<SignInPageEvent, SignInPageState> {
     );
     on<SignInPasswordChanged>(
       (event, emit) {
-        emit(state.copywith(username: event.password));
+        emit(state.copywith(password: event.password));
       },
     );
     on<SignInFormSubmitted>(
       (event, emit) async {
         try {
           emit(state.copywith(status: SignInPageStatus.loading));
-          await Future.delayed(Duration(seconds: 2));
+          //await Future.delayed(Duration(seconds: 2));
+           print('username: ${state.username}');
+            print('password: ${state.password}');
            await _authRepository.login(
               LoginDto(username: state.username, password: state.password));
           
