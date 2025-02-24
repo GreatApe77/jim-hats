@@ -1,4 +1,4 @@
-part of 'check_in_page_cubit.dart';
+part of 'new_check_in_page_cubit.dart';
 
 enum NewCheckInPageStatus { success, loading, failed, idle }
 

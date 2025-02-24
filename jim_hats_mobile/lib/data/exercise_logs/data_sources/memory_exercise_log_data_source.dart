@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:jim_hats_mobile/data/exercise_logs/data_sources/exercise_log_data_source.dart';
+import 'package:jim_hats_mobile/data/exercise_logs/dtos/add_exercise_log_to_challenge_dto.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log_with_user.dart';
 
 final  dayInMiliseconds = 8.64 *pow(10,7);
@@ -140,4 +141,12 @@ return Future.value([
       }),
     ]);
   }
+
+  @override
+  Future<void> addExerciseLogToChallenge(int challengeId, AddExerciseLogToChallengeDto addExerciseLogToChallengeDto) {
+    // TODO: implement addExerciseLogToChallenge
+    throw UnimplementedError();
+  }
+  
+
 }

@@ -13,7 +13,7 @@ import 'package:jim_hats_mobile/ui/views/gym_challenge/gym_challenge_page_argume
 import 'package:jim_hats_mobile/ui/views/gym_challenge_details/cubit/gym_challenge_details_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge_details/gym_challenge_details_page.dart';
 import 'package:jim_hats_mobile/ui/views/home/home_page.dart';
-import 'package:jim_hats_mobile/ui/views/new_check_in/cubit/check_in_page_cubit.dart';
+import 'package:jim_hats_mobile/ui/views/new_check_in/cubit/new_check_in_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/new_check_in/new_check_in_page.dart';
 import 'package:jim_hats_mobile/ui/views/new_check_in/new_check_in_page_arguments.dart';
 import 'package:jim_hats_mobile/ui/views/ranking/cubit/ranking_page_cubit.dart';
@@ -100,6 +100,7 @@ abstract class AppRouter {
                     settings.arguments as GymChallengePageArguments));
       case AppRoutes.newCheckIn:
         final arguments = settings.arguments as NewCheckInPageArguments;
+        print(arguments.photo);
         return MaterialPageRoute(
             settings: settings,
             builder: (context) => NewCheckInPage(

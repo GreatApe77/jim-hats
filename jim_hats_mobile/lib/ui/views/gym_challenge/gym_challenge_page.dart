@@ -71,6 +71,10 @@ class _GymChallengePageState extends State<GymChallengePage> {
             fullscreenDialog: true,
             builder: (context) => TakePhotoWidget(
               onPhotoChosen: (photo) {
+                if(photo==null) {
+                  Navigator.of(context).pop();
+                  return;
+                }
                 Navigator.of(context).pushNamed(AppRoutes.newCheckIn,
                     arguments: NewCheckInPageArguments(
                         photo: photo,

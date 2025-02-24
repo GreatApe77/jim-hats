@@ -2,9 +2,13 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jim_hats_mobile/locator.dart';
+import 'package:jim_hats_mobile/routing/app_routes.dart';
+import 'package:jim_hats_mobile/shared/http/http_client.dart';
 import 'package:jim_hats_mobile/shared/ui/constants/app_spacings.dart';
 import 'package:jim_hats_mobile/shared/ui/widgets/take_photo_widget/take_photo_widget.dart';
-import 'package:jim_hats_mobile/ui/views/new_check_in/cubit/check_in_page_cubit.dart';
+import 'package:jim_hats_mobile/ui/views/gym_challenge/gym_challenge_page_arguments.dart';
+import 'package:jim_hats_mobile/ui/views/new_check_in/cubit/new_check_in_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/new_check_in/new_check_in_page_arguments.dart';
 
 class NewCheckInPage extends StatefulWidget {
@@ -29,7 +33,38 @@ class _NewCheckInPageState extends State<NewCheckInPage> {
       appBar: AppBar(
         centerTitle: true,
         title: Text('New check-in'),
-        actions: [TextButton(onPressed: () {}, child: Text('Post'))],
+        actions: [
+          BlocConsumer<NewCheckInPageCubit, NewCheckInPageState>(
+            bloc: widget.checkInPageCubit,
+            listener: (context, state) {
+              if (state.status == NewCheckInPageStatus.failed) {
+                ScaffoldMessenger.of(context)
+                  ..clearSnackBars()
+                  ..showSnackBar(
+                      SnackBar(content: Text('Error while posting exercise')));
+              } else if (state.status == NewCheckInPageStatus.success) {
+                Navigator.of(context).pushReplacementNamed(
+                    AppRoutes.gymChallenge,
+                    arguments: GymChallengePageArguments(
+                        challengeId: widget.pageArguments.challengeId));
+              }
+            },
+            buildWhen: (previous, current) => previous.status != current.status,
+            listenWhen: (previous, current) =>
+                previous.status != current.status,
+            builder: (context, state) {
+              if (state.status == NewCheckInPageStatus.loading) {
+                return SizedBox(
+                  width: 20,
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              }
+              return TextButton(onPressed: _submitForm, child: Text('Post'));
+            },
+          )
+        ],
       ),
       body: SafeArea(
           child: Padding(
@@ -71,7 +106,9 @@ class _NewCheckInPageState extends State<NewCheckInPage> {
                   return Material(
                     child: InkWell(
                       borderRadius: BorderRadius.circular(10),
-                      onTap: state.photo == null ? _onEmptyPhotoWidgetTap : _onPhotoWidgetTap,
+                      onTap: state.photo == null
+                          ? _onEmptyPhotoWidgetTap
+                          : _onPhotoWidgetTap,
                       child: SizedBox(
                         height: 60,
                         child: state.photo == null
@@ -192,5 +229,9 @@ class _NewCheckInPageState extends State<NewCheckInPage> {
         },
       ),
     ));
+  }
+
+  void _submitForm() {
+    widget.checkInPageCubit.submitForm(widget.pageArguments.challengeId);
   }
 }
