@@ -262,7 +262,7 @@ export class GymChallengeController {
           date: log.date.getTime(),
         }
       })
-      return res.status(200).json(successResponse(MESSAGES.SUCCESS, logs));
+      return res.status(200).json(successResponse(MESSAGES.SUCCESS, formatedLogs));
     } catch (error) {
       console.log(error);
       return res
