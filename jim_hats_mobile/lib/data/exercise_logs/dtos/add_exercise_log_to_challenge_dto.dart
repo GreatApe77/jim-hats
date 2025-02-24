@@ -7,4 +7,11 @@ class AddExerciseLogToChallengeDto {
 
   AddExerciseLogToChallengeDto(
       {required this.title, required this.description, required this.image});
+  Map<String, dynamic> toMap() {
+    return {
+      'title': title,
+      'description': description,
+      'image': image,
+    };
+  }
 }

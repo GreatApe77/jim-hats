@@ -31,6 +31,7 @@ class ExerciseLogsRepository {
   Future<void> addExerciseLogToChallenge(int challengeId,
       AddExerciseLogToChallengeDto addExerciseLogToChallengeDto) async {
     try {
+      print(addExerciseLogToChallengeDto.toMap());
       await _exerciseLogDataSource.addExerciseLogToChallenge(
           challengeId, addExerciseLogToChallengeDto);
       MemoryCache.remove('logs-$challengeId');

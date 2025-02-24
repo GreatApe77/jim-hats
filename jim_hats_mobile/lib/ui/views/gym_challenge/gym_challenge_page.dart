@@ -103,6 +103,11 @@ class _GymChallengePageState extends State<GymChallengePage> {
               child: CircularProgressIndicator(),
             );
           }
+          if (state is GymChallengePageDataLoadFailure) {
+            return Center(
+              child: Text(state.message),
+            );
+          }
           if (state is GymChallengePageDataSuccess) {
             return SafeArea(
               child: Padding(

@@ -5,7 +5,10 @@ sealed class GymChallengePageState {}
 final class GymChallengePageInitial extends GymChallengePageState {}
 
 final class GymChallengePageDataLoadInProgress extends GymChallengePageState{}
-
+final class GymChallengePageDataLoadFailure extends GymChallengePageState{
+  final String message;
+  GymChallengePageDataLoadFailure({required this.message});
+}
 final class GymChallengePageDataSuccess extends GymChallengePageState{
   final List<ExerciseLogWithUser> logs;
   final GymChallenge challenge;

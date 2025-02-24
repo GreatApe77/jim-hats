@@ -255,7 +255,13 @@ export class GymChallengeController {
         return res.status(403).json(errorResponse(MESSAGES.UNAUTHORIZED));
       }
       const logs =
-        await this.gymChallengeService.getLogsGroupedByUsers(challengeId);
+        await this.gymChallengeService.getLogsGroupedByUsers(challengeId) as Array<any>;
+      const formatedLogs = logs.map((log)=>{
+        return {
+          ...log,
+          date: log.date.getTime(),
+        }
+      })
       return res.status(200).json(successResponse(MESSAGES.SUCCESS, logs));
     } catch (error) {
       console.log(error);

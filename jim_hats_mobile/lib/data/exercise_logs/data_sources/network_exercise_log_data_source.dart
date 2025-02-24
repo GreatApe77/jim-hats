@@ -38,6 +38,7 @@ class NetworkExerciseLogDataSource implements ExerciseLogDataSource {
     try {
       final jwtToken = await _settingsDataSource.get<String>('token');
       await _httpClient.dio.post<Map<String, dynamic>>(
+        data: addExerciseLogToChallengeDto.toMap(),
           '/gym-challenges/$challengeId/logs',
           options: Options(headers: {'Authorization': 'Bearer $jwtToken'}));
     } catch (e) {
