@@ -3,12 +3,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jim_hats_mobile/shared/ui/constants/app_spacings.dart';
+import 'package:jim_hats_mobile/shared/ui/widgets/take_photo_widget/take_photo_widget.dart';
 import 'package:jim_hats_mobile/ui/views/new_check_in/cubit/check_in_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/new_check_in/new_check_in_page_arguments.dart';
 
 class NewCheckInPage extends StatefulWidget {
   final NewCheckInPageArguments pageArguments;
-  final CheckInPageCubit checkInPageCubit;
+  final NewCheckInPageCubit checkInPageCubit;
   const NewCheckInPage({
     super.key,
     required this.pageArguments,
@@ -62,7 +63,7 @@ class _NewCheckInPageState extends State<NewCheckInPage> {
               SizedBox(
                 height: 16,
               ),
-              BlocBuilder<CheckInPageCubit, CheckInPageState>(
+              BlocBuilder<NewCheckInPageCubit, NewCheckInPageState>(
                 bloc: widget.checkInPageCubit,
                 buildWhen: (previous, current) =>
                     previous.photo != current.photo,
@@ -70,7 +71,7 @@ class _NewCheckInPageState extends State<NewCheckInPage> {
                   return Material(
                     child: InkWell(
                       borderRadius: BorderRadius.circular(10),
-                      onTap: () {},
+                      onTap: state.photo == null ? _onEmptyPhotoWidgetTap : _onPhotoWidgetTap,
                       child: SizedBox(
                         height: 60,
                         child: state.photo == null
@@ -98,7 +99,8 @@ class _NewCheckInPageState extends State<NewCheckInPage> {
                                         ),
                                         image: DecorationImage(
                                             fit: BoxFit.cover,
-                                            image: FileImage(File(state.photo!.path)))
+                                            image: FileImage(
+                                                File(state.photo!.path)))
                                         //image: Image.file(File(widget.pageArguments.photo!.path))
                                         ),
                                   )),
@@ -131,8 +133,64 @@ class _NewCheckInPageState extends State<NewCheckInPage> {
       )),
     );
   }
-  void _removeOrUpdatePhoto(){
-    showModalBottomSheet(context: context, builder:(context) => ,)
+
+  void _onPhotoWidgetTap() {
+    showModalBottomSheet(
+      showDragHandle: true,
+      context: context,
+      builder: (context) => SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: AppSpacings.horizontalPadding.toDouble()),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                'Photo Selection',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              ListTile(
+                onTap: () {
+                  _choosePhoto();
+                },
+                title: Text('Update photo'),
+                leading: Icon(Icons.image),
+              ),
+              ListTile(
+                onTap: () {
+                  Navigator.of(context).pop();
+                  widget.checkInPageCubit.updateImage(null);
+                },
+                title: Text(
+                  'Remove photo',
+                  style: TextStyle(color: Theme.of(context).colorScheme.error),
+                ),
+                leading: Icon(
+                  Icons.close,
+                  color: Theme.of(context).colorScheme.error,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
-  
+
+  void _onEmptyPhotoWidgetTap() {
+    _choosePhoto();
+  }
+
+  void _choosePhoto() {
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => TakePhotoWidget(
+        onPhotoChosen: (photo) {
+          Navigator.of(context).pop();
+          if (photo == null) return;
+          widget.checkInPageCubit.updateImage(photo);
+        },
+      ),
+    ));
+  }
 }

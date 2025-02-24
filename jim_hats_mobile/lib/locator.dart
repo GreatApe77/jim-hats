@@ -28,6 +28,7 @@ import 'package:jim_hats_mobile/ui/views/create_account/cubit/create_account_pag
 import 'package:jim_hats_mobile/ui/views/gym_challenge/cubit/gym_challenge_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge_details/cubit/gym_challenge_details_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge_details/gym_challenge_details_page.dart';
+import 'package:jim_hats_mobile/ui/views/new_check_in/cubit/check_in_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/ranking/cubit/ranking_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/settings/cubit/settings_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/sign_in/bloc/sign_in_page_bloc.dart';
@@ -48,14 +49,12 @@ Future<void> setupDependencies() async {
     ..registerSingleton<LoggedUserDataSource>(NetworkLoggedUserDataSource(
         httpClient: locator.get<HttpClient>(),
         settingsDataSource: locator.get<SettingsDataSource>()))
-    ..registerSingleton<GymChallengeDataSource>(
-        NetworkGymChallengeDataSource(
-          settingsDataSource: locator.get<SettingsDataSource>(),
-          httpClient: locator.get<HttpClient>()))
-    ..registerSingleton<ExerciseLogDataSource>(
-        NetworkExerciseLogDataSource(
-            settingsDataSource: locator.get<SettingsDataSource>(),
-          httpClient: locator.get<HttpClient>()))
+    ..registerSingleton<GymChallengeDataSource>(NetworkGymChallengeDataSource(
+        settingsDataSource: locator.get<SettingsDataSource>(),
+        httpClient: locator.get<HttpClient>()))
+    ..registerSingleton<ExerciseLogDataSource>(NetworkExerciseLogDataSource(
+        settingsDataSource: locator.get<SettingsDataSource>(),
+        httpClient: locator.get<HttpClient>()))
     ..registerSingleton<AuthDataSource>(
         NetworkAuthDataSource(httpClient: locator.get<HttpClient>()))
     //Repositories
@@ -78,6 +77,9 @@ Future<void> setupDependencies() async {
   //Cubits
 
   locator
+    ..registerFactoryParam<NewCheckInPageCubit, dynamic, dynamic>(
+      (param1, param2) => NewCheckInPageCubit(checkInPhoto: param1),
+    )
     ..registerSingleton<GymChallengeDetailsPageCubit>(
         GymChallengeDetailsPageCubit(
             gymChallengesRepository: locator.get<GymChallengesRepository>(),
@@ -102,7 +104,9 @@ Future<void> setupDependencies() async {
           loggedUserRepository: locator.get<LoggedUserRepository>()),
     )
     ..registerSingleton(
-      SettingsCubit(loggedUserRepository: locator.get<LoggedUserRepository>(),uploadRepository: locator.get<UploadRepository>()),
+      SettingsCubit(
+          loggedUserRepository: locator.get<LoggedUserRepository>(),
+          uploadRepository: locator.get<UploadRepository>()),
     )
     ..registerSingleton<ThemeBloc>(ThemeBloc(
         settingsRepository: locator.get<SettingsRepository>(),

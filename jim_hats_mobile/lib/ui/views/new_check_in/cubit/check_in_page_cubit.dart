@@ -2,12 +2,12 @@ import 'package:bloc/bloc.dart';
 import 'package:camera/camera.dart';
 import 'package:jim_hats_mobile/shared/utils/nullable.dart';
 
-part 'check_in_page_state.dart';
+part 'new_check_in_page_state.dart';
 
-class CheckInPageCubit extends Cubit<CheckInPageState> {
-  CheckInPageCubit({required XFile checkInPhoto})
-      : super(CheckInPageState(
-            status: CheckInPageStatus.idle,
+class NewCheckInPageCubit extends Cubit<NewCheckInPageState> {
+  NewCheckInPageCubit({required XFile checkInPhoto})
+      : super(NewCheckInPageState(
+            status: NewCheckInPageStatus.idle,
             photo: checkInPhoto,
             title: '',
             description: ''));

@@ -1,24 +1,24 @@
 part of 'check_in_page_cubit.dart';
 
-enum CheckInPageStatus { success, loading, failed, idle }
+enum NewCheckInPageStatus { success, loading, failed, idle }
 
-final class CheckInPageState {
+final class NewCheckInPageState {
   final XFile? photo;
   final String title;
   final String description;
-  final CheckInPageStatus status;
-  CheckInPageState(
+  final NewCheckInPageStatus status;
+  NewCheckInPageState(
       {required this.status,
       required this.photo,
       required this.title,
       required this.description});
 
-  CheckInPageState copyWith(
+  NewCheckInPageState copyWith(
       {Nullable<XFile>? photo,
       String? title,
       String? description,
-      CheckInPageStatus? status}) {
-    return CheckInPageState(
+      NewCheckInPageStatus? status}) {
+    return NewCheckInPageState(
         status: status ?? this.status,
         photo: photo != null ? photo.value : this.photo,
         title: title ?? this.title,
