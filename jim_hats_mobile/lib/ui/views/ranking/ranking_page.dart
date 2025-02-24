@@ -125,6 +125,7 @@ class _RankingPageState extends State<RankingPage> {
 
     final challengeTimeInDays = endDate.difference(startDate).inDays;
     final daysPassed = today.difference(startDate).inDays;
+    if(daysPassed<=0) return 0;
     final percentage = daysPassed.toDouble() / challengeTimeInDays.toDouble();
 
     return percentage.isNaN?0:percentage;
