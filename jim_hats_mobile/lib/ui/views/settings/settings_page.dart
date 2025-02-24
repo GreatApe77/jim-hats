@@ -1,3 +1,4 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jim_hats_mobile/locator.dart';
@@ -6,6 +7,7 @@ import 'package:jim_hats_mobile/shared/ui/constants/app_spacings.dart';
 import 'package:jim_hats_mobile/shared/ui/cubits/auth/auth_cubit.dart';
 import 'package:jim_hats_mobile/shared/ui/widgets/app_drawer/app_drawer.dart';
 import 'package:jim_hats_mobile/shared/ui/widgets/app_drawer/cubit/app_drawer_cubit.dart';
+import 'package:jim_hats_mobile/shared/ui/widgets/take_photo_widget/take_photo_widget.dart';
 import 'package:jim_hats_mobile/ui/theme/bloc/theme_bloc.dart';
 import 'package:jim_hats_mobile/ui/views/settings/cubit/settings_cubit.dart';
 
@@ -57,6 +59,51 @@ class _SettingsPageState extends State<SettingsPage> {
                       height: 12,
                     ),
                     ListTile(
+                      onTap: () {
+                        showModalBottomSheet(
+                          showDragHandle: true,
+                          context: context,
+                          builder: (context) => SafeArea(
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal:
+                                      AppSpacings.horizontalPadding.toDouble()),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  Text(
+                                    'Photo Selection',
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge,
+                                  ),
+                                  ListTile(
+                                    onTap: () => _updatePhoto(context),
+                                    title: Text('Update photo'),
+                                    leading: Icon(Icons.image),
+                                  ),
+                                  ListTile(
+                                    onTap: _removePhoto,
+                                    title: Text(
+
+                                      'Remove photo',
+                                      style: TextStyle(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .error),
+                                    ),
+                                    leading: Icon(
+                                      Icons.close,
+                                      color:
+                                          Theme.of(context).colorScheme.error,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
                       title: Text('Change profile picture'),
                       leading: CircleAvatar(
                         backgroundImage:
@@ -109,8 +156,11 @@ class _SettingsPageState extends State<SettingsPage> {
                     BlocListener<AuthCubit, AuthState>(
                       bloc: locator.get<AuthCubit>(),
                       listener: (context, state) {
-                        if(state.authStatus==AuthStatus.unauthenticated){
-                          Navigator.of(context).pushNamedAndRemoveUntil(AppRoutes.welcome, (route) => false,);
+                        if (state.authStatus == AuthStatus.unauthenticated) {
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                            AppRoutes.welcome,
+                            (route) => false,
+                          );
                         }
                       },
                       child: ListTile(
@@ -136,6 +186,27 @@ class _SettingsPageState extends State<SettingsPage> {
         },
       )),
     );
+  }
+
+  void _removePhoto() {
+    Navigator.of(context).pop();
+    widget.settingsCubit.updateLoggedUserProfilePicture(null);
+  }
+
+  void _updatePhoto(BuildContext context) {
+    //  Navigator.of(context).push(TakePhotoWidget(onPhotoChosen: (photo) {
+    //    Navigator.of(context).pop();
+    //  },));
+    Navigator.of(context).pop();
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => TakePhotoWidget(
+        onPhotoChosen: (photo) {
+          Navigator.of(context).pop();
+          if (photo == null) return;
+          widget.settingsCubit.updateLoggedUserProfilePicture(photo);
+        },
+      ),
+    ));
   }
 
   void _logOut() {

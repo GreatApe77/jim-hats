@@ -49,7 +49,7 @@ class _GymChallengePageState extends State<GymChallengePage> {
                   arguments: widget.gymChallengePageArguments);
               break;
             case 1:
-            Navigator.of(context).pushNamed(AppRoutes.ranking,
+              Navigator.of(context).pushNamed(AppRoutes.ranking,
                   arguments: widget.gymChallengePageArguments);
               break;
             case 2:
@@ -72,7 +72,10 @@ class _GymChallengePageState extends State<GymChallengePage> {
             builder: (context) => TakePhotoWidget(
               onPhotoChosen: (photo) {
                 Navigator.of(context).pushNamed(AppRoutes.newCheckIn,
-                    arguments: NewCheckInPageArguments(photo: photo));
+                    arguments: NewCheckInPageArguments(
+                        photo: photo,
+                        challengeId:
+                            widget.gymChallengePageArguments.challengeId));
               },
             ),
           ));
@@ -162,8 +165,12 @@ class _GymChallengePageState extends State<GymChallengePage> {
                                           vertical: 2),
                                       child: ExerciseLogTile(
                                         onTap: () {
-                                          final arguments = CheckInPageArguments(exerciseLog: exerciseLog);
-                                          Navigator.of(context).pushNamed(AppRoutes.checkIn,arguments: arguments); 
+                                          final arguments =
+                                              CheckInPageArguments(
+                                                  exerciseLog: exerciseLog);
+                                          Navigator.of(context).pushNamed(
+                                              AppRoutes.checkIn,
+                                              arguments: arguments);
                                         },
                                         exerciseLogWithUser: exerciseLog,
                                       ),

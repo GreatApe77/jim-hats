@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-const localhost ='http://localhost:4000';
-const mobileLocalhost = 'http://10.0.2.2:4000';
+const localhost ='http://localhost:3000';
+const mobileLocalhost = 'http://10.0.2.2:3000';
 class HttpClient {
   final Dio _dio;
   Dio get dio => _dio;
@@ -11,8 +11,5 @@ class HttpClient {
     };
     dio.options.connectTimeout = Duration(seconds: 5);
     dio.options.receiveTimeout = Duration(seconds: 5);
-    
-    
-
   }
 }

@@ -12,3 +12,5 @@ final class SettingsDataLoadSuccess extends SettingsState {
 
   SettingsDataLoadSuccess({required this.loggedUser});
 }
+
+final class SettingsDataFailed extends SettingsState {}

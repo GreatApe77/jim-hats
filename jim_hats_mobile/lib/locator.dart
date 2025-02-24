@@ -102,7 +102,7 @@ Future<void> setupDependencies() async {
           loggedUserRepository: locator.get<LoggedUserRepository>()),
     )
     ..registerSingleton(
-      SettingsCubit(loggedUserRepository: locator.get<LoggedUserRepository>()),
+      SettingsCubit(loggedUserRepository: locator.get<LoggedUserRepository>(),uploadRepository: locator.get<UploadRepository>()),
     )
     ..registerSingleton<ThemeBloc>(ThemeBloc(
         settingsRepository: locator.get<SettingsRepository>(),
