@@ -14,6 +14,8 @@ import { updateGymChallenge } from "./controllers/update-gym-challenge.js";
 import { deleteGymChallenge } from "./controllers/delete-gym-challenge.js";
 import { addLogToGymChallenge } from "./controllers/add-log-to-gym-challenge.js";
 import { listAllLogsOfUser } from "./controllers/list-all-logs-of-user.js";
+import { getMe } from "./controllers/get-me.js";
+import { updateUser } from "./controllers/update-user.js";
 
 const router = Router();
 
@@ -21,6 +23,8 @@ router.get("/health",healthController);
 router.post("/register",register);
 router.post("/login",login);
 router.get("/users/me/logs",listAllLogsOfUser)
+router.get("/users/me",getMe)
+router.patch("/users/me",updateUser)
 router.get("/users/:userId/gym-challenges", listChallengesOfUser)
 router.get("/gym-challenges/:challengeId/members",listMembersOfChallenge)
 router.get("/gym-challenges/:challengeId/logs",listLogsOfChallenge)
