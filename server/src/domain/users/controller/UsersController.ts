@@ -101,6 +101,16 @@ export class UsersController {
       return handleErrors(error, res);
     }
   }
+  async handleUpdateMe(req: Request, res: Response) {
+    const authUser = res.locals.authUser;
+    const user = req.body as PatchUserDTO;
+    try {
+      await this.userService.update(authUser.id, user);
+      return res.status(200).json(successResponse(MESSAGES.USER_UPDATED));
+    } catch (error) {
+      return handleErrors(error, res);
+    }
+  }
   async handleUpdateUser(req: Request, res: Response) {
     const id = req.params.id;
     const user = req.body as PatchUserDTO;

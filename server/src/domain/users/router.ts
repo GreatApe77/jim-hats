@@ -26,12 +26,19 @@ usersRouter.delete(
   (req, res) => usersController.handleDeleteUser(req, res),
 );
 usersRouter.patch(
-  "/:id",
+  "/me",
   usersMiddleware.validatePatchUser.bind(usersMiddleware),
 
   authMiddleware.onlyAuth.bind(authMiddleware),
-  (req, res) => usersController.handleUpdateUser(req, res),
+  (req, res) => usersController.handleUpdateMe(req, res),
 );
+// usersRouter.patch(
+//   "/:id",
+//   usersMiddleware.validatePatchUser.bind(usersMiddleware),
+
+//   authMiddleware.onlyAuth.bind(authMiddleware),
+//   (req, res) => usersController.handleUpdateUser(req, res),
+// );
 usersRouter.get(
   "/:userId/gym-challenges",
   authMiddleware.onlyAuth.bind(authMiddleware),
