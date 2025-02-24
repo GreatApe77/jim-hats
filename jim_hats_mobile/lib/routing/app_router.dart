@@ -12,6 +12,7 @@ import 'package:jim_hats_mobile/ui/views/gym_challenge/gym_challenge_page.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge/gym_challenge_page_arguments.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge_details/cubit/gym_challenge_details_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge_details/gym_challenge_details_page.dart';
+import 'package:jim_hats_mobile/ui/views/home/cubit/home_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/home/home_page.dart';
 import 'package:jim_hats_mobile/ui/views/new_check_in/cubit/new_check_in_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/new_check_in/new_check_in_page.dart';
@@ -82,7 +83,9 @@ abstract class AppRouter {
       case AppRoutes.home:
         return MaterialPageRoute(
           settings: settings,
-          builder: (context) => HomePage(),
+          builder: (context) => HomePage(
+            homePageCubit: locator.get<HomePageCubit>(),
+          ),
         );
       case AppRoutes.settings:
         return MaterialPageRoute(
@@ -95,18 +98,18 @@ abstract class AppRouter {
         return MaterialPageRoute(
             settings: settings,
             builder: (context) => GymChallengeDetailsPage(
-              gymChallengeDetailsPageCubit: locator.get<GymChallengeDetailsPageCubit>(),
+                gymChallengeDetailsPageCubit:
+                    locator.get<GymChallengeDetailsPageCubit>(),
                 pageArguments:
                     settings.arguments as GymChallengePageArguments));
       case AppRoutes.newCheckIn:
         final arguments = settings.arguments as NewCheckInPageArguments;
-        print(arguments.photo);
+
         return MaterialPageRoute(
             settings: settings,
             builder: (context) => NewCheckInPage(
-              checkInPageCubit: locator.get<NewCheckInPageCubit>(
-                param1: arguments.photo
-              ),
+                  checkInPageCubit:
+                      locator.get<NewCheckInPageCubit>(param1: arguments.photo),
                   pageArguments: arguments,
                 ));
       case AppRoutes.ranking:
