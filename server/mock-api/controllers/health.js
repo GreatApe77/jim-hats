@@ -1,5 +1,5 @@
-import { successResponse } from "../utils/success-response";
-import { MESSAGES } from "../messages";
+import { successResponse } from "../utils/success-response.js";
+import { MESSAGES } from "../messages.js";
 /**
  * 
  * @param {import("express").Request} req 
