@@ -12,4 +12,5 @@ abstract class AppRoutes {
   static const checkIn = '/check-in';
   static const splash = '/splash';
   static const serverDown = '/server-down';
+  static const createChallenge='/create-challenge';
 }

@@ -112,6 +112,9 @@ class _AppDrawerState extends State<AppDrawer> {
             height: 32,
           ),
           ListTile(
+            onTap:() {
+              Navigator.of(context).pushNamed(AppRoutes.createChallenge);
+            },
             leading: Icon(Icons.add_circle_outline),
             title: Text('Create group'),
           ),
