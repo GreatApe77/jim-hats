@@ -100,35 +100,7 @@ class _CreateChallengePageState extends State<CreateChallengePage> {
                               ),
                               height: 200,
                             ),
-                            // child: BlocBuilder<CreateChallengePageCubit,
-                            //     CreateChallengePageState>(
-                            //   bloc: widget.createChallengePageCubit,
-                            //   buildWhen: (previous, current) => previous.image != current.image,
-                            //   builder: (context, state) {
-                            //     if (state.image != null) {
-                            //       return Ink(
-
-                            //         //: BorderRadius.circular(10),
-                            //         decoration: BoxDecoration(
-                            //           borderRadius: BorderRadius.circular(10),
-                            //           image: DecorationImage(
-                            //             fit: BoxFit.cover,
-                            //               image: FileImage(File(state.image!.path))),
-                            //           //color: Theme.of(context).colorScheme.onSurface,
-                            //         ),
-                            //         height: 200,
-                            //       );
-                            //     }
-                            //     return Ink(
-                            //       //: BorderRadius.circular(10),
-                            //       decoration: BoxDecoration(
-                            //         borderRadius: BorderRadius.circular(10),
-                            //         color: Theme.of(context).colorScheme.onSurface,
-                            //       ),
-                            //       height: 200,
-                            //     );
-                            //   },
-                            // ),
+                           
                           ),
                         );
                       }
@@ -150,35 +122,7 @@ class _CreateChallengePageState extends State<CreateChallengePage> {
                             ),
                             height: 200,
                           ),
-                          // child: BlocBuilder<CreateChallengePageCubit,
-                          //     CreateChallengePageState>(
-                          //   bloc: widget.createChallengePageCubit,
-                          //   buildWhen: (previous, current) => previous.image != current.image,
-                          //   builder: (context, state) {
-                          //     if (state.image != null) {
-                          //       return Ink(
-
-                          //         //: BorderRadius.circular(10),
-                          //         decoration: BoxDecoration(
-                          //           borderRadius: BorderRadius.circular(10),
-                          //           image: DecorationImage(
-                          //             fit: BoxFit.cover,
-                          //               image: FileImage(File(state.image!.path))),
-                          //           //color: Theme.of(context).colorScheme.onSurface,
-                          //         ),
-                          //         height: 200,
-                          //       );
-                          //     }
-                          //     return Ink(
-                          //       //: BorderRadius.circular(10),
-                          //       decoration: BoxDecoration(
-                          //         borderRadius: BorderRadius.circular(10),
-                          //         color: Theme.of(context).colorScheme.onSurface,
-                          //       ),
-                          //       height: 200,
-                          //     );
-                          //   },
-                          // ),
+                        
                         ),
                       );
                     },

@@ -57,8 +57,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
             }
           },
           listenWhen: (previous, current) {
-            return current.status == Status.error ||
-                current.status == Status.success;
+            return previous.status != current.status;
           },
           child: Form(
             key: formKey,
@@ -111,34 +110,31 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                           ),
                           height: 100,
                           width: 100,
-                          child: Material(
-                            color:
-                                Theme.of(context).colorScheme.surfaceContainer,
-                            shape: CircleBorder(),
-                            child: InkWell(
-                              customBorder: CircleBorder(),
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => TakePhotoWidget(
-                                    onPhotoChosen: (photo) {
-                                      Navigator.of(context).pop();
-                                      if (photo != null) {
-                                        widget.createAccountPageCubit
-                                            .addImage(photo);
-                                      }
-                                    },
-                                  ),
-                                ));
-                              },
+                          child: InkWell(
+                            customBorder: CircleBorder(),
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => TakePhotoWidget(
+                                  onPhotoChosen: (photo) {
+                                    Navigator.of(context).pop();
+                                    if (photo != null) {
+                                      widget.createAccountPageCubit
+                                          .addImage(photo);
+                                    }
+                                  },
+                                ),
+                              ));
+                            },
+                            child: Ink(
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image:
+                                          FileImage(File(state.image!.path)))),
                               child: Stack(
                                 fit: StackFit.expand,
                                 children: [
-                                  Align(
-                                      alignment: Alignment.center,
-                                      child: Image.file(
-                                        File(state.image!.path),
-                                        fit: BoxFit.cover,
-                                      )),
                                   Align(
                                     alignment: Alignment.bottomRight,
                                     child: Container(
@@ -249,12 +245,11 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   height: 16,
                 ),
                 TextFormField(
-                  
                   initialValue: widget.createAccountPageCubit.state.username,
                   validator: FormValidators.validateUsername,
                   onChanged: (value) {
-                    widget.createAccountPageCubit.updateUsername(
-                        FormSanitizers.sanitizeUsername(value));
+                    widget.createAccountPageCubit
+                        .updateUsername(FormSanitizers.sanitizeUsername(value));
                   },
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -312,7 +307,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                             widget.createAccountPageCubit.state.confirmPassword,
                         validator: FormValidators.validatePassword,
                         onChanged: (value) {
-                          widget.createAccountPageCubit.updatePassword(value);
+                          widget.createAccountPageCubit
+                              .updateConfirmPassword(value);
                         },
                         decoration: InputDecoration(
                             border: OutlineInputBorder(),

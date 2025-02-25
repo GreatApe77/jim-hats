@@ -42,4 +42,10 @@ abstract class FormValidators {
     }
     return null;
   }
+  static String? validateLogTitle(String? exerciseLogTitle){
+    if (exerciseLogTitle == null || exerciseLogTitle.isEmpty) {
+      return 'Title is required';
+    }
+    return null;
+  }
 }

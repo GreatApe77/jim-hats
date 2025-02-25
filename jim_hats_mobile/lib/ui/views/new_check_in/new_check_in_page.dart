@@ -7,6 +7,7 @@ import 'package:jim_hats_mobile/routing/app_routes.dart';
 import 'package:jim_hats_mobile/shared/http/http_client.dart';
 import 'package:jim_hats_mobile/shared/ui/constants/app_spacings.dart';
 import 'package:jim_hats_mobile/shared/ui/widgets/take_photo_widget/take_photo_widget.dart';
+import 'package:jim_hats_mobile/shared/utils/form_validators.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge/gym_challenge_page_arguments.dart';
 import 'package:jim_hats_mobile/ui/views/new_check_in/cubit/new_check_in_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/new_check_in/new_check_in_page_arguments.dart';
@@ -71,12 +72,14 @@ class _NewCheckInPageState extends State<NewCheckInPage> {
         padding: EdgeInsets.symmetric(
             horizontal: AppSpacings.horizontalPadding.toDouble()),
         child: Form(
+          key: formKey,
           child: ListView(
             children: [
               SizedBox(
                 height: 16,
               ),
               TextFormField(
+                validator: FormValidators.validateLogTitle,
                 onChanged: (value) {
                   widget.checkInPageCubit.updateTitle(value);
                 },
@@ -194,20 +197,6 @@ class _NewCheckInPageState extends State<NewCheckInPage> {
                 title: Text('Update photo'),
                 leading: Icon(Icons.image),
               ),
-              ListTile(
-                onTap: () {
-                  Navigator.of(context).pop();
-                  widget.checkInPageCubit.updateImage(null);
-                },
-                title: Text(
-                  'Remove photo',
-                  style: TextStyle(color: Theme.of(context).colorScheme.error),
-                ),
-                leading: Icon(
-                  Icons.close,
-                  color: Theme.of(context).colorScheme.error,
-                ),
-              ),
             ],
           ),
         ),
@@ -232,6 +221,7 @@ class _NewCheckInPageState extends State<NewCheckInPage> {
   }
 
   void _submitForm() {
+    if (!formKey.currentState!.validate()) return;
     widget.checkInPageCubit.submitForm(widget.pageArguments.challengeId);
   }
 }

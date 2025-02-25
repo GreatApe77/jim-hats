@@ -37,13 +37,10 @@ class NetworkAuthDataSource implements AuthDataSource {
         throw Exception('Http error: ${response.statusCode}');
       }
     } on DioException catch (e) {
-      if (e.type == DioExceptionType.connectionTimeout) {
-        throw TimeOutException();
-      }
       if(e.response?.statusCode==400){
         throw UsernameAlreadyTakenException();
       }
-      
+      rethrow;    
     } catch (e) {
       rethrow;
     }
