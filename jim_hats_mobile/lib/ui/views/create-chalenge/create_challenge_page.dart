@@ -17,14 +17,39 @@ class CreateChallengePage extends StatelessWidget {
             horizontal: AppSpacings.horizontalPadding.toDouble()),
         child: ListView(
           children: [
-            ClipRRect(
-              
-              borderRadius: BorderRadius.circular(20),
-              child: Container(
-                child: InkWell(),
-                height: 100,
-                color: Colors.red,
-              ),
+            SizedBox(
+              height: 255,
+              child: Stack(
+                fit: StackFit.expand,
+                
+                
+                children: [
+                Align(
+                  alignment: Alignment.center,
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(10),
+                    onTap: () {},
+                    child: Ink(
+                      //: BorderRadius.circular(10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
+                      height: 200,
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CircleAvatar(
+                      backgroundColor: Theme.of(context).colorScheme.onInverseSurface,
+                      child: Icon(Icons.camera_alt),
+                    ),
+                  ),
+                )
+              ]),
             ),
             TextFormField(
               decoration: InputDecoration(
