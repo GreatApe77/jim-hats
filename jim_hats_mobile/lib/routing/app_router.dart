@@ -6,6 +6,7 @@ import 'package:jim_hats_mobile/shared/ui/cubits/auth/auth_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/check_in_page/check_in_page.dart';
 import 'package:jim_hats_mobile/ui/views/check_in_page/check_in_page_arguments.dart';
 import 'package:jim_hats_mobile/ui/views/create-chalenge/create_challenge_page.dart';
+import 'package:jim_hats_mobile/ui/views/create-chalenge/cubit/create_challenge_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/create_account/create_account_page.dart';
 import 'package:jim_hats_mobile/ui/views/create_account/cubit/create_account_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge/cubit/gym_challenge_page_cubit.dart';
@@ -152,7 +153,9 @@ abstract class AppRouter {
         );
       case AppRoutes.createChallenge:
         return MaterialPageRoute(
-          builder: (context) => CreateChallengePage(),
+          builder: (context) => CreateChallengePage(
+            createChallengePageCubit: locator.get<CreateChallengePageCubit>(),
+          ),
         );
       default:
         return null;

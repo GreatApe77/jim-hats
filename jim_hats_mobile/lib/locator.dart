@@ -25,6 +25,7 @@ import 'package:jim_hats_mobile/shared/http/http_client.dart';
 import 'package:jim_hats_mobile/shared/ui/cubits/auth/auth_cubit.dart';
 import 'package:jim_hats_mobile/shared/ui/widgets/app_drawer/cubit/app_drawer_cubit.dart';
 import 'package:jim_hats_mobile/ui/theme/bloc/theme_bloc.dart';
+import 'package:jim_hats_mobile/ui/views/create-chalenge/cubit/create_challenge_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/create_account/cubit/create_account_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge/cubit/gym_challenge_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge_details/cubit/gym_challenge_details_page_cubit.dart';
@@ -79,6 +80,10 @@ Future<void> setupDependencies() async {
   //Cubits
 
   locator
+    ..registerSingleton<CreateChallengePageCubit>(CreateChallengePageCubit(
+      gymChallengesRepository: locator.get<GymChallengesRepository>(),
+      uploadRepository: locator.get<UploadRepository>(),
+    ))
     ..registerSingleton<HomePageCubit>(HomePageCubit(
         loggedUserRepository: locator.get<LoggedUserRepository>()))
     ..registerFactoryParam<NewCheckInPageCubit, XFile, dynamic>(
