@@ -17,12 +17,56 @@ class CreateChallengePage extends StatefulWidget {
 
 class _CreateChallengePageState extends State<CreateChallengePage> {
   final _formKey = GlobalKey<FormState>();
+  late TextEditingController _nameController;
+  late TextEditingController _descriptionController;
+  late TextEditingController _startAtController;
+  late TextEditingController _endAtController;
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController =
+        TextEditingController(text: widget.createChallengePageCubit.state.name);
+    _descriptionController = TextEditingController(
+        text: widget.createChallengePageCubit.state.description);
+    _startAtController = TextEditingController(
+        text: widget.createChallengePageCubit
+            .formatDate(widget.createChallengePageCubit.state.startAt));
+
+    _endAtController = TextEditingController(
+        text: widget.createChallengePageCubit
+            .formatDate(widget.createChallengePageCubit.state.endAt));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Create challenge'),
-        actions: [TextButton(onPressed: () {}, child: Text('Next'))],
+        actions: [
+          BlocConsumer<CreateChallengePageCubit, CreateChallengePageState>(
+            bloc: widget.createChallengePageCubit,
+            listenWhen: (previous, current) =>
+                previous.status != current.status,
+            listener: (context, state) {
+              if (state.status == CreateChallengePageStatus.error) {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    backgroundColor: Theme.of(context).colorScheme.error,
+                    content: Text(state.errorMessage)));
+              }
+              if (state.status == CreateChallengePageStatus.success) {
+                Navigator.of(context).pop();
+              }
+            },
+            buildWhen: (previous, current) => previous.status != current.status,
+            builder: (context, state) {
+              if (state.status == CreateChallengePageStatus.loading) {
+                return CircularProgressIndicator();
+              }
+              return TextButton(child: Text('Create'),onPressed: () => widget.createChallengePageCubit.submitForm(),);
+            },
+          )
+        ],
       ),
       body: SafeArea(
           child: Padding(
@@ -153,6 +197,11 @@ class _CreateChallengePageState extends State<CreateChallengePage> {
                 ]),
               ),
               TextFormField(
+                controller: _nameController,
+                onChanged: (value) {
+                  widget.createChallengePageCubit
+                      .updateName(_nameController.text);
+                },
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     label: Text('Challenge name')),
@@ -161,6 +210,9 @@ class _CreateChallengePageState extends State<CreateChallengePage> {
                 height: 16,
               ),
               TextFormField(
+                controller: _descriptionController,
+                onChanged: (value) => widget.createChallengePageCubit
+                    .updateDescription(_descriptionController.text),
                 maxLines: 5,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -170,11 +222,18 @@ class _CreateChallengePageState extends State<CreateChallengePage> {
                 height: 16,
               ),
               TextFormField(
-                onTap: () => showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime.now(),
-                    lastDate: DateTime.now().add(Duration(days: 365))),
+                controller: _startAtController,
+                onTap: () async {
+                  final date = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime.now().add(Duration(days: 365)));
+                  if (date == null) return;
+                  _startAtController.text =
+                      widget.createChallengePageCubit.formatDate(date);
+                  widget.createChallengePageCubit.updateStartAt(date);
+                },
                 decoration: InputDecoration(
                     suffixIcon: Icon(Icons.calendar_month),
                     border: OutlineInputBorder(),
@@ -184,12 +243,22 @@ class _CreateChallengePageState extends State<CreateChallengePage> {
                 height: 16,
               ),
               TextFormField(
-                onTap: () {
-                  showDatePicker(
+                controller: _endAtController,
+                onTap: () async {
+                  final date = await showDatePicker(
                       context: context,
                       initialDate: DateTime.now(),
                       firstDate: DateTime.now(),
                       lastDate: DateTime.now().add(Duration(days: 365)));
+                  if (date == null) return;
+                  _endAtController.text =
+                      widget.createChallengePageCubit.formatDate(date);
+                  widget.createChallengePageCubit.updateEndAt(date);
+                  // showDatePicker(
+                  //     context: context,
+                  //     initialDate: DateTime.now(),
+                  //     firstDate: DateTime.now(),
+                  //     lastDate: DateTime.now().add(Duration(days: 365)));
                 },
                 decoration: InputDecoration(
                     suffixIcon: Icon(Icons.calendar_month),
@@ -199,9 +268,17 @@ class _CreateChallengePageState extends State<CreateChallengePage> {
               SizedBox(
                 height: 16,
               ),
-              Text(
-                '1500 days',
-                style: Theme.of(context).textTheme.titleLarge,
+              BlocBuilder<CreateChallengePageCubit, CreateChallengePageState>(
+                bloc: widget.createChallengePageCubit,
+                buildWhen: (previous, current) =>
+                    previous.startAt != current.startAt ||
+                    previous.endAt != current.endAt,
+                builder: (context, state) {
+                  return Text(
+                    '${widget.createChallengePageCubit.getDayCount(state.startAt, state.endAt)} days',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  );
+                },
               )
             ],
           ),
