@@ -26,8 +26,6 @@ class SignInPageBloc extends Bloc<SignInPageEvent, SignInPageState> {
         try {
           emit(state.copywith(status: SignInPageStatus.loading));
           //await Future.delayed(Duration(seconds: 2));
-           print('username: ${state.username}');
-            print('password: ${state.password}');
            await _authRepository.login(
               LoginDto(username: state.username, password: state.password));
           

@@ -34,13 +34,6 @@ class GymChallengeDetailsPageCubit extends Cubit<GymChallengeDetailsPageState> {
         (element) => element.id == challengeId,
       );
       final members = data[1] as List<ChallengeMember>;
-      print('''
-
-
-
-      AGREGOU TUDO
-
-''');
       emit(GymChallengeDetailsPageLoadSuccess(
         challenge: currentChallenge,
           members: members,

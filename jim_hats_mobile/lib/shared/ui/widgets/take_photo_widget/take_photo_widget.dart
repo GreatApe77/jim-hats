@@ -31,13 +31,13 @@ class _TakePhotoWidgetState extends State<TakePhotoWidget> {
       cameras = await availableCameras();
       _startCamera();
     } on CameraException catch (e) {
-      print(e.description);
+      // print(e.description);
     }
   }
 
   _startCamera() {
     if (cameras.isEmpty) {
-      print('Câmera não foi encontrada');
+      // print('Câmera não foi encontrada');
     } else {
       _previewCamera(cameras[0]);
     }
@@ -50,7 +50,7 @@ class _TakePhotoWidgetState extends State<TakePhotoWidget> {
       await cameraController?.initialize();
       //await cameraController?.setFlashMode(FlashMode.off);
     } on CameraException catch (e) {
-      print(e.description);
+      // print(e.description);
     }
     if (mounted) {
       setState(() {});
@@ -89,7 +89,7 @@ class _TakePhotoWidgetState extends State<TakePhotoWidget> {
         });
       }
     } on CameraException catch (e) {
-      print(e.description);
+      // print(e.description);
     }
   }
 
@@ -111,7 +111,7 @@ class _TakePhotoWidgetState extends State<TakePhotoWidget> {
         });
       }
     } on CameraException catch (e) {
-      print(e.description);
+      // print(e.description);
     }
   }
 
@@ -136,7 +136,7 @@ class _TakePhotoWidgetState extends State<TakePhotoWidget> {
         });
       }
     } on CameraException catch (e) {
-      print(e.description);
+      // print(e.description);
     }
   }
 

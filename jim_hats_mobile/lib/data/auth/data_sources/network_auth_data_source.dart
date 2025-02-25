@@ -1,8 +1,11 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:jim_hats_mobile/data/auth/data_sources/auth_data_source.dart';
 import 'package:jim_hats_mobile/data/auth/dtos/login_dto.dart';
 import 'package:jim_hats_mobile/data/auth/dtos/register_dto.dart';
+import 'package:jim_hats_mobile/exceptions/time_out_exception.dart';
+import 'package:jim_hats_mobile/exceptions/username_already_taken_exception.dart';
 import 'package:jim_hats_mobile/shared/http/http_client.dart';
 
 class NetworkAuthDataSource implements AuthDataSource {
@@ -33,6 +36,14 @@ class NetworkAuthDataSource implements AuthDataSource {
       if (response.statusCode != 201) {
         throw Exception('Http error: ${response.statusCode}');
       }
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout) {
+        throw TimeOutException();
+      }
+      if(e.response?.statusCode==400){
+        throw UsernameAlreadyTakenException();
+      }
+      
     } catch (e) {
       rethrow;
     }

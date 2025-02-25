@@ -47,7 +47,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   ..clearSnackBars()
                   ..showSnackBar(SnackBar(
                       backgroundColor: Theme.of(context).colorScheme.error,
-                      content: Text('Error')));
+                      content: Text(state.errorMessage)));
                 break;
               case Status.success:
                 Navigator.of(context).pushNamed(AppRoutes.signin);
@@ -249,15 +249,16 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   height: 16,
                 ),
                 TextFormField(
+                  
                   initialValue: widget.createAccountPageCubit.state.username,
                   validator: FormValidators.validateUsername,
                   onChanged: (value) {
-                    widget.createAccountPageCubit
-                        .updateUsername(FormSanitizers.sanitizeUsername(value));
+                    widget.createAccountPageCubit.updateUsername(
+                        FormSanitizers.sanitizeUsername(value));
                   },
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    label: Text('Name'),
+                    label: Text('Username'),
                   ),
                 ),
                 SizedBox(
@@ -363,9 +364,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   }
 
   void _submitForm(BuildContext context) {
-    // if (!formKey.currentState!.validate()) {
-    //   return;
-    // }
+    if (!formKey.currentState!.validate()) {
+      return;
+    }
     widget.createAccountPageCubit.submitForm();
   }
 

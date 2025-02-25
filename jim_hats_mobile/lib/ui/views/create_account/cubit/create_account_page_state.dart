@@ -9,6 +9,7 @@ final class CreateAccountPageState {
   final String confirmPassword;
   final XFile? image;
   final Status status;
+  final String errorMessage;
   factory CreateAccountPageState.empty() {
     return CreateAccountPageState(
         username: '',
@@ -16,10 +17,12 @@ final class CreateAccountPageState {
         password: '',
         confirmPassword: '',
         image: null,
-        status: Status.writingForm);
+        status: Status.writingForm,
+        errorMessage: '');
   }
   const CreateAccountPageState(
       {required this.username,
+      required this.errorMessage,
       required this.email,
       required this.password,
       required this.confirmPassword,
@@ -31,8 +34,10 @@ final class CreateAccountPageState {
       String? password,
       String? confirmPassword,
       Status? status,
-      Nullable<XFile>? image}) {
+      Nullable<XFile>? image,
+      String? errorMessage}) {
     return CreateAccountPageState(
+        errorMessage: errorMessage ?? this.errorMessage,
         status: status ?? this.status,
         username: username ?? this.username,
         email: email ?? this.email,

@@ -309,6 +309,8 @@ class _CreateChallengePageState extends State<CreateChallengePage> {
           ),
           PopupMenuItem(
             child: ListTile(
+              textColor: Theme.of(context).colorScheme.error,
+              leading: Icon(Icons.close,color: Theme.of(context).colorScheme.error,),
               title: Text('Remove image'),
               onTap: () {
                 widget.createChallengePageCubit.updateImage(null);

@@ -25,7 +25,7 @@ class NetworkUploadDataSource implements UploadDataSource {
       //print(mappedData);
       return data?['data']['fullPath'];
     } catch (e) {
-      print(e.toString());
+      
       rethrow;
     }
   }
