@@ -1,4 +1,5 @@
 import 'package:jim_hats_mobile/data/gym_challenges/data_sources/gym_challenge_data_source.dart';
+import 'package:jim_hats_mobile/data/gym_challenges/dtos/create_gym_challenge_dto.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/challenge_member.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/gym_challenge.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/ranking.dart';
@@ -51,5 +52,11 @@ class GymChallengesRepository {
           duration: Duration(minutes: 1));
     }
     return challengeMembers;
+  }
+
+  Future<void> createGymChallenge(
+      CreateGymChallengeDto createGymChallengeDto) async {
+    await _gymChallengeDataSource.createGymChallenge(createGymChallengeDto);
+    MemoryCache.remove('challenges');
   }
 }

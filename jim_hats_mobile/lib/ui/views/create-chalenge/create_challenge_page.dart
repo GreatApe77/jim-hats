@@ -19,11 +19,7 @@ class CreateChallengePage extends StatelessWidget {
           children: [
             SizedBox(
               height: 255,
-              child: Stack(
-                fit: StackFit.expand,
-                
-                
-                children: [
+              child: Stack(fit: StackFit.expand, children: [
                 Align(
                   alignment: Alignment.center,
                   child: InkWell(
@@ -44,7 +40,8 @@ class CreateChallengePage extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: CircleAvatar(
-                      backgroundColor: Theme.of(context).colorScheme.onInverseSurface,
+                      backgroundColor:
+                          Theme.of(context).colorScheme.onInverseSurface,
                       child: Icon(Icons.camera_alt),
                     ),
                   ),
@@ -68,6 +65,11 @@ class CreateChallengePage extends StatelessWidget {
               height: 16,
             ),
             TextFormField(
+              onTap: () => showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime.now(),
+                  lastDate: DateTime.now().add(Duration(days: 365))),
               decoration: InputDecoration(
                   suffixIcon: Icon(Icons.calendar_month),
                   border: OutlineInputBorder(),
@@ -77,6 +79,13 @@ class CreateChallengePage extends StatelessWidget {
               height: 16,
             ),
             TextFormField(
+              onTap: () {
+                showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime.now(),
+                    lastDate: DateTime.now().add(Duration(days: 365)));
+              },
               decoration: InputDecoration(
                   suffixIcon: Icon(Icons.calendar_month),
                   border: OutlineInputBorder(),

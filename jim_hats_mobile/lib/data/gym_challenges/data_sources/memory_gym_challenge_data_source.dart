@@ -1,4 +1,5 @@
 import 'package:jim_hats_mobile/data/gym_challenges/data_sources/gym_challenge_data_source.dart';
+import 'package:jim_hats_mobile/data/gym_challenges/dtos/create_gym_challenge_dto.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/challenge_member.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/gym_challenge.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/ranking.dart';
@@ -94,4 +95,10 @@ Future<List<ChallengeMember>> getMembersOfChallenge(int challengeId) {
     ChallengeMember(id: 15, username: 'user15', profilePicture: 'https://example.com/user15.jpg'),
   ]);
 }
+
+  @override
+  Future<void> createGymChallenge(CreateGymChallengeDto createGymChallengeDto) {
+    // TODO: implement createGymChallenge
+    throw UnimplementedError();
+  }
 }
