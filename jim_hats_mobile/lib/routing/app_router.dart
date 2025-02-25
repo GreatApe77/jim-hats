@@ -16,6 +16,7 @@ import 'package:jim_hats_mobile/ui/views/gym_challenge_details/cubit/gym_challen
 import 'package:jim_hats_mobile/ui/views/gym_challenge_details/gym_challenge_details_page.dart';
 import 'package:jim_hats_mobile/ui/views/home/cubit/home_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/home/home_page.dart';
+import 'package:jim_hats_mobile/ui/views/join_group/join_group_page.dart';
 import 'package:jim_hats_mobile/ui/views/new_check_in/cubit/new_check_in_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/new_check_in/new_check_in_page.dart';
 import 'package:jim_hats_mobile/ui/views/new_check_in/new_check_in_page_arguments.dart';
@@ -157,6 +158,8 @@ abstract class AppRouter {
             createChallengePageCubit: locator.get<CreateChallengePageCubit>(),
           ),
         );
+      case AppRoutes.joinGroup:
+        return MaterialPageRoute(builder: (context) => JoinGroupPage(),);
       default:
         return null;
     }

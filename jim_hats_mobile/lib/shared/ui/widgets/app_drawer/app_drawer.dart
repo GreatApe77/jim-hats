@@ -119,6 +119,9 @@ class _AppDrawerState extends State<AppDrawer> {
             title: Text('Create group'),
           ),
           ListTile(
+            onTap: () {
+              Navigator.of(context).pushNamed(AppRoutes.joinGroup);
+            },
             leading: Icon(Icons.group_outlined),
             title: Text('Join group'),
           ),

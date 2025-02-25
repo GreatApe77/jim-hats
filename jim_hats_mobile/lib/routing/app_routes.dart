@@ -13,4 +13,5 @@ abstract class AppRoutes {
   static const splash = '/splash';
   static const serverDown = '/server-down';
   static const createChallenge='/create-challenge';
+  static const joinGroup='/join-group';
 }
