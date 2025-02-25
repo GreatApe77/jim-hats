@@ -6,6 +6,7 @@ import 'package:meta/meta.dart';
 part 'user_stats_state.dart';
 
 class UserStatsCubit extends Cubit<UserStatsState> {
+  
   final LoggedUserRepository _loggedUserRepository;
   UserStatsCubit({required LoggedUserRepository loggedUserRepository})
       : _loggedUserRepository = loggedUserRepository,

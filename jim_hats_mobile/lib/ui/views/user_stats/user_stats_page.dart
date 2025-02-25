@@ -20,6 +20,7 @@ class _UserStatsPageState extends State<UserStatsPage> {
     super.initState();
     widget.userStatsCubit.loadUserStatsData();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,16 +48,27 @@ class _UserStatsPageState extends State<UserStatsPage> {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                     //Image(
-                     //     image: NetworkImage(
-                     //         state.loggedUser.profilePicture ?? '')),
+                      CircleAvatar(
+                        backgroundImage:
+                            NetworkImage(state.loggedUser.profilePicture ?? ''),
+                        radius: 50,
+                      ),
                       SizedBox(
                         height: 16,
                       ),
                       Text(
                         state.loggedUser.username,
-                        style: Theme.of(context).textTheme.headlineLarge,
-                      )
+                        style: Theme.of(context).textTheme.headlineMedium,
+                      ),
+                      SizedBox(
+                        height: 16,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          StatsItem(label: 'Check-inst', value: '0'),
+                        ],
+                      ),
                     ],
                   )
                 ],
@@ -66,6 +78,28 @@ class _UserStatsPageState extends State<UserStatsPage> {
           return SizedBox.shrink();
         },
       ),
+    );
+  }
+}
+
+class StatsItem extends StatelessWidget {
+  final String label;
+  final String value;
+  const StatsItem({super.key, required this.label, required this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          value,
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+        Text(
+          label,
+          style: Theme.of(context).textTheme.bodyMedium,
+        )
+      ],
     );
   }
 }
