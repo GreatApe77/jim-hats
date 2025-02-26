@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jim_hats_mobile/core/constants/app_spacings.dart';
 import 'package:jim_hats_mobile/core/utils/date_helper.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge/gym_challenge_page_arguments.dart';
-import 'package:jim_hats_mobile/ui/views/ranking/cubit/ranking_page_cubit.dart';
+import 'package:jim_hats_mobile/presentation/cubits/ranking_page/ranking_page_cubit.dart';
 
 class RankingPage extends StatefulWidget {
   final GymChallengePageArguments arguments;
