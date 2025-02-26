@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:jim_hats_mobile/data/logged_user/repositories/logged_user_repository.dart';
-import 'package:jim_hats_mobile/locator.dart';
-import 'package:jim_hats_mobile/presentation/routing/app_router.dart';
 import 'package:jim_hats_mobile/presentation/routing/app_routes.dart';
 import 'package:jim_hats_mobile/presentation/cubits/app_drawer/app_drawer_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

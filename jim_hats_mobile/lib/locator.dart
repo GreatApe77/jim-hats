@@ -29,6 +29,7 @@ import 'package:jim_hats_mobile/presentation/cubits/create_challenge_page/create
 import 'package:jim_hats_mobile/presentation/cubits/create_account_page/create_account_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/gym_challenge_page/gym_challenge_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/gym_challenge_details_page/gym_challenge_details_page_cubit.dart';
+import 'package:jim_hats_mobile/presentation/cubits/internet_connectivity/cubit/internet_connectivity_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/join_group_page/join_group_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/views/gym_challenge_details/gym_challenge_details_page.dart';
 import 'package:jim_hats_mobile/presentation/cubits/home_page/home_page_cubit.dart';
@@ -81,6 +82,9 @@ Future<void> setupDependencies() async {
   //Cubits
 
   locator
+    // ..registerFactory<InternetConnectivityCubit>(
+    //   () => InternetConnectivityCubit(),
+    // )
     ..registerFactory<JoinGroupPageCubit>(
       () => JoinGroupPageCubit(
           gymChallengesRepository: locator.get<GymChallengesRepository>()),
