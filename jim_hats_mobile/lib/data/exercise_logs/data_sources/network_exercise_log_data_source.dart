@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/data_sources/exercise_log_data_source.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/dtos/add_exercise_log_to_challenge_dto.dart';
+import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log_with_user.dart';
 import 'package:jim_hats_mobile/data/settings/data_sources/settings_data_source.dart';
 import 'package:jim_hats_mobile/data/settings/models/settings.dart';
@@ -41,6 +42,24 @@ class NetworkExerciseLogDataSource implements ExerciseLogDataSource {
         data: addExerciseLogToChallengeDto.toMap(),
           '/gym-challenges/$challengeId/logs',
           options: Options(headers: {'Authorization': 'Bearer $jwtToken'}));
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<ExerciseLog>> getAllLogsOfUser()async {
+    try {
+      final jwtToken = await _settingsDataSource.get<String>('token');
+      final response = await _httpClient.dio.get<Map<String, dynamic>>(
+          '/users/me/logs',
+          options: Options(headers: {'Authorization': 'Bearer $jwtToken'}));
+      final data = response.data?['data'] as List;
+      return data
+          .map(
+            (e) => ExerciseLog.fromMap(e),
+          )
+          .toList();
     } catch (e) {
       rethrow;
     }

@@ -1,5 +1,6 @@
 import 'package:jim_hats_mobile/data/exercise_logs/data_sources/exercise_log_data_source.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/dtos/add_exercise_log_to_challenge_dto.dart';
+import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log_with_user.dart';
 import 'package:jim_hats_mobile/locator.dart';
 import 'package:jim_hats_mobile/core/utils/memory_cache.dart';
@@ -31,12 +32,22 @@ class ExerciseLogsRepository {
   Future<void> addExerciseLogToChallenge(int challengeId,
       AddExerciseLogToChallengeDto addExerciseLogToChallengeDto) async {
     try {
-      print(addExerciseLogToChallengeDto.toMap());
+      //print(addExerciseLogToChallengeDto.toMap());
       await _exerciseLogDataSource.addExerciseLogToChallenge(
           challengeId, addExerciseLogToChallengeDto);
       MemoryCache.remove('logs-$challengeId');
     } catch (e) {
       rethrow;
     }
+  }
+
+  Future<List<ExerciseLog>> getAllExerciseLogsOfUser() async {
+    final String key = 'user-logs';
+    List<ExerciseLog>? userLogs = MemoryCache.get<List<ExerciseLog>>(key);
+    if (userLogs == null) {
+      userLogs = await _exerciseLogDataSource.getAllLogsOfUser();
+      MemoryCache.store<List<ExerciseLog>>(key, userLogs);
+    }
+    return userLogs;
   }
 }
