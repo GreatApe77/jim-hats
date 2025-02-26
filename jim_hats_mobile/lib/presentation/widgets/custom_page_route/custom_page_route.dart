@@ -4,7 +4,7 @@ class CustomPageRouteBuilder extends PageRouteBuilder {
   final Widget child;
   CustomPageRouteBuilder({required super.settings, required this.child})
       : super(
-          transitionDuration: Duration(milliseconds: 150),
+          transitionDuration: Duration(milliseconds: 200),
           pageBuilder: (context, animation, secondaryAnimation) => child,
         );
   @override

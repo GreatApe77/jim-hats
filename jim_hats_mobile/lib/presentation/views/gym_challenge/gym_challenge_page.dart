@@ -7,6 +7,7 @@ import 'package:jim_hats_mobile/presentation/routing/app_routes.dart';
 import 'package:jim_hats_mobile/core/constants/app_spacings.dart';
 import 'package:jim_hats_mobile/presentation/widgets/app_drawer/app_drawer.dart';
 import 'package:jim_hats_mobile/presentation/cubits/app_drawer/app_drawer_cubit.dart';
+import 'package:jim_hats_mobile/presentation/widgets/custom_page_route/custom_page_route.dart';
 import 'package:jim_hats_mobile/presentation/widgets/exercise_log_tile/exercise_log_tile.dart';
 import 'package:jim_hats_mobile/presentation/widgets/take_photo_widget/take_photo_widget.dart';
 import 'package:jim_hats_mobile/core/utils/readable_date.dart';
@@ -67,11 +68,11 @@ class _GymChallengePageState extends State<GymChallengePage> {
       floatingActionButton: FloatingActionButton(
         shape: CircleBorder(),
         onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
-            fullscreenDialog: true,
-            builder: (context) => TakePhotoWidget(
+          Navigator.of(context).push(CustomPageRouteBuilder(
+            settings: ModalRoute.settingsOf(context),
+            child: TakePhotoWidget(
               onPhotoChosen: (photo) {
-                if(photo==null) {
+                if (photo == null) {
                   Navigator.of(context).pop();
                   return;
                 }

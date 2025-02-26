@@ -113,20 +113,25 @@ abstract class AppRouter {
       case AppRoutes.newCheckIn:
         final arguments = settings.arguments as NewCheckInPageArguments;
 
-        return MaterialPageRoute(
+        return CustomPageRouteBuilder(
             settings: settings,
-            builder: (context) => NewCheckInPage(
-                  checkInPageCubit:
-                      locator.get<NewCheckInPageCubit>(param1: arguments.photo),
-                  pageArguments: arguments,
-                ));
+            child: NewCheckInPage(
+              checkInPageCubit:
+                  locator.get<NewCheckInPageCubit>(param1: arguments.photo),
+              pageArguments: arguments,
+            ));
       case AppRoutes.ranking:
         final arguments = settings.arguments as GymChallengePageArguments;
-        return MaterialPageRoute(
-          builder: (context) => RankingPage(
-              arguments: arguments,
-              rankingPageCubit: locator.get<RankingPageCubit>()),
-        );
+        // return MaterialPageRoute(
+        //   builder: (context) => RankingPage(
+        //       arguments: arguments,
+        //       rankingPageCubit: locator.get<RankingPageCubit>()),
+        // );
+        return CustomPageRouteBuilder(
+            settings: settings,
+            child: RankingPage(
+                arguments: arguments,
+                rankingPageCubit: locator.get<RankingPageCubit>()));
       case AppRoutes.userStats:
         return MaterialPageRoute(
           settings: settings,
@@ -137,13 +142,18 @@ abstract class AppRouter {
       case AppRoutes.gymChallenge:
         final arguments = settings.arguments as GymChallengePageArguments;
 
-        return MaterialPageRoute(
-          settings: settings,
-          builder: (context) => GymChallengePage(
-            gymChallengePageCubit: locator.get<GymChallengePageCubit>(),
-            gymChallengePageArguments: arguments,
-          ),
-        );
+        // return MaterialPageRoute(
+        //   settings: settings,
+        //   builder: (context) => GymChallengePage(
+        //     gymChallengePageCubit: locator.get<GymChallengePageCubit>(),
+        //     gymChallengePageArguments: arguments,
+        //   ),
+        // );
+        return CustomPageRouteBuilder(
+            settings: settings,
+            child: GymChallengePage(
+                gymChallengePageArguments: arguments,
+                gymChallengePageCubit: locator.get<GymChallengePageCubit>()));
       case AppRoutes.checkIn:
         final arguments = settings.arguments as CheckInPageArguments;
 
