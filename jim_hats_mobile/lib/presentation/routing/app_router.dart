@@ -9,7 +9,7 @@ import 'package:jim_hats_mobile/ui/views/create-chalenge/create_challenge_page.d
 import 'package:jim_hats_mobile/presentation/cubits/create_challenge_page/create_challenge_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/create_account/create_account_page.dart';
 import 'package:jim_hats_mobile/presentation/cubits/create_account_page/create_account_page_cubit.dart';
-import 'package:jim_hats_mobile/ui/views/gym_challenge/cubit/gym_challenge_page_cubit.dart';
+import 'package:jim_hats_mobile/presentation/cubits/gym_challenge_page/gym_challenge_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge/gym_challenge_page.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge/gym_challenge_page_arguments.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge_details/cubit/gym_challenge_details_page_cubit.dart';

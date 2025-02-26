@@ -11,7 +11,7 @@ import 'package:jim_hats_mobile/shared/ui/widgets/exercise_log_tile/exercise_log
 import 'package:jim_hats_mobile/shared/ui/widgets/take_photo_widget/take_photo_widget.dart';
 import 'package:jim_hats_mobile/core/utils/readable_date.dart';
 import 'package:jim_hats_mobile/ui/views/check_in_page/check_in_page_arguments.dart';
-import 'package:jim_hats_mobile/ui/views/gym_challenge/cubit/gym_challenge_page_cubit.dart';
+import 'package:jim_hats_mobile/presentation/cubits/gym_challenge_page/gym_challenge_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge/gym_challenge_page_arguments.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge/widgets/challenge_banner.dart';
 import 'package:jim_hats_mobile/ui/views/new_check_in/new_check_in_page_arguments.dart';
