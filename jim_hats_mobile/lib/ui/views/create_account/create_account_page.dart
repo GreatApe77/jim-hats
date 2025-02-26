@@ -9,7 +9,7 @@ import 'package:jim_hats_mobile/shared/ui/controllers/hide_password_controller.d
 import 'package:jim_hats_mobile/shared/ui/widgets/take_photo_widget/take_photo_widget.dart';
 import 'package:jim_hats_mobile/core/utils/form_sanitizers.dart';
 import 'package:jim_hats_mobile/core/utils/form_validators.dart';
-import 'package:jim_hats_mobile/ui/views/create_account/cubit/create_account_page_cubit.dart';
+import 'package:jim_hats_mobile/presentation/cubits/create_account_page/create_account_page_cubit.dart';
 
 class CreateAccountPage extends StatefulWidget {
   final CreateAccountPageCubit createAccountPageCubit;

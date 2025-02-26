@@ -26,7 +26,7 @@ import 'package:jim_hats_mobile/shared/ui/cubits/auth/auth_cubit.dart';
 import 'package:jim_hats_mobile/shared/ui/widgets/app_drawer/cubit/app_drawer_cubit.dart';
 import 'package:jim_hats_mobile/presentation/blocs/theme/theme_bloc.dart';
 import 'package:jim_hats_mobile/ui/views/create-chalenge/cubit/create_challenge_page_cubit.dart';
-import 'package:jim_hats_mobile/ui/views/create_account/cubit/create_account_page_cubit.dart';
+import 'package:jim_hats_mobile/presentation/cubits/create_account_page/create_account_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge/cubit/gym_challenge_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge_details/cubit/gym_challenge_details_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge_details/gym_challenge_details_page.dart';
