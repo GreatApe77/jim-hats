@@ -101,6 +101,16 @@ export class UsersController {
       return handleErrors(error, res);
     }
   }
+  async handleUpdateMe(req: Request, res: Response) {
+    const authUser = res.locals.authUser;
+    const user = req.body as PatchUserDTO;
+    try {
+      await this.userService.update(authUser.id, user);
+      return res.status(200).json(successResponse(MESSAGES.USER_UPDATED));
+    } catch (error) {
+      return handleErrors(error, res);
+    }
+  }
   async handleUpdateUser(req: Request, res: Response) {
     const id = req.params.id;
     const user = req.body as PatchUserDTO;
@@ -126,9 +136,17 @@ export class UsersController {
       const challenges = await this.userService.getChallengesOfUser(
         authUser.id,
       );
+      const formattedChallenges = challenges.map((challenge) => {
+        return {
+          ...challenge,
+          createdAt: challenge.createdAt.getTime(),
+          endAt: challenge.endAt.getTime(),
+          startAt: challenge.startAt.getTime(),
+        };
+      })
       return res
         .status(200)
-        .json(successResponse(MESSAGES.SUCCESS, challenges));
+        .json(successResponse(MESSAGES.SUCCESS, formattedChallenges));
     } catch (error) {
       console.log(error);
       return handleErrors(error, res);

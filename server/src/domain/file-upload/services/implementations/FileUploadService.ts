@@ -5,6 +5,7 @@ import {
 } from "../../../../config/firebase-app.js";
 import { IFileUploadService } from "../interfaces/IFileUploadService.js";
 export class FileUploadService implements IFileUploadService {
+  
   async uploadGymChallengeImage(
     file: Express.Multer.File,
     fileName: string,
