@@ -32,6 +32,7 @@ import 'package:jim_hats_mobile/presentation/views/splash/splah_page.dart';
 import 'package:jim_hats_mobile/presentation/cubits/user_stats_page/user_stats_cubit.dart';
 import 'package:jim_hats_mobile/presentation/views/user_stats/user_stats_page.dart';
 import 'package:jim_hats_mobile/presentation/views/welcome/welcome_page.dart';
+import 'package:jim_hats_mobile/presentation/widgets/custom_page_route/custom_page_route.dart';
 
 abstract class AppRouter {
   static String initialRoute = AppRoutes.splash;
@@ -92,12 +93,15 @@ abstract class AppRouter {
           ),
         );
       case AppRoutes.settings:
-        return MaterialPageRoute(
-          settings: settings,
-          builder: (context) => SettingsPage(
-            settingsCubit: locator.get<SettingsCubit>(),
-          ),
-        );
+        // return MaterialPageRoute(
+        //   settings: settings,
+        //   builder: (context) => SettingsPage(
+        //     settingsCubit: locator.get<SettingsCubit>(),
+        //   ),
+        // );
+        return CustomPageRouteBuilder(
+            settings: settings,
+            child: SettingsPage(settingsCubit: locator.get<SettingsCubit>()));
       case AppRoutes.gymChallengeDetails:
         return MaterialPageRoute(
             settings: settings,
@@ -160,9 +164,13 @@ abstract class AppRouter {
           ),
         );
       case AppRoutes.joinGroup:
-        return MaterialPageRoute(builder: (context) => JoinGroupPage(
-          joinGroupPageCubit: locator.get<JoinGroupPageCubit>(),
-        ),);
+        // return MaterialPageRoute(builder: (context) => JoinGroupPage(
+        //   joinGroupPageCubit: locator.get<JoinGroupPageCubit>(),
+        // ),);
+        return CustomPageRouteBuilder(
+            settings: settings,
+            child: JoinGroupPage(
+                joinGroupPageCubit: locator.get<JoinGroupPageCubit>()));
       default:
         return null;
     }

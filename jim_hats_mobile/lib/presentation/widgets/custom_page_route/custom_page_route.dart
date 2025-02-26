@@ -1,23 +1,17 @@
 import 'package:flutter/material.dart';
 
-class CustomPageRoute extends PageRouteBuilder {
-  final RouteSettings settings;
+class CustomPageRouteBuilder extends PageRouteBuilder {
   final Widget child;
-  CustomPageRoute({
-    required this.settings,
-    required this.child})
+  CustomPageRouteBuilder({required super.settings, required this.child})
       : super(
-        transitionDuration: Duration(
-          seconds: 1
-        ),
+          transitionDuration: Duration(milliseconds: 150),
           pageBuilder: (context, animation, secondaryAnimation) => child,
         );
-
   @override
   Widget buildTransitions(BuildContext context, Animation<double> animation,
       Animation<double> secondaryAnimation, Widget child) {
-    return ScaleTransition(
-      scale: animation,
+    return FadeTransition(
+      opacity: animation,
       child: child,
     );
   }
