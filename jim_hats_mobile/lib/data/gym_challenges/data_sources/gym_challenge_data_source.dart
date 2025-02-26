@@ -10,4 +10,5 @@ abstract class GymChallengeDataSource {
   Future<List<ChallengeMember>> getMembersOfChallenge(int challengeId);
   Future<void> createGymChallenge(
       CreateGymChallengeDto createGymChallengeDto);
+  Future<void> joinChallenge(String joinId);
 }

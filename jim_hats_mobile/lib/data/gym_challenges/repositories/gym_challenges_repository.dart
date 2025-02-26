@@ -20,8 +20,11 @@ class GymChallengesRepository {
     if (challenges == null) {
       //await Future.delayed(Duration(seconds: 2));
       challenges = await _gymChallengeDataSource.getGymChallengesOfUser(userId);
-      MemoryCache.store<List<GymChallenge>>('challenges', challenges,
-          duration: Duration(minutes: 1));
+      MemoryCache.store<List<GymChallenge>>(
+        'challenges',
+        challenges,
+        duration: Duration(minutes: 1),
+      );
     }
     //final challenges = await _gymChallengeDataSource.getGymChallengesOfUser(userId);
     return challenges;
@@ -34,8 +37,11 @@ class GymChallengesRepository {
       //await Future.delayed(Duration(seconds: 2));
       rankings =
           await _gymChallengeDataSource.getRankingOfChallenge(challengeId);
-      MemoryCache.store<List<Ranking>>('ranking-$challengeId', rankings,
-          duration: Duration(minutes: 1));
+      MemoryCache.store<List<Ranking>>(
+        'ranking-$challengeId',
+        rankings,
+        duration: Duration(minutes: 1),
+      );
     }
     return rankings;
   }
@@ -57,6 +63,11 @@ class GymChallengesRepository {
   Future<void> createGymChallenge(
       CreateGymChallengeDto createGymChallengeDto) async {
     await _gymChallengeDataSource.createGymChallenge(createGymChallengeDto);
+    MemoryCache.remove('challenges');
+  }
+
+  Future<void> joinChallenge(String joinId) async {
+    await _gymChallengeDataSource.joinChallenge(joinId);
     MemoryCache.remove('challenges');
   }
 }

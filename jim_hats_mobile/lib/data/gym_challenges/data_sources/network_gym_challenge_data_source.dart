@@ -88,4 +88,16 @@ class NetworkGymChallengeDataSource implements MemoryGymChallengeDataSource {
       rethrow;
     }
   }
+
+  @override
+  Future<void> joinChallenge(String joinId) async {
+    try {
+      final jwtToken = await _settingsDataSource.get<String>('token');
+      await _httpClient.dio.get<Map<String, dynamic>>(
+          '/gym-challenges/$joinId/join',
+          options: Options(headers: {'Authorization': 'Bearer $jwtToken'}));
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
