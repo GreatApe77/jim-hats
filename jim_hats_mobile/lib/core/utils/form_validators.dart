@@ -20,6 +20,13 @@ abstract class FormValidators {
     return null;
   }
 
+  static String? validateGroupCode(String? groupCode){
+    if (groupCode == null || groupCode.isEmpty) {
+      return 'Group code is requried';
+    }
+    
+  }
+
   static String? validateUsername(String? username) {
     if (username == null || username.isEmpty) {
       return 'Username is required';
