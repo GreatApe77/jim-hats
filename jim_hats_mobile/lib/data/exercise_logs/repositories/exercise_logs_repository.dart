@@ -2,7 +2,7 @@ import 'package:jim_hats_mobile/data/exercise_logs/data_sources/exercise_log_dat
 import 'package:jim_hats_mobile/data/exercise_logs/dtos/add_exercise_log_to_challenge_dto.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log_with_user.dart';
 import 'package:jim_hats_mobile/locator.dart';
-import 'package:jim_hats_mobile/shared/utils/memory_cache.dart';
+import 'package:jim_hats_mobile/core/utils/memory_cache.dart';
 
 class ExerciseLogsRepository {
   final ExerciseLogDataSource _exerciseLogDataSource;

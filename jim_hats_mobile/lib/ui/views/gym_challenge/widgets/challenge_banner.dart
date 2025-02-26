@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/gym_challenge.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/ranking.dart';
 import 'package:jim_hats_mobile/data/logged_user/models/logged_user.dart';
-import 'package:jim_hats_mobile/shared/utils/get_days_between_dates.dart';
+import 'package:jim_hats_mobile/core/utils/get_days_between_dates.dart';
 
 class ChallengeBanner extends StatelessWidget {
   final Function() onTap;

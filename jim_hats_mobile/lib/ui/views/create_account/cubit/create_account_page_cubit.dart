@@ -4,10 +4,10 @@ import 'package:jim_hats_mobile/data/auth/dtos/register_dto.dart';
 import 'package:jim_hats_mobile/data/auth/repositories/auth_repository.dart';
 import 'package:jim_hats_mobile/data/uploads/dtos/upload_dto.dart';
 import 'package:jim_hats_mobile/data/uploads/repositories/upload_repository.dart';
-import 'package:jim_hats_mobile/exceptions/time_out_exception.dart';
+import 'package:jim_hats_mobile/core/exceptions/time_out_exception.dart';
 import 'package:jim_hats_mobile/locator.dart';
-import 'package:jim_hats_mobile/shared/utils/application_exception.dart';
-import 'package:jim_hats_mobile/shared/utils/nullable.dart';
+import 'package:jim_hats_mobile/core/utils/application_exception.dart';
+import 'package:jim_hats_mobile/core/utils/nullable.dart';
 
 part 'create_account_page_state.dart';
 

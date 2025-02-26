@@ -5,7 +5,7 @@ import 'package:jim_hats_mobile/data/gym_challenges/models/challenge_member.dart
 import 'package:jim_hats_mobile/data/gym_challenges/models/gym_challenge.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/ranking.dart';
 import 'package:jim_hats_mobile/data/settings/data_sources/settings_data_source.dart';
-import 'package:jim_hats_mobile/shared/http/http_client.dart';
+import 'package:jim_hats_mobile/core/network/http_client.dart';
 
 class NetworkGymChallengeDataSource implements MemoryGymChallengeDataSource {
   final HttpClient _httpClient;

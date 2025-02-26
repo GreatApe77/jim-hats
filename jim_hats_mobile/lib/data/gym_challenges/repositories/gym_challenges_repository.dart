@@ -4,7 +4,7 @@ import 'package:jim_hats_mobile/data/gym_challenges/models/challenge_member.dart
 import 'package:jim_hats_mobile/data/gym_challenges/models/gym_challenge.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/ranking.dart';
 import 'package:jim_hats_mobile/locator.dart';
-import 'package:jim_hats_mobile/shared/utils/memory_cache.dart';
+import 'package:jim_hats_mobile/core/utils/memory_cache.dart';
 
 class GymChallengesRepository {
   final GymChallengeDataSource _gymChallengeDataSource;

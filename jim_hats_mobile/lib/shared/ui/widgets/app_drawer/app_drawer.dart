@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:jim_hats_mobile/data/logged_user/repositories/logged_user_repository.dart';
 import 'package:jim_hats_mobile/locator.dart';
-import 'package:jim_hats_mobile/routing/app_router.dart';
-import 'package:jim_hats_mobile/routing/app_routes.dart';
+import 'package:jim_hats_mobile/presentation/routing/app_router.dart';
+import 'package:jim_hats_mobile/presentation/routing/app_routes.dart';
 import 'package:jim_hats_mobile/shared/ui/widgets/app_drawer/cubit/app_drawer_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jim_hats_mobile/ui/views/gym_challenge/gym_challenge_page_arguments.dart';

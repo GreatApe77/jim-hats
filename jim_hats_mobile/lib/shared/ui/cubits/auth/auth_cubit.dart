@@ -2,10 +2,10 @@ import 'package:bloc/bloc.dart';
 import 'package:jim_hats_mobile/data/auth/repositories/auth_repository.dart';
 import 'package:jim_hats_mobile/data/logged_user/models/logged_user.dart';
 import 'package:jim_hats_mobile/data/logged_user/repositories/logged_user_repository.dart';
-import 'package:jim_hats_mobile/exceptions/invalid_token_exception.dart';
-import 'package:jim_hats_mobile/exceptions/time_out_exception.dart';
-import 'package:jim_hats_mobile/exceptions/token_not_found_exception.dart';
-import 'package:jim_hats_mobile/shared/utils/nullable.dart';
+import 'package:jim_hats_mobile/core/exceptions/invalid_token_exception.dart';
+import 'package:jim_hats_mobile/core/exceptions/time_out_exception.dart';
+import 'package:jim_hats_mobile/core/exceptions/token_not_found_exception.dart';
+import 'package:jim_hats_mobile/core/utils/nullable.dart';
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {

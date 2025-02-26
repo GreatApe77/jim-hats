@@ -5,8 +5,8 @@ import 'package:jim_hats_mobile/data/logged_user/data_sources/logged_user_data_s
 import 'package:jim_hats_mobile/data/logged_user/dtos/update_logged_user_dto.dart';
 import 'package:jim_hats_mobile/data/logged_user/models/logged_user.dart';
 import 'package:jim_hats_mobile/data/settings/data_sources/settings_data_source.dart';
-import 'package:jim_hats_mobile/exceptions/time_out_exception.dart';
-import 'package:jim_hats_mobile/shared/http/http_client.dart';
+import 'package:jim_hats_mobile/core/exceptions/time_out_exception.dart';
+import 'package:jim_hats_mobile/core/network/http_client.dart';
 
 class NetworkLoggedUserDataSource implements LoggedUserDataSource {
   final SettingsDataSource _settingsDataSource;

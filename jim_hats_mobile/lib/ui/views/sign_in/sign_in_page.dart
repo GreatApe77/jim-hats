@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jim_hats_mobile/locator.dart';
-import 'package:jim_hats_mobile/routing/app_routes.dart';
-import 'package:jim_hats_mobile/shared/ui/constants/app_spacings.dart';
+import 'package:jim_hats_mobile/presentation/routing/app_routes.dart';
+import 'package:jim_hats_mobile/core/constants/app_spacings.dart';
 import 'package:jim_hats_mobile/shared/ui/controllers/hide_password_controller.dart';
 import 'package:jim_hats_mobile/shared/ui/cubits/auth/auth_cubit.dart';
-import 'package:jim_hats_mobile/shared/utils/form_sanitizers.dart';
-import 'package:jim_hats_mobile/shared/utils/form_validators.dart';
+import 'package:jim_hats_mobile/core/utils/form_sanitizers.dart';
+import 'package:jim_hats_mobile/core/utils/form_validators.dart';
 import 'package:jim_hats_mobile/ui/views/sign_in/bloc/sign_in_page_bloc.dart';
 
 class SignInPage extends StatefulWidget {

@@ -4,7 +4,7 @@ import 'package:jim_hats_mobile/data/exercise_logs/dtos/add_exercise_log_to_chal
 import 'package:jim_hats_mobile/data/exercise_logs/repositories/exercise_logs_repository.dart';
 import 'package:jim_hats_mobile/data/uploads/dtos/upload_dto.dart';
 import 'package:jim_hats_mobile/data/uploads/repositories/upload_repository.dart';
-import 'package:jim_hats_mobile/shared/utils/nullable.dart';
+import 'package:jim_hats_mobile/core/utils/nullable.dart';
 
 part 'new_check_in_page_state.dart';
 

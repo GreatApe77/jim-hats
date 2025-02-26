@@ -21,7 +21,7 @@ import 'package:jim_hats_mobile/data/settings/repositories/settings_repository.d
 import 'package:jim_hats_mobile/data/uploads/data_sources/network_upload_data_source.dart';
 import 'package:jim_hats_mobile/data/uploads/data_sources/upload_data_source.dart';
 import 'package:jim_hats_mobile/data/uploads/repositories/upload_repository.dart';
-import 'package:jim_hats_mobile/shared/http/http_client.dart';
+import 'package:jim_hats_mobile/core/network/http_client.dart';
 import 'package:jim_hats_mobile/shared/ui/cubits/auth/auth_cubit.dart';
 import 'package:jim_hats_mobile/shared/ui/widgets/app_drawer/cubit/app_drawer_cubit.dart';
 import 'package:jim_hats_mobile/ui/theme/bloc/theme_bloc.dart';

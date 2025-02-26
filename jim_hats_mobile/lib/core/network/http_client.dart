@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:jim_hats_mobile/exceptions/time_out_exception.dart';
+import 'package:jim_hats_mobile/core/exceptions/time_out_exception.dart';
 
 const localhost = 'http://localhost:4000';
 const mobileLocalhost = 'http://10.0.2.2:4000';

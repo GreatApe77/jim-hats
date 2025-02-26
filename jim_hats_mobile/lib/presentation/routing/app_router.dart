@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jim_hats_mobile/locator.dart';
-import 'package:jim_hats_mobile/routing/app_routes.dart';
+import 'package:jim_hats_mobile/presentation/routing/app_routes.dart';
 import 'package:jim_hats_mobile/shared/ui/cubits/auth/auth_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/check_in_page/check_in_page.dart';
 import 'package:jim_hats_mobile/ui/views/check_in_page/check_in_page_arguments.dart';

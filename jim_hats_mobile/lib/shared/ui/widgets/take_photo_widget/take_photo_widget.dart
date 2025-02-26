@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:jim_hats_mobile/routing/app_routes.dart';
+import 'package:jim_hats_mobile/presentation/routing/app_routes.dart';
 
 class TakePhotoWidget extends StatefulWidget {
   const TakePhotoWidget({super.key, required this.onPhotoChosen});

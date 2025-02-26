@@ -5,7 +5,7 @@ import 'package:jim_hats_mobile/data/gym_challenges/dtos/create_gym_challenge_dt
 import 'package:jim_hats_mobile/data/gym_challenges/repositories/gym_challenges_repository.dart';
 import 'package:jim_hats_mobile/data/uploads/dtos/upload_dto.dart';
 import 'package:jim_hats_mobile/data/uploads/repositories/upload_repository.dart';
-import 'package:jim_hats_mobile/shared/utils/nullable.dart';
+import 'package:jim_hats_mobile/core/utils/nullable.dart';
 
 part 'create_challenge_page_state.dart';
 

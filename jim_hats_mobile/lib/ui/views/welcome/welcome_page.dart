@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:jim_hats_mobile/routing/app_routes.dart';
-import 'package:jim_hats_mobile/shared/ui/constants/app_spacings.dart';
+import 'package:jim_hats_mobile/presentation/routing/app_routes.dart';
+import 'package:jim_hats_mobile/core/constants/app_spacings.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jim_hats_mobile/shared/ui/constants/app_spacings.dart';
+import 'package:jim_hats_mobile/core/constants/app_spacings.dart';
 
 class JoinGroupPage extends StatefulWidget {
   const JoinGroupPage({super.key});
