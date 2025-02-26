@@ -17,7 +17,7 @@ import 'package:jim_hats_mobile/ui/views/gym_challenge_details/gym_challenge_det
 import 'package:jim_hats_mobile/presentation/cubits/home_page/home_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/home/home_page.dart';
 import 'package:jim_hats_mobile/ui/views/join_group/join_group_page.dart';
-import 'package:jim_hats_mobile/ui/views/new_check_in/cubit/new_check_in_page_cubit.dart';
+import 'package:jim_hats_mobile/presentation/cubits/new_check_in_page/new_check_in_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/new_check_in/new_check_in_page.dart';
 import 'package:jim_hats_mobile/ui/views/new_check_in/new_check_in_page_arguments.dart';
 import 'package:jim_hats_mobile/ui/views/ranking/cubit/ranking_page_cubit.dart';
