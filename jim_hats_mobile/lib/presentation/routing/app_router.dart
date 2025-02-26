@@ -23,7 +23,7 @@ import 'package:jim_hats_mobile/ui/views/new_check_in/new_check_in_page_argument
 import 'package:jim_hats_mobile/presentation/cubits/ranking_page/ranking_page_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/ranking/ranking_page.dart';
 import 'package:jim_hats_mobile/ui/views/server_down/server_down_alert_page.dart';
-import 'package:jim_hats_mobile/ui/views/settings/cubit/settings_cubit.dart';
+import 'package:jim_hats_mobile/presentation/cubits/settings_page/settings_cubit.dart';
 import 'package:jim_hats_mobile/ui/views/settings/settings_page.dart';
 import 'package:jim_hats_mobile/presentation/blocs/sign_in_page/sign_in_page_bloc.dart';
 import 'package:jim_hats_mobile/ui/views/sign_in/sign_in_page.dart';
