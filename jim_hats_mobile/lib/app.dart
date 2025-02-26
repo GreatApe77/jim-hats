@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jim_hats_mobile/locator.dart';
 import 'package:jim_hats_mobile/presentation/routing/app_router.dart';
 import 'package:jim_hats_mobile/presentation/blocs/theme/theme_bloc.dart';
-import 'package:jim_hats_mobile/ui/theme/fonts.dart';
-import 'package:jim_hats_mobile/ui/theme/materia_theme.dart';
+import 'package:jim_hats_mobile/presentation/theme/fonts.dart';
+import 'package:jim_hats_mobile/presentation/theme/materia_theme.dart';
 
 class App extends StatelessWidget {
   const App({super.key});

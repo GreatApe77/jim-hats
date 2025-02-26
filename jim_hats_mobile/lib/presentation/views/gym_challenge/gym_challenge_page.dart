@@ -5,16 +5,16 @@ import 'package:jim_hats_mobile/data/gym_challenges/models/gym_challenge.dart';
 import 'package:jim_hats_mobile/locator.dart';
 import 'package:jim_hats_mobile/presentation/routing/app_routes.dart';
 import 'package:jim_hats_mobile/core/constants/app_spacings.dart';
-import 'package:jim_hats_mobile/shared/ui/widgets/app_drawer/app_drawer.dart';
-import 'package:jim_hats_mobile/shared/ui/widgets/app_drawer/cubit/app_drawer_cubit.dart';
-import 'package:jim_hats_mobile/shared/ui/widgets/exercise_log_tile/exercise_log_tile.dart';
-import 'package:jim_hats_mobile/shared/ui/widgets/take_photo_widget/take_photo_widget.dart';
+import 'package:jim_hats_mobile/presentation/widgets/app_drawer/app_drawer.dart';
+import 'package:jim_hats_mobile/presentation/cubits/app_drawer/app_drawer_cubit.dart';
+import 'package:jim_hats_mobile/presentation/widgets/exercise_log_tile/exercise_log_tile.dart';
+import 'package:jim_hats_mobile/presentation/widgets/take_photo_widget/take_photo_widget.dart';
 import 'package:jim_hats_mobile/core/utils/readable_date.dart';
-import 'package:jim_hats_mobile/ui/views/check_in_page/check_in_page_arguments.dart';
+import 'package:jim_hats_mobile/presentation/views/check_in_page/check_in_page_arguments.dart';
 import 'package:jim_hats_mobile/presentation/cubits/gym_challenge_page/gym_challenge_page_cubit.dart';
-import 'package:jim_hats_mobile/ui/views/gym_challenge/gym_challenge_page_arguments.dart';
-import 'package:jim_hats_mobile/ui/views/gym_challenge/widgets/challenge_banner.dart';
-import 'package:jim_hats_mobile/ui/views/new_check_in/new_check_in_page_arguments.dart';
+import 'package:jim_hats_mobile/presentation/views/gym_challenge/gym_challenge_page_arguments.dart';
+import 'package:jim_hats_mobile/presentation/views/gym_challenge/widgets/challenge_banner.dart';
+import 'package:jim_hats_mobile/presentation/views/new_check_in/new_check_in_page_arguments.dart';
 
 class GymChallengePage extends StatefulWidget {
   final GymChallengePageCubit gymChallengePageCubit;

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jim_hats_mobile/locator.dart';
 import 'package:jim_hats_mobile/core/constants/app_spacings.dart';
-import 'package:jim_hats_mobile/shared/ui/widgets/app_drawer/app_drawer.dart';
-import 'package:jim_hats_mobile/shared/ui/widgets/app_drawer/cubit/app_drawer_cubit.dart';
-import 'package:jim_hats_mobile/ui/views/user_stats/cubit/user_stats_cubit.dart';
+import 'package:jim_hats_mobile/presentation/widgets/app_drawer/app_drawer.dart';
+import 'package:jim_hats_mobile/presentation/cubits/app_drawer/app_drawer_cubit.dart';
+import 'package:jim_hats_mobile/presentation/cubits/user_stats_page/user_stats_cubit.dart';
 
 class UserStatsPage extends StatefulWidget {
   final UserStatsCubit userStatsCubit;

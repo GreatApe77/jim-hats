@@ -6,11 +6,11 @@ import 'package:jim_hats_mobile/locator.dart';
 import 'package:jim_hats_mobile/presentation/routing/app_routes.dart';
 import 'package:jim_hats_mobile/core/network/http_client.dart';
 import 'package:jim_hats_mobile/core/constants/app_spacings.dart';
-import 'package:jim_hats_mobile/shared/ui/widgets/take_photo_widget/take_photo_widget.dart';
+import 'package:jim_hats_mobile/presentation/widgets/take_photo_widget/take_photo_widget.dart';
 import 'package:jim_hats_mobile/core/utils/form_validators.dart';
-import 'package:jim_hats_mobile/ui/views/gym_challenge/gym_challenge_page_arguments.dart';
+import 'package:jim_hats_mobile/presentation/views/gym_challenge/gym_challenge_page_arguments.dart';
 import 'package:jim_hats_mobile/presentation/cubits/new_check_in_page/new_check_in_page_cubit.dart';
-import 'package:jim_hats_mobile/ui/views/new_check_in/new_check_in_page_arguments.dart';
+import 'package:jim_hats_mobile/presentation/views/new_check_in/new_check_in_page_arguments.dart';
 
 class NewCheckInPage extends StatefulWidget {
   final NewCheckInPageArguments pageArguments;

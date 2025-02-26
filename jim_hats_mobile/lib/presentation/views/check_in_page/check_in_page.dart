@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jim_hats_mobile/core/constants/app_spacings.dart';
 import 'package:jim_hats_mobile/core/utils/date_helper.dart';
-import 'package:jim_hats_mobile/ui/views/check_in_page/check_in_page_arguments.dart';
+import 'package:jim_hats_mobile/presentation/views/check_in_page/check_in_page_arguments.dart';
 
 class CheckInPage extends StatelessWidget {
   final CheckInPageArguments checkInPageArguments;

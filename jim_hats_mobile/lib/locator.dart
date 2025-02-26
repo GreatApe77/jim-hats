@@ -22,20 +22,20 @@ import 'package:jim_hats_mobile/data/uploads/data_sources/network_upload_data_so
 import 'package:jim_hats_mobile/data/uploads/data_sources/upload_data_source.dart';
 import 'package:jim_hats_mobile/data/uploads/repositories/upload_repository.dart';
 import 'package:jim_hats_mobile/core/network/http_client.dart';
-import 'package:jim_hats_mobile/shared/ui/cubits/auth/auth_cubit.dart';
-import 'package:jim_hats_mobile/shared/ui/widgets/app_drawer/cubit/app_drawer_cubit.dart';
+import 'package:jim_hats_mobile/presentation/cubits/auth/auth_cubit.dart';
+import 'package:jim_hats_mobile/presentation/cubits/app_drawer/app_drawer_cubit.dart';
 import 'package:jim_hats_mobile/presentation/blocs/theme/theme_bloc.dart';
 import 'package:jim_hats_mobile/presentation/cubits/create_challenge_page/create_challenge_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/create_account_page/create_account_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/gym_challenge_page/gym_challenge_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/gym_challenge_details_page/gym_challenge_details_page_cubit.dart';
-import 'package:jim_hats_mobile/ui/views/gym_challenge_details/gym_challenge_details_page.dart';
+import 'package:jim_hats_mobile/presentation/views/gym_challenge_details/gym_challenge_details_page.dart';
 import 'package:jim_hats_mobile/presentation/cubits/home_page/home_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/new_check_in_page/new_check_in_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/ranking_page/ranking_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/settings_page/settings_cubit.dart';
 import 'package:jim_hats_mobile/presentation/blocs/sign_in_page/sign_in_page_bloc.dart';
-import 'package:jim_hats_mobile/ui/views/user_stats/cubit/user_stats_cubit.dart';
+import 'package:jim_hats_mobile/presentation/cubits/user_stats_page/user_stats_cubit.dart';
 
 final locator = GetIt.instance;
 

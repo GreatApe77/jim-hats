@@ -4,10 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jim_hats_mobile/locator.dart';
 import 'package:jim_hats_mobile/presentation/routing/app_routes.dart';
 import 'package:jim_hats_mobile/core/constants/app_spacings.dart';
-import 'package:jim_hats_mobile/shared/ui/cubits/auth/auth_cubit.dart';
-import 'package:jim_hats_mobile/shared/ui/widgets/app_drawer/app_drawer.dart';
-import 'package:jim_hats_mobile/shared/ui/widgets/app_drawer/cubit/app_drawer_cubit.dart';
-import 'package:jim_hats_mobile/shared/ui/widgets/take_photo_widget/take_photo_widget.dart';
+import 'package:jim_hats_mobile/presentation/cubits/auth/auth_cubit.dart';
+import 'package:jim_hats_mobile/presentation/widgets/app_drawer/app_drawer.dart';
+import 'package:jim_hats_mobile/presentation/cubits/app_drawer/app_drawer_cubit.dart';
+import 'package:jim_hats_mobile/presentation/widgets/take_photo_widget/take_photo_widget.dart';
 import 'package:jim_hats_mobile/presentation/blocs/theme/theme_bloc.dart';
 import 'package:jim_hats_mobile/presentation/cubits/settings_page/settings_cubit.dart';
 
