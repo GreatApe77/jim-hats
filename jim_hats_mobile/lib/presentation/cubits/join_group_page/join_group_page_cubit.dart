@@ -23,6 +23,7 @@ class JoinGroupPageCubit extends Cubit<JoinGroupPageState> {
       emit(state.copyWith(status: JoinGroupPageStatus.loading));
 
       await _gymChallengesRepository.joinChallenge(state.groupCode);
+      emit(state.copyWith(status: JoinGroupPageStatus.success));
     } on ApplicationException catch (e) {
       emit(state.copyWith(
           errorMessage: e.getMessage(), status: JoinGroupPageStatus.error));

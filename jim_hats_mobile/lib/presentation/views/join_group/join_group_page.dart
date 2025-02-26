@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jim_hats_mobile/core/constants/app_spacings.dart';
+import 'package:jim_hats_mobile/core/utils/form_validators.dart';
+import 'package:jim_hats_mobile/presentation/cubits/join_group_page/join_group_page_cubit.dart';
+import 'package:jim_hats_mobile/presentation/routing/app_routes.dart';
 
 class JoinGroupPage extends StatefulWidget {
-  const JoinGroupPage({super.key});
-
+  const JoinGroupPage({super.key, required this.joinGroupPageCubit});
+  final JoinGroupPageCubit joinGroupPageCubit;
   @override
   State<JoinGroupPage> createState() => _JoinGroupPageState();
 }
@@ -20,6 +24,7 @@ class _JoinGroupPageState extends State<JoinGroupPage> {
               padding: EdgeInsets.symmetric(
                   horizontal: AppSpacings.horizontalPadding.toDouble()),
               child: Form(
+                key: _formKey,
                 child: ListView(
                   children: [
                     Text(
@@ -37,6 +42,12 @@ class _JoinGroupPageState extends State<JoinGroupPage> {
                       height: 16,
                     ),
                     TextFormField(
+                      initialValue: widget.joinGroupPageCubit.state.groupCode,
+                      validator: (value) =>
+                          FormValidators.validateGroupCode(value),
+                      onChanged: (value) {
+                        widget.joinGroupPageCubit.updateGroupCode(value);
+                      },
                       decoration: InputDecoration(
                           label: Text('Group code'),
                           border: OutlineInputBorder()),
@@ -62,12 +73,49 @@ class _JoinGroupPageState extends State<JoinGroupPage> {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        FilledButton(onPressed: () {}, child: Text('Join'))
+                        BlocConsumer<JoinGroupPageCubit, JoinGroupPageState>(
+                          bloc: widget.joinGroupPageCubit,
+                          listener: (context, state) {
+                            if (state.status == JoinGroupPageStatus.error) {
+                              ScaffoldMessenger.of(context)
+                                ..clearSnackBars()
+                                ..showSnackBar(SnackBar(
+                                    backgroundColor:
+                                        Theme.of(context).colorScheme.error,
+                                    content: Text(state.errorMessage)));
+                            }
+                            if (state.status == JoinGroupPageStatus.success) {
+                              Navigator.of(context).pop();
+                            }
+                          },
+                          listenWhen: (previous, current) =>
+                              previous.status != current.status,
+                          buildWhen: (previous, current) =>
+                              previous.status != current.status,
+                          builder: (context, state) {
+                            return FilledButton(
+                                onPressed:
+                                    state.status == JoinGroupPageStatus.loading
+                                        ? null
+                                        : _submitForm,
+                                child: Text(
+                                  state.status==JoinGroupPageStatus.loading?
+                                    'Joining...'
+                                  :
+                                    'Join challenge'
+                                ));
+                          },
+                        ),
                       ],
                     )
                   ],
                 ),
               ))),
     );
+  }
+
+  void _submitForm() {
+    if (!_formKey.currentState!.validate()) return;
+    widget.joinGroupPageCubit.submitForm();
   }
 }

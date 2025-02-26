@@ -1,3 +1,5 @@
+import 'package:uuid/uuid.dart';
+
 abstract class FormValidators {
   static String? validateEmail(String? email) {
     if (email == null || email.isEmpty) {
@@ -20,11 +22,15 @@ abstract class FormValidators {
     return null;
   }
 
-  static String? validateGroupCode(String? groupCode){
+  static String? validateGroupCode(String? groupCode) {
     if (groupCode == null || groupCode.isEmpty) {
       return 'Group code is requried';
     }
-    
+
+    if (!Uuid.isValidUUID(fromString: groupCode)) {
+      return 'Invalid group code';
+    }
+    return null;
   }
 
   static String? validateUsername(String? username) {
@@ -44,12 +50,13 @@ abstract class FormValidators {
     if (imageUrl == null) {
       return null;
     }
-    if(!imageUrl.startsWith('https')){
+    if (!imageUrl.startsWith('https')) {
       return 'Invalid image url';
     }
     return null;
   }
-  static String? validateLogTitle(String? exerciseLogTitle){
+
+  static String? validateLogTitle(String? exerciseLogTitle) {
     if (exerciseLogTitle == null || exerciseLogTitle.isEmpty) {
       return 'Title is required';
     }
