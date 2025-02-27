@@ -17,7 +17,7 @@ export function listAllLogsOfUser(req, res) {
    //       userId: number;
    //       gymChallengeId: number;
    //   }[]
-   const logs = Array.from({ length: 24 }, (_, i) => ({
+   const logs = Array.from({ length: 150 }, (_, i) => ({
       id: i + 1,
       title: `Exercise Log ${i + 1}`,
       description: Math.random() > 0.3 ? `Description for log ${i + 1}` : null,
@@ -27,6 +27,5 @@ export function listAllLogsOfUser(req, res) {
       gymChallengeId: Math.floor(Math.random() * 5) + 1, // Desafio fictício (1 a 5)
    }));
    const { description, title, image } = req.body;
-   console.log(req.body);
-   return res.status(201).json(successResponse(MESSAGES.SUCCESS,logs));
+   return res.status(200).json(successResponse(MESSAGES.SUCCESS,logs));
 }

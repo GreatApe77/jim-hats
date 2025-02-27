@@ -46,7 +46,7 @@ class ExerciseLogsRepository {
     List<ExerciseLog>? userLogs = MemoryCache.get<List<ExerciseLog>>(key);
     if (userLogs == null) {
       userLogs = await _exerciseLogDataSource.getAllLogsOfUser();
-      MemoryCache.store<List<ExerciseLog>>(key, userLogs);
+      MemoryCache.store<List<ExerciseLog>>(key, userLogs,duration: Duration(minutes: 1));
     }
     return userLogs;
   }

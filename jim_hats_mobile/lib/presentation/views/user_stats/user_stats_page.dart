@@ -66,7 +66,10 @@ class _UserStatsPageState extends State<UserStatsPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          StatsItem(label: 'Check-inst', value: '0'),
+                          StatsItem(
+                            label: 'Check-ins',
+                            value: state.logsOfUser.length.toString(),
+                          ),
                         ],
                       ),
                     ],
