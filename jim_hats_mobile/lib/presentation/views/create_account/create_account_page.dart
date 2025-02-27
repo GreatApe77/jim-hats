@@ -2,6 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jim_hats_mobile/data/auth/repositories/auth_repository.dart';
+import 'package:jim_hats_mobile/data/uploads/data_sources/upload_data_source.dart';
+import 'package:jim_hats_mobile/data/uploads/repositories/upload_repository.dart';
 import 'package:jim_hats_mobile/locator.dart';
 import 'package:jim_hats_mobile/presentation/routing/app_routes.dart';
 import 'package:jim_hats_mobile/core/constants/app_spacings.dart';
@@ -11,17 +14,27 @@ import 'package:jim_hats_mobile/core/utils/form_sanitizers.dart';
 import 'package:jim_hats_mobile/core/utils/form_validators.dart';
 import 'package:jim_hats_mobile/presentation/cubits/create_account_page/create_account_page_cubit.dart';
 
-class CreateAccountPage extends StatefulWidget {
-  final CreateAccountPageCubit createAccountPageCubit;
-  CreateAccountPage({super.key, CreateAccountPageCubit? createAccountPageCubit})
-      : createAccountPageCubit =
-            createAccountPageCubit ?? locator.get<CreateAccountPageCubit>();
+class CreateAccountPage extends StatelessWidget {
+  const CreateAccountPage({super.key});
 
   @override
-  State<CreateAccountPage> createState() => _CreateAccountPageState();
+  Widget build(BuildContext context) {
+    return BlocProvider<CreateAccountPageCubit>(
+      //create: (context) => locator.get<CreateAccountPageCubit>(),
+      create: (context) => locator.get<CreateAccountPageCubit>(),
+      child: CreateAccountView(),
+    );
+  }
 }
 
-class _CreateAccountPageState extends State<CreateAccountPage> {
+class CreateAccountView extends StatefulWidget {
+  const CreateAccountView({super.key});
+
+  @override
+  State<CreateAccountView> createState() => _CreateAccountViewState();
+}
+
+class _CreateAccountViewState extends State<CreateAccountView> {
   late final HidePasswordController hidePasswordController;
   final formKey = GlobalKey<FormState>();
   @override
@@ -39,7 +52,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
         padding: EdgeInsets.symmetric(
             horizontal: AppSpacings.horizontalPadding.toDouble()),
         child: BlocListener<CreateAccountPageCubit, CreateAccountPageState>(
-          bloc: widget.createAccountPageCubit,
+          bloc: context.read<CreateAccountPageCubit>(),
           listener: (context, state) {
             switch (state.status) {
               case Status.error:
@@ -85,7 +98,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                 //   },
                 // ),
                 BlocBuilder<CreateAccountPageCubit, CreateAccountPageState>(
-                  bloc: widget.createAccountPageCubit,
+                  bloc: context.read<CreateAccountPageCubit>(),
                   buildWhen: (previous, current) {
                     return previous.image != current.image;
                   },
@@ -113,15 +126,20 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                           child: InkWell(
                             customBorder: CircleBorder(),
                             onTap: () {
+                              final bloc =
+                                  context.read<CreateAccountPageCubit>();
                               Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => TakePhotoWidget(
-                                  onPhotoChosen: (photo) {
-                                    Navigator.of(context).pop();
-                                    if (photo != null) {
-                                      widget.createAccountPageCubit
-                                          .addImage(photo);
-                                    }
-                                  },
+                                settings: ModalRoute.of(context)?.settings,
+                                builder: (context) => BlocProvider.value(
+                                  value: bloc,
+                                  child: TakePhotoWidget(
+                                    onPhotoChosen: (photo) {
+                                      Navigator.of(context).pop();
+                                      if (photo != null) {
+                                        bloc.addImage(photo);
+                                      }
+                                    },
+                                  ),
                                 ),
                               ));
                             },
@@ -172,15 +190,19 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                           child: InkWell(
                             customBorder: CircleBorder(),
                             onTap: () {
+                              final bloc =
+                                  context.read<CreateAccountPageCubit>();
                               Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => TakePhotoWidget(
-                                  onPhotoChosen: (photo) {
-                                    Navigator.of(context).pop();
-                                    if (photo != null) {
-                                      widget.createAccountPageCubit
-                                          .addImage(photo);
-                                    }
-                                  },
+                                builder: (context) => BlocProvider.value(
+                                  value: bloc,
+                                  child: TakePhotoWidget(
+                                    onPhotoChosen: (photo) {
+                                      Navigator.of(context).pop();
+                                      if (photo != null) {
+                                        bloc.addImage(photo);
+                                      }
+                                    },
+                                  ),
                                 ),
                               ));
                             },
@@ -224,7 +246,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   height: 16,
                 ),
                 BlocBuilder<CreateAccountPageCubit, CreateAccountPageState>(
-                  bloc: widget.createAccountPageCubit,
+                  bloc: context.read<CreateAccountPageCubit>(),
                   buildWhen: (previous, current) {
                     return previous.image != current.image;
                   },
@@ -233,7 +255,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       return Align(
                         child: TextButton(
                             onPressed: () {
-                              widget.createAccountPageCubit.clearImage();
+                              context
+                                  .read<CreateAccountPageCubit>()
+                                  .clearImage();
                             },
                             child: Text('Clear profile picture')),
                       );
@@ -245,10 +269,12 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   height: 16,
                 ),
                 TextFormField(
-                  initialValue: widget.createAccountPageCubit.state.username,
+                  initialValue:
+                      context.read<CreateAccountPageCubit>().state.username,
                   validator: FormValidators.validateUsername,
                   onChanged: (value) {
-                    widget.createAccountPageCubit
+                    context
+                        .read<CreateAccountPageCubit>()
                         .updateUsername(FormSanitizers.sanitizeUsername(value));
                   },
                   decoration: InputDecoration(
@@ -260,10 +286,12 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   height: 16,
                 ),
                 TextFormField(
-                  initialValue: widget.createAccountPageCubit.state.email,
+                  initialValue:
+                      context.read<CreateAccountPageCubit>().state.email,
                   validator: FormValidators.validateEmail,
                   onChanged: (value) {
-                    widget.createAccountPageCubit
+                    context
+                        .read<CreateAccountPageCubit>()
                         .updateEmail(FormSanitizers.sanitizeEmail(value));
                   },
                   decoration: InputDecoration(
@@ -278,11 +306,15 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     listenable: hidePasswordController,
                     builder: (context, child) {
                       return TextFormField(
-                        initialValue:
-                            widget.createAccountPageCubit.state.password,
+                        initialValue: context
+                            .read<CreateAccountPageCubit>()
+                            .state
+                            .password,
                         obscureText: hidePasswordController.isHidden,
                         onChanged: (value) {
-                          widget.createAccountPageCubit.updatePassword(value);
+                          context
+                              .read<CreateAccountPageCubit>()
+                              .updatePassword(value);
                         },
                         validator: FormValidators.validatePassword,
                         decoration: InputDecoration(
@@ -303,11 +335,14 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     builder: (context, child) {
                       return TextFormField(
                         obscureText: hidePasswordController.isHidden,
-                        initialValue:
-                            widget.createAccountPageCubit.state.confirmPassword,
+                        initialValue: context
+                            .read<CreateAccountPageCubit>()
+                            .state
+                            .confirmPassword,
                         validator: FormValidators.validatePassword,
                         onChanged: (value) {
-                          widget.createAccountPageCubit
+                          context
+                              .read<CreateAccountPageCubit>()
                               .updateConfirmPassword(value);
                         },
                         decoration: InputDecoration(
@@ -328,7 +363,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     BlocBuilder<CreateAccountPageCubit, CreateAccountPageState>(
-                      bloc: widget.createAccountPageCubit,
+                      bloc: context.read<CreateAccountPageCubit>(),
                       buildWhen: (previous, current) =>
                           current.status != previous.status,
                       builder: (context, state) {
@@ -363,7 +398,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
     if (!formKey.currentState!.validate()) {
       return;
     }
-    widget.createAccountPageCubit.submitForm();
+    context.read<CreateAccountPageCubit>().submitForm();
   }
 
   void _toggleHidePassword() {

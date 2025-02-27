@@ -133,7 +133,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     BlocBuilder<ThemeBloc, ThemeState>(
-                      bloc: locator.get<ThemeBloc>(),
+                      bloc: context.read<ThemeBloc>(),
                       builder: (context, state) {
                         return ListTile(
                           leading: state is ThemeDark
@@ -143,7 +143,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           trailing: Switch(
                             value: state is ThemeDark,
                             onChanged: (value) {
-                              locator.get<ThemeBloc>().add(ThemeToggledEvent());
+                              context.read<ThemeBloc>().add(ThemeToggledEvent());
                             },
                           ),
                         );
@@ -154,7 +154,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     BlocListener<AuthCubit, AuthState>(
-                      bloc: locator.get<AuthCubit>(),
+                      bloc: context.read<AuthCubit>(),
                       listener: (context, state) {
                         if (state.authStatus == AuthStatus.unauthenticated) {
                           Navigator.of(context).pushNamedAndRemoveUntil(
@@ -210,6 +210,6 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   void _logOut() {
-    locator.get<AuthCubit>().logOut();
+    context.read<AuthCubit>().logOut();
   }
 }

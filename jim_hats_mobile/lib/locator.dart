@@ -81,60 +81,64 @@ Future<void> setupDependencies() async {
 
   //Cubits
 
-locator
-  ..registerFactory<InternetConnectivityCubit>(
-    () => InternetConnectivityCubit(),
-  )
-  ..registerFactory<JoinGroupPageCubit>(
-    () => JoinGroupPageCubit(
-        gymChallengesRepository: locator.get<GymChallengesRepository>()),
-  )
-  ..registerFactory<CreateChallengePageCubit>(() => CreateChallengePageCubit(
-    gymChallengesRepository: locator.get<GymChallengesRepository>(),
-    uploadRepository: locator.get<UploadRepository>(),
-  ))
-  ..registerFactory<HomePageCubit>(() => HomePageCubit(
-      loggedUserRepository: locator.get<LoggedUserRepository>()))
-  ..registerFactoryParam<NewCheckInPageCubit, XFile, dynamic>(
-    (param1, param2) => NewCheckInPageCubit(
-        checkInPhoto: param1,
+  locator
+    ..registerFactory<InternetConnectivityCubit>(
+      () => InternetConnectivityCubit(),
+    )
+    ..registerFactory<JoinGroupPageCubit>(
+      () => JoinGroupPageCubit(
+          gymChallengesRepository: locator.get<GymChallengesRepository>()),
+    )
+    ..registerFactory<CreateChallengePageCubit>(() => CreateChallengePageCubit(
+          gymChallengesRepository: locator.get<GymChallengesRepository>(),
+          uploadRepository: locator.get<UploadRepository>(),
+        ))
+    ..registerFactory<HomePageCubit>(() => HomePageCubit(
+        loggedUserRepository: locator.get<LoggedUserRepository>()))
+    ..registerFactoryParam<NewCheckInPageCubit, XFile, dynamic>(
+      (param1, param2) => NewCheckInPageCubit(
+          checkInPhoto: param1,
+          uploadRepository: locator.get<UploadRepository>(),
+          exerciseLogsRepositoy: locator.get<ExerciseLogsRepository>()),
+    )
+    ..registerFactory<GymChallengeDetailsPageCubit>(() =>
+        GymChallengeDetailsPageCubit(
+            gymChallengesRepository: locator.get<GymChallengesRepository>(),
+            loggedUserRepository: locator.get<LoggedUserRepository>()))
+    ..registerFactory<AuthCubit>(() => AuthCubit(
+        authRepository: locator.get<AuthRepository>(),
+        loggedUserRepository: locator.get<LoggedUserRepository>()))
+    ..registerFactory<SignInPageBloc>(
+        () => SignInPageBloc(authRepository: locator.get<AuthRepository>()))
+    ..registerFactory<CreateAccountPageCubit>(
+      () => CreateAccountPageCubit(
+        authRepository: locator.get<AuthRepository>(),
         uploadRepository: locator.get<UploadRepository>(),
-        exerciseLogsRepositoy: locator.get<ExerciseLogsRepository>()),
-  )
-  ..registerFactory<GymChallengeDetailsPageCubit>(() => GymChallengeDetailsPageCubit(
-      gymChallengesRepository: locator.get<GymChallengesRepository>(),
-      loggedUserRepository: locator.get<LoggedUserRepository>()))
-  ..registerFactory<AuthCubit>(() => AuthCubit(
-      authRepository: locator.get<AuthRepository>(),
-      loggedUserRepository: locator.get<LoggedUserRepository>()))
-  ..registerFactory<SignInPageBloc>(() => SignInPageBloc(
-      authRepository: locator.get<AuthRepository>()))
-  ..registerFactory<CreateAccountPageCubit>(() => CreateAccountPageCubit(
-      authRepository: locator.get<AuthRepository>(),
-      uploadRepository: locator.get<UploadRepository>()))
-  ..registerFactory<GymChallengePageCubit>(() => GymChallengePageCubit(
-      gymChallengesRepository: locator.get<GymChallengesRepository>(),
-      loggedUserRepository: locator.get<LoggedUserRepository>(),
-      exerciseLogsRepository: locator.get<ExerciseLogsRepository>()))
-  ..registerFactory<AppDrawerCubit>(() => AppDrawerCubit(
-      gymChallengesRepository: locator.get<GymChallengesRepository>(),
-      loggedUserRepository: locator.get<LoggedUserRepository>()))
-  ..registerFactory<SettingsCubit>(() => SettingsCubit(
-      loggedUserRepository: locator.get<LoggedUserRepository>(),
-      uploadRepository: locator.get<UploadRepository>()))
-  ..registerFactory<ThemeBloc>(() => ThemeBloc(
-      settingsRepository: locator.get<SettingsRepository>(),
-      themeState: locator.get<SettingsRepository>().settings.isDarkTheme
-          ? ThemeDark()
-          : ThemeLight()))
-  ..registerFactory<UserStatsCubit>(() => UserStatsCubit(
-    exerciseLogRepository: locator.get<ExerciseLogsRepository>(),
-    loggedUserRepository: locator.get<LoggedUserRepository>(),
-  ))
-  ..registerFactory<RankingPageCubit>(() => RankingPageCubit(
-      //gymChallengesRepository: null,
-      //loggedUserRepository: null
-      ));
+      ),
+    )
+    ..registerFactory<GymChallengePageCubit>(() => GymChallengePageCubit(
+        gymChallengesRepository: locator.get<GymChallengesRepository>(),
+        loggedUserRepository: locator.get<LoggedUserRepository>(),
+        exerciseLogsRepository: locator.get<ExerciseLogsRepository>()))
+    ..registerFactory<AppDrawerCubit>(() => AppDrawerCubit(
+        gymChallengesRepository: locator.get<GymChallengesRepository>(),
+        loggedUserRepository: locator.get<LoggedUserRepository>()))
+    ..registerFactory<SettingsCubit>(() => SettingsCubit(
+        loggedUserRepository: locator.get<LoggedUserRepository>(),
+        uploadRepository: locator.get<UploadRepository>()))
+    ..registerFactory<ThemeBloc>(() => ThemeBloc(
+        settingsRepository: locator.get<SettingsRepository>(),
+        themeState: locator.get<SettingsRepository>().settings.isDarkTheme
+            ? ThemeDark()
+            : ThemeLight()))
+    ..registerFactory<UserStatsCubit>(() => UserStatsCubit(
+          exerciseLogRepository: locator.get<ExerciseLogsRepository>(),
+          loggedUserRepository: locator.get<LoggedUserRepository>(),
+        ))
+    ..registerFactory<RankingPageCubit>(() => RankingPageCubit(
+        //gymChallengesRepository: null,
+        //loggedUserRepository: null
+        ));
 }
 
 Future<void> loadSettings() async {

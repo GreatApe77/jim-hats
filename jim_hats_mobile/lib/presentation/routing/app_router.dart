@@ -74,9 +74,7 @@ abstract class AppRouter {
       case AppRoutes.createAccount:
         return MaterialPageRoute(
           settings: settings,
-          builder: (context) => CreateAccountPage(
-            createAccountPageCubit: locator.get<CreateAccountPageCubit>(),
-          ),
+          builder: (context) => CreateAccountPage(),
         );
       case AppRoutes.signin:
         return MaterialPageRoute(
@@ -135,7 +133,7 @@ abstract class AppRouter {
       case AppRoutes.userStats:
         return CustomPageRouteBuilder(
           settings: settings,
-          child:UserStatsPage(),
+          child: UserStatsPage(),
         );
       case AppRoutes.gymChallenge:
         final arguments = settings.arguments as GymChallengePageArguments;
