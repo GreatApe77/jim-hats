@@ -17,41 +17,50 @@ import 'package:jim_hats_mobile/presentation/views/gym_challenge/gym_challenge_p
 import 'package:jim_hats_mobile/presentation/views/gym_challenge/widgets/challenge_banner.dart';
 import 'package:jim_hats_mobile/presentation/views/new_check_in/new_check_in_page_arguments.dart';
 
-class GymChallengePage extends StatefulWidget {
-  final GymChallengePageCubit gymChallengePageCubit;
+class GymChallengePage extends StatelessWidget {
+  const GymChallengePage({
+    super.key,
+    required this.gymChallengePageArguments,
+  });
   final GymChallengePageArguments gymChallengePageArguments;
-  const GymChallengePage(
-      {super.key,
-      required this.gymChallengePageArguments,
-      required this.gymChallengePageCubit});
-
   @override
-  State<GymChallengePage> createState() => _GymChallengePageState();
+  Widget build(BuildContext context) {
+    return BlocProvider<GymChallengePageCubit>(
+      create: (context) => locator.get<GymChallengePageCubit>()
+        ..loadLogs(gymChallengePageArguments.challengeId),
+      child: GymChallengeView(
+        gymChallengePageArguments: gymChallengePageArguments,
+      ),
+    );
+  }
 }
 
-class _GymChallengePageState extends State<GymChallengePage> {
-  @override
-  void initState() {
-    super.initState();
-    int challengeIdFromRouteArguments =
-        widget.gymChallengePageArguments.challengeId;
-    widget.gymChallengePageCubit.loadLogs(challengeIdFromRouteArguments);
-  }
+class GymChallengeView extends StatelessWidget {
+  const GymChallengeView({
+    super.key,
+    required this.gymChallengePageArguments,
+  });
+  final GymChallengePageArguments gymChallengePageArguments;
 
   @override
   Widget build(BuildContext context) {
+    //return const Placeholder();
     return Scaffold(
       bottomNavigationBar: NavigationBar(
         indicatorColor: Colors.transparent,
         onDestinationSelected: (value) {
           switch (value) {
             case 0:
-              Navigator.of(context).pushNamed(AppRoutes.gymChallengeDetails,
-                  arguments: widget.gymChallengePageArguments);
+              Navigator.of(context).pushNamed(
+                AppRoutes.gymChallengeDetails,
+                arguments: gymChallengePageArguments,
+              );
               break;
             case 1:
-              Navigator.of(context).pushNamed(AppRoutes.ranking,
-                  arguments: widget.gymChallengePageArguments);
+              Navigator.of(context).pushNamed(
+                AppRoutes.ranking,
+                arguments: gymChallengePageArguments,
+              );
               break;
             case 2:
               break;
@@ -76,11 +85,13 @@ class _GymChallengePageState extends State<GymChallengePage> {
                   Navigator.of(context).pop();
                   return;
                 }
-                Navigator.of(context).pushNamed(AppRoutes.newCheckIn,
-                    arguments: NewCheckInPageArguments(
-                        photo: photo,
-                        challengeId:
-                            widget.gymChallengePageArguments.challengeId));
+                Navigator.of(context).pushNamed(
+                  AppRoutes.newCheckIn,
+                  arguments: NewCheckInPageArguments(
+                    photo: photo,
+                    challengeId: gymChallengePageArguments.challengeId,
+                  ),
+                );
               },
             ),
           ));
@@ -94,7 +105,7 @@ class _GymChallengePageState extends State<GymChallengePage> {
         ],
       ),
       body: BlocBuilder<GymChallengePageCubit, GymChallengePageState>(
-        bloc: widget.gymChallengePageCubit,
+        bloc: context.read<GymChallengePageCubit>(),
         builder: (context, state) {
           if (state is GymChallengePageInitial) {
             return SizedBox.shrink();
@@ -129,9 +140,9 @@ class _GymChallengePageState extends State<GymChallengePage> {
                             child: ChallengeBanner(
                               onTap: () {
                                 Navigator.of(context).pushNamed(
-                                    AppRoutes.ranking,
-                                    arguments:
-                                        widget.gymChallengePageArguments);
+                                  AppRoutes.ranking,
+                                  arguments: gymChallengePageArguments,
+                                );
                               },
                               leader: state.leader,
                               user: state.userRanking,
@@ -147,8 +158,6 @@ class _GymChallengePageState extends State<GymChallengePage> {
                           itemBuilder: (context, index1) {
                             String date =
                                 state.logsGroupedByDate.keys.elementAt(index1);
-
-                            //final String year = date.substring(0,5);
 
                             return Column(
                               children: [
@@ -191,40 +200,7 @@ class _GymChallengePageState extends State<GymChallengePage> {
                             );
                           },
                         );
-                      })
-                  // ListView.builder(
-                  //   itemCount: state.logs.length + 2,
-                  //   itemBuilder: (context, index) {
-                  //     if (index == 0) {
-                  //       return Text(
-                  //         state.challenge.name,
-                  //         style: Theme.of(context).textTheme.headlineMedium,
-                  //       );
-                  //     }
-                  //     if (index == 1) {
-                  //       return Padding(
-                  //         padding: const EdgeInsets.symmetric(vertical: 25),
-                  //         child: ChallengeBanner(
-                  //           onTap: () {
-                  //             Navigator.of(context).pushNamed(
-                  //                 AppRoutes.gymChallengeDetails,
-                  //                 arguments: widget.gymChallengePageArguments);
-                  //           },
-                  //           leader: state.leader,
-                  //           user: state.userRanking,
-                  //           challenge: state.challenge,
-                  //         ),
-                  //       );
-                  //     }
-                  //     return Padding(
-                  //       padding: const EdgeInsets.symmetric(vertical: 2),
-                  //       child: ExerciseLogTile(
-                  //         exerciseLogWithUser: state.logs[index - 2],
-                  //       ),
-                  //     );
-                  //   },
-                  // ),
-                  ),
+                      })),
             );
           }
           return SizedBox.shrink();

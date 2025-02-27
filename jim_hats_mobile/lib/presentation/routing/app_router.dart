@@ -79,9 +79,7 @@ abstract class AppRouter {
       case AppRoutes.signin:
         return CustomPageRouteBuilder(
           settings: settings,
-          child: SignInPage(
-            
-          ),
+          child: SignInPage(),
         );
       case AppRoutes.home:
         return MaterialPageRoute(
@@ -146,10 +144,11 @@ abstract class AppRouter {
         //   ),
         // );
         return CustomPageRouteBuilder(
-            settings: settings,
-            child: GymChallengePage(
-                gymChallengePageArguments: arguments,
-                gymChallengePageCubit: locator.get<GymChallengePageCubit>()));
+          settings: settings,
+          child: GymChallengePage(
+            gymChallengePageArguments: arguments,
+          ),
+        );
       case AppRoutes.checkIn:
         final arguments = settings.arguments as CheckInPageArguments;
 
