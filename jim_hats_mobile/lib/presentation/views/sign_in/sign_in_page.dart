@@ -9,15 +9,23 @@ import 'package:jim_hats_mobile/core/utils/form_sanitizers.dart';
 import 'package:jim_hats_mobile/core/utils/form_validators.dart';
 import 'package:jim_hats_mobile/presentation/blocs/sign_in_page/sign_in_page_bloc.dart';
 
-class SignInPage extends StatefulWidget {
-  final SignInPageBloc signInPageBloc;
-  const SignInPage({super.key, required this.signInPageBloc});
+class SignInPage extends StatelessWidget {
+  const SignInPage({super.key});
 
   @override
-  State<SignInPage> createState() => _SignInPageState();
+  Widget build(BuildContext context) {
+    return BlocProvider<SignInPageBloc>(
+      create: (context) => locator.get<SignInPageBloc>(),
+      child: SignInView(),
+    );
+  }
 }
 
-class _SignInPageState extends State<SignInPage> {
+class SignInView extends StatelessWidget {
+  SignInView({
+    super.key,
+  });
+
   final formKey = GlobalKey<FormState>();
 
   final hidePasswordController = HidePasswordController();
@@ -28,7 +36,7 @@ class _SignInPageState extends State<SignInPage> {
       appBar: AppBar(),
       body: SafeArea(
           child: BlocListener<SignInPageBloc, SignInPageState>(
-        bloc: locator.get<SignInPageBloc>(),
+        bloc: context.read<SignInPageBloc>(),
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
           switch (state.status) {
@@ -70,7 +78,7 @@ class _SignInPageState extends State<SignInPage> {
                   TextFormField(
                     validator: FormValidators.validateUsername,
                     onChanged: (value) {
-                      widget.signInPageBloc.add(SignInUsernameChanged(
+                      context.read<SignInPageBloc>().add(SignInUsernameChanged(
                           username: FormSanitizers.sanitizeUsername(value)));
                     },
                     decoration: InputDecoration(
@@ -87,7 +95,8 @@ class _SignInPageState extends State<SignInPage> {
                         return TextFormField(
                           validator: FormValidators.validatePassword,
                           onChanged: (value) {
-                            widget.signInPageBloc
+                            context
+                                .read<SignInPageBloc>()
                                 .add(SignInPasswordChanged(password: value));
                           },
                           obscureText: hidePasswordController.isHidden,
@@ -105,15 +114,17 @@ class _SignInPageState extends State<SignInPage> {
                     height: 16,
                   ),
                   BlocBuilder<SignInPageBloc, SignInPageState>(
-                    bloc: widget.signInPageBloc,
+                    bloc: context.read<SignInPageBloc>(),
                     buildWhen: (previous, current) =>
                         previous.status != current.status,
                     builder: (context, state) {
                       return FilledButton(
                           onPressed: state.status == SignInPageStatus.loading
                               ? null
-                              : () => _submitSignIn(),
-                          child: Text(state.status == SignInPageStatus.loading?'Signing in...':'Sign in'));
+                              : () => _submitSignIn(context),
+                          child: Text(state.status == SignInPageStatus.loading
+                              ? 'Signing in...'
+                              : 'Sign in'));
                     },
                   ),
                   FilledButton.tonal(
@@ -137,9 +148,9 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
-  void _submitSignIn() {
+  void _submitSignIn(BuildContext context) {
     if (!formKey.currentState!.validate()) return;
-    widget.signInPageBloc.add(SignInFormSubmitted());
+    context.read<SignInPageBloc>().add(SignInFormSubmitted());
   }
 
   void _toggleHidePassword() {

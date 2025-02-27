@@ -77,10 +77,10 @@ abstract class AppRouter {
           builder: (context) => CreateAccountPage(),
         );
       case AppRoutes.signin:
-        return MaterialPageRoute(
+        return CustomPageRouteBuilder(
           settings: settings,
-          builder: (context) => SignInPage(
-            signInPageBloc: locator.get<SignInPageBloc>(),
+          child: SignInPage(
+            
           ),
         );
       case AppRoutes.home:
