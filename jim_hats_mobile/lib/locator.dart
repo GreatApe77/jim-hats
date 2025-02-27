@@ -1,5 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:jim_hats_mobile/data/auth/data_sources/auth_data_source.dart';
 import 'package:jim_hats_mobile/data/auth/data_sources/network_auth_data_source.dart';
@@ -82,9 +83,9 @@ Future<void> setupDependencies() async {
   //Cubits
 
   locator
-    // ..registerFactory<InternetConnectivityCubit>(
-    //   () => InternetConnectivityCubit(),
-    // )
+    ..registerFactory<InternetConnectivityCubit>(
+      () => InternetConnectivityCubit(),
+    )
     ..registerFactory<JoinGroupPageCubit>(
       () => JoinGroupPageCubit(
           gymChallengesRepository: locator.get<GymChallengesRepository>()),
@@ -149,3 +150,15 @@ Future<void> setupDependencies() async {
 Future<void> loadSettings() async {
   await locator.get<SettingsRepository>().loadSettings();
 }
+
+final blocProviders = [
+  BlocProvider<ThemeBloc>(
+    create: (context) => locator.get<ThemeBloc>(),
+  ),
+  BlocProvider<AuthCubit>(
+    create: (context) => locator.get<AuthCubit>(),
+  ),
+  BlocProvider<InternetConnectivityCubit>(
+    create: (context) => locator.get<InternetConnectivityCubit>(),
+  ),
+];
