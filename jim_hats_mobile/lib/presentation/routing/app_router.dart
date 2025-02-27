@@ -133,11 +133,9 @@ abstract class AppRouter {
                 arguments: arguments,
                 rankingPageCubit: locator.get<RankingPageCubit>()));
       case AppRoutes.userStats:
-        return MaterialPageRoute(
+        return CustomPageRouteBuilder(
           settings: settings,
-          builder: (context) => UserStatsPage(
-            userStatsCubit: locator.get<UserStatsCubit>(),
-          ),
+          child:UserStatsPage(),
         );
       case AppRoutes.gymChallenge:
         final arguments = settings.arguments as GymChallengePageArguments;

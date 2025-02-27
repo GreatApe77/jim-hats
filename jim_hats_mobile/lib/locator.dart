@@ -134,9 +134,12 @@ Future<void> setupDependencies() async {
         themeState: locator.get<SettingsRepository>().settings.isDarkTheme
             ? ThemeDark()
             : ThemeLight()))
-    ..registerSingleton<UserStatsCubit>(UserStatsCubit(
-      exerciseLogRepository: locator.get<ExerciseLogsRepository>(),
-        loggedUserRepository: locator.get<LoggedUserRepository>()))
+    ..registerFactory<UserStatsCubit>(
+      () => UserStatsCubit(
+        exerciseLogRepository: locator.get<ExerciseLogsRepository>(),
+        loggedUserRepository: locator.get<LoggedUserRepository>(),
+      ),
+    )
     ..registerSingleton<RankingPageCubit>(RankingPageCubit(
         //gymChallengesRepository: null,
         //loggedUserRepository: null
