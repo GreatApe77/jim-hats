@@ -16,7 +16,7 @@ class App extends StatelessWidget {
 
     MaterialTheme theme = MaterialTheme(textTheme);
     return BlocBuilder<ThemeBloc, ThemeState>(
-      bloc: locator.get<ThemeBloc>(),
+      bloc: context.read<ThemeBloc>(),
       builder: (context, state) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,

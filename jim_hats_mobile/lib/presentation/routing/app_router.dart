@@ -41,7 +41,7 @@ abstract class AppRouter {
       case AppRoutes.splash:
         return MaterialPageRoute(
           builder: (context) => BlocListener<AuthCubit, AuthState>(
-            bloc: locator.get<AuthCubit>()..checkAuthStatus(),
+            bloc: context.read<AuthCubit>()..checkAuthStatus(),
             listener: (context, state) {
               if (state.failed) {
                 Navigator.of(context)

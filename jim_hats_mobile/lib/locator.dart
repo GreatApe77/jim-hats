@@ -48,7 +48,6 @@ Future<void> setupDependencies() async {
     ..registerSingleton<SettingsDataSource>(
         SharedPreferencesSettingsDataSource())
     ..registerSingleton<HttpClient>(HttpClient(dio: Dio()))
-
     //Data Sources
     ..registerSingleton<UploadDataSource>(
         NetworkUploadDataSource(httpClient: locator.get<HttpClient>()))
