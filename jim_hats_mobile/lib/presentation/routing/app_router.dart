@@ -87,24 +87,17 @@ abstract class AppRouter {
           builder: (context) => HomePage(),
         );
       case AppRoutes.settings:
-        // return MaterialPageRoute(
-        //   settings: settings,
-        //   builder: (context) => SettingsPage(
-        //     settingsCubit: locator.get<SettingsCubit>(),
-        //   ),
-        // );
         return CustomPageRouteBuilder(
           settings: settings,
           child: SettingsPage(),
         );
       case AppRoutes.gymChallengeDetails:
-        return MaterialPageRoute(
-            settings: settings,
-            builder: (context) => GymChallengeDetailsPage(
-                gymChallengeDetailsPageCubit:
-                    locator.get<GymChallengeDetailsPageCubit>(),
-                pageArguments:
-                    settings.arguments as GymChallengePageArguments));
+        return CustomPageRouteBuilder(
+          settings: settings,
+          child: GymChallengeDetailsPage(
+            pageArguments: settings.arguments as GymChallengePageArguments,
+          ),
+        );
       case AppRoutes.newCheckIn:
         final arguments = settings.arguments as NewCheckInPageArguments;
 
