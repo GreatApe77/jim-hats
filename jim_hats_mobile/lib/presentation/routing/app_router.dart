@@ -84,9 +84,7 @@ abstract class AppRouter {
       case AppRoutes.home:
         return MaterialPageRoute(
           settings: settings,
-          builder: (context) => HomePage(
-            homePageCubit: locator.get<HomePageCubit>(),
-          ),
+          builder: (context) => HomePage(),
         );
       case AppRoutes.settings:
         // return MaterialPageRoute(
