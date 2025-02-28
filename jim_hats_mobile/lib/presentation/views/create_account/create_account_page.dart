@@ -2,9 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jim_hats_mobile/data/auth/repositories/auth_repository.dart';
-import 'package:jim_hats_mobile/data/uploads/data_sources/upload_data_source.dart';
-import 'package:jim_hats_mobile/data/uploads/repositories/upload_repository.dart';
 import 'package:jim_hats_mobile/locator.dart';
 import 'package:jim_hats_mobile/presentation/routing/app_routes.dart';
 import 'package:jim_hats_mobile/core/constants/app_spacings.dart';

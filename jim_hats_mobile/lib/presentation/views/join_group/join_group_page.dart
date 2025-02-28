@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jim_hats_mobile/core/constants/app_spacings.dart';
 import 'package:jim_hats_mobile/core/utils/form_validators.dart';
 import 'package:jim_hats_mobile/presentation/cubits/join_group_page/join_group_page_cubit.dart';
-import 'package:jim_hats_mobile/presentation/routing/app_routes.dart';
 
 class JoinGroupPage extends StatefulWidget {
   const JoinGroupPage({super.key, required this.joinGroupPageCubit});

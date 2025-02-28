@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log_with_user.dart';
-import 'package:jim_hats_mobile/data/gym_challenges/models/gym_challenge.dart';
 import 'package:jim_hats_mobile/locator.dart';
 import 'package:jim_hats_mobile/presentation/routing/app_routes.dart';
 import 'package:jim_hats_mobile/core/constants/app_spacings.dart';
@@ -10,7 +8,6 @@ import 'package:jim_hats_mobile/presentation/cubits/app_drawer/app_drawer_cubit.
 import 'package:jim_hats_mobile/presentation/widgets/custom_page_route/custom_page_route.dart';
 import 'package:jim_hats_mobile/presentation/widgets/exercise_log_tile/exercise_log_tile.dart';
 import 'package:jim_hats_mobile/presentation/widgets/take_photo_widget/take_photo_widget.dart';
-import 'package:jim_hats_mobile/core/utils/readable_date.dart';
 import 'package:jim_hats_mobile/presentation/views/check_in_page/check_in_page_arguments.dart';
 import 'package:jim_hats_mobile/presentation/cubits/gym_challenge_page/gym_challenge_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/views/gym_challenge/gym_challenge_page_arguments.dart';
