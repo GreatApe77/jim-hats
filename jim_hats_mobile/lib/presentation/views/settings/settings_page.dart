@@ -11,19 +11,20 @@ import 'package:jim_hats_mobile/presentation/widgets/take_photo_widget/take_phot
 import 'package:jim_hats_mobile/presentation/blocs/theme/theme_bloc.dart';
 import 'package:jim_hats_mobile/presentation/cubits/settings_page/settings_cubit.dart';
 
-class SettingsPage extends StatefulWidget {
-  const SettingsPage({super.key, required this.settingsCubit});
-  final SettingsCubit settingsCubit;
+class SettingsPage extends StatelessWidget {
+  const SettingsPage({super.key});
+
   @override
-  State<SettingsPage> createState() => _SettingsPageState();
+  Widget build(BuildContext context) {
+    return BlocProvider<SettingsCubit>(
+      create: (context) => locator.get<SettingsCubit>()..loadSettingsData(),
+      child: const SettingsView(),
+    );
+  }
 }
 
-class _SettingsPageState extends State<SettingsPage> {
-  @override
-  void initState() {
-    super.initState();
-    widget.settingsCubit.loadSettingsData();
-  }
+class SettingsView extends StatelessWidget {
+  const SettingsView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,7 @@ class _SettingsPageState extends State<SettingsPage> {
       drawer: AppDrawer(appDrawerCubit: locator.get<AppDrawerCubit>()),
       body: Center(
           child: BlocBuilder<SettingsCubit, SettingsState>(
-        bloc: widget.settingsCubit,
+        bloc: context.read<SettingsCubit>(),
         builder: (context, state) {
           if (state is SettingsInitial) {
             return SizedBox.shrink();
@@ -60,45 +61,55 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                     ListTile(
                       onTap: () {
+                        final settingsCubit =
+                            BlocProvider.of<SettingsCubit>(context);
                         showModalBottomSheet(
                           showDragHandle: true,
                           context: context,
-                          builder: (context) => SafeArea(
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal:
-                                      AppSpacings.horizontalPadding.toDouble()),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [
-                                  Text(
-                                    'Photo Selection',
-                                    style:
-                                        Theme.of(context).textTheme.titleLarge,
-                                  ),
-                                  ListTile(
-                                    onTap: () => _updatePhoto(context),
-                                    title: Text('Update photo'),
-                                    leading: Icon(Icons.image),
-                                  ),
-                                  ListTile(
-                                    onTap: _removePhoto,
-                                    title: Text(
+                          routeSettings: ModalRoute.of(context)?.settings,
+                          builder: (context) => BlocProvider.value(
+                            value: settingsCubit,
+                            child: SafeArea(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: AppSpacings.horizontalPadding
+                                        .toDouble()),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: [
+                                    Text(
+                                      'Photo Selection',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge,
+                                    ),
+                                    ListTile(
+                                      onTap: () =>
+                                          _updatePhoto(context, settingsCubit),
 
-                                      'Remove photo',
-                                      style: TextStyle(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .error),
+                                      title: Text('Update photo'),
+                                      leading: Icon(Icons.image),
                                     ),
-                                    leading: Icon(
-                                      Icons.close,
-                                      color:
-                                          Theme.of(context).colorScheme.error,
+                                    ListTile(
+                                      onTap: () =>
+                                          _removePhoto(context, settingsCubit),
+                                      title: Text(
+                                        'Remove photo',
+                                        style: TextStyle(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .error),
+                                      ),
+                                      leading: Icon(
+                                        Icons.close,
+                                        color:
+                                            Theme.of(context).colorScheme.error,
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -143,7 +154,9 @@ class _SettingsPageState extends State<SettingsPage> {
                           trailing: Switch(
                             value: state is ThemeDark,
                             onChanged: (value) {
-                              context.read<ThemeBloc>().add(ThemeToggledEvent());
+                              context
+                                  .read<ThemeBloc>()
+                                  .add(ThemeToggledEvent());
                             },
                           ),
                         );
@@ -164,7 +177,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         }
                       },
                       child: ListTile(
-                        onTap: () => _logOut(),
+                        onTap: () => _logOut(context),
                         leading: Icon(Icons.logout_outlined),
                         title: Text('Sign out'),
                       ),
@@ -188,28 +201,31 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  void _removePhoto() {
+  void _removePhoto(BuildContext context, SettingsCubit settingCubit) {
     Navigator.of(context).pop();
-    widget.settingsCubit.updateLoggedUserProfilePicture(null);
+    settingCubit.updateLoggedUserProfilePicture(null);
   }
 
-  void _updatePhoto(BuildContext context) {
-    //  Navigator.of(context).push(TakePhotoWidget(onPhotoChosen: (photo) {
-    //    Navigator.of(context).pop();
-    //  },));
+  void _updatePhoto(BuildContext context, SettingsCubit settingsCubit) {
+
     Navigator.of(context).pop();
-    Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => TakePhotoWidget(
-        onPhotoChosen: (photo) {
-          Navigator.of(context).pop();
-          if (photo == null) return;
-          widget.settingsCubit.updateLoggedUserProfilePicture(photo);
-        },
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => BlocProvider.value(
+          value: settingsCubit,
+          child: TakePhotoWidget(
+            onPhotoChosen: (photo) {
+              Navigator.of(context).pop();
+              if (photo == null) return;
+              settingsCubit.updateLoggedUserProfilePicture(photo);
+            },
+          ),
+        ),
       ),
-    ));
+    );
   }
 
-  void _logOut() {
+  void _logOut(BuildContext context) {
     context.read<AuthCubit>().logOut();
   }
 }

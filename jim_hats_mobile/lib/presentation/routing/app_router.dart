@@ -94,8 +94,9 @@ abstract class AppRouter {
         //   ),
         // );
         return CustomPageRouteBuilder(
-            settings: settings,
-            child: SettingsPage(settingsCubit: locator.get<SettingsCubit>()));
+          settings: settings,
+          child: SettingsPage(),
+        );
       case AppRoutes.gymChallengeDetails:
         return MaterialPageRoute(
             settings: settings,
