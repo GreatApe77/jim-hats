@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jim_hats_mobile/locator.dart';
 import 'package:jim_hats_mobile/presentation/routing/app_routes.dart';
 import 'package:jim_hats_mobile/core/constants/app_spacings.dart';
+import 'package:jim_hats_mobile/presentation/views/ranking/ranking_page_arguments.dart';
 import 'package:jim_hats_mobile/presentation/widgets/app_drawer/app_drawer.dart';
 import 'package:jim_hats_mobile/presentation/cubits/app_drawer/app_drawer_cubit.dart';
 import 'package:jim_hats_mobile/presentation/widgets/custom_page_route/custom_page_route.dart';
@@ -56,7 +57,7 @@ class GymChallengeView extends StatelessWidget {
             case 1:
               Navigator.of(context).pushNamed(
                 AppRoutes.ranking,
-                arguments: gymChallengePageArguments,
+                arguments: RankingPageArguments(challengeId: gymChallengePageArguments.challengeId),
               );
               break;
             case 2:
@@ -138,7 +139,7 @@ class GymChallengeView extends StatelessWidget {
                               onTap: () {
                                 Navigator.of(context).pushNamed(
                                   AppRoutes.ranking,
-                                  arguments: gymChallengePageArguments,
+                                  arguments: RankingPageArguments(challengeId: gymChallengePageArguments.challengeId),
                                 );
                               },
                               leader: state.leader,

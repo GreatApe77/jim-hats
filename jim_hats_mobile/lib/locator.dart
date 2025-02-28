@@ -95,9 +95,9 @@ Future<void> setupDependencies() async {
         ))
     ..registerFactory<HomePageCubit>(() => HomePageCubit(
         loggedUserRepository: locator.get<LoggedUserRepository>()))
-    ..registerFactoryParam<NewCheckInPageCubit, XFile, dynamic>(
-      (param1, param2) => NewCheckInPageCubit(
-          checkInPhoto: param1,
+    ..registerFactory<NewCheckInPageCubit>(
+      () => NewCheckInPageCubit(
+
           uploadRepository: locator.get<UploadRepository>(),
           exerciseLogsRepositoy: locator.get<ExerciseLogsRepository>()),
     )

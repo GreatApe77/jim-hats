@@ -23,6 +23,7 @@ import 'package:jim_hats_mobile/presentation/views/new_check_in/new_check_in_pag
 import 'package:jim_hats_mobile/presentation/views/new_check_in/new_check_in_page_arguments.dart';
 import 'package:jim_hats_mobile/presentation/cubits/ranking_page/ranking_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/views/ranking/ranking_page.dart';
+import 'package:jim_hats_mobile/presentation/views/ranking/ranking_page_arguments.dart';
 import 'package:jim_hats_mobile/presentation/views/server_down/server_down_alert_page.dart';
 import 'package:jim_hats_mobile/presentation/cubits/settings_page/settings_cubit.dart';
 import 'package:jim_hats_mobile/presentation/views/settings/settings_page.dart';
@@ -104,22 +105,21 @@ abstract class AppRouter {
         return CustomPageRouteBuilder(
             settings: settings,
             child: NewCheckInPage(
-              checkInPageCubit:
-                  locator.get<NewCheckInPageCubit>(param1: arguments.photo),
               pageArguments: arguments,
             ));
       case AppRoutes.ranking:
-        final arguments = settings.arguments as GymChallengePageArguments;
+        final arguments = settings.arguments as RankingPageArguments;
         // return MaterialPageRoute(
         //   builder: (context) => RankingPage(
         //       arguments: arguments,
         //       rankingPageCubit: locator.get<RankingPageCubit>()),
         // );
         return CustomPageRouteBuilder(
-            settings: settings,
-            child: RankingPage(
-                arguments: arguments,
-                rankingPageCubit: locator.get<RankingPageCubit>()));
+          settings: settings,
+          child: RankingPage(
+            rankingPageArguments: arguments,
+          ),
+        );
       case AppRoutes.userStats:
         return CustomPageRouteBuilder(
           settings: settings,

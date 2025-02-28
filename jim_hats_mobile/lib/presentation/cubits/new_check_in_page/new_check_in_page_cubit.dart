@@ -12,16 +12,17 @@ class NewCheckInPageCubit extends Cubit<NewCheckInPageState> {
   final ExerciseLogsRepository _exerciseLogsRepository;
   final UploadRepository _uploadRepository;
   NewCheckInPageCubit({
-    required XFile checkInPhoto,
     required ExerciseLogsRepository exerciseLogsRepositoy,
     required UploadRepository uploadRepository,
   })  : _uploadRepository = uploadRepository,
         _exerciseLogsRepository = exerciseLogsRepositoy,
-        super(NewCheckInPageState(
-            status: NewCheckInPageStatus.idle,
-            photo: checkInPhoto,
-            title: '',
-            description: ''));
+        super(
+          NewCheckInPageState(
+              status: NewCheckInPageStatus.idle,
+              photo: null,
+              title: '',
+              description: ''),
+        );
 
   void updateTitle(String title) {
     emit(state.copyWith(title: title));
