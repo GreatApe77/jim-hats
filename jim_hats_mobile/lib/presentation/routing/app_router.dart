@@ -163,9 +163,9 @@ abstract class AppRouter {
         //   joinGroupPageCubit: locator.get<JoinGroupPageCubit>(),
         // ),);
         return CustomPageRouteBuilder(
-            settings: settings,
-            child: JoinGroupPage(
-                joinGroupPageCubit: locator.get<JoinGroupPageCubit>()));
+          settings: settings,
+          child: JoinGroupPage(),
+        );
       default:
         return null;
     }

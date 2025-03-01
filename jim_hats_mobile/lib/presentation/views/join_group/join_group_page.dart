@@ -2,18 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jim_hats_mobile/core/constants/app_spacings.dart';
 import 'package:jim_hats_mobile/core/utils/form_validators.dart';
+import 'package:jim_hats_mobile/locator.dart';
 import 'package:jim_hats_mobile/presentation/cubits/join_group_page/join_group_page_cubit.dart';
 
-class JoinGroupPage extends StatefulWidget {
-  const JoinGroupPage({super.key, required this.joinGroupPageCubit});
-  final JoinGroupPageCubit joinGroupPageCubit;
+class JoinGroupPage extends StatelessWidget {
+  const JoinGroupPage({super.key});
+
   @override
-  State<JoinGroupPage> createState() => _JoinGroupPageState();
+  Widget build(BuildContext context) {
+    return BlocProvider<JoinGroupPageCubit>(
+      create: (context) => locator.get<JoinGroupPageCubit>(),
+      child: const JoinGroupView(),
+    );
+  }
 }
 
-class _JoinGroupPageState extends State<JoinGroupPage> {
-  final _formKey = GlobalKey<FormState>();
+class JoinGroupView extends StatefulWidget {
+  const JoinGroupView({super.key});
 
+  @override
+  State<JoinGroupView> createState() => _JoinGroupViewState();
+}
+
+class _JoinGroupViewState extends State<JoinGroupView> {
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,11 +53,13 @@ class _JoinGroupPageState extends State<JoinGroupPage> {
                       height: 16,
                     ),
                     TextFormField(
-                      initialValue: widget.joinGroupPageCubit.state.groupCode,
+                      
                       validator: (value) =>
                           FormValidators.validateGroupCode(value),
                       onChanged: (value) {
-                        widget.joinGroupPageCubit.updateGroupCode(value);
+                        //widget.joinGroupPageCubit.updateGroupCode(value);
+                        context.read<JoinGroupPageCubit>().updateGroupCode(value);
+                      
                       },
                       decoration: InputDecoration(
                           label: Text('Group code'),
@@ -73,7 +87,7 @@ class _JoinGroupPageState extends State<JoinGroupPage> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         BlocConsumer<JoinGroupPageCubit, JoinGroupPageState>(
-                          bloc: widget.joinGroupPageCubit,
+                          bloc: context.read<JoinGroupPageCubit>(),
                           listener: (context, state) {
                             if (state.status == JoinGroupPageStatus.error) {
                               ScaffoldMessenger.of(context)
@@ -98,11 +112,9 @@ class _JoinGroupPageState extends State<JoinGroupPage> {
                                         ? null
                                         : _submitForm,
                                 child: Text(
-                                  state.status==JoinGroupPageStatus.loading?
-                                    'Joining...'
-                                  :
-                                    'Join challenge'
-                                ));
+                                    state.status == JoinGroupPageStatus.loading
+                                        ? 'Joining...'
+                                        : 'Join challenge'));
                           },
                         ),
                       ],
@@ -112,9 +124,8 @@ class _JoinGroupPageState extends State<JoinGroupPage> {
               ))),
     );
   }
-
-  void _submitForm() {
+    void _submitForm() {
     if (!_formKey.currentState!.validate()) return;
-    widget.joinGroupPageCubit.submitForm();
+    context.read<JoinGroupPageCubit>().submitForm();
   }
 }
