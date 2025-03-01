@@ -32,7 +32,7 @@ class SignInPageBloc extends Bloc<SignInPageEvent, SignInPageState> {
           emit(state.copywith(status: SignInPageStatus.success));
         } catch (e) {
           emit(state.copywith(status: SignInPageStatus.failure));
-          emit(SignInPageState.empty());
+          //emit(SignInPageState.empty());
         }
       },
     );

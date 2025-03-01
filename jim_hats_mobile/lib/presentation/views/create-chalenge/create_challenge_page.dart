@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jim_hats_mobile/core/constants/app_spacings.dart';
 import 'package:jim_hats_mobile/locator.dart';
@@ -37,26 +36,23 @@ class _CreateChallengeViewState extends State<CreateChallengeView> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) {
-        _nameController = TextEditingController(
-          text: context.read<CreateChallengePageCubit>().state.name,
-        );
-        _descriptionController = TextEditingController(
-          text: context.read<CreateChallengePageCubit>().state.description,
-        );
-        _startAtController = TextEditingController(
-          text: context.read<CreateChallengePageCubit>().formatDate(
-                context.read<CreateChallengePageCubit>().state.startAt,
-              ),
-        );
 
-        _endAtController = TextEditingController(
-          text: context.read<CreateChallengePageCubit>().formatDate(
-                context.read<CreateChallengePageCubit>().state.endAt,
-              ),
-        );
-      },
+    _nameController = TextEditingController(
+      text: context.read<CreateChallengePageCubit>().state.name,
+    );
+    _descriptionController = TextEditingController(
+      text: context.read<CreateChallengePageCubit>().state.description,
+    );
+    _startAtController = TextEditingController(
+      text: context.read<CreateChallengePageCubit>().formatDate(
+            context.read<CreateChallengePageCubit>().state.startAt,
+          ),
+    );
+
+    _endAtController = TextEditingController(
+      text: context.read<CreateChallengePageCubit>().formatDate(
+            context.read<CreateChallengePageCubit>().state.endAt,
+          ),
     );
   }
 
@@ -87,7 +83,9 @@ class _CreateChallengeViewState extends State<CreateChallengeView> {
               }
               return TextButton(
                 child: Text('Create'),
-                onPressed: () => context.read<CreateChallengePageCubit>(),
+                onPressed: () {
+                  context.read<CreateChallengePageCubit>().submitForm();
+                },
               );
             },
           )
@@ -116,7 +114,8 @@ class _CreateChallengeViewState extends State<CreateChallengeView> {
                           child: InkWell(
                             borderRadius: BorderRadius.circular(10),
                             onTap: () {
-                              _takePicture();
+                              _takePicture(
+                                  context.read<CreateChallengePageCubit>());
                             },
                             child: Ink(
                               decoration: BoxDecoration(
@@ -133,7 +132,11 @@ class _CreateChallengeViewState extends State<CreateChallengeView> {
                         child: InkWell(
                           borderRadius: BorderRadius.circular(10),
                           onTapDown: (details) {
-                            _showMenu(context, details.globalPosition);
+                            _showMenu(
+                              context,
+                              details.globalPosition,
+                              context.read<CreateChallengePageCubit>(),
+                            );
                           },
                           child: Ink(
                             decoration: BoxDecoration(
@@ -166,7 +169,8 @@ class _CreateChallengeViewState extends State<CreateChallengeView> {
               TextFormField(
                 controller: _nameController,
                 onChanged: (value) {
-                  context.read<CreateChallengePageCubit>()
+                  context
+                      .read<CreateChallengePageCubit>()
                       .updateName(_nameController.text);
                 },
                 decoration: InputDecoration(
@@ -178,7 +182,8 @@ class _CreateChallengeViewState extends State<CreateChallengeView> {
               ),
               TextFormField(
                 controller: _descriptionController,
-                onChanged: (value) => context.read<CreateChallengePageCubit>()
+                onChanged: (value) => context
+                    .read<CreateChallengePageCubit>()
                     .updateDescription(_descriptionController.text),
                 maxLines: 5,
                 decoration: InputDecoration(
@@ -197,9 +202,12 @@ class _CreateChallengeViewState extends State<CreateChallengeView> {
                       firstDate: DateTime.now(),
                       lastDate: DateTime.now().add(Duration(days: 365)));
                   if (date == null) return;
-                  if(!mounted) return;
-                  _startAtController.text =context.read<CreateChallengePageCubit>().formatDate(date);
-                  widget.createChallengePageCubit.updateStartAt(date);
+                  if (!mounted) return;
+                  // ignore: use_build_context_synchronously
+                  _startAtController.text =
+                      context.read<CreateChallengePageCubit>().formatDate(date);
+                  // ignore: use_build_context_synchronously
+                  context.read<CreateChallengePageCubit>().updateStartAt(date);
                 },
                 decoration: InputDecoration(
                     suffixIcon: Icon(Icons.calendar_month),
@@ -218,9 +226,10 @@ class _CreateChallengeViewState extends State<CreateChallengeView> {
                       firstDate: DateTime.now(),
                       lastDate: DateTime.now().add(Duration(days: 365)));
                   if (date == null) return;
+                  if (!mounted) return;
                   _endAtController.text =
-                      widget.createChallengePageCubit.formatDate(date);
-                  widget.createChallengePageCubit.updateEndAt(date);
+                      context.read<CreateChallengePageCubit>().formatDate(date);
+                  context.read<CreateChallengePageCubit>().updateEndAt(date);
                   // showDatePicker(
                   //     context: context,
                   //     initialDate: DateTime.now(),
@@ -236,13 +245,13 @@ class _CreateChallengeViewState extends State<CreateChallengeView> {
                 height: 16,
               ),
               BlocBuilder<CreateChallengePageCubit, CreateChallengePageState>(
-                bloc: widget.createChallengePageCubit,
+                bloc: context.read<CreateChallengePageCubit>(),
                 buildWhen: (previous, current) =>
                     previous.startAt != current.startAt ||
                     previous.endAt != current.endAt,
                 builder: (context, state) {
                   return Text(
-                    '${widget.createChallengePageCubit.getDayCount(state.startAt, state.endAt)} days',
+                    '${context.read<CreateChallengePageCubit>().getDayCount(state.startAt, state.endAt)} days',
                     style: Theme.of(context).textTheme.titleLarge,
                   );
                 },
@@ -252,6 +261,56 @@ class _CreateChallengeViewState extends State<CreateChallengeView> {
         ),
       )),
     );
+  }
+
+  void _showMenu(BuildContext context, Offset globalPosition,
+      CreateChallengePageCubit createChallengePageCubit) {
+    //final RenderBox overlay = Overlay.of(context)!.context.findRenderObject() as RenderBox;
+    //final boxPosition = context.findRenderObject() as RenderBox;
+    //boxPosition.localToGlobal(Offset.zero);
+
+    showMenu(
+        context: context,
+        position: RelativeRect.fromLTRB(globalPosition.dx, globalPosition.dy,
+            globalPosition.dx, globalPosition.dy),
+        items: [
+          PopupMenuItem(
+            child: ListTile(
+              leading: Icon(Icons.image),
+              title: Text('Take picture or choose from gallery'),
+              onTap: () {
+                Navigator.of(context).pop();
+                _takePicture(context.read<CreateChallengePageCubit>());
+              },
+            ),
+          ),
+          PopupMenuItem(
+            child: ListTile(
+              textColor: Theme.of(context).colorScheme.error,
+              leading: Icon(
+                Icons.close,
+                color: Theme.of(context).colorScheme.error,
+              ),
+              title: Text('Remove image'),
+              onTap: () {
+                createChallengePageCubit.updateImage(null);
+                Navigator.of(context).pop();
+              },
+            ),
+          )
+        ]);
+  }
+
+  void _takePicture(CreateChallengePageCubit createChallengePageCubit) {
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => TakePhotoWidget(
+        onPhotoChosen: (photo) {
+          Navigator.of(context).pop();
+          if (photo == null) return;
+          createChallengePageCubit.updateImage(photo);
+        },
+      ),
+    ));
   }
 }
 // class CreateChallengePage extends StatefulWidget {

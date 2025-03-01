@@ -156,9 +156,7 @@ abstract class AppRouter {
         );
       case AppRoutes.createChallenge:
         return MaterialPageRoute(
-          builder: (context) => CreateChallengePage(
-            createChallengePageCubit: locator.get<CreateChallengePageCubit>(),
-          ),
+          builder: (context) => CreateChallengePage(),
         );
       case AppRoutes.joinGroup:
         // return MaterialPageRoute(builder: (context) => JoinGroupPage(
