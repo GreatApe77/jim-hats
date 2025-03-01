@@ -4,7 +4,6 @@ import 'package:jim_hats_mobile/data/exercise_logs/dtos/add_exercise_log_to_chal
 import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log_with_user.dart';
 import 'package:jim_hats_mobile/data/settings/data_sources/settings_data_source.dart';
-import 'package:jim_hats_mobile/data/settings/models/settings.dart';
 import 'package:jim_hats_mobile/core/network/http_client.dart';
 
 class NetworkExerciseLogDataSource implements ExerciseLogDataSource {

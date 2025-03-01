@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jim_hats_mobile/locator.dart';
-import 'package:jim_hats_mobile/presentation/cubits/internet_connectivity/cubit/internet_connectivity_cubit.dart';
 import 'package:jim_hats_mobile/presentation/routing/app_router.dart';
 import 'package:jim_hats_mobile/presentation/blocs/theme/theme_bloc.dart';
 import 'package:jim_hats_mobile/presentation/theme/fonts.dart';

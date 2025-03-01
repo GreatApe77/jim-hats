@@ -1,4 +1,3 @@
-import 'package:camera/camera.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -6,11 +5,9 @@ import 'package:jim_hats_mobile/data/auth/data_sources/auth_data_source.dart';
 import 'package:jim_hats_mobile/data/auth/data_sources/network_auth_data_source.dart';
 import 'package:jim_hats_mobile/data/auth/repositories/auth_repository.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/data_sources/exercise_log_data_source.dart';
-import 'package:jim_hats_mobile/data/exercise_logs/data_sources/memory_exercise_log_data_source.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/data_sources/network_exercise_log_data_source.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/repositories/exercise_logs_repository.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/data_sources/gym_challenge_data_source.dart';
-import 'package:jim_hats_mobile/data/gym_challenges/data_sources/memory_gym_challenge_data_source.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/data_sources/network_gym_challenge_data_source.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/repositories/gym_challenges_repository.dart';
 import 'package:jim_hats_mobile/data/logged_user/data_sources/logged_user_data_source.dart';
@@ -32,7 +29,6 @@ import 'package:jim_hats_mobile/presentation/cubits/gym_challenge_page/gym_chall
 import 'package:jim_hats_mobile/presentation/cubits/gym_challenge_details_page/gym_challenge_details_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/internet_connectivity/cubit/internet_connectivity_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/join_group_page/join_group_page_cubit.dart';
-import 'package:jim_hats_mobile/presentation/views/gym_challenge_details/gym_challenge_details_page.dart';
 import 'package:jim_hats_mobile/presentation/cubits/home_page/home_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/new_check_in_page/new_check_in_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/ranking_page/ranking_page_cubit.dart';

@@ -8,7 +8,7 @@ import 'package:jim_hats_mobile/locator.dart';
 
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
-  //HttpOverrides.global = MyHttpOverrides();
+  HttpOverrides.global = MyHttpOverrides();
   await setupDependencies();
   runApp(MultiBlocProvider(providers: blocProviders, child: const App()));
 }

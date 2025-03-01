@@ -1,10 +1,8 @@
-import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:jim_hats_mobile/data/auth/data_sources/auth_data_source.dart';
 import 'package:jim_hats_mobile/data/auth/dtos/login_dto.dart';
 import 'package:jim_hats_mobile/data/auth/dtos/register_dto.dart';
-import 'package:jim_hats_mobile/core/exceptions/time_out_exception.dart';
 import 'package:jim_hats_mobile/core/exceptions/username_already_taken_exception.dart';
 import 'package:jim_hats_mobile/core/network/http_client.dart';
 
