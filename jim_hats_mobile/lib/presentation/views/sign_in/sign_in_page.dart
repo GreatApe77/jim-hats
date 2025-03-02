@@ -47,7 +47,7 @@ class SignInView extends StatelessWidget {
               ScaffoldMessenger.of(context)
                 ..clearSnackBars()
                 ..showSnackBar(
-                    SnackBar(content: Text('Error while signing in')));
+                    SnackBar(content: Text(state.message)));
               break;
             default:
           }

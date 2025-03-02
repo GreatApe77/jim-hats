@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:jim_hats_mobile/core/network/dio/dio_http_service.dart';
+import 'package:jim_hats_mobile/core/network/http_service.dart';
 import 'package:jim_hats_mobile/data/auth/data_sources/auth_data_source.dart';
 import 'package:jim_hats_mobile/data/auth/data_sources/network_auth_data_source.dart';
 import 'package:jim_hats_mobile/data/auth/repositories/auth_repository.dart';
@@ -43,7 +45,17 @@ Future<void> setupDependencies() async {
   locator
     ..registerSingleton<SettingsDataSource>(
         SharedPreferencesSettingsDataSource())
-    ..registerSingleton<HttpClient>(HttpClient(dio: Dio()))
+    ..registerSingleton<HttpClient>(
+      HttpClient(
+        dio: Dio(),
+      ),
+    )
+    ..registerSingleton<HttpService>(
+      DioHttpService(
+        settingsDataSource: locator.get<SettingsDataSource>(),
+        dio: Dio(),
+      ),
+    )
     //Data Sources
     ..registerSingleton<UploadDataSource>(
         NetworkUploadDataSource(httpClient: locator.get<HttpClient>()))
@@ -57,7 +69,10 @@ Future<void> setupDependencies() async {
         settingsDataSource: locator.get<SettingsDataSource>(),
         httpClient: locator.get<HttpClient>()))
     ..registerSingleton<AuthDataSource>(
-        NetworkAuthDataSource(httpClient: locator.get<HttpClient>()))
+      NetworkAuthDataSource(
+        httpClient: locator.get<HttpService>(),
+      ),
+    )
     //Repositories
     ..registerSingleton<UploadRepository>(UploadRepository(
         networkUploadDataSource: locator.get<UploadDataSource>()))
@@ -93,7 +108,6 @@ Future<void> setupDependencies() async {
         loggedUserRepository: locator.get<LoggedUserRepository>()))
     ..registerFactory<NewCheckInPageCubit>(
       () => NewCheckInPageCubit(
-
           uploadRepository: locator.get<UploadRepository>(),
           exerciseLogsRepositoy: locator.get<ExerciseLogsRepository>()),
     )
