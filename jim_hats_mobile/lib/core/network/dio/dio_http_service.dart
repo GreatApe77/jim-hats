@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:jim_hats_mobile/core/exceptions/http_exceptions.dart';
+import 'package:jim_hats_mobile/core/exceptions/time_out_exception.dart';
 import 'package:jim_hats_mobile/core/network/http_service.dart';
 import 'package:jim_hats_mobile/data/settings/data_sources/settings_data_source.dart';
 
@@ -96,7 +97,7 @@ class DioHttpService implements HttpService {
       }
     } else if (e.type == DioExceptionType.connectionTimeout ||
         e.type == DioExceptionType.receiveTimeout) {
-      return NetworkException('Connection timed out. Please try again.');
+      return TimeOutException();
     } else if (e.type == DioExceptionType.unknown) {
       return NetworkException('No Internet connection.');
     }
