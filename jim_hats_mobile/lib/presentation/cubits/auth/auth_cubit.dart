@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:jim_hats_mobile/core/exceptions/http_exceptions.dart';
 import 'package:jim_hats_mobile/data/auth/repositories/auth_repository.dart';
 import 'package:jim_hats_mobile/data/logged_user/models/logged_user.dart';
 import 'package:jim_hats_mobile/data/logged_user/repositories/logged_user_repository.dart';
@@ -37,7 +38,11 @@ class AuthCubit extends Cubit<AuthState> {
       emit(state.copyWith(authStatus: AuthStatus.unauthenticated));
     } on TimeOutException {
       emit(state.copyWith(failed: true));
-    }catch(e){
+    }on ServerException{
+      emit(state.copyWith(failed: true));
+    }
+    
+    catch(e){
       emit(state.copyWith(authStatus: AuthStatus.unauthenticated));
     }
   }
