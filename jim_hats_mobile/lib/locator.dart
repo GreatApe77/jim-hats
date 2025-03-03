@@ -59,9 +59,11 @@ Future<void> setupDependencies() async {
     //Data Sources
     ..registerSingleton<UploadDataSource>(
         NetworkUploadDataSource(httpClient: locator.get<HttpClient>()))
-    ..registerSingleton<LoggedUserDataSource>(NetworkLoggedUserDataSource(
-        httpClient: locator.get<HttpClient>(),
-        settingsDataSource: locator.get<SettingsDataSource>()))
+    ..registerSingleton<LoggedUserDataSource>(
+      NetworkLoggedUserDataSource(
+        httpClient: locator.get<HttpService>(),
+      ),
+    )
     ..registerSingleton<GymChallengeDataSource>(NetworkGymChallengeDataSource(
         settingsDataSource: locator.get<SettingsDataSource>(),
         httpClient: locator.get<HttpClient>()))

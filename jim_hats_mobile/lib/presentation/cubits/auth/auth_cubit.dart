@@ -20,6 +20,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   void checkAuthStatus() async {
     try {
+      emit(state.copyWith(authStatus: AuthStatus.unknown));
       bool isLoggedIn = await _authRepository.isLoggedIn();
       //await Future.delayed(Duration(seconds: 1));
       if (!isLoggedIn) {
