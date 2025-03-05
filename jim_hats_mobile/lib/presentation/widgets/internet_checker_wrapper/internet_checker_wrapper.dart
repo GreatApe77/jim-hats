@@ -12,7 +12,7 @@ class InternetCheckerWrapper extends StatelessWidget {
     return BlocListener<InternetConnectivityCubit, InternetConnectivityState>(
       bloc: context.read<InternetConnectivityCubit>(),
       listener: (context, state) {
-        
+        print(hashCode);
         if (state.status == InternetConnectivityStatus.disconnected) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -22,7 +22,13 @@ class InternetCheckerWrapper extends StatelessWidget {
               ),
               content: Row(
                 children: [
-                  Icon(Icons.wifi_off),
+                  Icon(
+                    Icons.wifi_off,
+                    color: Theme.of(context).colorScheme.onError,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
                   Text(
                     'No internet connection',
                   ),
@@ -38,5 +44,4 @@ class InternetCheckerWrapper extends StatelessWidget {
       child: child,
     );
   }
-  
 }

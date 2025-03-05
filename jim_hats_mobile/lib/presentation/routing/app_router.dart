@@ -53,7 +53,7 @@ abstract class AppRouter {
                 default:
               }
             },
-            child: const SplahPage(),
+            child: const InternetCheckerWrapper(child:  SplahPage()),
           ),
         );
       case AppRoutes.welcome:
@@ -74,9 +74,7 @@ abstract class AppRouter {
       case AppRoutes.home:
         return MaterialPageRoute(
           settings: settings,
-          builder: (context) => const InternetCheckerWrapper(
-            child: HomePage(),
-          ),
+          builder: (context) => HomePage(),
         );
       case AppRoutes.settings:
         return CustomPageRouteBuilder(
@@ -114,7 +112,7 @@ abstract class AppRouter {
       case AppRoutes.userStats:
         return CustomPageRouteBuilder(
           settings: settings,
-          child:  const InternetCheckerWrapper(child: UserStatsPage()),
+          child:  UserStatsPage(),
         );
       case AppRoutes.gymChallenge:
         final arguments = settings.arguments as GymChallengePageArguments;
