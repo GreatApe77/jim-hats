@@ -1,12 +1,10 @@
-import 'package:dio/dio.dart';
+
 import 'package:jim_hats_mobile/core/network/http_service.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/data_sources/memory_gym_challenge_data_source.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/dtos/create_gym_challenge_dto.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/challenge_member.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/gym_challenge.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/ranking.dart';
-import 'package:jim_hats_mobile/data/settings/data_sources/settings_data_source.dart';
-import 'package:jim_hats_mobile/core/network/http_client.dart';
 
 class NetworkGymChallengeDataSource implements MemoryGymChallengeDataSource {
   final HttpService _httpClient;

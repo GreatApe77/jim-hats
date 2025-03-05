@@ -103,4 +103,35 @@ class DioHttpService implements HttpService {
     }
     return HttpException('Unexpected error occurred.');
   }
+
+  @override
+  Future<Map<String, dynamic>> uploadFile(
+    String path, {
+    required String filePath,
+    required String fileField,
+    String? contentType,
+  }) async {
+    try {
+      final formData = FormData.fromMap(
+        {
+          fileField: await MultipartFile.fromFile(
+            filePath,
+            contentType: DioMediaType.parse(contentType ?? 'image/png'),
+          )
+        },
+      );
+      final response = await _dio.post(
+        path,
+        data: formData,
+        options: Options(
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        ),
+      );
+      return response.data;
+    } on DioException catch (e) {
+      throw _handleDioError(e);
+    }
+  }
 }

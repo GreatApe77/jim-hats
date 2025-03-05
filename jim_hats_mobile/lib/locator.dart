@@ -69,9 +69,11 @@ Future<void> setupDependencies() async {
         httpClient: locator.get<HttpService>(),
       ),
     )
-    ..registerSingleton<ExerciseLogDataSource>(NetworkExerciseLogDataSource(
-        settingsDataSource: locator.get<SettingsDataSource>(),
-        httpClient: locator.get<HttpClient>()))
+    ..registerSingleton<ExerciseLogDataSource>(
+      NetworkExerciseLogDataSource(
+        httpClient: locator.get<HttpService>(),
+      ),
+    )
     ..registerSingleton<AuthDataSource>(
       NetworkAuthDataSource(
         httpClient: locator.get<HttpService>(),
