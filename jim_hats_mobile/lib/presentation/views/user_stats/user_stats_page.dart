@@ -6,6 +6,7 @@ import 'package:jim_hats_mobile/presentation/cubits/app_drawer/app_drawer_cubit.
 import 'package:jim_hats_mobile/presentation/cubits/user_stats_page/user_stats_cubit.dart';
 import 'package:jim_hats_mobile/presentation/views/user_stats/widgets/stats_item.dart';
 import 'package:jim_hats_mobile/presentation/widgets/app_drawer/app_drawer.dart';
+import 'package:jim_hats_mobile/presentation/widgets/calendar/calendar.dart';
 
 class UserStatsPage extends StatelessWidget {
   const UserStatsPage({super.key});
@@ -73,6 +74,7 @@ class _UserStatsView extends StatelessWidget {
                           ),
                         ],
                       ),
+                      Calendar(date: DateTime.now())
                     ],
                   )
                 ],
