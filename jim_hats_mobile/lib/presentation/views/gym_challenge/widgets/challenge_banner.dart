@@ -45,39 +45,33 @@ class ChallengeBanner extends StatelessWidget {
                 child: Row(
               children: [
                 Expanded(
-                    child: Container(
-                  decoration: BoxDecoration(
-                      //color: Colors.red,
-                      borderRadius:
-                          BorderRadius.only(bottomLeft: Radius.circular(8))),
-                  child: ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    title: Text('Leader'),
-                    subtitle: Text('${leader.logCount}'),
-                    // leading: CircleAvatar(
-                    //   radius: 15,
-                    //   backgroundImage:
-                    //       NetworkImage(leader.profilePicture ?? ''),
-                    // ),
-                    leading: UserCircleAvatar(
-                      username: leader.username,
-                      avatarUrl: leader.profilePicture,
-                      radius: 15,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        //color: Colors.red,
+                        borderRadius:
+                            BorderRadius.only(bottomLeft: Radius.circular(8))),
+                    child: ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      title: Text('Leader'),
+                      subtitle: Text('${leader.logCount}'),
+                      leading: UserCircleAvatar(
+                        username: leader.username,
+                        avatarUrl: leader.profilePicture,
+                        radius: 15,
+                      ),
                     ),
-                    //leading: Icon(Icons.calendar_month),
                   ),
-                )),
+                ),
                 Expanded(
                   child: ListTile(
                     contentPadding: EdgeInsets.zero,
                     title: Text('You'),
                     subtitle: Text('${user.logCount}'),
-                    // leading: CircleAvatar(
-                    //   radius: 15,
-                    //   backgroundImage: NetworkImage(user.profilePicture ?? ''),
-                    // ),
-
-                    leading: UserCircleAvatar(username: user.username,radius: 15,avatarUrl: user.profilePicture,),
+                    leading: UserCircleAvatar(
+                      username: user.username,
+                      radius: 15,
+                      avatarUrl: user.profilePicture,
+                    ),
                   ),
                 ),
                 Expanded(

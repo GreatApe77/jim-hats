@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jim_hats_mobile/core/constants/app_spacings.dart';
 import 'package:jim_hats_mobile/core/utils/date_helper.dart';
 import 'package:jim_hats_mobile/presentation/views/check_in_page/check_in_page_arguments.dart';
+import 'package:jim_hats_mobile/presentation/widgets/user_circle_avatar/user_circle_avatar.dart';
 
 class CheckInPage extends StatelessWidget {
   final CheckInPageArguments checkInPageArguments;
@@ -48,18 +49,26 @@ class CheckInPage extends StatelessWidget {
               title: Text(checkInPageArguments.exerciseLog.user.username),
               subtitle: Text(DateHelper.formatDateExtended(
                   checkInPageArguments.exerciseLog.date)),
-              leading: CircleAvatar(
-                backgroundImage: NetworkImage(
-                    checkInPageArguments.exerciseLog.user.profilePicture ?? ''),
+              
+              leading: UserCircleAvatar(
+                username: checkInPageArguments.exerciseLog.user.username,
+                avatarUrl: checkInPageArguments.exerciseLog.user.profilePicture,
+
               ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
-              child: Text(checkInPageArguments.exerciseLog.title,style: Theme.of(context).textTheme.titleLarge,),
+              child: Text(
+                checkInPageArguments.exerciseLog.title,
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
             ),
             checkInPageArguments.exerciseLog.description == null
                 ? SizedBox.shrink()
-                : Text(checkInPageArguments.exerciseLog.description!,style: Theme.of(context).textTheme.bodyLarge,),
+                : Text(
+                    checkInPageArguments.exerciseLog.description!,
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
           ],
         )),
       ),

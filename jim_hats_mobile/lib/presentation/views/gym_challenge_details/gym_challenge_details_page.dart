@@ -90,9 +90,13 @@ class GymChallengeDetailsView extends StatelessWidget {
                       //children: [],
                       itemCount: state.members.length,
                       itemBuilder: (context, index) {
-                        return CircleAvatar(
-                          backgroundImage: NetworkImage(
-                              state.members[index].profilePicture ?? ''),
+                        // return CircleAvatar(
+                        //   backgroundImage: NetworkImage(
+                        //       state.members[index].profilePicture ?? ''),
+                        // );
+                        return UserCircleAvatar(
+                          avatarUrl: state.members[index].profilePicture,
+                          username: state.members[index].username,
                         );
                       },
                       //  List.generate(

@@ -10,73 +10,73 @@ export function listMembersOfChallenge(req, res) {
   const challengeMembers =  [
     {
       id: 1,
-      username: 'user1',
+      username: 'Claude',
       profilePicture: 'https://avatars.githubusercontent.com/u/99892495?s=200&v=4'
     },
     {
       id: 2,
-      username: 'user2',
+      username: 'Marcos',
       profilePicture: 'https://avatars.githubusercontent.com/u/99892395?s=200&v=4'
     },
     {
       id: 3,
-      username: 'user3',
+      username: 'John',
       profilePicture: 'https://avatars.githubusercontent.com/u/99892494?s=200&v=4'
     },
     {
       id: 4,
-      username: 'user4',
+      username: 'Marston',
       profilePicture: 'https://avatars.githubusercontent.com/u/97892495?s=200&v=4'
     },
     {
       id: 5,
-      username: 'user5',
+      username: 'Carlos',
       profilePicture: 'https://avatars.githubusercontent.com/u/99892595?s=200&v=4'
     },
     {
       id: 6,
-      username: 'user6',
+      username: 'Logan',
       profilePicture: 'https://avatars.githubusercontent.com/u/99892495?s=200&v=4'
     },
     {
       id: 7,
-      username: 'user7',
+      username: 'Matheus',
       profilePicture: 'https://avatars.githubusercontent.com/u/99892395?s=200&v=4'
     },
     {
       id: 8,
-      username: 'user8',
+      username: 'Nicolas',
       profilePicture: 'https://avatars.githubusercontent.com/u/99892494?s=200&v=4'
     },
     {
       id: 9,
-      username: 'user9',
-      profilePicture: 'https://avatars.githubusercontent.com/u/97892495?s=200&v=4'
+      username: 'Anonimo',
+      profilePicture: null
     },
     {
       id: 10,
-      username: 'user10',
+      username: 'Joao',
       profilePicture: 'https://avatars.githubusercontent.com/u/99892595?s=200&v=4'
     },
     {
       id: 11,
-      username: 'user11',
+      username: 'Maria',
       profilePicture: 'https://avatars.githubusercontent.com/u/99892495?s=200&v=4'
     },
     {
       id: 12,
-      username: 'user12',
+      username: 'Fernanda',
       profilePicture: 'https://avatars.githubusercontent.com/u/99892395?s=200&v=4'
     },
     {
       id: 13,
-      username: 'user13',
+      username: 'Pedro',
       profilePicture: 'https://avatars.githubusercontent.com/u/99892494?s=200&v=4'
     },
     {
       id: 14,
       username: 'user14',
-      profilePicture: 'https://avatars.githubusercontent.com/u/97892495?s=200&v=4'
+      profilePicture: null
     },
     {
       id: 15,
