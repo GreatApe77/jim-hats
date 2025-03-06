@@ -56,14 +56,14 @@ abstract class AppRouter {
           ),
         );
       case AppRoutes.welcome:
-        return MaterialPageRoute(
+        return CustomPageRouteBuilder(
           settings: settings,
-          builder: (context) => WelcomePage(),
+          child: const WelcomePage(),
         );
       case AppRoutes.createAccount:
-        return MaterialPageRoute(
+        return CustomPageRouteBuilder(
           settings: settings,
-          builder: (context) => CreateAccountPage(),
+          child: const CreateAccountPage(),
         );
       case AppRoutes.signin:
         return CustomPageRouteBuilder(
@@ -71,14 +71,14 @@ abstract class AppRouter {
           child: SignInPage(),
         );
       case AppRoutes.home:
-        return MaterialPageRoute(
+        return CustomPageRouteBuilder(
           settings: settings,
-          builder: (context) => HomePage(),
+          child: const HomePage(),
         );
       case AppRoutes.settings:
         return CustomPageRouteBuilder(
           settings: settings,
-          child: SettingsPage(),
+          child: const SettingsPage(),
         );
       case AppRoutes.gymChallengeDetails:
         return CustomPageRouteBuilder(
@@ -132,9 +132,9 @@ abstract class AppRouter {
       case AppRoutes.checkIn:
         final arguments = settings.arguments as CheckInPageArguments;
 
-        return MaterialPageRoute(
+        return CustomPageRouteBuilder(
           settings: settings,
-          builder: (context) => CheckInPage(
+          child: CheckInPage(
             checkInPageArguments: arguments,
           ),
         );
@@ -143,8 +143,9 @@ abstract class AppRouter {
           builder: (context) => ServerDownAlertPage(),
         );
       case AppRoutes.createChallenge:
-        return MaterialPageRoute(
-          builder: (context) => CreateChallengePage(),
+        return CustomPageRouteBuilder(
+          settings: settings,
+          child: const CreateChallengePage(),
         );
       case AppRoutes.joinGroup:
         // return MaterialPageRoute(builder: (context) => JoinGroupPage(
