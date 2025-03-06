@@ -101,4 +101,10 @@ Future<List<ChallengeMember>> getMembersOfChallenge(int challengeId) {
     // TODO: implement createGymChallenge
     throw UnimplementedError();
   }
+  
+  @override
+  Future<void> joinChallenge(String joinId) {
+    // TODO: implement joinChallenge
+    throw UnimplementedError();
+  }
 }

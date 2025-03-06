@@ -18,7 +18,13 @@ export class UsersController {
         return res.status(404).json(errorResponse(MESSAGES.USER_NOT_FOUND));
       }
       const logs = await this.userService.getLogsOfUser(authUser.id);
-      return res.status(200).json(successResponse(MESSAGES.SUCCESS, logs));
+      const formattedLogs = logs.map((log) => {
+        return {
+          ...log,
+          date: log.date.getTime(),
+        };
+      })
+      return res.status(200).json(successResponse(MESSAGES.SUCCESS, formattedLogs));
     } catch (error) {
       return handleErrors(error, res);
     }

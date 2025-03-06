@@ -1,32 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jim_hats_mobile/locator.dart';
-import 'package:jim_hats_mobile/routing/app_router.dart';
-import 'package:jim_hats_mobile/ui/theme/bloc/theme_bloc.dart';
-import 'package:jim_hats_mobile/ui/theme/fonts.dart';
-import 'package:jim_hats_mobile/ui/theme/materia_theme.dart';
+import 'package:jim_hats_mobile/presentation/routing/app_router.dart';
+import 'package:jim_hats_mobile/presentation/blocs/theme/theme_bloc.dart';
+import 'package:jim_hats_mobile/presentation/theme/app_theme.dart';
+import 'package:jim_hats_mobile/presentation/theme/fonts.dart';
+import 'package:jim_hats_mobile/presentation/widgets/internet_checker_wrapper/internet_checker_wrapper.dart';
 
+
+final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 class App extends StatelessWidget {
   const App({super.key});
 
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme = createTextTheme(context, "Inter", "Inter");
+    TextTheme textTheme = createTextTheme(
+      context,
+      "Inter",
+      "Inter",
+    );
 
-    MaterialTheme theme = MaterialTheme(textTheme);
     return BlocBuilder<ThemeBloc, ThemeState>(
-      bloc: locator.get<ThemeBloc>(),
+      bloc: context.read<ThemeBloc>(),
       builder: (context, state) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          
-            darkTheme: theme.dark(),
-            theme: theme.light(),
+        return InternetCheckerWrapper(
+          child: MaterialApp(
+            scaffoldMessengerKey: scaffoldMessengerKey,
+            theme: AppTheme.light(textTheme: textTheme),
+            darkTheme: AppTheme.dark(textTheme: textTheme),
+            themeMode: state is ThemeDark ? ThemeMode.dark : ThemeMode.light,
             onGenerateRoute: AppRouter.ongenerateRoute,
             initialRoute: AppRouter.initialRoute,
-            //themeMode: ThemeMode.dark,
-            
-            themeMode: state is ThemeDark ? ThemeMode.dark : ThemeMode.light);
+            debugShowCheckedModeBanner: false,
+          ),
+        );
       },
     );
   }

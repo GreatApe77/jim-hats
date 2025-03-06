@@ -1,35 +1,32 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
+import 'package:jim_hats_mobile/core/exceptions/http_exceptions.dart';
+import 'package:jim_hats_mobile/core/exceptions/invalid_token_exception.dart';
+import 'package:jim_hats_mobile/core/network/http_service.dart';
 import 'package:jim_hats_mobile/data/logged_user/data_sources/logged_user_data_source.dart';
 import 'package:jim_hats_mobile/data/logged_user/dtos/update_logged_user_dto.dart';
 import 'package:jim_hats_mobile/data/logged_user/models/logged_user.dart';
 import 'package:jim_hats_mobile/data/settings/data_sources/settings_data_source.dart';
-import 'package:jim_hats_mobile/exceptions/time_out_exception.dart';
-import 'package:jim_hats_mobile/shared/http/http_client.dart';
+import 'package:jim_hats_mobile/core/exceptions/time_out_exception.dart';
+import 'package:jim_hats_mobile/core/network/http_client.dart';
 
 class NetworkLoggedUserDataSource implements LoggedUserDataSource {
-  final SettingsDataSource _settingsDataSource;
-  final HttpClient _httpClient;
-  NetworkLoggedUserDataSource(
-      {required HttpClient httpClient,
-      required SettingsDataSource settingsDataSource})
-      : _httpClient = httpClient,
-        _settingsDataSource = settingsDataSource;
+  final HttpService _httpClient;
+  NetworkLoggedUserDataSource({
+    required HttpService httpClient,
+  }) : _httpClient = httpClient;
+
   @override
   Future<LoggedUser> getLoggedUser() async {
     //_httpClient.dio.get('', options: Options());
     try {
-      final jwtToken = await _settingsDataSource.get<String>('token');
-      final response = await _httpClient.dio.get<Map<String, dynamic>>(
-          '/users/me',
-          options: Options(headers: {'Authorization': 'Bearer $jwtToken'}));
-      return LoggedUser.fromMap(response.data?['data']);
-    } on DioException catch (e) {
-      if (e.type == DioExceptionType.connectionTimeout) {
-        throw TimeOutException();
-      }
-      rethrow;
+      final response = await _httpClient.get(
+        '/users/me',
+      );
+      return LoggedUser.fromMap(response['data']);
+    } on UnauthorizedException {
+      throw InvalidTokenException();
     } catch (e) {
       rethrow;
     }
@@ -41,23 +38,17 @@ class NetworkLoggedUserDataSource implements LoggedUserDataSource {
     //       'https://avatars.githubusercontent.com/u/67892495?s=200&v=4'
     // }));
   }
+
   @override
-  Future<void> updateLoggedUser(UpdateLoggedUserDto updateLoggedUserDto) async{
+  Future<void> updateLoggedUser(UpdateLoggedUserDto updateLoggedUserDto) async {
     //_httpClient.dio.get('', options: Options());
     try {
-      final jwtToken = await _settingsDataSource.get<String>('token');
-      _httpClient.dio.patch<Map<String, dynamic>>(
-          '/users/me',
-          data: updateLoggedUserDto.toMap(),
-          options: Options(headers: {'Authorization': 'Bearer $jwtToken'}));
-     
-    } on DioException catch (e) {
-      if (e.type == DioExceptionType.connectionTimeout) {
-        throw TimeOutException();
-      }
-      rethrow;
+      _httpClient.patch(
+        '/users/me',
+        data: updateLoggedUserDto.toMap(),
+      );
     } catch (e) {
       rethrow;
     }
-  } 
+  }
 }

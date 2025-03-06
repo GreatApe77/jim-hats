@@ -3,7 +3,7 @@ import { environment } from "./config/environment.js";
 import "./container.js";
 
 async function main() {
-  app.listen(Number(environment.PORT),"0.0.0.0", () => {
+  app.listen(Number(environment.PORT), () => {
     console.log(`Server is running on ${environment.PORT}`);
   });
 }

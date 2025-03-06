@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:jim_hats_mobile/shared/utils/get_days_between_dates.dart';
+import 'package:jim_hats_mobile/core/utils/get_days_between_dates.dart';
 
 void main() {
   test(
