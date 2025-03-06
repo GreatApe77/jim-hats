@@ -21,7 +21,6 @@ import 'package:jim_hats_mobile/presentation/views/sign_in/sign_in_page.dart';
 import 'package:jim_hats_mobile/presentation/views/splash/splah_page.dart';
 import 'package:jim_hats_mobile/presentation/views/user_stats/user_stats_page.dart';
 import 'package:jim_hats_mobile/presentation/views/welcome/welcome_page.dart';
-import 'package:jim_hats_mobile/presentation/widgets/internet_checker_wrapper/internet_checker_wrapper.dart';
 import 'package:jim_hats_mobile/presentation/widgets/custom_page_route/custom_page_route.dart';
 
 abstract class AppRouter {
@@ -53,7 +52,7 @@ abstract class AppRouter {
                 default:
               }
             },
-            child: const InternetCheckerWrapper(child:  SplahPage()),
+            child: const SplahPage(),
           ),
         );
       case AppRoutes.welcome:
@@ -112,7 +111,7 @@ abstract class AppRouter {
       case AppRoutes.userStats:
         return CustomPageRouteBuilder(
           settings: settings,
-          child:  UserStatsPage(),
+          child: UserStatsPage(),
         );
       case AppRoutes.gymChallenge:
         final arguments = settings.arguments as GymChallengePageArguments;
