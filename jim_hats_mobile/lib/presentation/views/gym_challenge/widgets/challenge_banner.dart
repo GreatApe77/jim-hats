@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/gym_challenge.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/ranking.dart';
 import 'package:jim_hats_mobile/core/utils/get_days_between_dates.dart';
+import 'package:jim_hats_mobile/presentation/widgets/user_circle_avatar/user_circle_avatar.dart';
 
 class ChallengeBanner extends StatelessWidget {
   final Function() onTap;
@@ -53,24 +54,32 @@ class ChallengeBanner extends StatelessWidget {
                     contentPadding: EdgeInsets.zero,
                     title: Text('Leader'),
                     subtitle: Text('${leader.logCount}'),
-                    leading: CircleAvatar(
+                    // leading: CircleAvatar(
+                    //   radius: 15,
+                    //   backgroundImage:
+                    //       NetworkImage(leader.profilePicture ?? ''),
+                    // ),
+                    leading: UserCircleAvatar(
+                      username: leader.username,
+                      avatarUrl: leader.profilePicture,
                       radius: 15,
-                      backgroundImage:
-                          NetworkImage(leader.profilePicture ?? ''),
                     ),
                     //leading: Icon(Icons.calendar_month),
                   ),
                 )),
                 Expanded(
-                    child: ListTile(
-                        contentPadding: EdgeInsets.zero,
-                        title: Text('You'),
-                        subtitle: Text('${user.logCount}'),
-                        leading: CircleAvatar(
-                          radius: 15,
-                          backgroundImage:
-                              NetworkImage(user.profilePicture ?? ''),
-                        ))),
+                  child: ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: Text('You'),
+                    subtitle: Text('${user.logCount}'),
+                    // leading: CircleAvatar(
+                    //   radius: 15,
+                    //   backgroundImage: NetworkImage(user.profilePicture ?? ''),
+                    // ),
+
+                    leading: UserCircleAvatar(username: user.username,radius: 15,avatarUrl: user.profilePicture,),
+                  ),
+                ),
                 Expanded(
                     child: Container(
                   decoration: BoxDecoration(

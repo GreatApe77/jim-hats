@@ -3,6 +3,7 @@ import 'package:jim_hats_mobile/presentation/routing/app_routes.dart';
 import 'package:jim_hats_mobile/presentation/cubits/app_drawer/app_drawer_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jim_hats_mobile/presentation/views/gym_challenge/gym_challenge_page_arguments.dart';
+import 'package:jim_hats_mobile/presentation/widgets/user_circle_avatar/user_circle_avatar.dart';
 
 class AppDrawer extends StatefulWidget {
   final AppDrawerCubit appDrawerCubit;
@@ -22,7 +23,6 @@ class _AppDrawerState extends State<AppDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      
       child: ListView(
         children: [
           BlocBuilder<AppDrawerCubit, AppDrawerState>(
@@ -44,10 +44,14 @@ class _AppDrawerState extends State<AppDrawer> {
                     Navigator.of(context).pop();
                     Navigator.of(context).pushNamed(AppRoutes.userStats);
                   },
-                  leading: CircleAvatar(
-                    backgroundImage: NetworkImage(state
-                            .loggedUser.profilePicture ??
-                        'https://ui-avatars.com/api/?name=${state.loggedUser.username}'),
+                  // leading: CircleAvatar(
+                  //   backgroundImage: NetworkImage(state
+                  //           .loggedUser.profilePicture ??
+                  //       'https://ui-avatars.com/api/?name=${state.loggedUser.username}'),
+                  // ),
+                  leading: UserCircleAvatar(
+                    username: state.loggedUser.username,
+                    avatarUrl: state.loggedUser.profilePicture,
                   ),
                   title: Text(state.loggedUser.username),
                 );
@@ -109,7 +113,7 @@ class _AppDrawerState extends State<AppDrawer> {
             height: 32,
           ),
           ListTile(
-            onTap:() {
+            onTap: () {
               Navigator.of(context).pushNamed(AppRoutes.createChallenge);
             },
             leading: Icon(Icons.add_circle_outline),

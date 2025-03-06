@@ -11,49 +11,49 @@ const rankings = [
     {
       id: 1,
       username: 'User1',
-      profilePicture: 'url1',
+      profilePicture: 'https://url.com/',
       logCount: 10
     },
     {
       id: 2,
       username: 'User2',
-      profilePicture: 'url2',
+      profilePicture: 'https://url.com/',
       logCount: 9
     },
     {
       id: 3,
       username: 'User3',
-      profilePicture: 'url3',
+      profilePicture: 'https://url.com/',
       logCount: 8
     },
     {
       id: 4,
       username: 'User4',
-      profilePicture: 'url4',
+      profilePicture: null,
       logCount: 7
     },
     {
       id: 5,
       username: 'User5',
-      profilePicture: 'url5',
+      profilePicture: null,
       logCount: 6
     },
     {
       id: 6,
       username: 'User6',
-      profilePicture: 'url6',
+      profilePicture: 'https://url.com/',
       logCount: 5
     },
     {
       id: 7,
       username: 'User7',
-      profilePicture: 'url7',
+      profilePicture: 'https://url.com/',
       logCount: 4
     },
     {
       id: 8,
       username: 'User8',
-      profilePicture: 'url8',
+      profilePicture: null,
       logCount: 3
     }
   ];

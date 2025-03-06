@@ -95,7 +95,10 @@ class RankingView extends StatelessWidget {
                               //   backgroundImage: NetworkImage(
                               //       state.rankings[index].profilePicture ?? ''),
                               // ),
-                              leading: UserCircleAvatar(username: state.rankings[index].username),
+                              leading: UserCircleAvatar(
+                                username: state.rankings[index].username,
+                                avatarUrl: state.rankings[index].profilePicture,
+                              ),
                             );
                           },
                         ),

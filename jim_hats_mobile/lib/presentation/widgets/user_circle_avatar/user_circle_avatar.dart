@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class UserCircleAvatar extends StatelessWidget {
+class UserCircleAvatar extends StatefulWidget {
   final String? avatarUrl;
   final String username;
   final double? radius;
@@ -12,19 +12,33 @@ class UserCircleAvatar extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    if (avatarUrl == null) {
-      return CircleAvatar(
-        radius: radius,
-        child: Text('${username[0]}${username[1]}'.toUpperCase(),style: TextStyle(
-          fontSize: radius
-        ),),
-      );
-    }
+  State<UserCircleAvatar> createState() => _UserCircleAvatarState();
+}
 
-    return CircleAvatar(
-      radius: radius,
-      backgroundImage: NetworkImage(avatarUrl!),
+class _UserCircleAvatarState extends State<UserCircleAvatar> {
+  ValueNotifier<bool> failedToLoadImage = ValueNotifier<bool>(false);
+  @override
+  Widget build(BuildContext context) {
+    return ListenableBuilder(
+      listenable: failedToLoadImage,
+      builder: (context, child) {
+        if (widget.avatarUrl == null || failedToLoadImage.value) {
+          return CircleAvatar(
+            radius: widget.radius,
+            child: Text(
+              '${widget.username[0]}${widget.username[1]}'.toUpperCase(),
+              style: TextStyle(fontSize: widget.radius),
+            ),
+          );
+        }
+        return CircleAvatar(
+          radius: widget.radius,
+          backgroundImage: NetworkImage(widget.avatarUrl!),
+          onBackgroundImageError: (__, _) {
+            failedToLoadImage.value = true;
+          },
+        );
+      },
     );
   }
 }
