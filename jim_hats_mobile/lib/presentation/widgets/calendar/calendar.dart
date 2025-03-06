@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:jim_hats_mobile/core/utils/date_helper.dart';
 
 class Calendar extends StatelessWidget {
   final DateTime date;
-
-  const Calendar({super.key, required this.date});
+  final DateTime selectedDate = DateTime.now();
+   Calendar({super.key, required this.date});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Text(
-          DateFormat.yMMMM().format(date),
+          '${DateHelper.monthNumberToName[date.month]} ${date.year}',
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 16),
@@ -51,7 +51,7 @@ class Calendar extends StatelessWidget {
     final firstWeekday = firstDayOfMonth.weekday;
 
     List<Widget> dayWidgets = [];
-    for (int i = 0; i < firstWeekday - 1; i++) {
+    for (int i = 0; i < firstWeekday; i++) {
       dayWidgets.add(Container());
     }
 
@@ -67,9 +67,8 @@ class Calendar extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 4),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Theme.of(context).colorScheme.onInverseSurface
-      ),
+          borderRadius: BorderRadius.circular(10),
+          color: Theme.of(context).colorScheme.onInverseSurface),
       child: GridView.count(
         crossAxisCount: 7,
         shrinkWrap: true,

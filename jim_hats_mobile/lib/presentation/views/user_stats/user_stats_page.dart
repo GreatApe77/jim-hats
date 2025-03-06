@@ -74,6 +74,7 @@ class _UserStatsView extends StatelessWidget {
                           ),
                         ],
                       ),
+                      SizedBox(height: 16,),
                       Calendar(date: DateTime.now())
                     ],
                   )
