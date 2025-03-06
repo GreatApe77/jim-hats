@@ -4,6 +4,7 @@ import 'package:jim_hats_mobile/core/constants/app_spacings.dart';
 import 'package:jim_hats_mobile/locator.dart';
 import 'package:jim_hats_mobile/presentation/views/gym_challenge/gym_challenge_page_arguments.dart';
 import 'package:jim_hats_mobile/presentation/cubits/gym_challenge_details_page/gym_challenge_details_page_cubit.dart';
+import 'package:jim_hats_mobile/presentation/widgets/user_circle_avatar/user_circle_avatar.dart';
 
 class GymChallengeDetailsPage extends StatelessWidget {
   const GymChallengeDetailsPage({super.key, required this.pageArguments});
@@ -59,9 +60,9 @@ class GymChallengeDetailsView extends StatelessWidget {
                     contentPadding: EdgeInsets.zero,
                     title: Text(state.admin.username),
                     subtitle: Text('Group Admin'),
-                    leading: CircleAvatar(
-                      backgroundImage:
-                          NetworkImage(state.admin.profilePicture ?? ''),
+                    leading: UserCircleAvatar(
+                      avatarUrl: state.admin.profilePicture,
+                      username: state.admin.username,
                     ),
                   ),
                   Row(
