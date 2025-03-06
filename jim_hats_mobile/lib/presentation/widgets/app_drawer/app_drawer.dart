@@ -44,11 +44,7 @@ class _AppDrawerState extends State<AppDrawer> {
                     Navigator.of(context).pop();
                     Navigator.of(context).pushNamed(AppRoutes.userStats);
                   },
-                  // leading: CircleAvatar(
-                  //   backgroundImage: NetworkImage(state
-                  //           .loggedUser.profilePicture ??
-                  //       'https://ui-avatars.com/api/?name=${state.loggedUser.username}'),
-                  // ),
+                  
                   leading: UserCircleAvatar(
                     username: state.loggedUser.username,
                     avatarUrl: state.loggedUser.profilePicture,

@@ -91,10 +91,7 @@ class RankingView extends StatelessWidget {
                               title: Text(state.rankings[index].username),
                               subtitle: Text(
                                   '${state.rankings[index].logCount} days active'),
-                              // leading: CircleAvatar(
-                              //   backgroundImage: NetworkImage(
-                              //       state.rankings[index].profilePicture ?? ''),
-                              // ),
+
                               leading: UserCircleAvatar(
                                 username: state.rankings[index].username,
                                 avatarUrl: state.rankings[index].profilePicture,
