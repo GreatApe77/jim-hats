@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:jim_hats_mobile/core/utils/date_helper.dart';
+import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log.dart';
+
 
 class Calendar extends StatelessWidget {
   final DateTime date;
-  final DateTime selectedDate = DateTime.now();
-   Calendar({super.key, required this.date});
+  final List<ExerciseLog> logsOfTheMonth;
+  final Function(int day, List<ExerciseLog> logs) onDayTap;
+  const Calendar(
+      {super.key,
+      required this.date,
+      required this.logsOfTheMonth,
+      required this.onDayTap});
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +31,7 @@ class Calendar extends StatelessWidget {
 
   Widget _buildWeekDays(BuildContext context) {
     final weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
     final widgets = weekDays
         .map(
           (e) => Container(
@@ -49,7 +57,7 @@ class Calendar extends StatelessWidget {
     final lastDayOfMonth = DateTime(date.year, date.month + 1, 0);
     final daysInMonth = lastDayOfMonth.day;
     final firstWeekday = firstDayOfMonth.weekday;
-
+    final groupedByDay = _groupByDay(logsOfTheMonth);
     List<Widget> dayWidgets = [];
     for (int i = 0; i < firstWeekday; i++) {
       dayWidgets.add(Container());
@@ -59,7 +67,37 @@ class Calendar extends StatelessWidget {
       dayWidgets.add(
         Container(
           margin: EdgeInsets.all(4),
-          child: Center(child: Text(day.toString())),
+          child: groupedByDay.containsKey(day)
+              ? Stack(
+                fit: StackFit.expand,
+                  children: [
+                    GestureDetector(
+                      onTap: () => onDayTap(day,groupedByDay[day]!),
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          day.toString(),
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary),
+                        ),
+                      ),
+                    ),
+                    // Align(
+                    //   alignment: Alignment.center,
+                    //   child: Container(
+                    //     width: 4,
+                    //     decoration: BoxDecoration(
+                    //         color: Theme.of(context).colorScheme.error,
+                    //         shape: BoxShape.circle),
+                    //   ),
+                    // )
+                  ],
+                )
+              : Center(
+                child: Text(
+                    day.toString(),
+                  ),
+              ),
         ),
       );
     }
@@ -75,5 +113,26 @@ class Calendar extends StatelessWidget {
         children: dayWidgets,
       ),
     );
+  }
+
+  Map<int, List<ExerciseLog>> _groupByDay(List<ExerciseLog> exerciseLogs) {
+    Map<int, List<ExerciseLog>> groupedByDay = {};
+    for (var log in exerciseLogs) {
+      final int day = log.date.day;
+      if (!groupedByDay.containsKey(day)) {
+        groupedByDay[day] = [];
+      }
+      groupedByDay[day]!.add(log);
+    }
+    return groupedByDay;
+    //   for (var exerciseLog in exerciseLogs) {
+    //     final String formatedDateByDay = _formatDateText(exerciseLog.date);
+    //     if (!grouped.containsKey(_formatDateText(exerciseLog.date))) {
+    //       grouped[formatedDateByDay] = [];
+    //     }
+    //     grouped[formatedDateByDay]!.add(exerciseLog);
+    //   }
+    //   return grouped;
+    // }
   }
 }
