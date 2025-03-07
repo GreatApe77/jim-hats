@@ -50,119 +50,132 @@ class _UserStatsView extends StatelessWidget {
               padding: EdgeInsets.symmetric(
                   horizontal: AppSpacings.horizontalPadding.toDouble()),
               child: SafeArea(
-                  child: ListView(
-                children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      CircleAvatar(
-                        backgroundImage:
-                            NetworkImage(state.loggedUser.profilePicture ?? ''),
-                        radius: 50,
-                      ),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      Text(
-                        state.loggedUser.username,
-                        style: Theme.of(context).textTheme.headlineMedium,
-                      ),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          StatsItem(
-                            label: 'Check-ins',
-                            value: state.logsOfUser.length.toString(),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      Calendar(
-                        onDayTap: (day, logs) {
-                          // scaffoldMessengerKey.currentState?.showSnackBar(
-                          //   SnackBar(
-                          //     content: Text(
-                          //       'Day: ${day} amount: ${logs.length}',
-                          //     ),
-                          //   ),
-                          // );
-                          showModalBottomSheet(
-                            showDragHandle: true,
-                            context: context,
-                            builder: (context) => SafeArea(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                mainAxisSize: MainAxisSize.min,
-                                children: logs.map(
-                                  (log) {
-                                    final mappedExerciseLog =
-                                        ExerciseLogWithUser(
-                                      user: User(
-                                        username: state.loggedUser.username,
-                                        profilePicture:
-                                            state.loggedUser.profilePicture,
-                                      ),
-                                      id: log.id,
-                                      title: log.title,
-                                      date: log.date,
-                                      userId: log.userId,
-                                      gymChallengeId: log.gymChallengeId,
-                                    );
-                                    return ExerciseLogTile(
-                                      exerciseLogWithUser: mappedExerciseLog,
-                                      onTap: () {
-                                        Navigator.of(context).pushNamed(
-                                          AppRoutes.checkIn,
-                                          arguments: CheckInPageArguments(
-                                            exerciseLog: mappedExerciseLog,
-                                          ),
-                                        );
-                                      },
-                                    );
-                                  },
-                                ).toList(),
-                              ),
+                child: ListView(
+                  children: [
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        CircleAvatar(
+                          backgroundImage: NetworkImage(
+                              state.loggedUser.profilePicture ?? ''),
+                          radius: 50,
+                        ),
+                        SizedBox(
+                          height: 16,
+                        ),
+                        Text(
+                          state.loggedUser.username,
+                          style: Theme.of(context).textTheme.headlineMedium,
+                        ),
+                        SizedBox(
+                          height: 16,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            StatsItem(
+                              label: 'Check-ins',
+                              value: state.logsOfUser.length.toString(),
                             ),
-                          );
+                          ],
+                        ),
+                        SizedBox(
+                          height: 16,
+                        ),
+                        Calendar(
+                          onDayTap: (day, logs) {
+                            // scaffoldMessengerKey.currentState?.showSnackBar(
+                            //   SnackBar(
+                            //     content: Text(
+                            //       'Day: ${day} amount: ${logs.length}',
+                            //     ),
+                            //   ),
+                            // );
+                            showModalBottomSheet(
+                              showDragHandle: true,
+                              context: context,
+                              builder: (context) => SafeArea(
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: logs.map(
+                                    (log) {
+                                      final mappedExerciseLog =
+                                          ExerciseLogWithUser(
+                                        user: User(
+                                          username: state.loggedUser.username,
+                                          profilePicture:
+                                              state.loggedUser.profilePicture,
+                                        ),
+                                        id: log.id,
+                                        title: log.title,
+                                        date: log.date,
+                                        userId: log.userId,
+                                        gymChallengeId: log.gymChallengeId,
+                                      );
+                                      return ExerciseLogTile(
+                                        exerciseLogWithUser: mappedExerciseLog,
+                                        onTap: () {
+                                          Navigator.of(context).pushNamed(
+                                            AppRoutes.checkIn,
+                                            arguments: CheckInPageArguments(
+                                              exerciseLog: mappedExerciseLog,
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    },
+                                  ).toList(),
+                                ),
+                              ),
+                            );
+                          },
+                          date: DateTime.now(),
+                          logsOfTheMonth: [
+                            ExerciseLog(
+                                id: 1,
+                                title: 'Title 1',
+                                date: DateTime(2025, 2, 5),
+                                userId: state.loggedUser.id,
+                                gymChallengeId: 8),
+                            ExerciseLog(
+                                id: 1,
+                                title: 'Title 2',
+                                date: DateTime(2025, 2, 5),
+                                userId: state.loggedUser.id,
+                                gymChallengeId: 8),
+                            ExerciseLog(
+                                id: 1,
+                                title: 'Title 3',
+                                date: DateTime(2025, 2, 5),
+                                userId: state.loggedUser.id,
+                                gymChallengeId: 8),
+                            ExerciseLog(
+                                id: 1,
+                                title: 'Title 4',
+                                date: DateTime(2025, 2, 7),
+                                userId: state.loggedUser.id,
+                                gymChallengeId: 8),
+                          ],
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    Center(
+                      child: TextButton(
+                        onPressed: () {
+                          
                         },
-                        date: DateTime.now(),
-                        logsOfTheMonth: [
-                          ExerciseLog(
-                              id: 1,
-                              title: 'Title 1',
-                              date: DateTime(2025, 2, 5),
-                              userId: state.loggedUser.id,
-                              gymChallengeId: 8),
-                          ExerciseLog(
-                              id: 1,
-                              title: 'Title 2',
-                              date: DateTime(2025, 2, 5),
-                              userId: state.loggedUser.id,
-                              gymChallengeId: 8),
-                          ExerciseLog(
-                              id: 1,
-                              title: 'Title 3',
-                              date: DateTime(2025, 2, 5),
-                              userId: state.loggedUser.id,
-                              gymChallengeId: 8),
-                          ExerciseLog(
-                              id: 1,
-                              title: 'Title 4',
-                              date: DateTime(2025, 2, 7),
-                              userId: state.loggedUser.id,
-                              gymChallengeId: 8),
-                        ],
-                      )
-                    ],
-                  )
-                ],
-              )),
+                        child: Text('View all check-ins'),
+                      ),
+                    )
+                  ],
+                ),
+              ),
             );
           }
           return SizedBox.shrink();
