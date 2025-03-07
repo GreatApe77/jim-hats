@@ -19,6 +19,8 @@ import 'package:jim_hats_mobile/presentation/views/server_down/server_down_alert
 import 'package:jim_hats_mobile/presentation/views/settings/settings_page.dart';
 import 'package:jim_hats_mobile/presentation/views/sign_in/sign_in_page.dart';
 import 'package:jim_hats_mobile/presentation/views/splash/splah_page.dart';
+import 'package:jim_hats_mobile/presentation/views/user_calendars_page/user_calendars_page.dart';
+import 'package:jim_hats_mobile/presentation/views/user_calendars_page/user_calendars_page_arguments.dart';
 import 'package:jim_hats_mobile/presentation/views/user_stats/user_stats_page.dart';
 import 'package:jim_hats_mobile/presentation/views/welcome/welcome_page.dart';
 import 'package:jim_hats_mobile/presentation/widgets/custom_page_route/custom_page_route.dart';
@@ -97,11 +99,7 @@ abstract class AppRouter {
             ));
       case AppRoutes.ranking:
         final arguments = settings.arguments as RankingPageArguments;
-        // return MaterialPageRoute(
-        //   builder: (context) => RankingPage(
-        //       arguments: arguments,
-        //       rankingPageCubit: locator.get<RankingPageCubit>()),
-        // );
+
         return CustomPageRouteBuilder(
           settings: settings,
           child: RankingPage(
@@ -115,14 +113,6 @@ abstract class AppRouter {
         );
       case AppRoutes.gymChallenge:
         final arguments = settings.arguments as GymChallengePageArguments;
-
-        // return MaterialPageRoute(
-        //   settings: settings,
-        //   builder: (context) => GymChallengePage(
-        //     gymChallengePageCubit: locator.get<GymChallengePageCubit>(),
-        //     gymChallengePageArguments: arguments,
-        //   ),
-        // );
         return CustomPageRouteBuilder(
           settings: settings,
           child: GymChallengePage(
@@ -148,12 +138,17 @@ abstract class AppRouter {
           child: const CreateChallengePage(),
         );
       case AppRoutes.joinGroup:
-        // return MaterialPageRoute(builder: (context) => JoinGroupPage(
-        //   joinGroupPageCubit: locator.get<JoinGroupPageCubit>(),
-        // ),);
         return CustomPageRouteBuilder(
           settings: settings,
-          child: JoinGroupPage(),
+          child: const JoinGroupPage(),
+        );
+      case AppRoutes.userCalendars:
+        return CustomPageRouteBuilder(
+          settings: settings,
+          child: UserCalendarsPage(
+            calendarsPageArguments:
+                settings.arguments as UserCalendarsPageArguments,
+          ),
         );
       default:
         return null;

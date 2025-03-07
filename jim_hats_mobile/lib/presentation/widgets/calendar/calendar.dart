@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:jim_hats_mobile/core/utils/date_helper.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log.dart';
 
-
 class Calendar extends StatelessWidget {
   final DateTime date;
   final List<ExerciseLog> logsOfTheMonth;
@@ -46,6 +45,7 @@ class Calendar extends StatelessWidget {
         )
         .toList();
     return GridView.count(
+      physics: NeverScrollableScrollPhysics(),
       crossAxisCount: weekDays.length,
       shrinkWrap: true,
       children: widgets,
@@ -69,35 +69,27 @@ class Calendar extends StatelessWidget {
           margin: EdgeInsets.all(4),
           child: groupedByDay.containsKey(day)
               ? Stack(
-                fit: StackFit.expand,
+                  fit: StackFit.expand,
                   children: [
-                    GestureDetector(
-                      onTap: () => onDayTap(day,groupedByDay[day]!),
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          day.toString(),
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.primary),
-                        ),
+
+                    IconButton(
+                      onPressed: () => onDayTap(day,groupedByDay[day]!),
+                      icon: Badge.count(
+                        count: groupedByDay[day]!.length,
+                        child: Container(
+                          
+                          width: 50,
+                          child: Center(child: Text(day.toString()))),
                       ),
-                    ),
-                    // Align(
-                    //   alignment: Alignment.center,
-                    //   child: Container(
-                    //     width: 4,
-                    //     decoration: BoxDecoration(
-                    //         color: Theme.of(context).colorScheme.error,
-                    //         shape: BoxShape.circle),
-                    //   ),
-                    // )
+                    )
+
                   ],
                 )
               : Center(
-                child: Text(
+                  child: Text(
                     day.toString(),
                   ),
-              ),
+                ),
         ),
       );
     }
@@ -108,6 +100,7 @@ class Calendar extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           color: Theme.of(context).colorScheme.onInverseSurface),
       child: GridView.count(
+        physics: NeverScrollableScrollPhysics(),
         crossAxisCount: 7,
         shrinkWrap: true,
         children: dayWidgets,

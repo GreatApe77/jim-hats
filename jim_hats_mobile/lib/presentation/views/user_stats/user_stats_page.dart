@@ -8,6 +8,7 @@ import 'package:jim_hats_mobile/locator.dart';
 import 'package:jim_hats_mobile/presentation/cubits/app_drawer/app_drawer_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/user_stats_page/user_stats_cubit.dart';
 import 'package:jim_hats_mobile/presentation/routing/app_routes.dart';
+import 'package:jim_hats_mobile/presentation/views/user_calendars_page/user_calendars_page_arguments.dart';
 import 'package:jim_hats_mobile/presentation/views/check_in_page/check_in_page_arguments.dart';
 import 'package:jim_hats_mobile/presentation/views/user_stats/widgets/stats_item.dart';
 import 'package:jim_hats_mobile/presentation/widgets/app_drawer/app_drawer.dart';
@@ -93,71 +94,50 @@ class _UserStatsView extends StatelessWidget {
                             //   ),
                             // );
                             showModalBottomSheet(
+                              useSafeArea: true,
                               showDragHandle: true,
                               context: context,
-                              builder: (context) => SafeArea(
-                                child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: logs.map(
-                                    (log) {
-                                      final mappedExerciseLog =
-                                          ExerciseLogWithUser(
-                                        user: User(
-                                          username: state.loggedUser.username,
-                                          profilePicture:
-                                              state.loggedUser.profilePicture,
-                                        ),
-                                        id: log.id,
-                                        title: log.title,
-                                        date: log.date,
-                                        userId: log.userId,
-                                        gymChallengeId: log.gymChallengeId,
-                                      );
-                                      return ExerciseLogTile(
-                                        exerciseLogWithUser: mappedExerciseLog,
-                                        onTap: () {
-                                          Navigator.of(context).pushNamed(
-                                            AppRoutes.checkIn,
-                                            arguments: CheckInPageArguments(
-                                              exerciseLog: mappedExerciseLog,
-                                            ),
-                                          );
-                                        },
-                                      );
-                                    },
-                                  ).toList(),
-                                ),
+                              builder: (context) => ListView(
+                                children: logs.map(
+                                  (log) {
+                                    final mappedExerciseLog =
+                                        ExerciseLogWithUser(
+                                      user: User(
+                                        username: state.loggedUser.username,
+                                        profilePicture:
+                                            state.loggedUser.profilePicture,
+                                      ),
+                                      id: log.id,
+                                      title: log.title,
+                                      date: log.date,
+                                      userId: log.userId,
+                                      gymChallengeId: log.gymChallengeId,
+                                    );
+                                    return ExerciseLogTile(
+                                      exerciseLogWithUser: mappedExerciseLog,
+                                      onTap: () {
+                                        Navigator.of(context).pushNamed(
+                                          AppRoutes.checkIn,
+                                          arguments: CheckInPageArguments(
+                                            exerciseLog: mappedExerciseLog,
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                ).toList(),
                               ),
                             );
                           },
                           date: DateTime.now(),
                           logsOfTheMonth: [
-                            ExerciseLog(
-                                id: 1,
-                                title: 'Title 1',
-                                date: DateTime(2025, 2, 5),
-                                userId: state.loggedUser.id,
-                                gymChallengeId: 8),
-                            ExerciseLog(
-                                id: 1,
-                                title: 'Title 2',
-                                date: DateTime(2025, 2, 5),
-                                userId: state.loggedUser.id,
-                                gymChallengeId: 8),
-                            ExerciseLog(
-                                id: 1,
-                                title: 'Title 3',
-                                date: DateTime(2025, 2, 5),
-                                userId: state.loggedUser.id,
-                                gymChallengeId: 8),
-                            ExerciseLog(
-                                id: 1,
-                                title: 'Title 4',
-                                date: DateTime(2025, 2, 7),
-                                userId: state.loggedUser.id,
-                                gymChallengeId: 8),
+                            ...state.logsOfUser.where(
+                              (element) =>
+                                  element.date.year == DateTime.now().year &&
+                                  element.date.month == DateTime.now().month,
+                            )
+
+                            // )
                           ],
                         )
                       ],
@@ -168,7 +148,14 @@ class _UserStatsView extends StatelessWidget {
                     Center(
                       child: TextButton(
                         onPressed: () {
-                          
+                          final arguments = UserCalendarsPageArguments(
+                            exerciseLogsGroupedByDate:
+                                _groupByMonthAndYear(state.logsOfUser),
+                          );
+                          Navigator.of(context).pushNamed(
+                            AppRoutes.userCalendars,
+                            arguments: arguments,
+                          );
                         },
                         child: Text('View all check-ins'),
                       ),
@@ -183,4 +170,37 @@ class _UserStatsView extends StatelessWidget {
       ),
     );
   }
+
+  Map<String, List<ExerciseLog>> _groupByMonthAndYear(
+      List<ExerciseLog> exerciseLogs) {
+    Map<String, List<ExerciseLog>> groupedByMonthAndYear = {};
+    for (var log in exerciseLogs) {
+      final String key = '${log.date.month}/${log.date.year}';
+      if (!groupedByMonthAndYear.containsKey(key)) {
+        groupedByMonthAndYear[key] = [];
+      }
+      groupedByMonthAndYear[key]!.add(log);
+    }
+    return groupedByMonthAndYear;
+  }
+// Map<int, List<ExerciseLog>> _groupByDay(List<ExerciseLog> exerciseLogs) {
+//     Map<int, List<ExerciseLog>> groupedByDay = {};
+//     for (var log in exerciseLogs) {
+//       final int day = log.date.day;
+//       if (!groupedByDay.containsKey(day)) {
+//         groupedByDay[day] = [];
+//       }
+//       groupedByDay[day]!.add(log);
+//     }
+//     return groupedByDay;
+//     //   for (var exerciseLog in exerciseLogs) {
+//     //     final String formatedDateByDay = _formatDateText(exerciseLog.date);
+//     //     if (!grouped.containsKey(_formatDateText(exerciseLog.date))) {
+//     //       grouped[formatedDateByDay] = [];
+//     //     }
+//     //     grouped[formatedDateByDay]!.add(exerciseLog);
+//     //   }
+//     //   return grouped;
+//     // }
+//   }
 }
