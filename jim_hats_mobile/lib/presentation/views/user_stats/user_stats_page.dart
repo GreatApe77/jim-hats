@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jim_hats_mobile/app.dart';
 import 'package:jim_hats_mobile/core/constants/app_spacings.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log_with_user.dart';
@@ -14,6 +13,7 @@ import 'package:jim_hats_mobile/presentation/views/user_stats/widgets/stats_item
 import 'package:jim_hats_mobile/presentation/widgets/app_drawer/app_drawer.dart';
 import 'package:jim_hats_mobile/presentation/widgets/calendar/calendar.dart';
 import 'package:jim_hats_mobile/presentation/widgets/exercise_log_tile/exercise_log_tile.dart';
+import 'package:jim_hats_mobile/core/utils/group_by_extension.dart';
 
 class UserStatsPage extends StatelessWidget {
   const UserStatsPage({super.key});
@@ -86,13 +86,6 @@ class _UserStatsView extends StatelessWidget {
                         ),
                         Calendar(
                           onDayTap: (day, logs) {
-                            // scaffoldMessengerKey.currentState?.showSnackBar(
-                            //   SnackBar(
-                            //     content: Text(
-                            //       'Day: ${day} amount: ${logs.length}',
-                            //     ),
-                            //   ),
-                            // );
                             showModalBottomSheet(
                               useSafeArea: true,
                               showDragHandle: true,
@@ -173,34 +166,21 @@ class _UserStatsView extends StatelessWidget {
 
   Map<String, List<ExerciseLog>> _groupByMonthAndYear(
       List<ExerciseLog> exerciseLogs) {
-    Map<String, List<ExerciseLog>> groupedByMonthAndYear = {};
-    for (var log in exerciseLogs) {
-      final String key = '${log.date.month}/${log.date.year}';
-      if (!groupedByMonthAndYear.containsKey(key)) {
-        groupedByMonthAndYear[key] = [];
-      }
-      groupedByMonthAndYear[key]!.add(log);
-    }
-    return groupedByMonthAndYear;
+    final groupedLogs = exerciseLogs.groupBy<String>(
+      (log) => '${log.date.month.toString().padLeft(2, '0')}/${log.date.year}',
+    );
+
+    // Sort the groups by DateTime (earliest to latest)
+    final sortedKeys = groupedLogs.keys.toList()
+      ..sort((a, b) {
+        final dateA =
+            DateTime(int.parse(a.split('/')[1]), int.parse(a.split('/')[0]));
+        final dateB =
+            DateTime(int.parse(b.split('/')[1]), int.parse(b.split('/')[0]));
+        return dateA.compareTo(dateB);
+      });
+
+    // Reconstruct sorted map
+    return {for (var key in sortedKeys) key: groupedLogs[key]!};
   }
-// Map<int, List<ExerciseLog>> _groupByDay(List<ExerciseLog> exerciseLogs) {
-//     Map<int, List<ExerciseLog>> groupedByDay = {};
-//     for (var log in exerciseLogs) {
-//       final int day = log.date.day;
-//       if (!groupedByDay.containsKey(day)) {
-//         groupedByDay[day] = [];
-//       }
-//       groupedByDay[day]!.add(log);
-//     }
-//     return groupedByDay;
-//     //   for (var exerciseLog in exerciseLogs) {
-//     //     final String formatedDateByDay = _formatDateText(exerciseLog.date);
-//     //     if (!grouped.containsKey(_formatDateText(exerciseLog.date))) {
-//     //       grouped[formatedDateByDay] = [];
-//     //     }
-//     //     grouped[formatedDateByDay]!.add(exerciseLog);
-//     //   }
-//     //   return grouped;
-//     // }
-//   }
 }
