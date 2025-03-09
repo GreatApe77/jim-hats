@@ -28,28 +28,34 @@ class ChallengeBanner extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Expanded(
-                flex: 3,
-                child: Container(
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: NetworkImage(challenge.image ??
-                                'https://avatars.githubusercontent.com/u/99892494?s=200&v=4')),
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(8),
-                          topRight: Radius.circular(8),
-                        )
-                        //color: Colors.amber,
-                        ))),
+              flex: 3,
+              child: Container(
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(challenge.image ??
+                            'https://avatars.githubusercontent.com/u/99892494?s=200&v=4')),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(8),
+                      topRight: Radius.circular(8),
+                    )
+                    //color: Colors.amber,
+                    ),
+              ),
+            ),
             Expanded(
                 child: Row(
               children: [
                 Expanded(
                   child: Container(
                     decoration: BoxDecoration(
-                        //color: Colors.red,
-                        borderRadius:
-                            BorderRadius.only(bottomLeft: Radius.circular(8))),
+                      //color: Colors.red,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(
+                          8,
+                        ),
+                      ),
+                    ),
                     child: ListTile(
                       contentPadding: EdgeInsets.zero,
                       title: Text('Leader'),
