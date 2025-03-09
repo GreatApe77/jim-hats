@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:jim_hats_mobile/core/utils/group_by_extension.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log_with_user.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/repositories/exercise_logs_repository.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/gym_challenge.dart';
@@ -44,12 +45,14 @@ class GymChallengePageCubit extends Cubit<GymChallengePageState> {
 
       // );
 
-      emit(GymChallengePageDataSuccess(
-          leader: _getLeader(rankings),
-          userRanking: _getUserRanking(rankings, loggedUser),
-          logs: logs,
-          logsGroupedByDate: _groupLogsByDay(logs),
-          challenge: currentChallenge));
+      emit(
+        GymChallengePageDataSuccess(
+            leader: _getLeader(rankings),
+            userRanking: _getUserRanking(rankings, loggedUser),
+            logs: logs,
+            logsGroupedByDate: _groupLogsByDay(logs),
+            challenge: currentChallenge),
+      );
     } catch (e) {
       emit(GymChallengePageDataLoadFailure(message: e.toString()));
     }
@@ -68,16 +71,9 @@ class GymChallengePageCubit extends Cubit<GymChallengePageState> {
 
   Map<String, List<ExerciseLogWithUser>> _groupLogsByDay(
       List<ExerciseLogWithUser> exerciseLogs) {
-    Map<String, List<ExerciseLogWithUser>> grouped = {};
-
-    for (var exerciseLog in exerciseLogs) {
-      final String formatedDateByDay = _formatDateText(exerciseLog.date);
-      if (!grouped.containsKey(_formatDateText(exerciseLog.date))) {
-        grouped[formatedDateByDay] = [];
-      }
-      grouped[formatedDateByDay]!.add(exerciseLog);
-    }
-    return grouped;
+    return exerciseLogs.groupBy<String>(
+      (log) => _formatDateText(log.date),
+    );
   }
 
   Ranking _getUserRanking(List<Ranking> rankings, LoggedUser user) {
