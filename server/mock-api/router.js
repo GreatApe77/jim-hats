@@ -16,6 +16,8 @@ import { addLogToGymChallenge } from "./controllers/add-log-to-gym-challenge.js"
 import { listAllLogsOfUser } from "./controllers/list-all-logs-of-user.js";
 import { getMe } from "./controllers/get-me.js";
 import { updateUser } from "./controllers/update-user.js";
+import { updateExerciseLog } from "./controllers/update-exercise-log.js";
+import { deleteExerciseLog } from "./controllers/delete-exercise-log.js";
 
 const router = Router();
 
@@ -34,6 +36,8 @@ router.post("/gym-challenges/",createGymChallenge)
 router.patch("/gym-challenges/:id",updateGymChallenge)
 router.delete("/gym-challenges/:id",deleteGymChallenge)
 router.post("/gym-challenges/:challengeId/logs",addLogToGymChallenge)
+router.patch("/logs/:logId",updateExerciseLog)
+router.delete("/logs/:logId",deleteExerciseLog)
 router.post("/uploads",uploadPhoto,uploadController)
 
 
