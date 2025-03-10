@@ -3,12 +3,12 @@ import 'package:jim_hats_mobile/data/exercise_logs/data_sources/exercise_log_dat
 import 'package:jim_hats_mobile/data/exercise_logs/dtos/add_exercise_log_to_challenge_dto.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log_with_user.dart';
+import 'package:jim_hats_mobile/data/logged_user/dtos/update_logged_user_dto.dart';
 
 class NetworkExerciseLogDataSource implements ExerciseLogDataSource {
   final HttpService _httpClient;
 
   NetworkExerciseLogDataSource({
-    
     required HttpService httpClient,
   }) : _httpClient = httpClient;
   @override
@@ -57,11 +57,26 @@ class NetworkExerciseLogDataSource implements ExerciseLogDataSource {
       rethrow;
     }
   }
-  
+
   @override
   Future<void> deleteExerciseLog(int exerciseLogId) async {
     try {
-      await _httpClient.delete('/log/$exerciseLogId');
+      await _httpClient.delete('/logs/$exerciseLogId');
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> updateExerciseLog(
+    int exerciseLogId,
+    UpdateLoggedUserDto updateExerciseLogDto,
+  ) async {
+    try {
+      await _httpClient.patch(
+        '/logs/$exerciseLogId',
+        data: updateExerciseLogDto.toMap(),
+      );
     } catch (e) {
       rethrow;
     }

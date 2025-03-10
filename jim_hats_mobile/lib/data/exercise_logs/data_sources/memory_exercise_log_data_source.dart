@@ -4,6 +4,7 @@ import 'package:jim_hats_mobile/data/exercise_logs/data_sources/exercise_log_dat
 import 'package:jim_hats_mobile/data/exercise_logs/dtos/add_exercise_log_to_challenge_dto.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log_with_user.dart';
+import 'package:jim_hats_mobile/data/logged_user/dtos/update_logged_user_dto.dart';
 
 final  dayInMiliseconds = 8.64 *pow(10,7);
 class MemoryExerciseLogDataSource  implements ExerciseLogDataSource{
@@ -158,6 +159,12 @@ return Future.value([
   @override
   Future<void> deleteExerciseLog(int exerciseLogId) {
     // TODO: implement deleteExerciseLog
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> updateExerciseLog( int exerciseLogId,UpdateLoggedUserDto updateExerciseLogDto) {
+    // TODO: implement updateExerciseLog
     throw UnimplementedError();
   }
   
