@@ -6,6 +6,8 @@ import 'package:jim_hats_mobile/presentation/views/check_in_page/check_in_page.d
 import 'package:jim_hats_mobile/presentation/views/check_in_page/check_in_page_arguments.dart';
 import 'package:jim_hats_mobile/presentation/views/create-chalenge/create_challenge_page.dart';
 import 'package:jim_hats_mobile/presentation/views/create_account/create_account_page.dart';
+import 'package:jim_hats_mobile/presentation/views/edit_check_in/edit_check_in_page.dart';
+import 'package:jim_hats_mobile/presentation/views/edit_check_in/edit_check_in_page_arguments.dart';
 import 'package:jim_hats_mobile/presentation/views/gym_challenge/gym_challenge_page.dart';
 import 'package:jim_hats_mobile/presentation/views/gym_challenge/gym_challenge_page_arguments.dart';
 import 'package:jim_hats_mobile/presentation/views/gym_challenge_details/gym_challenge_details_page.dart';
@@ -61,6 +63,14 @@ abstract class AppRouter {
         return CustomPageRouteBuilder(
           settings: settings,
           child: const WelcomePage(),
+        );
+      case AppRoutes.editCheckin:
+        return CustomPageRouteBuilder(
+          settings: settings,
+          child: EditCheckInPage(
+            editCheckInPageArguments:
+                settings.arguments as EditCheckInPageArguments,
+          ),
         );
       case AppRoutes.createAccount:
         return CustomPageRouteBuilder(
