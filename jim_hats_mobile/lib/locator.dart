@@ -27,6 +27,7 @@ import 'package:jim_hats_mobile/presentation/cubits/app_drawer/app_drawer_cubit.
 import 'package:jim_hats_mobile/presentation/blocs/theme/theme_bloc.dart';
 import 'package:jim_hats_mobile/presentation/cubits/create_challenge_page/create_challenge_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/create_account_page/create_account_page_cubit.dart';
+import 'package:jim_hats_mobile/presentation/cubits/edit_check_in_page/edit_check_in_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/gym_challenge_page/gym_challenge_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/gym_challenge_details_page/gym_challenge_details_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/internet_connectivity/cubit/internet_connectivity_cubit.dart';
@@ -102,6 +103,11 @@ Future<void> setupDependencies() async {
   //Cubits
 
   locator
+    ..registerFactory<EditCheckInPageCubit>(
+      () => EditCheckInPageCubit(
+        exerciseLogsRepository: locator.get<ExerciseLogsRepository>(),
+      ),
+    )
     ..registerFactory<InternetConnectivityCubit>(
       () => InternetConnectivityCubit(),
     )
