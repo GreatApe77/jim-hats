@@ -1,6 +1,7 @@
 import 'package:jim_hats_mobile/core/network/http_service.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/data_sources/exercise_log_data_source.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/dtos/add_exercise_log_to_challenge_dto.dart';
+import 'package:jim_hats_mobile/data/exercise_logs/dtos/update_exercise_log_dto.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log_with_user.dart';
 import 'package:jim_hats_mobile/data/logged_user/dtos/update_logged_user_dto.dart';
@@ -70,7 +71,7 @@ class NetworkExerciseLogDataSource implements ExerciseLogDataSource {
   @override
   Future<void> updateExerciseLog(
     int exerciseLogId,
-    UpdateLoggedUserDto updateExerciseLogDto,
+    UpdateExerciseLogDto updateExerciseLogDto,
   ) async {
     try {
       await _httpClient.patch(

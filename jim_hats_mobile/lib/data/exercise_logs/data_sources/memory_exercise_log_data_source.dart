@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:jim_hats_mobile/data/exercise_logs/data_sources/exercise_log_data_source.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/dtos/add_exercise_log_to_challenge_dto.dart';
+import 'package:jim_hats_mobile/data/exercise_logs/dtos/update_exercise_log_dto.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log_with_user.dart';
 import 'package:jim_hats_mobile/data/logged_user/dtos/update_logged_user_dto.dart';
@@ -163,7 +164,7 @@ return Future.value([
   }
 
   @override
-  Future<void> updateExerciseLog( int exerciseLogId,UpdateLoggedUserDto updateExerciseLogDto) {
+  Future<void> updateExerciseLog( int exerciseLogId,UpdateExerciseLogDto updateExerciseLogDto) {
     // TODO: implement updateExerciseLog
     throw UnimplementedError();
   }
