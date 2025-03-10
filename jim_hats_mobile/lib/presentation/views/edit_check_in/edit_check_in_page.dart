@@ -15,7 +15,11 @@ class EditCheckInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<EditCheckInPageCubit>(
-      create: (context) => locator.get<EditCheckInPageCubit>(),
+      create: (context) => locator.get<EditCheckInPageCubit>()
+        ..updateTitle(editCheckInPageArguments.exerciseLog.title)
+        ..updateDescription(editCheckInPageArguments.exerciseLog.description)
+        ..updateImageUrl(editCheckInPageArguments.exerciseLog.image??''),
+        
       child: EditCheckInView(
         editCheckInPageArguments: editCheckInPageArguments,
       ),
@@ -102,7 +106,8 @@ class _EditCheckInViewState extends State<EditCheckInView> {
                 height: 16,
               ),
               TextFormField(
-                initialValue: widget.editCheckInPageArguments.exerciseLog.description,
+                initialValue:
+                    widget.editCheckInPageArguments.exerciseLog.description,
                 onChanged: (value) {
                   //context.read<NewCheckInPageCubit>().updateDescription(value);
                 },
@@ -115,80 +120,85 @@ class _EditCheckInViewState extends State<EditCheckInView> {
               SizedBox(
                 height: 16,
               ),
-              // BlocBuilder<EditCheckInPageCubit,EditCheckInPageState>(
-              //   bloc: context.read<EditCheckInPageCubit>(),
-              //   buildWhen: (previous, current) =>
-              //       previous.image != current.image,
-              //   builder: (context, state) {
-              //     return Material(
-              //       child: InkWell(
-              //         borderRadius: BorderRadius.circular(10),
-              //         onTap: state.image == null
-              //             ?
-              //             //()=>_onPhotoWidgetTap(context.read<NewCheckInPageCubit>())
-              //             //_onEmptyPhotoWidgetTap
-              //             //(){}
-              //             () => _onPhotoWidgetTap(
-              //                   context.read<NewCheckInPageCubit>(),
-              //                 )
-              //             : () => _onPhotoWidgetTap(
-              //                   context.read<NewCheckInPageCubit>(),
-              //                 ),
-              //         child: SizedBox(
-              //           height: 60,
-              //           child: state.photo == null
-              //               ? Center(
-              //                   child: Row(
-              //                     mainAxisSize: MainAxisSize.min,
-              //                     children: [
-              //                       Icon(Icons.add_photo_alternate),
-              //                       SizedBox(
-              //                         width: 4,
-              //                       ),
-              //                       Text('Add a Photo')
-              //                     ],
-              //                   ),
-              //                 )
-              //               : Row(
-              //                   children: [
-              //                     Flexible(
-              //                         child: Container(
-              //                       //color: Colors.red,
-              //                       decoration: BoxDecoration(
-              //                           borderRadius: BorderRadius.only(
-              //                             topLeft: Radius.circular(10),
-              //                             bottomLeft: Radius.circular(10),
-              //                           ),
-              //                           image: DecorationImage(
-              //                               fit: BoxFit.cover,
-              //                               image: FileImage(
-              //                                   File(state.photo!.path)))
-              //                           //image: Image.file(File(widget.pageArguments.photo!.path))
-              //                           ),
-              //                     )),
-              //                     Flexible(
-              //                         flex: 4,
-              //                         child: Ink(
-              //                           child: Center(
-              //                             child: Row(
-              //                               mainAxisSize: MainAxisSize.min,
-              //                               children: [
-              //                                 Icon(Icons.image),
-              //                                 SizedBox(
-              //                                   width: 4,
-              //                                 ),
-              //                                 Text('Edit Media')
-              //                               ],
-              //                             ),
-              //                           ),
-              //                         )),
-              //                   ],
-              //                 ),
-              //         ),
-              //       ),
-              //     );
-              //   },
-              // )
+              BlocBuilder<EditCheckInPageCubit,EditCheckInPageState>(
+                bloc: context.read<EditCheckInPageCubit>(),
+                buildWhen: (previous, current) =>
+                    previous.image != current.image,
+                builder: (context, state) {
+                  return Material(
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(10),
+                      onTap: state.image == null
+                          ?
+                          //()=>_onPhotoWidgetTap(context.read<NewCheckInPageCubit>())
+                          //_onEmptyPhotoWidgetTap
+                          //(){}
+                          // () => _onPhotoWidgetTap(
+                          //       context.read<NewCheckInPageCubit>(),
+                          //     )
+                          null
+                          : 
+                          null
+                          // () => _onPhotoWidgetTap(
+                          //       context.read<NewCheckInPageCubit>(),
+                          //     )
+                              
+                              ,
+                      child: SizedBox(
+                        height: 60,
+                        child: state.photo == null
+                            ? Center(
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(Icons.add_photo_alternate),
+                                    SizedBox(
+                                      width: 4,
+                                    ),
+                                    Text('Add a Photo')
+                                  ],
+                                ),
+                              )
+                            : Row(
+                                children: [
+                                  Flexible(
+                                      child: Container(
+                                    //color: Colors.red,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(10),
+                                          bottomLeft: Radius.circular(10),
+                                        ),
+                                        image: DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: FileImage(
+                                                File(state.photo!.path)))
+                                        //image: Image.file(File(widget.pageArguments.photo!.path))
+                                        ),
+                                  )),
+                                  Flexible(
+                                      flex: 4,
+                                      child: Ink(
+                                        child: Center(
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Icon(Icons.image),
+                                              SizedBox(
+                                                width: 4,
+                                              ),
+                                              Text('Edit Media')
+                                            ],
+                                          ),
+                                        ),
+                                      )),
+                                ],
+                              ),
+                      ),
+                    ),
+                  );
+                },
+              )
             ],
           ),
         ),
