@@ -155,5 +155,11 @@ return Future.value([
     throw UnimplementedError();
   }
   
+  @override
+  Future<void> deleteExerciseLog(int exerciseLogId) {
+    // TODO: implement deleteExerciseLog
+    throw UnimplementedError();
+  }
+  
 
 }

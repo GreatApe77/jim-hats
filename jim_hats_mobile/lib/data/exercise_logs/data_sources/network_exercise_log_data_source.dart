@@ -57,4 +57,13 @@ class NetworkExerciseLogDataSource implements ExerciseLogDataSource {
       rethrow;
     }
   }
+  
+  @override
+  Future<void> deleteExerciseLog(int exerciseLogId) async {
+    try {
+      await _httpClient.delete('/log/$exerciseLogId');
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

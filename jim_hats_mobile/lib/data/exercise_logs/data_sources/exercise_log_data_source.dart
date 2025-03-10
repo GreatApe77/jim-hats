@@ -6,4 +6,5 @@ abstract class ExerciseLogDataSource {
   Future<List<ExerciseLogWithUser>> getLogsOfChallenge(int challengeId);
   Future<void> addExerciseLogToChallenge(int challengeId,AddExerciseLogToChallengeDto addExerciseLogToChallengeDto);
   Future<List<ExerciseLog>> getAllLogsOfUser();
+  Future<void> deleteExerciseLog(int exerciseLogId);
 }
