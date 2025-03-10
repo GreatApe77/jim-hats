@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:jim_hats_mobile/core/constants/app_spacings.dart';
 import 'package:jim_hats_mobile/core/utils/date_helper.dart';
+import 'package:jim_hats_mobile/presentation/routing/app_routes.dart';
 import 'package:jim_hats_mobile/presentation/views/check_in_page/check_in_page_arguments.dart';
+import 'package:jim_hats_mobile/presentation/views/edit_check_in/edit_check_in_page.dart';
+import 'package:jim_hats_mobile/presentation/views/edit_check_in/edit_check_in_page_arguments.dart';
 import 'package:jim_hats_mobile/presentation/widgets/user_circle_avatar/user_circle_avatar.dart';
 
 class CheckInPage extends StatelessWidget {
@@ -14,7 +17,30 @@ class CheckInPage extends StatelessWidget {
       appBar: AppBar(
         actions: [
           IconButton(onPressed: () {}, icon: Icon(Icons.upload)),
-          IconButton(onPressed: () {}, icon: Icon(Icons.more_vert))
+          PopupMenuButton(
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                child: Text('Edit'),
+                onTap: () {
+                  final arguments = EditCheckInPageArguments(
+                    exerciseLog: checkInPageArguments.exerciseLog,
+                  );
+                  Navigator.of(context).pushNamed(
+                    AppRoutes.editCheckin,
+                    arguments: arguments,
+                  );
+                },
+              ),
+              PopupMenuItem(
+                child: Text(
+                  'Remove check-in',
+                  style: TextStyle(color: Theme.of(context).colorScheme.error),
+                ),
+                onTap: () {},
+              ),
+            ],
+            icon: Icon(Icons.more_vert),
+          )
         ],
       ),
       body: Padding(
@@ -49,11 +75,9 @@ class CheckInPage extends StatelessWidget {
               title: Text(checkInPageArguments.exerciseLog.user.username),
               subtitle: Text(DateHelper.formatDateExtended(
                   checkInPageArguments.exerciseLog.date)),
-              
               leading: UserCircleAvatar(
                 username: checkInPageArguments.exerciseLog.user.username,
                 avatarUrl: checkInPageArguments.exerciseLog.user.profilePicture,
-
               ),
             ),
             Padding(
