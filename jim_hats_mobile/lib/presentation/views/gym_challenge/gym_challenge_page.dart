@@ -101,16 +101,24 @@ class GymChallengeView extends StatelessWidget {
       appBar: AppBar(
         actions: [
           IconButton(onPressed: () {}, icon: Icon(Icons.notifications)),
-          IconButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed(
-                  AppRoutes.editGymChallenge,
-                  arguments: EditGymChallengePageArguments(
-                    gymChallengeId: gymChallengePageArguments.challengeId,
-                  ),
-                );
-              },
-              icon: Icon(Icons.more_horiz))
+          BlocBuilder<GymChallengePageCubit, GymChallengePageState>(
+            bloc: context.read<GymChallengePageCubit>(),
+            builder: (context, state) {
+              if (state is GymChallengePageDataSuccess) {
+                return IconButton(
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(
+                        AppRoutes.editGymChallenge,
+                        arguments: EditGymChallengePageArguments(
+                          gymChallenge: state.challenge,
+                        ),
+                      );
+                    },
+                    icon: Icon(Icons.more_horiz));
+              }
+              return SizedBox.shrink();
+            },
+          )
         ],
       ),
       body: BlocBuilder<GymChallengePageCubit, GymChallengePageState>(

@@ -1,5 +1,6 @@
-class EditGymChallengePageArguments {
-  final int gymChallengeId;
+import 'package:jim_hats_mobile/data/gym_challenges/models/gym_challenge.dart';
 
-  EditGymChallengePageArguments({required this.gymChallengeId});
+class EditGymChallengePageArguments {
+  final GymChallenge gymChallenge;
+  EditGymChallengePageArguments({required this.gymChallenge});
 }
