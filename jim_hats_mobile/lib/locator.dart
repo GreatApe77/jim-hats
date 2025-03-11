@@ -25,6 +25,7 @@ import 'package:jim_hats_mobile/core/network/http_client.dart';
 import 'package:jim_hats_mobile/presentation/cubits/auth/auth_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/app_drawer/app_drawer_cubit.dart';
 import 'package:jim_hats_mobile/presentation/blocs/theme/theme_bloc.dart';
+import 'package:jim_hats_mobile/presentation/cubits/check_in_page/check_in_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/create_challenge_page/create_challenge_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/create_account_page/create_account_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/edit_check_in_page/edit_check_in_page_cubit.dart';
@@ -38,6 +39,7 @@ import 'package:jim_hats_mobile/presentation/cubits/ranking_page/ranking_page_cu
 import 'package:jim_hats_mobile/presentation/cubits/settings_page/settings_cubit.dart';
 import 'package:jim_hats_mobile/presentation/blocs/sign_in_page/sign_in_page_bloc.dart';
 import 'package:jim_hats_mobile/presentation/cubits/user_stats_page/user_stats_cubit.dart';
+import 'package:jim_hats_mobile/presentation/views/check_in_page/check_in_page.dart';
 
 final locator = GetIt.instance;
 
@@ -101,8 +103,12 @@ Future<void> setupDependencies() async {
   await loadSettings();
 
   //Cubits
-
   locator
+    ..registerFactory<CheckInPageCubit>(
+      () => CheckInPageCubit(
+        exerciseLogsRepository: locator.get<ExerciseLogsRepository>(),
+      ),
+    )
     ..registerFactory<EditCheckInPageCubit>(
       () => EditCheckInPageCubit(
         uploadRepository: locator.get<UploadRepository>(),
