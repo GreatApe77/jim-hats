@@ -105,6 +105,7 @@ Future<void> setupDependencies() async {
   locator
     ..registerFactory<EditCheckInPageCubit>(
       () => EditCheckInPageCubit(
+        uploadRepository: locator.get<UploadRepository>(),
         exerciseLogsRepository: locator.get<ExerciseLogsRepository>(),
       ),
     )
