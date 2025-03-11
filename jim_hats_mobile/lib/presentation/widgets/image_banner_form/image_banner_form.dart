@@ -1,12 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'dart:io';
 
 class ImageBannerForm extends StatelessWidget {
   final Function() onTap;
+  final String imageUrl;
   final XFile? image;
-  const ImageBannerForm({super.key, this.image, required this.onTap});
+  const ImageBannerForm(
+      {super.key, this.image, required this.onTap, required this.imageUrl});
 
   @override
   Widget build(BuildContext context) {
@@ -15,26 +17,66 @@ class ImageBannerForm extends StatelessWidget {
       child: Stack(
         fit: StackFit.expand,
         children: [
-          Align(
-            alignment: Alignment.center,
-            child: InkWell(
-              borderRadius: BorderRadius.circular(10),
-              onTap: onTap,
-              child: Ink(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Theme.of(context).colorScheme.onSurface,
-                ),
-                height: 200,
-                child: Center(
-                  child: Icon(
-                    Icons.image,
-                    color: Theme.of(context).colorScheme.onInverseSurface,
+          imageUrl.isEmpty && image == null
+              ? Align(
+                  alignment: Alignment.center,
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(10),
+                    onTap: onTap,
+                    child: Ink(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
+                      height: 200,
+                      child: Center(
+                        child: Icon(
+                          Icons.image,
+                          color: Theme.of(context).colorScheme.onInverseSurface,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ),
-          ),
+                )
+              : image != null
+                  ? Align(
+                      alignment: Alignment.center,
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(10),
+                        onTap: onTap,
+                        child: Ink(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Theme.of(context).colorScheme.onSurface,
+                            image: DecorationImage(
+                              image: FileImage(
+                                File(image!.path),
+                              ),
+                            ),
+                          ),
+                          height: 200,
+                        ),
+                      ),
+                    )
+                  : Align(
+                      alignment: Alignment.center,
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(10),
+                        onTap: onTap,
+                        child: Ink(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Theme.of(context).colorScheme.onSurface,
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                imageUrl,
+                              ),
+                            ),
+                          ),
+                          height: 200,
+                        ),
+                      ),
+                    ),
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
