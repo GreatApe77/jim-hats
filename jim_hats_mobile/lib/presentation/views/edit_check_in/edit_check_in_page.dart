@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jim_hats_mobile/core/constants/app_spacings.dart';
@@ -7,6 +9,8 @@ import 'package:jim_hats_mobile/presentation/cubits/edit_check_in_page/edit_chec
 import 'package:jim_hats_mobile/presentation/routing/app_routes.dart';
 import 'package:jim_hats_mobile/presentation/views/edit_check_in/edit_check_in_page_arguments.dart';
 import 'package:jim_hats_mobile/presentation/views/gym_challenge/gym_challenge_page_arguments.dart';
+import 'package:jim_hats_mobile/presentation/widgets/custom_page_route/custom_page_route.dart';
+import 'package:jim_hats_mobile/presentation/widgets/take_photo_widget/take_photo_widget.dart';
 
 class EditCheckInPage extends StatelessWidget {
   final EditCheckInPageArguments editCheckInPageArguments;
@@ -18,8 +22,7 @@ class EditCheckInPage extends StatelessWidget {
       create: (context) => locator.get<EditCheckInPageCubit>()
         ..updateTitle(editCheckInPageArguments.exerciseLog.title)
         ..updateDescription(editCheckInPageArguments.exerciseLog.description)
-        ..updateImageUrl(editCheckInPageArguments.exerciseLog.image??''),
-        
+        ..updateImageUrl(editCheckInPageArguments.exerciseLog.image ?? ''),
       child: EditCheckInView(
         editCheckInPageArguments: editCheckInPageArguments,
       ),
@@ -69,15 +72,29 @@ class _EditCheckInViewState extends State<EditCheckInView> {
             listenWhen: (previous, current) =>
                 previous.status != current.status,
             builder: (context, state) {
-              if (state.status == EditCheckInPageStatus.loading) {
-                return SizedBox(
-                  width: 20,
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                );
-              }
-              return TextButton(onPressed: () {}, child: Text('Save'));
+              // if (state.status == EditCheckInPageStatus.loading) {
+              //   return SizedBox(
+              //     width: 20,
+              //     child: Center(
+              //       child: CircularProgressIndicator(),
+              //     ),
+              //   );
+              // }
+              return TextButton(
+                onPressed: state.status == EditCheckInPageStatus.loading
+                    ? null
+                    : () => context.read<EditCheckInPageCubit>().submitForm(
+                          challengeId: widget.editCheckInPageArguments
+                              .exerciseLog.gymChallengeId,
+                          exerciseLogId:
+                              widget.editCheckInPageArguments.exerciseLog.id,
+                        ),
+                child: Text(
+                  state.status == EditCheckInPageStatus.loading
+                      ? 'Saving...'
+                      : 'Save',
+                ),
+              );
             },
           )
         ],
@@ -96,7 +113,9 @@ class _EditCheckInViewState extends State<EditCheckInView> {
               TextFormField(
                 initialValue: widget.editCheckInPageArguments.exerciseLog.title,
                 validator: FormValidators.validateLogTitle,
-                onChanged: (value) {},
+                onChanged: (value) {
+                  context.read<EditCheckInPageCubit>().updateTitle(value);
+                },
                 decoration: InputDecoration(
                   label: Text('Title'),
                   border: OutlineInputBorder(),
@@ -109,7 +128,7 @@ class _EditCheckInViewState extends State<EditCheckInView> {
                 initialValue:
                     widget.editCheckInPageArguments.exerciseLog.description,
                 onChanged: (value) {
-                  //context.read<NewCheckInPageCubit>().updateDescription(value);
+                  context.read<EditCheckInPageCubit>().updateDescription(value);
                 },
                 maxLines: 5,
                 decoration: InputDecoration(
@@ -120,7 +139,7 @@ class _EditCheckInViewState extends State<EditCheckInView> {
               SizedBox(
                 height: 16,
               ),
-              BlocBuilder<EditCheckInPageCubit,EditCheckInPageState>(
+              BlocBuilder<EditCheckInPageCubit, EditCheckInPageState>(
                 bloc: context.read<EditCheckInPageCubit>(),
                 buildWhen: (previous, current) =>
                     previous.image != current.image,
@@ -128,25 +147,38 @@ class _EditCheckInViewState extends State<EditCheckInView> {
                   return Material(
                     child: InkWell(
                       borderRadius: BorderRadius.circular(10),
-                      onTap: state.image == null
-                          ?
-                          //()=>_onPhotoWidgetTap(context.read<NewCheckInPageCubit>())
-                          //_onEmptyPhotoWidgetTap
-                          //(){}
-                          // () => _onPhotoWidgetTap(
-                          //       context.read<NewCheckInPageCubit>(),
-                          //     )
-                          null
-                          : 
-                          null
-                          // () => _onPhotoWidgetTap(
-                          //       context.read<NewCheckInPageCubit>(),
-                          //     )
-                              
-                              ,
+                      onTap: () {
+                        final cubit = context.read<EditCheckInPageCubit>();
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => TakePhotoWidget(
+                            onPhotoChosen: (photo) {
+                              Navigator.of(context).pop();
+                              if (photo == null) return;
+                              cubit.updateImageUrl('');
+                              cubit.updateImageFile(photo);
+                            },
+                          ),
+                        ));
+                      }
+
+                      //state.image == null || state.imageUrl.isEmpty
+                      //  ?
+                      //()=>_onPhotoWidgetTap(context.read<NewCheckInPageCubit>())
+                      //_onEmptyPhotoWidgetTap
+                      //(){}
+                      // () => _onPhotoWidgetTap(
+                      //       context.read<NewCheckInPageCubit>(),
+                      //     )
+                      //null
+                      //: null
+                      // () => _onPhotoWidgetTap(
+                      //       context.read<NewCheckInPageCubit>(),
+                      //     )
+
+                      ,
                       child: SizedBox(
                         height: 60,
-                        child: state.photo == null
+                        child: state.image == null && state.imageUrl.isEmpty
                             ? Center(
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
@@ -170,9 +202,15 @@ class _EditCheckInViewState extends State<EditCheckInView> {
                                           bottomLeft: Radius.circular(10),
                                         ),
                                         image: DecorationImage(
-                                            fit: BoxFit.cover,
-                                            image: FileImage(
-                                                File(state.photo!.path)))
+                                          fit: BoxFit.cover,
+                                          image: state.image != null
+                                              ? FileImage(
+                                                  File(state.image!.path),
+                                                )
+                                              : NetworkImage(
+                                                  state.imageUrl,
+                                                ),
+                                        )
                                         //image: Image.file(File(widget.pageArguments.photo!.path))
                                         ),
                                   )),
