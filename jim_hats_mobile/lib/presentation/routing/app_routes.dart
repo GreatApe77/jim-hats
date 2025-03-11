@@ -16,4 +16,5 @@ abstract class AppRoutes {
   static const joinGroup='/join-group';
   static const userCalendars = '/user-calendars';
   static const editCheckin = '/edit-check-in';
+  static const editGymChallenge = '/edit-gym-challenge';
 }

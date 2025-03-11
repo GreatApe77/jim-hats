@@ -8,6 +8,8 @@ import 'package:jim_hats_mobile/presentation/views/create-chalenge/create_challe
 import 'package:jim_hats_mobile/presentation/views/create_account/create_account_page.dart';
 import 'package:jim_hats_mobile/presentation/views/edit_check_in/edit_check_in_page.dart';
 import 'package:jim_hats_mobile/presentation/views/edit_check_in/edit_check_in_page_arguments.dart';
+import 'package:jim_hats_mobile/presentation/views/edit_gym_challenge/edit_gym_challenge_page.dart';
+import 'package:jim_hats_mobile/presentation/views/edit_gym_challenge/edit_gym_challenge_page_arguments.dart';
 import 'package:jim_hats_mobile/presentation/views/gym_challenge/gym_challenge_page.dart';
 import 'package:jim_hats_mobile/presentation/views/gym_challenge/gym_challenge_page_arguments.dart';
 import 'package:jim_hats_mobile/presentation/views/gym_challenge_details/gym_challenge_details_page.dart';
@@ -158,6 +160,14 @@ abstract class AppRouter {
           child: UserCalendarsPage(
             calendarsPageArguments:
                 settings.arguments as UserCalendarsPageArguments,
+          ),
+        );
+      case AppRoutes.editGymChallenge:
+        return CustomPageRouteBuilder(
+          settings: settings,
+          child: EditGymChallengePage(
+            editGymChallengePageArguments:
+                settings.arguments as EditGymChallengePageArguments,
           ),
         );
       default:
