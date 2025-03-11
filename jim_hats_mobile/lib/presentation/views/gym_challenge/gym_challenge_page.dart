@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jim_hats_mobile/locator.dart';
 import 'package:jim_hats_mobile/presentation/routing/app_routes.dart';
 import 'package:jim_hats_mobile/core/constants/app_spacings.dart';
+import 'package:jim_hats_mobile/presentation/views/edit_gym_challenge/edit_gym_challenge_page_arguments.dart';
 import 'package:jim_hats_mobile/presentation/views/ranking/ranking_page_arguments.dart';
 import 'package:jim_hats_mobile/presentation/widgets/app_drawer/app_drawer.dart';
 import 'package:jim_hats_mobile/presentation/cubits/app_drawer/app_drawer_cubit.dart';
@@ -57,7 +58,8 @@ class GymChallengeView extends StatelessWidget {
             case 1:
               Navigator.of(context).pushNamed(
                 AppRoutes.ranking,
-                arguments: RankingPageArguments(challengeId: gymChallengePageArguments.challengeId),
+                arguments: RankingPageArguments(
+                    challengeId: gymChallengePageArguments.challengeId),
               );
               break;
             case 2:
@@ -99,7 +101,16 @@ class GymChallengeView extends StatelessWidget {
       appBar: AppBar(
         actions: [
           IconButton(onPressed: () {}, icon: Icon(Icons.notifications)),
-          IconButton(onPressed: () {}, icon: Icon(Icons.more_horiz))
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(
+                  AppRoutes.editGymChallenge,
+                  arguments: EditGymChallengePageArguments(
+                    gymChallengeId: gymChallengePageArguments.challengeId,
+                  ),
+                );
+              },
+              icon: Icon(Icons.more_horiz))
         ],
       ),
       body: BlocBuilder<GymChallengePageCubit, GymChallengePageState>(
@@ -139,7 +150,9 @@ class GymChallengeView extends StatelessWidget {
                               onTap: () {
                                 Navigator.of(context).pushNamed(
                                   AppRoutes.ranking,
-                                  arguments: RankingPageArguments(challengeId: gymChallengePageArguments.challengeId),
+                                  arguments: RankingPageArguments(
+                                      challengeId: gymChallengePageArguments
+                                          .challengeId),
                                 );
                               },
                               leader: state.leader,
