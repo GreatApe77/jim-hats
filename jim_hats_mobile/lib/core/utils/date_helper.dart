@@ -30,4 +30,7 @@ abstract class DateHelper {
     return '${weekDayToName[date.weekday]}, ${monthNumberToName[date.month]} ${date.day} ${date.hour}:${date.minute}';
     //return '${}'
   }
+  static String formatDateSlashSeparated(DateTime date){
+    return '${date.day}/${date.month}/${date.year}';
+  }
 }
