@@ -29,12 +29,12 @@ class ChallengeBanner extends StatelessWidget {
           children: [
             Expanded(
               flex: 3,
-              child: Container(
+              child: Ink(
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(challenge.image ??
-                            'https://avatars.githubusercontent.com/u/99892494?s=200&v=4')),
+                      fit: BoxFit.cover,
+                      image: NetworkImage(challenge.image ?? ''),
+                    ),
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(8),
                       topRight: Radius.circular(8),
