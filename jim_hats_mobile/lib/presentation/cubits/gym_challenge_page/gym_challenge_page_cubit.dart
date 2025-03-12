@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:jim_hats_mobile/core/utils/date_helper.dart';
 import 'package:jim_hats_mobile/core/utils/group_by_extension.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log_with_user.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/repositories/exercise_logs_repository.dart';
@@ -72,7 +73,7 @@ class GymChallengePageCubit extends Cubit<GymChallengePageState> {
   Map<String, List<ExerciseLogWithUser>> _groupLogsByDay(
       List<ExerciseLogWithUser> exerciseLogs) {
     return exerciseLogs.groupBy<String>(
-      (log) => _formatDateText(log.date),
+      (log) => DateHelper.formatDateSlashSeparated(log.date),
     );
   }
 
@@ -82,8 +83,5 @@ class GymChallengePageCubit extends Cubit<GymChallengePageState> {
     );
   }
 
-  _formatDateText(DateTime date) {
-    // YYYY/MM/DD
-    return '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
-  }
+  
 }

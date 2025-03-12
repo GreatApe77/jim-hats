@@ -142,6 +142,7 @@ class _UserStatsView extends StatelessWidget {
                       child: TextButton(
                         onPressed: () {
                           final arguments = UserCalendarsPageArguments(
+                            loggedUser: state.loggedUser,
                             exerciseLogsGroupedByDate:
                                 _groupByMonthAndYear(state.logsOfUser),
                           );

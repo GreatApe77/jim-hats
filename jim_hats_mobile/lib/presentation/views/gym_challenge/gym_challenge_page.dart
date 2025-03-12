@@ -229,10 +229,10 @@ class GymChallengeView extends StatelessWidget {
   }
 
   String _formatDayStringFromKey(String key) {
-    final splittedDate = key.split('-');
-    final int year = int.parse(splittedDate[0]);
+    final splittedDate = key.split('/');
+    final int year = int.parse(splittedDate[2]);
     final int month = int.parse(splittedDate[1]);
-    final int day = int.parse(splittedDate[2]);
+    final int day = int.parse(splittedDate[0]);
     final dayOfChallenges = DateTime(year, month, day);
     switch (_calculateDifference(dayOfChallenges)) {
       case 0:
