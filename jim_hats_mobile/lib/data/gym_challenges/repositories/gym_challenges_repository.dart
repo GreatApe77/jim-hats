@@ -1,5 +1,6 @@
 import 'package:jim_hats_mobile/data/gym_challenges/data_sources/gym_challenge_data_source.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/dtos/create_gym_challenge_dto.dart';
+import 'package:jim_hats_mobile/data/gym_challenges/dtos/update_gym_challenge_dto.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/challenge_member.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/gym_challenge.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/ranking.dart';
@@ -69,5 +70,13 @@ class GymChallengesRepository {
   Future<void> joinChallenge(String joinId) async {
     await _gymChallengeDataSource.joinChallenge(joinId);
     MemoryCache.remove('challenges');
+  }
+
+  Future<void> updateGymChallenge(
+    int challengeId,
+    UpdateGymChallengeDto updateGymChallengeDto,
+  ) async {
+    await _gymChallengeDataSource.updateChallenge(challengeId, updateGymChallengeDto);
+    MemoryCache.remove('challenges-$challengeId');
   }
 }
