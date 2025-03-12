@@ -1,7 +1,7 @@
-
 import 'package:jim_hats_mobile/core/network/http_service.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/data_sources/memory_gym_challenge_data_source.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/dtos/create_gym_challenge_dto.dart';
+import 'package:jim_hats_mobile/data/gym_challenges/dtos/update_gym_challenge_dto.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/challenge_member.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/gym_challenge.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/ranking.dart';
@@ -11,7 +11,6 @@ class NetworkGymChallengeDataSource implements MemoryGymChallengeDataSource {
   // final SettingsDataSource _settingsDataSource;
   NetworkGymChallengeDataSource({
     required HttpService httpClient,
-   
   }) : _httpClient = httpClient;
 
   @override
@@ -90,6 +89,19 @@ class NetworkGymChallengeDataSource implements MemoryGymChallengeDataSource {
     try {
       await _httpClient.get(
         '/gym-challenges/$joinId/join',
+      );
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> updateChallenge(
+      int challengeId, UpdateGymChallengeDto updateGymChallengeDto) async {
+    try {
+      await _httpClient.patch(
+        '/gym-challenges/$challengeId',
+        data: updateGymChallengeDto.toMap(),
       );
     } catch (e) {
       rethrow;
