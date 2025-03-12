@@ -7,6 +7,7 @@ final class EditGymChallengePageState {
   final String name;
   final String description;
   final String imageUrl;
+  final String errorMessage;
   final XFile? image;
   final DateTime startAt;
   final DateTime endAt;
@@ -18,12 +19,14 @@ final class EditGymChallengePageState {
       required this.description,
       required this.image,
       required this.startAt,
-      required this.endAt});
+      required this.endAt,
+      required this.errorMessage});
 
   EditGymChallengePageState copyWith({
     EditGymChallengePageStatus? status,
     String? name,
     String? description,
+    String? errorMessage,
     Nullable<XFile>? image,
     String? imageUrl,
     DateTime? startAt,
@@ -33,6 +36,7 @@ final class EditGymChallengePageState {
         status: status ?? this.status,
         name: name ?? this.name,
         description: description ?? this.description,
+        errorMessage: errorMessage ?? this.errorMessage,
         image: image != null ? image.value : this.image,
         startAt: startAt ?? this.startAt,
         endAt: endAt ?? this.endAt,

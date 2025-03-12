@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ImageBannerForm extends StatelessWidget {
-  final Function() onTap;
+  final Function(TapDownDetails details) onTapDown;
   final String imageUrl;
   final XFile? image;
   const ImageBannerForm(
-      {super.key, this.image, required this.onTap, required this.imageUrl});
+      {super.key, this.image, required this.onTapDown, required this.imageUrl});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class ImageBannerForm extends StatelessWidget {
                   alignment: Alignment.center,
                   child: InkWell(
                     borderRadius: BorderRadius.circular(10),
-                    onTap: onTap,
+                    onTapDown: onTapDown,
                     child: Ink(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
@@ -43,12 +43,13 @@ class ImageBannerForm extends StatelessWidget {
                       alignment: Alignment.center,
                       child: InkWell(
                         borderRadius: BorderRadius.circular(10),
-                        onTap: onTap,
+                        onTapDown:onTapDown ,
                         child: Ink(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: Theme.of(context).colorScheme.onSurface,
                             image: DecorationImage(
+                              fit: BoxFit.cover,
                               image: FileImage(
                                 File(image!.path),
                               ),
@@ -62,12 +63,13 @@ class ImageBannerForm extends StatelessWidget {
                       alignment: Alignment.center,
                       child: InkWell(
                         borderRadius: BorderRadius.circular(10),
-                        onTap: onTap,
+                        onTapDown: onTapDown,
                         child: Ink(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: Theme.of(context).colorScheme.onSurface,
                             image: DecorationImage(
+                              fit: BoxFit.cover,
                               image: NetworkImage(
                                 imageUrl,
                               ),
