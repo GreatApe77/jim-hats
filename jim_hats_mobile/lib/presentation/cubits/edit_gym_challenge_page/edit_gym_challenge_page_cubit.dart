@@ -88,6 +88,8 @@ class EditGymChallengePageCubit extends Cubit<EditGymChallengePageState> {
         ),
       );
 
+      if (!_validateDates()) return;
+
       String url = state.imageUrl;
       if (state.image != null) {
         url = await _uploadRepository.uploadFile(
@@ -97,15 +99,13 @@ class EditGymChallengePageCubit extends Cubit<EditGymChallengePageState> {
         );
       }
       await _gymChallengesRepository.updateGymChallenge(
-        gymChallengeId,
-        UpdateGymChallengeDto(
-          name: state.name,
-          description: state.description,
-          endAt: DateHelper.formatDateSlashSeparated(state.endAt),
-          startAt: DateHelper.formatDateSlashSeparated(state.startAt),
-          image: url.isEmpty? null :url
-        )
-      );
+          gymChallengeId,
+          UpdateGymChallengeDto(
+              name: state.name,
+              description: state.description,
+              endAt: DateHelper.formatDateSlashSeparated(state.endAt),
+              startAt: DateHelper.formatDateSlashSeparated(state.startAt),
+              image: url.isEmpty ? null : url));
       emit(
         state.copyWith(
           status: EditGymChallengePageStatus.success,
@@ -126,5 +126,20 @@ class EditGymChallengePageCubit extends Cubit<EditGymChallengePageState> {
         ),
       );
     }
+  }
+
+  ///returns true if all dates meets the requirements
+  bool _validateDates() {
+    if (state.endAt.isBefore(state.startAt)) {
+      emit(
+        state.copyWith(
+          errorMessage: 'End date must be after start date',
+          status: EditGymChallengePageStatus.error,
+        ),
+      );
+      return false;
+    }
+
+    return true;
   }
 }

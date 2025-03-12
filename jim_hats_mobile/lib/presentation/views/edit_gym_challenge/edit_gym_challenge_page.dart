@@ -92,6 +92,7 @@ class _EditGymChallengeViewState extends State<EditGymChallengeView> {
                 );
               }
               if (state.status == EditGymChallengePageStatus.error) {
+                scaffoldMessengerKey.currentState?.clearSnackBars();
                 scaffoldMessengerKey.currentState?.showSnackBar(
                   SnackBar(
                     backgroundColor: Theme.of(context).colorScheme.error,
@@ -192,16 +193,17 @@ class _EditGymChallengeViewState extends State<EditGymChallengeView> {
                     controller: _startAtController,
                     readOnly: true,
                     onTap: () async {
+                      final initialDate = state.startAt.isBefore(DateTime.now())? DateTime.now():state.startAt;
                       final date = await showDatePicker(
-                        context: context,
-                        initialDate: state.startAt,
-                        firstDate: DateTime.now(),
-                        lastDate: DateTime.now().add(
-                          Duration(
-                            days: 365,
-                          ),
-                        ),
-                      );
+                          context: context,
+                          initialDate: initialDate,
+                          firstDate: DateTime.now(),
+                          // lastDate: DateTime.now().add(
+                          //   Duration(
+                          //     days: 365,
+                          //   ),
+                          // ),
+                          lastDate: state.endAt.add(Duration(days: 365 * 2)));
                       if (date == null) return;
                       _startAtController.text =
                           DateHelper.formatDateSlashSeparated(date);
@@ -242,10 +244,8 @@ class _EditGymChallengeViewState extends State<EditGymChallengeView> {
                         context: context,
                         initialDate: state.endAt,
                         firstDate: DateTime.now(),
-                        lastDate: DateTime.now().add(
-                          Duration(
-                            days: 365,
-                          ),
+                        lastDate: state.endAt.add(
+                          Duration(days: 365 * 2),
                         ),
                       );
                       if (date == null) return;
