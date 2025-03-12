@@ -31,6 +31,6 @@ abstract class DateHelper {
     //return '${}'
   }
   static String formatDateSlashSeparated(DateTime date){
-    return '${date.day}/${date.month}/${date.year}';
+    return '${date.day<10?'0${date.day}':date.day}/${date.month<10?'0${date.month}':date.month}/${date.year}';
   }
 }
