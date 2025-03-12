@@ -69,9 +69,13 @@ class RankingView extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                  'Starts ${DateHelper.formatDateShort(state.challenge.startAt)}'),
+                                'Starts ${DateHelper.formatDateShort(state.challenge.startAt)}',
+                                style: Theme.of(context).textTheme.bodySmall,
+                              ),
                               Text(
-                                  'Finishes ${DateHelper.formatDateShort(state.challenge.endAt)}'),
+                                'Finishes ${DateHelper.formatDateShort(state.challenge.endAt)}',
+                                style: Theme.of(context).textTheme.bodySmall,
+                              ),
                             ],
                           ),
                         ),
@@ -91,7 +95,6 @@ class RankingView extends StatelessWidget {
                               title: Text(state.rankings[index].username),
                               subtitle: Text(
                                   '${state.rankings[index].logCount} days active'),
-
                               leading: UserCircleAvatar(
                                 username: state.rankings[index].username,
                                 avatarUrl: state.rankings[index].profilePicture,
