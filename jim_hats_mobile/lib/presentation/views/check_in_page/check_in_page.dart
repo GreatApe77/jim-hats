@@ -66,12 +66,9 @@ class CheckInView extends StatelessWidget {
                       bloc: cubit,
                       listener: (context, state) {
                         if (state is CheckInPageSuccess) {
-                          Navigator.of(context).pushReplacementNamed(
-                            AppRoutes.gymChallenge,
-                            arguments: GymChallengePageArguments(
-                                challengeId: checkInPageArguments
-                                    .exerciseLog.gymChallengeId),
-                          );
+                          
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pop();
                         }
                         if (state is CheckInPageError) {
                           scaffoldMessengerKey.currentState

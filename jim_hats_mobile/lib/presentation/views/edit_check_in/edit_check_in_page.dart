@@ -59,13 +59,7 @@ class _EditCheckInViewState extends State<EditCheckInView> {
                     ),
                   );
               } else if (state.status == EditCheckInPageStatus.success) {
-                Navigator.of(context).pushReplacementNamed(
-                  AppRoutes.gymChallenge,
-                  arguments: GymChallengePageArguments(
-                    challengeId: widget
-                        .editCheckInPageArguments.exerciseLog.gymChallengeId,
-                  ),
-                );
+                Navigator.of(context).pop();
               }
             },
             buildWhen: (previous, current) => previous.status != current.status,
