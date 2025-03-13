@@ -89,7 +89,7 @@ class _NewCheckInViewState extends State<NewCheckInView> {
       body: SafeArea(
           child: Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: AppSpacings.horizontalPadding.toDouble()),
+            horizontal: AppSpacings.horizontalPadding),
         child: Form(
           key: _formKey,
           child: ListView(
@@ -208,7 +208,7 @@ class _NewCheckInViewState extends State<NewCheckInView> {
       builder: (context) => SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(
-              horizontal: AppSpacings.horizontalPadding.toDouble()),
+              horizontal: AppSpacings.horizontalPadding),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,

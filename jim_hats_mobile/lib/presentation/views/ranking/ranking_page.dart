@@ -46,7 +46,7 @@ class RankingView extends StatelessWidget {
             return SafeArea(
                 child: Padding(
                     padding: EdgeInsets.symmetric(
-                        horizontal: AppSpacings.horizontalPadding.toDouble()),
+                        horizontal: AppSpacings.horizontalPadding),
                     child: ListView(
                       children: [
                         Padding(

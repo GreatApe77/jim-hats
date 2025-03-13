@@ -49,7 +49,7 @@ class _UserStatsView extends StatelessWidget {
           if (state is UsersStatsDataSuccess) {
             return Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: AppSpacings.horizontalPadding.toDouble()),
+                  horizontal: AppSpacings.horizontalPadding),
               child: SafeArea(
                 child: ListView(
                   children: [

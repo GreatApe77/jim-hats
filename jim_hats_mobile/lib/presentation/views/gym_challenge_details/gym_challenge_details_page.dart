@@ -32,7 +32,7 @@ class GymChallengeDetailsView extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: AppSpacings.horizontalPadding.toDouble(),
+            horizontal: AppSpacings.horizontalPadding,
           ),
           child: BlocBuilder<GymChallengeDetailsPageCubit,
               GymChallengeDetailsPageState>(

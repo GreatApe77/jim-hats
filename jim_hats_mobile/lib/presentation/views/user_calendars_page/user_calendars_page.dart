@@ -17,7 +17,7 @@ class UserCalendarsPage extends StatelessWidget {
       appBar: AppBar(),
       body: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: AppSpacings.horizontalPadding.toDouble(),
+          horizontal: AppSpacings.horizontalPadding,
         ),
         child: SafeArea(
           child: ListView.separated(

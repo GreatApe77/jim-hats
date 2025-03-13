@@ -11,7 +11,7 @@ class ServerDownAlertPage extends StatelessWidget {
       backgroundColor: Theme.of(context).colorScheme.error,
       body: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: AppSpacings.horizontalPadding.toDouble()
+          horizontal: AppSpacings.horizontalPadding
         ),
         child: Center(
           child: Column(

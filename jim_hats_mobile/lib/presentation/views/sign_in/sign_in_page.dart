@@ -56,7 +56,7 @@ class SignInView extends StatelessWidget {
           key: formKey,
           child: Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: AppSpacings.horizontalPadding.toDouble()),
+                  horizontal: AppSpacings.horizontalPadding),
               child: ListView(
                 children: [
                   Text(

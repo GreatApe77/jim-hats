@@ -141,7 +141,7 @@ class GymChallengeView extends StatelessWidget {
             return SafeArea(
               child: Padding(
                   padding: EdgeInsets.symmetric(
-                      horizontal: AppSpacings.horizontalPadding.toDouble()),
+                      horizontal: AppSpacings.horizontalPadding),
                   child: ListView.builder(
                       itemCount: 3,
                       itemBuilder: (context, index) {

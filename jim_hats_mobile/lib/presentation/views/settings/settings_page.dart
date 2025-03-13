@@ -49,7 +49,7 @@ class SettingsView extends StatelessWidget {
             return SafeArea(
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                    horizontal: AppSpacings.horizontalPadding.toDouble()),
+                    horizontal: AppSpacings.horizontalPadding),
                 child: ListView(
                   children: [
                     Text(
@@ -73,7 +73,7 @@ class SettingsView extends StatelessWidget {
                               child: Padding(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: AppSpacings.horizontalPadding
-                                        .toDouble()),
+                                        ),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   crossAxisAlignment:

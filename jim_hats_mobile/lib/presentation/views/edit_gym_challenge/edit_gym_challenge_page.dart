@@ -128,7 +128,7 @@ class _EditGymChallengeViewState extends State<EditGymChallengeView> {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: AppSpacings.horizontalPadding.toDouble(),
+            horizontal: AppSpacings.horizontalPadding,
           ),
           child: ListView(
             children: [

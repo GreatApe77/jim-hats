@@ -47,7 +47,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
       body: SafeArea(
           child: Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: AppSpacings.horizontalPadding.toDouble()),
+            horizontal: AppSpacings.horizontalPadding),
         child: BlocListener<CreateAccountPageCubit, CreateAccountPageState>(
           bloc: context.read<CreateAccountPageCubit>(),
           listener: (context, state) {
