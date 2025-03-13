@@ -42,7 +42,7 @@ class _AppDrawerState extends State<AppDrawer> {
                       AppRoutes.userStats,
                   onTap: () {
                     Navigator.of(context).pop();
-                    Navigator.of(context).pushNamed(AppRoutes.userStats);
+                    Navigator.of(context).pushReplacementNamed(AppRoutes.userStats);
                   },
                   
                   leading: UserCircleAvatar(
@@ -89,7 +89,7 @@ class _AppDrawerState extends State<AppDrawer> {
                           Navigator.of(context).pop();
                           final gymChallengePageArgs =
                               GymChallengePageArguments(challengeId: e.id);
-                          Navigator.of(context).pushNamed(
+                          Navigator.of(context).pushReplacementNamed(
                               AppRoutes.gymChallenge,
                               arguments: gymChallengePageArgs);
                         },
@@ -132,7 +132,7 @@ class _AppDrawerState extends State<AppDrawer> {
                 ModalRoute.of(context)?.settings.name == AppRoutes.settings,
             onTap: () {
               Navigator.of(context).pop();
-              Navigator.of(context).pushNamed(AppRoutes.settings);
+              Navigator.of(context).pushReplacementNamed(AppRoutes.settings);
             },
             leading: Icon(Icons.settings_outlined),
             title: Text('Settings'),
