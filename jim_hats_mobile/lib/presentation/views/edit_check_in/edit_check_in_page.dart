@@ -59,8 +59,9 @@ class _EditCheckInViewState extends State<EditCheckInView> {
                     ),
                   );
               } else if (state.status == EditCheckInPageStatus.success) {
-                Navigator.of(context).pushReplacementNamed(
+                Navigator.of(context).pushNamedAndRemoveUntil(
                   AppRoutes.gymChallenge,
+                  (route) => false,
                   arguments: GymChallengePageArguments(
                     challengeId: widget
                         .editCheckInPageArguments.exerciseLog.gymChallengeId,
