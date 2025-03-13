@@ -39,8 +39,10 @@ abstract class AppRouter {
             bloc: context.read<AuthCubit>()..checkAuthStatus(),
             listener: (context, state) {
               if (state.failed) {
-                Navigator.of(context)
-                    .pushReplacementNamed(AppRoutes.serverDown);
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                  AppRoutes.serverDown,
+                  (route) => false,
+                );
               }
               switch (state.authStatus) {
                 case AuthStatus.authenticated:
