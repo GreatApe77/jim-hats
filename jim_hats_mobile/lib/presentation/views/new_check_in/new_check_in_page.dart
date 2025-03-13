@@ -56,8 +56,9 @@ class _NewCheckInViewState extends State<NewCheckInView> {
                   ..showSnackBar(
                       SnackBar(content: Text('Error while posting exercise')));
               } else if (state.status == NewCheckInPageStatus.success) {
-                Navigator.of(context).pushReplacementNamed(
+                Navigator.of(context).pushNamedAndRemoveUntil(
                   AppRoutes.gymChallenge,
+                  (route) => false,
                   arguments: GymChallengePageArguments(
                     challengeId: widget.pageArguments.challengeId,
                   ),
