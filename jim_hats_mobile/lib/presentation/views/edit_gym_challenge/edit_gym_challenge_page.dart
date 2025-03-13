@@ -84,8 +84,10 @@ class _EditGymChallengeViewState extends State<EditGymChallengeView> {
             bloc: context.read<EditGymChallengePageCubit>(),
             listener: (context, state) {
               if (state.status == EditGymChallengePageStatus.success) {
-                Navigator.of(context).pushNamed(
+                Navigator.of(context).pushNamedAndRemoveUntil(
+
                   AppRoutes.gymChallenge,
+                  (route) => false,
                   arguments: GymChallengePageArguments(
                       challengeId:
                           widget.editGymChallengePageArguments.gymChallenge.id),
