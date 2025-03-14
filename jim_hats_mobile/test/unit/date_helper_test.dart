@@ -24,4 +24,23 @@ void main() {
       expect(result, expectedResult);
     },
   );
+   test(
+    'Should format date Extended similar to: Monday, February 25 14:00',
+    () {
+      final testDate = DateTime(2013, DateTime.march, 8,14,9);
+      final expectedResult = 'Friday, March 8 14:09';
+      final result = DateHelper.formatDateExtended(testDate);
+      expect(result,expectedResult);
+    },
+  );
+
+  test(
+    'Should format date short similar to: February 4, 2025',
+    () {
+      final testDate = DateTime(2025, DateTime.february, 4,14,9);
+      final expectedResult = 'February 4, 2025';
+      final result = DateHelper.formatDateShort(testDate);
+      expect(result,expectedResult);
+    },
+  );
 }

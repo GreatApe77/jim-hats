@@ -22,15 +22,22 @@ abstract class DateHelper {
     6: 'Saturday',
     7: 'Sunday',
   };
+
   ///Example: February 4, 2025
   static String formatDateShort(DateTime date) {
     return '${monthNumberToName[date.month]} ${date.day}, ${date.year}';
   }
-  static String formatDateExtended(DateTime date){
-    return '${weekDayToName[date.weekday]}, ${monthNumberToName[date.month]} ${date.day} ${date.hour}:${date.minute}';
+
+  static String formatDateExtended(DateTime date) {
+    return '${weekDayToName[date.weekday]}, ${monthNumberToName[date.month]} ${date.day} ${_zeroToLeft(date.hour)}:${_zeroToLeft(date.minute)}';
     //return '${}'
   }
-  static String formatDateSlashSeparated(DateTime date){
-    return '${date.day<10?'0${date.day}':date.day}/${date.month<10?'0${date.month}':date.month}/${date.year}';
+
+  static String formatDateSlashSeparated(DateTime date) {
+    return '${_zeroToLeft(date.day)}/${_zeroToLeft(date.month)}/${date.year}';
+  }
+
+  static String _zeroToLeft(int num) {
+    return num < 10 ? '0$num' : '$num';
   }
 }
