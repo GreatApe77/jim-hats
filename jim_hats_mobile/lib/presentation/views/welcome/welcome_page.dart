@@ -55,7 +55,7 @@ class WelcomePage extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(
-                  Icons.edit,
+                  Icons.sports_handball,
                   size: 72,
                   color: Theme.of(context).colorScheme.primary,
                 ),
