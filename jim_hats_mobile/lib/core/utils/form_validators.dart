@@ -24,7 +24,7 @@ abstract class FormValidators {
 
   static String? validateGroupCode(String? groupCode) {
     if (groupCode == null || groupCode.isEmpty) {
-      return 'Group code is requried';
+      return 'Group code is required';
     }
 
     if (!Uuid.isValidUUID(fromString: groupCode)) {

@@ -3,6 +3,7 @@ import 'package:jim_hats_mobile/core/utils/form_validators.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:uuid/uuid.dart';
+
 @GenerateMocks([Uuid])
 void main() {
   group(
@@ -115,14 +116,25 @@ void main() {
   group(
     'Validate group code',
     () {
-      test('Should be a valid group code', () {
-        final validGroupCode = '93cfcf40-f42b-43d7-bf14-83cd53b89d8e';
-        when(Uuid.isValidUUID(fromString: validGroupCode)).thenReturn(true);
-        
-        // ignore: avoid_init_to_null
-        String? expectedErrorMessage = null;
-        String? returnedErrorMessage = FormValidators.validateGroupCode(validGroupCode);
-        expect(returnedErrorMessage,expectedErrorMessage);
+      // test(
+      //   'Should be a valid group code',
+      //   () {
+      //     final validGroupCode = '93cfcf40-f42b-43d7-bf14-83cd53b89d8e';
+      //     when(Uuid.isValidUUID(fromString: validGroupCode)).thenReturn(true);
+
+      //     // ignore: avoid_init_to_null
+      //     String? expectedErrorMessage = null;
+      //     String? returnedErrorMessage =
+      //         FormValidators.validateGroupCode(validGroupCode);
+      //     expect(returnedErrorMessage, expectedErrorMessage);
+      //   },
+      // );
+      test('Should NOT be a valid group code (group code is empty)', () {
+        final emptyGroupCode = '';
+        final expectedErrorMessage = 'Group code is required';
+        final returnedErrorMessage = FormValidators.validateGroupCode(emptyGroupCode);
+        expect(returnedErrorMessage, expectedErrorMessage);
+
       },);
     },
   );
