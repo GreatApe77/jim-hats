@@ -6,7 +6,7 @@ class ImageUrlValidator implements Validatable<String> {
     if (imageUrl == null) {
       return null;
     }
-    if (!imageUrl.startsWith('https')) {
+    if (!imageUrl.startsWith('http')) {
       return 'Invalid image url';
     }
     return null;
