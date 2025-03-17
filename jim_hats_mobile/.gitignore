@@ -46,3 +46,5 @@ app.*.map.json
 
 #Generated Mocks
 *.mocks.dart
+#Generated files from the globally installed dart package "full_coverage"
+test/full_coverage_test.dart
