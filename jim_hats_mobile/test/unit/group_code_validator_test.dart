@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:jim_hats_mobile/core/utils/uuid_service.dart';
 import 'package:jim_hats_mobile/core/utils/validators/group_code_validator.dart';
-import 'package:jim_hats_mobile/core/utils/validators/validatable.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -25,6 +24,10 @@ void main() {
           uuidService: mockUuidService,
         );
       });
+
+      test('Should setup with a uuid service as a dependency if none is provided',() {
+        expect(()=>GroupCodeValidator(), returnsNormally);
+      },);
       test(
         'Should return null if group code is valid',
         () {
