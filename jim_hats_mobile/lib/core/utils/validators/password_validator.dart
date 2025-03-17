@@ -3,7 +3,7 @@ import 'package:jim_hats_mobile/core/utils/validators/validatable.dart';
 class PasswordValidator implements Validatable<String> {
   @override
   String? validate(String? password) {
-     if (password == null || password.isEmpty) {
+    if (password == null || password.isEmpty) {
       return 'Password is required';
     }
     if (password.length < 6 || password.length > 20) {
