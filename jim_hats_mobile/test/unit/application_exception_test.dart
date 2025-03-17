@@ -19,7 +19,7 @@ void main() {
       test(
         'Should initialize with standard message',
         () {
-          String expectedInitializationMethod = 'Application Exception';
+          String expectedInitializationMethod = 'Application exception';
           String message = _mockApplicationException.getMessage();
           expect(message, expectedInitializationMethod);
         },
