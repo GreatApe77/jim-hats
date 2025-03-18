@@ -42,13 +42,10 @@ class NetworkLoggedUserDataSource implements LoggedUserDataSource {
   @override
   Future<void> updateLoggedUser(UpdateLoggedUserDto updateLoggedUserDto) async {
     //_httpClient.dio.get('', options: Options());
-    try {
-      _httpClient.patch(
-        '/users/me',
-        data: updateLoggedUserDto.toMap(),
-      );
-    } catch (e) {
-      rethrow;
-    }
+
+    await _httpClient.patch(
+      '/users/me',
+      data: updateLoggedUserDto.toMap(),
+    );
   }
 }
