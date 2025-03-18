@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:jim_hats_mobile/core/network/dio/dio_http_service.dart';
 import 'package:jim_hats_mobile/core/network/http_service.dart';
+import 'package:jim_hats_mobile/core/utils/cache_service.dart';
+import 'package:jim_hats_mobile/core/utils/memory_cache_service.dart';
 import 'package:jim_hats_mobile/data/auth/data_sources/auth_data_source.dart';
 import 'package:jim_hats_mobile/data/auth/data_sources/network_auth_data_source.dart';
 import 'package:jim_hats_mobile/data/auth/repositories/auth_repository.dart';
@@ -47,6 +49,7 @@ final locator = GetIt.instance;
 Future<void> setupDependencies() async {
   //OTHER
   locator
+    ..registerSingleton<CacheService>(MemoryCacheService())
     ..registerSingleton<SettingsDataSource>(
         SharedPreferencesSettingsDataSource())
     ..registerSingleton<HttpClient>(
@@ -89,17 +92,33 @@ Future<void> setupDependencies() async {
     //Repositories
     ..registerSingleton<UploadRepository>(UploadRepository(
         networkUploadDataSource: locator.get<UploadDataSource>()))
-    ..registerSingleton<AuthRepository>(AuthRepository(
+    ..registerSingleton<AuthRepository>(
+      AuthRepository(
         settingsDatasource: locator.get<SettingsDataSource>(),
-        authDataSource: locator.get<AuthDataSource>()))
-    ..registerSingleton<LoggedUserRepository>(LoggedUserRepository(
-        loggedUserDataSource: locator.get<LoggedUserDataSource>()))
-    ..registerSingleton<GymChallengesRepository>(GymChallengesRepository(
-        gymChallengeDataSource: locator.get<GymChallengeDataSource>()))
+        authDataSource: locator.get<AuthDataSource>(),
+        cacheService: locator.get<CacheService>(),
+      ),
+    )
+    ..registerSingleton<LoggedUserRepository>(
+      LoggedUserRepository(
+        loggedUserDataSource: locator.get<LoggedUserDataSource>(),
+        cacheService: locator.get<CacheService>(),
+      ),
+    )
+    ..registerSingleton<GymChallengesRepository>(
+      GymChallengesRepository(
+        gymChallengeDataSource: locator.get<GymChallengeDataSource>(),
+        cacheService: locator.get<CacheService>(),
+      ),
+    )
     ..registerSingleton<SettingsRepository>(SettingsRepository(
         settingsDataSource: locator.get<SettingsDataSource>()))
-    ..registerSingleton<ExerciseLogsRepository>(ExerciseLogsRepository(
-        exerciseLogDataSource: locator.get<ExerciseLogDataSource>()));
+    ..registerSingleton<ExerciseLogsRepository>(
+      ExerciseLogsRepository(
+        exerciseLogDataSource: locator.get<ExerciseLogDataSource>(),
+        cacheService: locator.get<CacheService>(),
+      ),
+    );
   //load settings
   await loadSettings();
 

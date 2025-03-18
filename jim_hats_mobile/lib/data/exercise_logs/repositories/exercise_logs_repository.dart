@@ -1,3 +1,4 @@
+import 'package:jim_hats_mobile/core/utils/cache_service.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/data_sources/exercise_log_data_source.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/dtos/add_exercise_log_to_challenge_dto.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/dtos/update_exercise_log_dto.dart';
@@ -8,10 +9,15 @@ import 'package:jim_hats_mobile/core/utils/memory_cache.dart';
 
 class ExerciseLogsRepository {
   final ExerciseLogDataSource _exerciseLogDataSource;
-
+  final CacheService _cacheService;
   ExerciseLogsRepository(
-      {required ExerciseLogDataSource? exerciseLogDataSource})
-      : _exerciseLogDataSource =
+      {required ExerciseLogDataSource? exerciseLogDataSource,
+      
+      required CacheService cacheService
+      })
+      :
+      _cacheService=cacheService,
+       _exerciseLogDataSource =
             exerciseLogDataSource ?? locator.get<ExerciseLogDataSource>();
 
   Future<List<ExerciseLogWithUser>> getLogsOfChallenge(int challengeId) async {

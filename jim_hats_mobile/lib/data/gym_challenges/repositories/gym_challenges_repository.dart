@@ -1,3 +1,4 @@
+import 'package:jim_hats_mobile/core/utils/cache_service.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/data_sources/gym_challenge_data_source.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/dtos/create_gym_challenge_dto.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/dtos/update_gym_challenge_dto.dart';
@@ -9,10 +10,13 @@ import 'package:jim_hats_mobile/core/utils/memory_cache.dart';
 
 class GymChallengesRepository {
   final GymChallengeDataSource _gymChallengeDataSource;
-
-  GymChallengesRepository(
-      {required GymChallengeDataSource? gymChallengeDataSource})
-      : _gymChallengeDataSource =
+  final CacheService _cacheService;
+  GymChallengesRepository({
+    required GymChallengeDataSource? gymChallengeDataSource,
+    required CacheService cacheService,
+  }) :
+    _cacheService=cacheService,
+   _gymChallengeDataSource =
             gymChallengeDataSource ?? locator.get<GymChallengeDataSource>();
 
   Future<List<GymChallenge>> getGymChallengesOfUser(int userId) async {
@@ -76,7 +80,8 @@ class GymChallengesRepository {
     int challengeId,
     UpdateGymChallengeDto updateGymChallengeDto,
   ) async {
-    await _gymChallengeDataSource.updateChallenge(challengeId, updateGymChallengeDto);
+    await _gymChallengeDataSource.updateChallenge(
+        challengeId, updateGymChallengeDto);
     MemoryCache.remove('challenges-$challengeId');
   }
 }

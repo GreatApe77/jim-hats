@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:jim_hats_mobile/core/utils/cache_service.dart';
 import 'package:jim_hats_mobile/data/auth/data_sources/auth_data_source.dart';
 import 'package:jim_hats_mobile/data/auth/dtos/login_dto.dart';
 import 'package:jim_hats_mobile/data/auth/dtos/register_dto.dart';
@@ -9,11 +10,12 @@ import 'package:mockito/mockito.dart';
 
 import 'auth_repository_test.mocks.dart';
 
-@GenerateMocks([SettingsDataSource, AuthDataSource])
+@GenerateMocks([SettingsDataSource, AuthDataSource, CacheService])
 void main() {
   late AuthRepository sut;
   late SettingsDataSource mockSettingsDataSource;
   late AuthDataSource mockAuthDataSource;
+  late CacheService mockCacheService;
   final RegisterDto sampleRegisterDto = RegisterDto(
     username: 'username',
     email: 'email',
@@ -27,8 +29,10 @@ void main() {
   setUp(
     () {
       mockSettingsDataSource = MockSettingsDataSource();
+      mockCacheService = MockCacheService();
       mockAuthDataSource = MockAuthDataSource();
       sut = AuthRepository(
+        cacheService: mockCacheService,
         settingsDatasource: mockSettingsDataSource,
         authDataSource: mockAuthDataSource,
       );
