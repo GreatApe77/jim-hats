@@ -113,4 +113,19 @@ void main() {
       );
     },
   );
+  group(
+    'Logout',
+    () {
+      test(
+        'Should logout',
+        () async {
+          await expectLater(sut.logout(), completes);
+          verifyInOrder([
+            mockCacheService.clearCache(),
+            mockSettingsDataSource.remove('token'),
+          ]);
+        },
+      );
+    },
+  );
 }
