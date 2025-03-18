@@ -7,6 +7,7 @@ import 'package:jim_hats_mobile/core/utils/memory_cache.dart';
 class AuthRepository {
   final AuthDataSource _authDataSource;
   final SettingsDataSource _settingsDataSource;
+  
   AuthRepository({
     required SettingsDataSource settingsDatasource,
     required AuthDataSource authDataSource,
