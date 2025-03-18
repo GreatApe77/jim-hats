@@ -35,7 +35,7 @@ class ExerciseLogTile extends StatelessWidget {
               Text(exerciseLogWithUser.user.username)
             ],
           ),
-          Text(DateHelper.readableDate(exerciseLogWithUser.date))
+          Text(DateHelper.formatHourAndMinute(exerciseLogWithUser.date))
         ],
       ),
       leading: CircleAvatar(

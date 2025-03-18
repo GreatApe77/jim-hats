@@ -40,7 +40,8 @@ abstract class DateHelper {
   static String _zeroToLeft(int num) {
     return num < 10 ? '0$num' : '$num';
   }
-  static String readableDate(DateTime date){
+  ///Formats to HH:MM
+  static String formatHourAndMinute(DateTime date){
   
     int hour = date.hour;
     int minute = date.minute;

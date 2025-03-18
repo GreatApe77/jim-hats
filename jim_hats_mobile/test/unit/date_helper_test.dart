@@ -45,4 +45,10 @@ void main() {
       expect(result,expectedResult);
     },
   );
+  test('Should format to correct hour and minute ex: 14:09',() {
+      final testDate = DateTime(2025, DateTime.february, 4,14,9);
+      final expectedResult = '14:09';
+      final result = DateHelper.formatHourAndMinute(testDate);
+      expect(result,expectedResult);
+  },);
 }
