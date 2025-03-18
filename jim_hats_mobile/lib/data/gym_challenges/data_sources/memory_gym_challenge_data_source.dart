@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:jim_hats_mobile/data/gym_challenges/data_sources/gym_challenge_data_source.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/dtos/create_gym_challenge_dto.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/dtos/update_gym_challenge_dto.dart';

@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:jim_hats_mobile/data/logged_user/data_sources/logged_user_data_source.dart';
 import 'package:jim_hats_mobile/data/logged_user/dtos/update_logged_user_dto.dart';
 import 'package:jim_hats_mobile/data/logged_user/models/logged_user.dart';
