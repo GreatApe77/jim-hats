@@ -28,5 +28,5 @@ class UpdateGymChallengeDto {
     };
   }
 
-  String toJson() => json.encode(toMap());
+
 }
