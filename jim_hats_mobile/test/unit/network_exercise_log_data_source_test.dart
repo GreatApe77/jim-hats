@@ -8,7 +8,7 @@ import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log_with_user
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'network_exercise_log_data_sourcer_test.mocks.dart';
+import 'network_exercise_log_data_source_test.mocks.dart';
 
 @GenerateMocks([HttpService])
 void main() {
