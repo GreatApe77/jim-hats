@@ -36,7 +36,7 @@ class AuthRepository {
   }
 
   Future<void> logout() async {
-    MemoryCache.clearCache();
+    _cacheService.clearCache();
     await _settingsDataSource.remove('token');
   }
 

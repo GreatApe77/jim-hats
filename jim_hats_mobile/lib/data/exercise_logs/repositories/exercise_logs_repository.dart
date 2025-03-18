@@ -26,11 +26,11 @@ class ExerciseLogsRepository {
     // final logs = await _exerciseLogDataSource.getLogsOfChallenge(challengeId);
     // return logs;
     List<ExerciseLogWithUser>? logsOfChallenge =
-        MemoryCache.get<List<ExerciseLogWithUser>>('logs-$challengeId');
+        _cacheService.get<List<ExerciseLogWithUser>>('logs-$challengeId');
     if (logsOfChallenge == null) {
       logsOfChallenge =
           await _exerciseLogDataSource.getLogsOfChallenge(challengeId);
-      MemoryCache.store<List<ExerciseLogWithUser>>(
+      _cacheService.store<List<ExerciseLogWithUser>>(
           'logs-$challengeId', logsOfChallenge);
     }
     return logsOfChallenge;
@@ -44,7 +44,7 @@ class ExerciseLogsRepository {
       //print(addExerciseLogToChallengeDto.toMap());
       await _exerciseLogDataSource.addExerciseLogToChallenge(
           challengeId, addExerciseLogToChallengeDto);
-      MemoryCache.remove('logs-$challengeId');
+      _cacheService.remove('logs-$challengeId');
     } catch (e) {
       rethrow;
     }
@@ -52,10 +52,10 @@ class ExerciseLogsRepository {
 
   Future<List<ExerciseLog>> getAllExerciseLogsOfUser() async {
     final String key = 'user-logs';
-    List<ExerciseLog>? userLogs = MemoryCache.get<List<ExerciseLog>>(key);
+    List<ExerciseLog>? userLogs = _cacheService.get<List<ExerciseLog>>(key);
     if (userLogs == null) {
       userLogs = await _exerciseLogDataSource.getAllLogsOfUser();
-      MemoryCache.store<List<ExerciseLog>>(key, userLogs,
+      _cacheService.store<List<ExerciseLog>>(key, userLogs,
           duration: Duration(minutes: 1));
     }
     return userLogs;
@@ -67,7 +67,7 @@ class ExerciseLogsRepository {
       await _exerciseLogDataSource.deleteExerciseLog(
         exerciseLogId,
       );
-      MemoryCache.remove('logs-$challengeId');
+      _cacheService.remove('logs-$challengeId');
     } catch (e) {
       rethrow;
     }
@@ -84,7 +84,7 @@ class ExerciseLogsRepository {
         exerciseLogId,
         updateExerciseLogDto,
       );
-      MemoryCache.remove('logs-$challengeId');
+      _cacheService.remove('logs-$challengeId');
     } catch (e) {
       rethrow;
     }

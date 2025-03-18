@@ -20,11 +20,11 @@ class LoggedUserRepository {
 
   Future<LoggedUser> getLoggedUser() async {
     try {
-      var loggedUser = MemoryCache.get<LoggedUser>('loggedUser');
+      var loggedUser = _cacheService.get<LoggedUser>('loggedUser');
       if (loggedUser == null) {
         //await Future.delayed(Duration(seconds: 2));
         loggedUser = await _loggedUserDataSource.getLoggedUser();
-        MemoryCache.store('loggedUser', loggedUser,
+        _cacheService.store('loggedUser', loggedUser,
             duration: Duration(minutes: 1));
       }
       return loggedUser;
