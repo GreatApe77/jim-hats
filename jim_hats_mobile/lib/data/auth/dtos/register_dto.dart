@@ -13,22 +13,6 @@ class RegisterDto {
       required this.password,
       required this.profilePicture});
 
-  factory RegisterDto.fromJson(String source) =>
-      RegisterDto.fromMap(json.decode(source) as Map<String, dynamic>);
-
-  factory RegisterDto.fromMap(Map<String, dynamic> map) {
-    return RegisterDto(
-      username: map['username'] as String,
-      email: map['email'] as String,
-      password: map['password'] as String,
-      profilePicture: map['profilePicture'] != null
-          ? map['profilePicture'] as String
-          : null,
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'username': username,
