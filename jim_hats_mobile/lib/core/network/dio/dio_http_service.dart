@@ -20,20 +20,24 @@ class DioHttpService implements HttpService {
       receiveTimeout: const Duration(seconds: 5),
     );
 
-    _dio.interceptors.add(InterceptorsWrapper(
-      onRequest: (options, handler) async {
-        final token = await _settingsDataSource.get<String>('token');
-        if (token != null) {
-          options.headers['Authorization'] = 'Bearer $token';
-        }
-        return handler.next(options);
-      },
-    ));
+    _dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) async {
+          final token = await _settingsDataSource.get<String>('token');
+          if (token != null) {
+            options.headers['Authorization'] = 'Bearer $token';
+          }
+          return handler.next(options);
+        },
+      ),
+    );
   }
 
   @override
-  Future<Map<String, dynamic>> get(String path,
-      {Map<String, dynamic>? queryParameters}) async {
+  Future<Map<String, dynamic>> get(
+    String path, {
+    Map<String, dynamic>? queryParameters,
+  }) async {
     try {
       final response = await _dio.get(path, queryParameters: queryParameters);
       return response.data;
@@ -43,7 +47,10 @@ class DioHttpService implements HttpService {
   }
 
   @override
-  Future<Map<String, dynamic>> post(String path, {dynamic data}) async {
+  Future<Map<String, dynamic>> post(
+    String path, {
+    dynamic data,
+  }) async {
     try {
       final response = await _dio.post(path, data: data);
       return response.data;
@@ -53,7 +60,10 @@ class DioHttpService implements HttpService {
   }
 
   @override
-  Future<Map<String, dynamic>> put(String path, {dynamic data}) async {
+  Future<Map<String, dynamic>> put(
+    String path, {
+    dynamic data,
+  }) async {
     try {
       final response = await _dio.put(path, data: data);
       return response.data;
