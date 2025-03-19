@@ -4,7 +4,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jim_hats_mobile/core/constants/app_spacings.dart';
-import 'package:jim_hats_mobile/core/utils/form_validators.dart';
+import 'package:jim_hats_mobile/core/utils/validators/title_validator.dart';
+import 'package:jim_hats_mobile/core/utils/validators/validatable.dart';
 import 'package:jim_hats_mobile/locator.dart';
 import 'package:jim_hats_mobile/presentation/cubits/new_check_in_page/new_check_in_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/routing/app_routes.dart';
@@ -40,6 +41,7 @@ class NewCheckInView extends StatefulWidget {
 
 class _NewCheckInViewState extends State<NewCheckInView> {
   final _formKey = GlobalKey<FormState>();
+  final Validatable<String> _logTitleValidator = TitleValidator();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,8 +58,9 @@ class _NewCheckInViewState extends State<NewCheckInView> {
                   ..showSnackBar(
                       SnackBar(content: Text('Error while posting exercise')));
               } else if (state.status == NewCheckInPageStatus.success) {
-                Navigator.of(context).pushReplacementNamed(
+                Navigator.of(context).pushNamedAndRemoveUntil(
                   AppRoutes.gymChallenge,
+                  (route) => false,
                   arguments: GymChallengePageArguments(
                     challengeId: widget.pageArguments.challengeId,
                   ),
@@ -87,8 +90,8 @@ class _NewCheckInViewState extends State<NewCheckInView> {
       ),
       body: SafeArea(
           child: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: AppSpacings.horizontalPadding.toDouble()),
+        padding:
+            EdgeInsets.symmetric(horizontal: AppSpacings.horizontalPadding),
         child: Form(
           key: _formKey,
           child: ListView(
@@ -97,7 +100,7 @@ class _NewCheckInViewState extends State<NewCheckInView> {
                 height: 16,
               ),
               TextFormField(
-                validator: FormValidators.validateLogTitle,
+                validator: _logTitleValidator.validate,
                 onChanged: (value) {
                   context.read<NewCheckInPageCubit>().updateTitle(value);
                 },
@@ -206,8 +209,8 @@ class _NewCheckInViewState extends State<NewCheckInView> {
       context: context,
       builder: (context) => SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: AppSpacings.horizontalPadding.toDouble()),
+          padding:
+              EdgeInsets.symmetric(horizontal: AppSpacings.horizontalPadding),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,

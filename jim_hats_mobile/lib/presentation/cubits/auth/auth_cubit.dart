@@ -38,11 +38,9 @@ class AuthCubit extends Cubit<AuthState> {
       emit(state.copyWith(authStatus: AuthStatus.unauthenticated));
     } on TimeOutException {
       emit(state.copyWith(failed: true));
-    }on ServerException{
+    } on ServerException {
       emit(state.copyWith(failed: true));
-    }
-    
-    catch(e){
+    } catch (e) {
       emit(state.copyWith(authStatus: AuthStatus.unauthenticated));
     }
   }

@@ -8,7 +8,7 @@ class ExerciseLog {
   final String? image;
   final DateTime date;
   final int userId;
-  final int gymChallengeId;  
+  final int gymChallengeId;
   ExerciseLog({
     required this.id,
     required this.title,
@@ -55,7 +55,8 @@ class ExerciseLog {
     return ExerciseLog(
       id: map['id'] as int,
       title: map['title'] as String,
-      description: map['description'] != null ? map['description'] as String : null,
+      description:
+          map['description'] != null ? map['description'] as String : null,
       image: map['image'] != null ? map['image'] as String : null,
       date: DateTime.fromMillisecondsSinceEpoch(map['date'] as int),
       userId: map['userId'] as int,
@@ -65,7 +66,8 @@ class ExerciseLog {
 
   String toJson() => json.encode(toMap());
 
-  factory ExerciseLog.fromJson(String source) => ExerciseLog.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory ExerciseLog.fromJson(String source) =>
+      ExerciseLog.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
@@ -75,26 +77,25 @@ class ExerciseLog {
   @override
   bool operator ==(covariant ExerciseLog other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.id == id &&
-      other.title == title &&
-      other.description == description &&
-      other.image == image &&
-      other.date == date &&
-      other.userId == userId &&
-      other.gymChallengeId == gymChallengeId;
+
+    return other.id == id &&
+        other.title == title &&
+        other.description == description &&
+        other.image == image &&
+        other.date == date &&
+        other.userId == userId &&
+        other.gymChallengeId == gymChallengeId;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      title.hashCode ^
-      description.hashCode ^
-      image.hashCode ^
-      date.hashCode ^
-      userId.hashCode ^
-      gymChallengeId.hashCode;
+        title.hashCode ^
+        description.hashCode ^
+        image.hashCode ^
+        date.hashCode ^
+        userId.hashCode ^
+        gymChallengeId.hashCode;
   }
 }
 

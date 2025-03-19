@@ -6,6 +6,10 @@ import 'package:jim_hats_mobile/presentation/views/check_in_page/check_in_page.d
 import 'package:jim_hats_mobile/presentation/views/check_in_page/check_in_page_arguments.dart';
 import 'package:jim_hats_mobile/presentation/views/create-chalenge/create_challenge_page.dart';
 import 'package:jim_hats_mobile/presentation/views/create_account/create_account_page.dart';
+import 'package:jim_hats_mobile/presentation/views/edit_check_in/edit_check_in_page.dart';
+import 'package:jim_hats_mobile/presentation/views/edit_check_in/edit_check_in_page_arguments.dart';
+import 'package:jim_hats_mobile/presentation/views/edit_gym_challenge/edit_gym_challenge_page.dart';
+import 'package:jim_hats_mobile/presentation/views/edit_gym_challenge/edit_gym_challenge_page_arguments.dart';
 import 'package:jim_hats_mobile/presentation/views/gym_challenge/gym_challenge_page.dart';
 import 'package:jim_hats_mobile/presentation/views/gym_challenge/gym_challenge_page_arguments.dart';
 import 'package:jim_hats_mobile/presentation/views/gym_challenge_details/gym_challenge_details_page.dart';
@@ -19,6 +23,8 @@ import 'package:jim_hats_mobile/presentation/views/server_down/server_down_alert
 import 'package:jim_hats_mobile/presentation/views/settings/settings_page.dart';
 import 'package:jim_hats_mobile/presentation/views/sign_in/sign_in_page.dart';
 import 'package:jim_hats_mobile/presentation/views/splash/splah_page.dart';
+import 'package:jim_hats_mobile/presentation/views/user_calendars_page/user_calendars_page.dart';
+import 'package:jim_hats_mobile/presentation/views/user_calendars_page/user_calendars_page_arguments.dart';
 import 'package:jim_hats_mobile/presentation/views/user_stats/user_stats_page.dart';
 import 'package:jim_hats_mobile/presentation/views/welcome/welcome_page.dart';
 import 'package:jim_hats_mobile/presentation/widgets/custom_page_route/custom_page_route.dart';
@@ -33,8 +39,10 @@ abstract class AppRouter {
             bloc: context.read<AuthCubit>()..checkAuthStatus(),
             listener: (context, state) {
               if (state.failed) {
-                Navigator.of(context)
-                    .pushReplacementNamed(AppRoutes.serverDown);
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                  AppRoutes.serverDown,
+                  (route) => false,
+                );
               }
               switch (state.authStatus) {
                 case AuthStatus.authenticated:
@@ -59,6 +67,14 @@ abstract class AppRouter {
         return CustomPageRouteBuilder(
           settings: settings,
           child: const WelcomePage(),
+        );
+      case AppRoutes.editCheckin:
+        return CustomPageRouteBuilder(
+          settings: settings,
+          child: EditCheckInPage(
+            editCheckInPageArguments:
+                settings.arguments as EditCheckInPageArguments,
+          ),
         );
       case AppRoutes.createAccount:
         return CustomPageRouteBuilder(
@@ -97,11 +113,7 @@ abstract class AppRouter {
             ));
       case AppRoutes.ranking:
         final arguments = settings.arguments as RankingPageArguments;
-        // return MaterialPageRoute(
-        //   builder: (context) => RankingPage(
-        //       arguments: arguments,
-        //       rankingPageCubit: locator.get<RankingPageCubit>()),
-        // );
+
         return CustomPageRouteBuilder(
           settings: settings,
           child: RankingPage(
@@ -115,14 +127,6 @@ abstract class AppRouter {
         );
       case AppRoutes.gymChallenge:
         final arguments = settings.arguments as GymChallengePageArguments;
-
-        // return MaterialPageRoute(
-        //   settings: settings,
-        //   builder: (context) => GymChallengePage(
-        //     gymChallengePageCubit: locator.get<GymChallengePageCubit>(),
-        //     gymChallengePageArguments: arguments,
-        //   ),
-        // );
         return CustomPageRouteBuilder(
           settings: settings,
           child: GymChallengePage(
@@ -148,12 +152,25 @@ abstract class AppRouter {
           child: const CreateChallengePage(),
         );
       case AppRoutes.joinGroup:
-        // return MaterialPageRoute(builder: (context) => JoinGroupPage(
-        //   joinGroupPageCubit: locator.get<JoinGroupPageCubit>(),
-        // ),);
         return CustomPageRouteBuilder(
           settings: settings,
-          child: JoinGroupPage(),
+          child: const JoinGroupPage(),
+        );
+      case AppRoutes.userCalendars:
+        return CustomPageRouteBuilder(
+          settings: settings,
+          child: UserCalendarsPage(
+            calendarsPageArguments:
+                settings.arguments as UserCalendarsPageArguments,
+          ),
+        );
+      case AppRoutes.editGymChallenge:
+        return CustomPageRouteBuilder(
+          settings: settings,
+          child: EditGymChallengePage(
+            editGymChallengePageArguments:
+                settings.arguments as EditGymChallengePageArguments,
+          ),
         );
       default:
         return null;

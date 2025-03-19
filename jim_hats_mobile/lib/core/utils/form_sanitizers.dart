@@ -10,9 +10,11 @@ abstract class FormSanitizers {
   static String _toLowerCase(String? value) {
     return value?.toLowerCase() ?? '';
   }
-  static String sanitizeUsername(String? value){
+
+  static String sanitizeUsername(String? value) {
     return _removeSpaces(value);
   }
+
   static String sanitizeEmail(String? email) {
     return _toLowerCase(_removeSpaces(email));
   }

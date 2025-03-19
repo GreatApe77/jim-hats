@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/gym_challenge.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/ranking.dart';
 import 'package:jim_hats_mobile/core/utils/get_days_between_dates.dart';
+import 'package:jim_hats_mobile/presentation/widgets/user_circle_avatar/user_circle_avatar.dart';
 
 class ChallengeBanner extends StatelessWidget {
   final Function() onTap;
@@ -27,50 +28,58 @@ class ChallengeBanner extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Expanded(
-                flex: 3,
-                child: Container(
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: NetworkImage(challenge.image ??
-                                'https://avatars.githubusercontent.com/u/99892494?s=200&v=4')),
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(8),
-                          topRight: Radius.circular(8),
-                        )
-                        //color: Colors.amber,
-                        ))),
+              flex: 3,
+              child: Ink(
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(challenge.image ?? ''),
+                    ),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(8),
+                      topRight: Radius.circular(8),
+                    )
+                    //color: Colors.amber,
+                    ),
+              ),
+            ),
             Expanded(
                 child: Row(
               children: [
                 Expanded(
-                    child: Container(
-                  decoration: BoxDecoration(
+                  child: Container(
+                    decoration: BoxDecoration(
                       //color: Colors.red,
-                      borderRadius:
-                          BorderRadius.only(bottomLeft: Radius.circular(8))),
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(
+                          8,
+                        ),
+                      ),
+                    ),
+                    child: ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      title: Text('Leader'),
+                      subtitle: Text('${leader.logCount}'),
+                      leading: UserCircleAvatar(
+                        username: leader.username,
+                        avatarUrl: leader.profilePicture,
+                        radius: 15,
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
                   child: ListTile(
                     contentPadding: EdgeInsets.zero,
-                    title: Text('Leader'),
-                    subtitle: Text('${leader.logCount}'),
-                    leading: CircleAvatar(
+                    title: Text('You'),
+                    subtitle: Text('${user.logCount}'),
+                    leading: UserCircleAvatar(
+                      username: user.username,
                       radius: 15,
-                      backgroundImage:
-                          NetworkImage(leader.profilePicture ?? ''),
+                      avatarUrl: user.profilePicture,
                     ),
-                    //leading: Icon(Icons.calendar_month),
                   ),
-                )),
-                Expanded(
-                    child: ListTile(
-                        contentPadding: EdgeInsets.zero,
-                        title: Text('You'),
-                        subtitle: Text('${user.logCount}'),
-                        leading: CircleAvatar(
-                          radius: 15,
-                          backgroundImage:
-                              NetworkImage(user.profilePicture ?? ''),
-                        ))),
+                ),
                 Expanded(
                     child: Container(
                   decoration: BoxDecoration(

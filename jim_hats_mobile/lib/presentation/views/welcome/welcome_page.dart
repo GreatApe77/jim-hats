@@ -16,7 +16,7 @@ class WelcomePage extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             child: Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: AppSpacings.horizontalPadding.toDouble()),
+                  horizontal: AppSpacings.horizontalPadding),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisSize: MainAxisSize.min,
@@ -55,7 +55,7 @@ class WelcomePage extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(
-                  Icons.edit,
+                  Icons.sports_handball,
                   size: 72,
                   color: Theme.of(context).colorScheme.primary,
                 ),

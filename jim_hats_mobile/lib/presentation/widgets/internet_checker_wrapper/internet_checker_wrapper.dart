@@ -16,19 +16,12 @@ class InternetCheckerWrapper extends StatelessWidget {
         if (state.status == InternetConnectivityStatus.disconnected) {
           scaffoldMessengerKey.currentState?.showMaterialBanner(
             MaterialBanner(
-              content: Text('No internet connection'),
+              content: Text(
+                  'No internet connection! Enable your wifi or mobile data to continue'),
               contentTextStyle: TextStyle(
                 color: Theme.of(context).colorScheme.onError,
               ),
-              actions: [
-                TextButton(
-                  onPressed: () {},
-                  style: TextButton.styleFrom(
-                    foregroundColor: Theme.of(context).colorScheme.onError
-                  ),
-                  child: Text('Turn on'),
-                ),
-              ],
+              actions: [SizedBox.shrink()],
               leading: Icon(
                 Icons.wifi_off,
                 color: Theme.of(context).colorScheme.onError,

@@ -33,7 +33,7 @@ class GymChallengeDetailsPageCubit extends Cubit<GymChallengeDetailsPageState> {
       );
       final members = data[1] as List<ChallengeMember>;
       emit(GymChallengeDetailsPageLoadSuccess(
-        challenge: currentChallenge,
+          challenge: currentChallenge,
           members: members,
           admin: _getAdminOfChallenge(currentChallenge, members)));
     } catch (e) {

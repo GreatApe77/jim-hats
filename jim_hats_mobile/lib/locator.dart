@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:jim_hats_mobile/core/network/dio/dio_http_service.dart';
 import 'package:jim_hats_mobile/core/network/http_service.dart';
+import 'package:jim_hats_mobile/core/utils/cache_service.dart';
+import 'package:jim_hats_mobile/core/utils/memory_cache_service.dart';
 import 'package:jim_hats_mobile/data/auth/data_sources/auth_data_source.dart';
 import 'package:jim_hats_mobile/data/auth/data_sources/network_auth_data_source.dart';
 import 'package:jim_hats_mobile/data/auth/repositories/auth_repository.dart';
@@ -21,12 +23,14 @@ import 'package:jim_hats_mobile/data/settings/repositories/settings_repository.d
 import 'package:jim_hats_mobile/data/uploads/data_sources/network_upload_data_source.dart';
 import 'package:jim_hats_mobile/data/uploads/data_sources/upload_data_source.dart';
 import 'package:jim_hats_mobile/data/uploads/repositories/upload_repository.dart';
-import 'package:jim_hats_mobile/core/network/http_client.dart';
 import 'package:jim_hats_mobile/presentation/cubits/auth/auth_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/app_drawer/app_drawer_cubit.dart';
 import 'package:jim_hats_mobile/presentation/blocs/theme/theme_bloc.dart';
+import 'package:jim_hats_mobile/presentation/cubits/check_in_page/check_in_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/create_challenge_page/create_challenge_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/create_account_page/create_account_page_cubit.dart';
+import 'package:jim_hats_mobile/presentation/cubits/edit_check_in_page/edit_check_in_page_cubit.dart';
+import 'package:jim_hats_mobile/presentation/cubits/edit_gym_challenge_page/edit_gym_challenge_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/gym_challenge_page/gym_challenge_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/gym_challenge_details_page/gym_challenge_details_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/internet_connectivity/cubit/internet_connectivity_cubit.dart';
@@ -37,19 +41,17 @@ import 'package:jim_hats_mobile/presentation/cubits/ranking_page/ranking_page_cu
 import 'package:jim_hats_mobile/presentation/cubits/settings_page/settings_cubit.dart';
 import 'package:jim_hats_mobile/presentation/blocs/sign_in_page/sign_in_page_bloc.dart';
 import 'package:jim_hats_mobile/presentation/cubits/user_stats_page/user_stats_cubit.dart';
+import 'package:jim_hats_mobile/presentation/views/check_in_page/check_in_page.dart';
 
 final locator = GetIt.instance;
 
 Future<void> setupDependencies() async {
   //OTHER
   locator
+    ..registerSingleton<CacheService>(MemoryCacheService())
     ..registerSingleton<SettingsDataSource>(
         SharedPreferencesSettingsDataSource())
-    ..registerSingleton<HttpClient>(
-      HttpClient(
-        dio: Dio(),
-      ),
-    )
+    
     ..registerSingleton<HttpService>(
       DioHttpService(
         settingsDataSource: locator.get<SettingsDataSource>(),
@@ -85,23 +87,55 @@ Future<void> setupDependencies() async {
     //Repositories
     ..registerSingleton<UploadRepository>(UploadRepository(
         networkUploadDataSource: locator.get<UploadDataSource>()))
-    ..registerSingleton<AuthRepository>(AuthRepository(
+    ..registerSingleton<AuthRepository>(
+      AuthRepository(
         settingsDatasource: locator.get<SettingsDataSource>(),
-        authDataSource: locator.get<AuthDataSource>()))
-    ..registerSingleton<LoggedUserRepository>(LoggedUserRepository(
-        loggedUserDataSource: locator.get<LoggedUserDataSource>()))
-    ..registerSingleton<GymChallengesRepository>(GymChallengesRepository(
-        gymChallengeDataSource: locator.get<GymChallengeDataSource>()))
+        authDataSource: locator.get<AuthDataSource>(),
+        cacheService: locator.get<CacheService>(),
+      ),
+    )
+    ..registerSingleton<LoggedUserRepository>(
+      LoggedUserRepository(
+        loggedUserDataSource: locator.get<LoggedUserDataSource>(),
+        cacheService: locator.get<CacheService>(),
+      ),
+    )
+    ..registerSingleton<GymChallengesRepository>(
+      GymChallengesRepository(
+        gymChallengeDataSource: locator.get<GymChallengeDataSource>(),
+        cacheService: locator.get<CacheService>(),
+      ),
+    )
     ..registerSingleton<SettingsRepository>(SettingsRepository(
         settingsDataSource: locator.get<SettingsDataSource>()))
-    ..registerSingleton<ExerciseLogsRepository>(ExerciseLogsRepository(
-        exerciseLogDataSource: locator.get<ExerciseLogDataSource>()));
+    ..registerSingleton<ExerciseLogsRepository>(
+      ExerciseLogsRepository(
+        exerciseLogDataSource: locator.get<ExerciseLogDataSource>(),
+        cacheService: locator.get<CacheService>(),
+      ),
+    );
   //load settings
   await loadSettings();
 
   //Cubits
-
   locator
+    ..registerFactory<EditGymChallengePageCubit>(
+      () => EditGymChallengePageCubit(
+        gymChallengesRepository: locator.get<GymChallengesRepository>(),
+        uploadRepository: locator.get<UploadRepository>(),
+      ),
+    )
+    ..registerFactory<CheckInPageCubit>(
+      () => CheckInPageCubit(
+        exerciseLogsRepository: locator.get<ExerciseLogsRepository>(),
+      ),
+    )
+    ..registerFactory<EditCheckInPageCubit>(
+      () => EditCheckInPageCubit(
+        uploadRepository: locator.get<UploadRepository>(),
+        exerciseLogsRepository: locator.get<ExerciseLogsRepository>(),
+      ),
+    )
     ..registerFactory<InternetConnectivityCubit>(
       () => InternetConnectivityCubit(),
     )

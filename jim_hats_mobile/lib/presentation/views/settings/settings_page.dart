@@ -9,6 +9,7 @@ import 'package:jim_hats_mobile/presentation/cubits/app_drawer/app_drawer_cubit.
 import 'package:jim_hats_mobile/presentation/widgets/take_photo_widget/take_photo_widget.dart';
 import 'package:jim_hats_mobile/presentation/blocs/theme/theme_bloc.dart';
 import 'package:jim_hats_mobile/presentation/cubits/settings_page/settings_cubit.dart';
+import 'package:jim_hats_mobile/presentation/widgets/user_circle_avatar/user_circle_avatar.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -48,7 +49,7 @@ class SettingsView extends StatelessWidget {
             return SafeArea(
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                    horizontal: AppSpacings.horizontalPadding.toDouble()),
+                    horizontal: AppSpacings.horizontalPadding),
                 child: ListView(
                   children: [
                     Text(
@@ -71,8 +72,7 @@ class SettingsView extends StatelessWidget {
                             child: SafeArea(
                               child: Padding(
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: AppSpacings.horizontalPadding
-                                        .toDouble()),
+                                    horizontal: AppSpacings.horizontalPadding),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   crossAxisAlignment:
@@ -87,7 +87,6 @@ class SettingsView extends StatelessWidget {
                                     ListTile(
                                       onTap: () =>
                                           _updatePhoto(context, settingsCubit),
-
                                       title: Text('Update photo'),
                                       leading: Icon(Icons.image),
                                     ),
@@ -115,9 +114,9 @@ class SettingsView extends StatelessWidget {
                         );
                       },
                       title: Text('Change profile picture'),
-                      leading: CircleAvatar(
-                        backgroundImage:
-                            NetworkImage(state.loggedUser.profilePicture ?? ''),
+                      leading: UserCircleAvatar(
+                        avatarUrl: state.loggedUser.profilePicture,
+                        username: state.loggedUser.username,
                       ),
                     ),
                     ListTile(
@@ -206,7 +205,6 @@ class SettingsView extends StatelessWidget {
   }
 
   void _updatePhoto(BuildContext context, SettingsCubit settingsCubit) {
-
     Navigator.of(context).pop();
     Navigator.of(context).push(
       MaterialPageRoute(

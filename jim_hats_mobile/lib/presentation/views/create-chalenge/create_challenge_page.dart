@@ -93,8 +93,8 @@ class _CreateChallengeViewState extends State<CreateChallengeView> {
       ),
       body: SafeArea(
           child: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: AppSpacings.horizontalPadding.toDouble()),
+        padding:
+            EdgeInsets.symmetric(horizontal: AppSpacings.horizontalPadding),
         child: Form(
           key: _formKey,
           child: ListView(

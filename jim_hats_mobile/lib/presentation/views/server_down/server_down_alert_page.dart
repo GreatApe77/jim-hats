@@ -10,9 +10,8 @@ class ServerDownAlertPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.error,
       body: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: AppSpacings.horizontalPadding.toDouble()
-        ),
+        padding:
+            EdgeInsets.symmetric(horizontal: AppSpacings.horizontalPadding),
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -26,12 +25,13 @@ class ServerDownAlertPage extends StatelessWidget {
                 style: TextStyle(color: Theme.of(context).colorScheme.onError),
               ),
               TextButton(
-                style: TextButton.styleFrom(
-                  foregroundColor: Theme.of(context).colorScheme.onError
-                ),
-                onPressed: () {
-                Navigator.of(context).pushReplacementNamed(AppRoutes.splash);
-              }, child: Text('Retry'))
+                  style: TextButton.styleFrom(
+                      foregroundColor: Theme.of(context).colorScheme.onError),
+                  onPressed: () {
+                    Navigator.of(context)
+                        .pushReplacementNamed(AppRoutes.splash);
+                  },
+                  child: Text('Retry'))
             ],
           ),
         ),

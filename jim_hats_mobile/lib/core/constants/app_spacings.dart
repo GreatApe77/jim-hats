@@ -1,4 +1,3 @@
 abstract class AppSpacings {
-
-  static const horizontalPadding = 16;
+  static const double horizontalPadding = 16;
 }

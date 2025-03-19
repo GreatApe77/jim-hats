@@ -5,7 +5,7 @@ class CreateGymChallengeDto {
   final String startAt;
   final String endAt;
 
-  CreateGymChallengeDto( {
+  CreateGymChallengeDto({
     required this.startAt,
     required this.endAt,
     required this.name,
@@ -13,7 +13,7 @@ class CreateGymChallengeDto {
     this.image,
   });
 
-  Map<String,dynamic> toMap(){
+  Map<String, dynamic> toMap() {
     return {
       'name': name,
       'description': description,
@@ -22,5 +22,4 @@ class CreateGymChallengeDto {
       'endAt': endAt,
     };
   }
-  
 }

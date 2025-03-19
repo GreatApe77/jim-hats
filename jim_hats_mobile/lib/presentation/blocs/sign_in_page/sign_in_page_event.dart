@@ -14,6 +14,4 @@ final class SignInPasswordChanged extends SignInPageEvent {
   SignInPasswordChanged({required this.password});
 }
 
-final class SignInFormSubmitted extends SignInPageEvent{
-  
-}
+final class SignInFormSubmitted extends SignInPageEvent {}

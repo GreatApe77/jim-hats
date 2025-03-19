@@ -41,7 +41,9 @@ class LoggedUser {
       id: map['id'] as int,
       username: map['username'] as String,
       email: map['email'] as String,
-      profilePicture: map['profilePicture'] != null ? map['profilePicture'] as String : null,
+      profilePicture: map['profilePicture'] != null
+          ? map['profilePicture'] as String
+          : null,
     );
   }
 
@@ -58,19 +60,18 @@ class LoggedUser {
   @override
   bool operator ==(covariant LoggedUser other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.id == id &&
-      other.username == username &&
-      other.email == email &&
-      other.profilePicture == profilePicture;
+
+    return other.id == id &&
+        other.username == username &&
+        other.email == email &&
+        other.profilePicture == profilePicture;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      username.hashCode ^
-      email.hashCode ^
-      profilePicture.hashCode;
+        username.hashCode ^
+        email.hashCode ^
+        profilePicture.hashCode;
   }
 }

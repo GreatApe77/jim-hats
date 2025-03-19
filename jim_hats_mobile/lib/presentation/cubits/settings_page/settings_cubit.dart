@@ -25,16 +25,16 @@ class SettingsCubit extends Cubit<SettingsState> {
     emit(SettingsDataLoadSuccess(loggedUser: loggedUser));
   }
 
-
-
   Future<void> updateLoggedUserProfilePicture(XFile? image) async {
     try {
-    emit(SettingsDataLoadInProgress());
-    String? uploadedUrl;
-    if(image!=null){
-      uploadedUrl = await _uploadRepository.uploadFile(UploadDto(fileToUpload: image));
-    }
-    final updatedLoggedUser = await _loggedUserRepository.updateLoggedUser(UpdateLoggedUserDto(profilePicture: uploadedUrl));
+      emit(SettingsDataLoadInProgress());
+      String? uploadedUrl;
+      if (image != null) {
+        uploadedUrl =
+            await _uploadRepository.uploadFile(UploadDto(fileToUpload: image));
+      }
+      final updatedLoggedUser = await _loggedUserRepository
+          .updateLoggedUser(UpdateLoggedUserDto(profilePicture: uploadedUrl));
       emit(SettingsDataLoadSuccess(loggedUser: updatedLoggedUser));
     } catch (e) {
       emit(SettingsDataFailed());

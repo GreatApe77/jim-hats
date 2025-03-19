@@ -6,8 +6,8 @@ import 'package:jim_hats_mobile/presentation/theme/app_theme.dart';
 import 'package:jim_hats_mobile/presentation/theme/fonts.dart';
 import 'package:jim_hats_mobile/presentation/widgets/internet_checker_wrapper/internet_checker_wrapper.dart';
 
-
 final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
+
 class App extends StatelessWidget {
   const App({super.key});
 

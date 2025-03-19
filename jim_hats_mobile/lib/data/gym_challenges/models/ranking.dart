@@ -12,7 +12,6 @@ class Ranking {
     this.profilePicture,
     required this.logCount,
   });
-  
 
   Ranking copyWith({
     int? id,
@@ -41,14 +40,17 @@ class Ranking {
     return Ranking(
       id: map['id'] as int,
       username: map['username'] as String,
-      profilePicture: map['profilePicture'] != null ? map['profilePicture'] as String : null,
+      profilePicture: map['profilePicture'] != null
+          ? map['profilePicture'] as String
+          : null,
       logCount: map['logCount'] as int,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory Ranking.fromJson(String source) => Ranking.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Ranking.fromJson(String source) =>
+      Ranking.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
@@ -58,23 +60,21 @@ class Ranking {
   @override
   bool operator ==(covariant Ranking other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.id == id &&
-      other.username == username &&
-      other.profilePicture == profilePicture &&
-      other.logCount == logCount;
+
+    return other.id == id &&
+        other.username == username &&
+        other.profilePicture == profilePicture &&
+        other.logCount == logCount;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      username.hashCode ^
-      profilePicture.hashCode ^
-      logCount.hashCode;
+        username.hashCode ^
+        profilePicture.hashCode ^
+        logCount.hashCode;
   }
 }
-
 
 // export type Ranking ={
 //   id: number;

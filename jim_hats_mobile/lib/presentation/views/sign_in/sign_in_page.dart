@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jim_hats_mobile/core/utils/validators/password_validator.dart';
+import 'package:jim_hats_mobile/core/utils/validators/username_validator.dart';
+import 'package:jim_hats_mobile/core/utils/validators/validatable.dart';
 import 'package:jim_hats_mobile/locator.dart';
 import 'package:jim_hats_mobile/presentation/routing/app_routes.dart';
 import 'package:jim_hats_mobile/core/constants/app_spacings.dart';
 import 'package:jim_hats_mobile/presentation/controllers/hide_password_controller.dart';
 import 'package:jim_hats_mobile/core/utils/form_sanitizers.dart';
-import 'package:jim_hats_mobile/core/utils/form_validators.dart';
 import 'package:jim_hats_mobile/presentation/blocs/sign_in_page/sign_in_page_bloc.dart';
 
 class SignInPage extends StatelessWidget {
@@ -28,6 +30,8 @@ class SignInView extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
 
   final hidePasswordController = HidePasswordController();
+  final Validatable<String> _usernameValidator = UsernameValidator();
+  final Validatable<String> _passwordValidator = PasswordValidator();
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +50,7 @@ class SignInView extends StatelessWidget {
             case SignInPageStatus.failure:
               ScaffoldMessenger.of(context)
                 ..clearSnackBars()
-                ..showSnackBar(
-                    SnackBar(content: Text(state.message)));
+                ..showSnackBar(SnackBar(content: Text(state.message)));
               break;
             default:
           }
@@ -56,7 +59,7 @@ class SignInView extends StatelessWidget {
           key: formKey,
           child: Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: AppSpacings.horizontalPadding.toDouble()),
+                  horizontal: AppSpacings.horizontalPadding),
               child: ListView(
                 children: [
                   Text(
@@ -75,7 +78,7 @@ class SignInView extends StatelessWidget {
                     height: 16,
                   ),
                   TextFormField(
-                    validator: FormValidators.validateUsername,
+                    validator: _usernameValidator.validate,
                     onChanged: (value) {
                       context.read<SignInPageBloc>().add(SignInUsernameChanged(
                           username: FormSanitizers.sanitizeUsername(value)));
@@ -92,7 +95,7 @@ class SignInView extends StatelessWidget {
                       listenable: hidePasswordController,
                       builder: (context, child) {
                         return TextFormField(
-                          validator: FormValidators.validatePassword,
+                          validator: _passwordValidator.validate,
                           onChanged: (value) {
                             context
                                 .read<SignInPageBloc>()
