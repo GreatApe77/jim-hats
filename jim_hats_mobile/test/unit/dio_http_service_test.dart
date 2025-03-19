@@ -17,13 +17,12 @@ void main() {
   late SettingsDataSource mockSettingsDataSource;
   final samplePath = '/api/resources/';
   final sampleQueryParams = {'paramA': 'valueA', 'paramB': 'valueB'};
+  final sampleBody = {'key': 'value'};
   final sampleMappedJsonResponse = {
     'data': {'username': 'Mateus'}
   };
-  final sampleErrorResponse={
-    'data':{
-      'message':'error message'
-    }
+  final sampleErrorResponse = {
+    'data': {'message': 'error message'}
   };
   setUp(
     () {
@@ -54,6 +53,139 @@ void main() {
         queryParameters: sampleQueryParams,
       );
       expect(result, sampleMappedJsonResponse);
+    },
+  );
+  test(
+    'Should send a post request with a body',
+    () async {
+      when(
+        mockDio.post(samplePath, data: sampleBody),
+      ).thenAnswer(
+        (_) async => Response(
+          data: sampleMappedJsonResponse,
+          requestOptions: RequestOptions(),
+        ),
+      );
+      final result = await sut.post(samplePath, data: sampleBody);
+      expect(result, sampleMappedJsonResponse);
+    },
+  );
+  test(
+    'Should redirect to error handler when post fails',
+    () async {
+      when(
+        mockDio.post(samplePath, data: sampleBody),
+      ).thenAnswer(
+          (_) async => throw DioException(requestOptions: RequestOptions()));
+
+      expect(
+        sut.post(samplePath, data: sampleBody),
+        throwsA(
+          isA<HttpException>(),
+        ),
+      );
+    },
+  );
+  test(
+    'Should execute a put request',
+    () async {
+      when(
+        mockDio.put(samplePath, data: sampleBody),
+      ).thenAnswer(
+        (_) async => Response(
+          data: sampleMappedJsonResponse,
+          requestOptions: RequestOptions(),
+        ),
+      );
+      final result = await sut.put(samplePath, data: sampleBody);
+      expect(result, sampleMappedJsonResponse);
+    },
+  );
+  test(
+    'Should redirect to error handler when put fails',
+    () async {
+      when(
+        mockDio.put(samplePath, data: sampleBody),
+      ).thenAnswer(
+        (_) async => throw DioException(
+          requestOptions: RequestOptions(),
+        ),
+      );
+
+      expect(
+        sut.put(samplePath, data: sampleBody),
+        throwsA(
+          isA<HttpException>(),
+        ),
+      );
+    },
+  );
+  test(
+    'Should execute a patch request',
+    () async {
+      when(
+        mockDio.patch(samplePath, data: sampleBody),
+      ).thenAnswer(
+        (_) async => Response(
+          data: sampleMappedJsonResponse,
+          requestOptions: RequestOptions(),
+        ),
+      );
+      final result = await sut.patch(samplePath, data: sampleBody);
+      expect(result, sampleMappedJsonResponse);
+    },
+  );
+  test(
+    'Should redirect to error handler when patch fails',
+    () async {
+      when(
+        mockDio.patch(samplePath, data: sampleBody),
+      ).thenAnswer(
+        (_) async => throw DioException(
+          requestOptions: RequestOptions(),
+        ),
+      );
+
+      expect(
+        sut.patch(samplePath, data: sampleBody),
+        throwsA(
+          isA<HttpException>(),
+        ),
+      );
+    },
+  );
+  test(
+    'Should execute a delete request',
+    () async {
+      when(
+        mockDio.delete(samplePath, data: sampleBody),
+      ).thenAnswer(
+        (_) async => Response(
+          data: sampleMappedJsonResponse,
+          requestOptions: RequestOptions(),
+        ),
+      );
+
+      expect(sut.delete(samplePath), completes);
+    },
+  );
+  test(
+    'Should redirect to error handler when delete fails',
+    () async {
+      when(
+        mockDio.delete(samplePath),
+      ).thenAnswer(
+        (_) async => throw DioException(
+          requestOptions: RequestOptions(),
+        ),
+      );
+
+      expect(
+        sut.delete(samplePath),
+        throwsA(
+          isA<HttpException>(),
+        ),
+      );
     },
   );
   test(
@@ -142,13 +274,12 @@ void main() {
         (_) async => throw DioException(
           requestOptions: RequestOptions(),
           response: Response(
-            requestOptions: RequestOptions(),
-            statusCode: 400,
-            data: sampleErrorResponse
-          ),
+              requestOptions: RequestOptions(),
+              statusCode: 400,
+              data: sampleErrorResponse),
         ),
       );
-        expect(
+      expect(
         sut.get(samplePath, queryParameters: sampleQueryParams),
         throwsA(
           isA<BadRequestException>(),
@@ -165,13 +296,12 @@ void main() {
         (_) async => throw DioException(
           requestOptions: RequestOptions(),
           response: Response(
-            requestOptions: RequestOptions(),
-            statusCode: 401,
-            data: sampleErrorResponse
-          ),
+              requestOptions: RequestOptions(),
+              statusCode: 401,
+              data: sampleErrorResponse),
         ),
       );
-        expect(
+      expect(
         sut.get(samplePath, queryParameters: sampleQueryParams),
         throwsA(
           isA<UnauthorizedException>(),
@@ -179,7 +309,7 @@ void main() {
       );
     },
   );
-   test(
+  test(
     'Should handle 404 not found response',
     () async {
       when(
@@ -188,13 +318,12 @@ void main() {
         (_) async => throw DioException(
           requestOptions: RequestOptions(),
           response: Response(
-            requestOptions: RequestOptions(),
-            statusCode: 404,
-            data: sampleErrorResponse
-          ),
+              requestOptions: RequestOptions(),
+              statusCode: 404,
+              data: sampleErrorResponse),
         ),
       );
-        expect(
+      expect(
         sut.get(samplePath, queryParameters: sampleQueryParams),
         throwsA(
           isA<NotFoundException>(),
@@ -211,13 +340,12 @@ void main() {
         (_) async => throw DioException(
           requestOptions: RequestOptions(),
           response: Response(
-            requestOptions: RequestOptions(),
-            statusCode: 500,
-            data: sampleErrorResponse
-          ),
+              requestOptions: RequestOptions(),
+              statusCode: 500,
+              data: sampleErrorResponse),
         ),
       );
-        expect(
+      expect(
         sut.get(samplePath, queryParameters: sampleQueryParams),
         throwsA(
           isA<ServerException>(),
