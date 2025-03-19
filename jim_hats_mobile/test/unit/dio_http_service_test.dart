@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:jim_hats_mobile/core/exceptions/http_exceptions.dart';
+import 'package:jim_hats_mobile/core/exceptions/time_out_exception.dart';
 import 'package:jim_hats_mobile/core/network/dio/dio_http_service.dart';
 import 'package:jim_hats_mobile/data/settings/data_sources/settings_data_source.dart';
 import 'package:mockito/annotations.dart';
@@ -17,6 +19,11 @@ void main() {
   final sampleQueryParams = {'paramA': 'valueA', 'paramB': 'valueB'};
   final sampleMappedJsonResponse = {
     'data': {'username': 'Mateus'}
+  };
+  final sampleErrorResponse={
+    'data':{
+      'message':'error message'
+    }
   };
   setUp(
     () {
@@ -49,7 +56,173 @@ void main() {
       expect(result, sampleMappedJsonResponse);
     },
   );
-  test('Should handle a timeout by raising a timeout exception',() {
-    expect(true,isTrue);
-  },);
+  test(
+    'Should handle a timeout by raising a timeout exception (connection timeout)',
+    () async {
+      when(
+        mockDio.get(samplePath, queryParameters: sampleQueryParams),
+      ).thenAnswer(
+        (_) async => throw DioException.connectionTimeout(
+          timeout: Duration(seconds: 1),
+          requestOptions: RequestOptions(),
+        ),
+      );
+      await expectLater(
+        sut.get(samplePath, queryParameters: sampleQueryParams),
+        throwsA(
+          isA<TimeOutException>(),
+        ),
+      );
+    },
+  );
+  test(
+    'Should handle a timeout by raising a timeout exception (receive timeout)',
+    () async {
+      when(
+        mockDio.get(samplePath, queryParameters: sampleQueryParams),
+      ).thenAnswer(
+        (_) async => throw DioException.receiveTimeout(
+          timeout: Duration(seconds: 1),
+          requestOptions: RequestOptions(),
+        ),
+      );
+      await expectLater(
+        sut.get(samplePath, queryParameters: sampleQueryParams),
+        throwsA(
+          isA<TimeOutException>(),
+        ),
+      );
+    },
+  );
+  test(
+    'Should handle NetworkException when the dio exception is unknown',
+    () async {
+      when(
+        mockDio.get(samplePath, queryParameters: sampleQueryParams),
+      ).thenAnswer(
+        (_) async => throw DioException(
+          type: DioExceptionType.unknown,
+          requestOptions: RequestOptions(),
+        ),
+      );
+      expect(
+        sut.get(samplePath, queryParameters: sampleQueryParams),
+        throwsA(
+          isA<NetworkException>(),
+        ),
+      );
+    },
+  );
+  test(
+    'Should handle Dio Exception with unknown status code by raising a generic HttpException',
+    () async {
+      when(
+        mockDio.get(samplePath, queryParameters: sampleQueryParams),
+      ).thenAnswer(
+        (_) async => throw DioException(
+          type: DioExceptionType.badResponse,
+          response: null,
+          requestOptions: RequestOptions(),
+        ),
+      );
+      await expectLater(
+        sut.get(samplePath, queryParameters: sampleQueryParams),
+        throwsA(
+          isA<HttpException>(),
+        ),
+      );
+    },
+  );
+  test(
+    'Should handle a bad request response',
+    () async {
+      when(
+        mockDio.get(samplePath, queryParameters: sampleQueryParams),
+      ).thenAnswer(
+        (_) async => throw DioException(
+          requestOptions: RequestOptions(),
+          response: Response(
+            requestOptions: RequestOptions(),
+            statusCode: 400,
+            data: sampleErrorResponse
+          ),
+        ),
+      );
+        expect(
+        sut.get(samplePath, queryParameters: sampleQueryParams),
+        throwsA(
+          isA<BadRequestException>(),
+        ),
+      );
+    },
+  );
+  test(
+    'Should handle unauthorized response',
+    () async {
+      when(
+        mockDio.get(samplePath, queryParameters: sampleQueryParams),
+      ).thenAnswer(
+        (_) async => throw DioException(
+          requestOptions: RequestOptions(),
+          response: Response(
+            requestOptions: RequestOptions(),
+            statusCode: 401,
+            data: sampleErrorResponse
+          ),
+        ),
+      );
+        expect(
+        sut.get(samplePath, queryParameters: sampleQueryParams),
+        throwsA(
+          isA<UnauthorizedException>(),
+        ),
+      );
+    },
+  );
+   test(
+    'Should handle 404 not found response',
+    () async {
+      when(
+        mockDio.get(samplePath, queryParameters: sampleQueryParams),
+      ).thenAnswer(
+        (_) async => throw DioException(
+          requestOptions: RequestOptions(),
+          response: Response(
+            requestOptions: RequestOptions(),
+            statusCode: 404,
+            data: sampleErrorResponse
+          ),
+        ),
+      );
+        expect(
+        sut.get(samplePath, queryParameters: sampleQueryParams),
+        throwsA(
+          isA<NotFoundException>(),
+        ),
+      );
+    },
+  );
+  test(
+    'Should handle an internal server error response ',
+    () async {
+      when(
+        mockDio.get(samplePath, queryParameters: sampleQueryParams),
+      ).thenAnswer(
+        (_) async => throw DioException(
+          requestOptions: RequestOptions(),
+          response: Response(
+            requestOptions: RequestOptions(),
+            statusCode: 500,
+            data: sampleErrorResponse
+          ),
+        ),
+      );
+        expect(
+        sut.get(samplePath, queryParameters: sampleQueryParams),
+        throwsA(
+          isA<ServerException>(),
+        ),
+      );
+    },
+  );
 }
