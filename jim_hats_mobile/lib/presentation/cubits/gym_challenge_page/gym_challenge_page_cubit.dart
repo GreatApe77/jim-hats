@@ -82,6 +82,4 @@ class GymChallengePageCubit extends Cubit<GymChallengePageState> {
       (element) => element.id == user.id,
     );
   }
-
-  
 }

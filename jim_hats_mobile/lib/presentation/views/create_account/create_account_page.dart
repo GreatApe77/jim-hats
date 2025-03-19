@@ -2,13 +2,16 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jim_hats_mobile/core/utils/validators/email_validator.dart';
+import 'package:jim_hats_mobile/core/utils/validators/password_validator.dart';
+import 'package:jim_hats_mobile/core/utils/validators/username_validator.dart';
+import 'package:jim_hats_mobile/core/utils/validators/validatable.dart';
 import 'package:jim_hats_mobile/locator.dart';
 import 'package:jim_hats_mobile/presentation/routing/app_routes.dart';
 import 'package:jim_hats_mobile/core/constants/app_spacings.dart';
 import 'package:jim_hats_mobile/presentation/controllers/hide_password_controller.dart';
 import 'package:jim_hats_mobile/presentation/widgets/take_photo_widget/take_photo_widget.dart';
 import 'package:jim_hats_mobile/core/utils/form_sanitizers.dart';
-import 'package:jim_hats_mobile/core/utils/form_validators.dart';
 import 'package:jim_hats_mobile/presentation/cubits/create_account_page/create_account_page_cubit.dart';
 
 class CreateAccountPage extends StatelessWidget {
@@ -34,6 +37,9 @@ class CreateAccountView extends StatefulWidget {
 class _CreateAccountViewState extends State<CreateAccountView> {
   late final HidePasswordController hidePasswordController;
   final formKey = GlobalKey<FormState>();
+  final Validatable<String> _usernameValidator = UsernameValidator();
+  final Validatable<String> _emailValidator = EmailValidator();
+  final Validatable<String> _passwordValidator = PasswordValidator();
   @override
   void initState() {
     super.initState();
@@ -46,8 +52,8 @@ class _CreateAccountViewState extends State<CreateAccountView> {
       appBar: AppBar(),
       body: SafeArea(
           child: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: AppSpacings.horizontalPadding),
+        padding:
+            EdgeInsets.symmetric(horizontal: AppSpacings.horizontalPadding),
         child: BlocListener<CreateAccountPageCubit, CreateAccountPageState>(
           bloc: context.read<CreateAccountPageCubit>(),
           listener: (context, state) {
@@ -268,7 +274,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                 TextFormField(
                   initialValue:
                       context.read<CreateAccountPageCubit>().state.username,
-                  validator: FormValidators.validateUsername,
+                  validator: _usernameValidator.validate,
                   onChanged: (value) {
                     context
                         .read<CreateAccountPageCubit>()
@@ -285,7 +291,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                 TextFormField(
                   initialValue:
                       context.read<CreateAccountPageCubit>().state.email,
-                  validator: FormValidators.validateEmail,
+                  validator: _emailValidator.validate,
                   onChanged: (value) {
                     context
                         .read<CreateAccountPageCubit>()
@@ -300,58 +306,60 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                   height: 16,
                 ),
                 ListenableBuilder(
-                    listenable: hidePasswordController,
-                    builder: (context, child) {
-                      return TextFormField(
-                        initialValue: context
+                  listenable: hidePasswordController,
+                  builder: (context, child) {
+                    return TextFormField(
+                      initialValue:
+                          context.read<CreateAccountPageCubit>().state.password,
+                      obscureText: hidePasswordController.isHidden,
+                      onChanged: (value) {
+                        context
                             .read<CreateAccountPageCubit>()
-                            .state
-                            .password,
-                        obscureText: hidePasswordController.isHidden,
-                        onChanged: (value) {
-                          context
-                              .read<CreateAccountPageCubit>()
-                              .updatePassword(value);
-                        },
-                        validator: FormValidators.validatePassword,
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            label: Text('Password'),
-                            suffixIcon: IconButton(
-                                onPressed: () => _toggleHidePassword(),
-                                icon: Icon(hidePasswordController.isHidden
-                                    ? Icons.visibility_off
-                                    : Icons.visibility))),
-                      );
-                    }),
+                            .updatePassword(value);
+                      },
+                      validator: _passwordValidator.validate,
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          label: Text('Password'),
+                          suffixIcon: IconButton(
+                              onPressed: () => _toggleHidePassword(),
+                              icon: Icon(hidePasswordController.isHidden
+                                  ? Icons.visibility_off
+                                  : Icons.visibility))),
+                    );
+                  },
+                ),
                 SizedBox(
                   height: 16,
                 ),
                 ListenableBuilder(
-                    listenable: hidePasswordController,
-                    builder: (context, child) {
-                      return TextFormField(
-                        obscureText: hidePasswordController.isHidden,
-                        initialValue: context
+                  listenable: hidePasswordController,
+                  builder: (context, child) {
+                    return TextFormField(
+                      obscureText: hidePasswordController.isHidden,
+                      initialValue: context
+                          .read<CreateAccountPageCubit>()
+                          .state
+                          .confirmPassword,
+                      validator: _passwordValidator.validate,
+                      onChanged: (value) {
+                        context
                             .read<CreateAccountPageCubit>()
-                            .state
-                            .confirmPassword,
-                        validator: FormValidators.validatePassword,
-                        onChanged: (value) {
-                          context
-                              .read<CreateAccountPageCubit>()
-                              .updateConfirmPassword(value);
-                        },
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            label: Text('Confirm password'),
-                            suffixIcon: IconButton(
-                                onPressed: () => _toggleHidePassword(),
-                                icon: Icon(hidePasswordController.isHidden
-                                    ? Icons.visibility_off
-                                    : Icons.visibility))),
-                      );
-                    }),
+                            .updateConfirmPassword(value);
+                      },
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        label: Text('Confirm password'),
+                        suffixIcon: IconButton(
+                          onPressed: () => _toggleHidePassword(),
+                          icon: Icon(hidePasswordController.isHidden
+                              ? Icons.visibility_off
+                              : Icons.visibility),
+                        ),
+                      ),
+                    );
+                  },
+                ),
                 SizedBox(
                   height: 16,
                 ),

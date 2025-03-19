@@ -6,8 +6,10 @@ import 'package:jim_hats_mobile/data/logged_user/dtos/update_logged_user_dto.dar
 
 abstract class ExerciseLogDataSource {
   Future<List<ExerciseLogWithUser>> getLogsOfChallenge(int challengeId);
-  Future<void> addExerciseLogToChallenge(int challengeId,AddExerciseLogToChallengeDto addExerciseLogToChallengeDto);
+  Future<void> addExerciseLogToChallenge(int challengeId,
+      AddExerciseLogToChallengeDto addExerciseLogToChallengeDto);
   Future<List<ExerciseLog>> getAllLogsOfUser();
   Future<void> deleteExerciseLog(int exerciseLogId);
-  Future<void> updateExerciseLog( int exerciseLogId,UpdateExerciseLogDto updateExerciseLogDto);
+  Future<void> updateExerciseLog(
+      int exerciseLogId, UpdateExerciseLogDto updateExerciseLogDto);
 }

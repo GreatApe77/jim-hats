@@ -19,7 +19,6 @@ class InternetConnectivityCubit extends Cubit<InternetConnectivityState> {
   }
 
   void _connectivityListener(List<ConnectivityResult> result) {
-    
     if (result.contains(ConnectivityResult.mobile) ||
         result.contains(ConnectivityResult.wifi)) {
       emit(state.copyWith(status: InternetConnectivityStatus.connected));

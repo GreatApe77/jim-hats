@@ -9,15 +9,11 @@ class NetworkUploadDataSource implements UploadDataSource {
       : _httpClient = httpClient;
   @override
   Future<String> uploadFile(UploadDto uploadDto) async {
-    try {
-      final response = await _httpClient.uploadFile(
-        '/uploads',
-        filePath: uploadDto.fileToUpload.path,
-        fileField: 'file',
-      );
-      return response['data']['fullPath'];
-    } catch (e) {
-      rethrow;
-    }
+    final response = await _httpClient.uploadFile(
+      '/uploads',
+      filePath: uploadDto.fileToUpload.path,
+      fileField: 'file',
+    );
+    return response['data']['fullPath'];
   }
 }

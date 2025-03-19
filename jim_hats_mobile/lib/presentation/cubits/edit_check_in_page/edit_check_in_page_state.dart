@@ -20,21 +20,19 @@ final class EditCheckInPageState {
     required this.status,
   });
 
-  EditCheckInPageState copyWith({
-    String? title,
-    Nullable<String>? description,
-    Nullable<XFile>? image,
-    EditCheckInPageStatus? status,
-    String? errorMessage,
-    String? imageUrl
-  }) {
+  EditCheckInPageState copyWith(
+      {String? title,
+      Nullable<String>? description,
+      Nullable<XFile>? image,
+      EditCheckInPageStatus? status,
+      String? errorMessage,
+      String? imageUrl}) {
     return EditCheckInPageState(
-      errorMessage: errorMessage ?? this.errorMessage,
-      status: status ?? this.status,
-      title: title ?? this.title,
-      description: description != null ? description.value : this.description,
-      image: image != null ? image.value : this.image,
-      imageUrl: imageUrl??this.imageUrl
-    );
+        errorMessage: errorMessage ?? this.errorMessage,
+        status: status ?? this.status,
+        title: title ?? this.title,
+        description: description != null ? description.value : this.description,
+        image: image != null ? image.value : this.image,
+        imageUrl: imageUrl ?? this.imageUrl);
   }
 }

@@ -14,58 +14,42 @@ class NetworkExerciseLogDataSource implements ExerciseLogDataSource {
   }) : _httpClient = httpClient;
   @override
   Future<List<ExerciseLogWithUser>> getLogsOfChallenge(int challengeId) async {
-    try {
-      final response = await _httpClient.get(
-        '/gym-challenges/$challengeId/logs',
-      );
-      final data = response['data'] as List;
-      return data
-          .map(
-            (e) => ExerciseLogWithUser.fromMap(e),
-          )
-          .toList();
-    } catch (e) {
-      rethrow;
-    }
+    final response = await _httpClient.get(
+      '/gym-challenges/$challengeId/logs',
+    );
+    final data = response['data'] as List;
+    return data
+        .map(
+          (e) => ExerciseLogWithUser.fromMap(e),
+        )
+        .toList();
   }
 
   @override
   Future<void> addExerciseLogToChallenge(int challengeId,
       AddExerciseLogToChallengeDto addExerciseLogToChallengeDto) async {
-    try {
-      await _httpClient.post(
-        data: addExerciseLogToChallengeDto.toMap(),
-        '/gym-challenges/$challengeId/logs',
-      );
-    } catch (e) {
-      rethrow;
-    }
+    await _httpClient.post(
+      data: addExerciseLogToChallengeDto.toMap(),
+      '/gym-challenges/$challengeId/logs',
+    );
   }
 
   @override
   Future<List<ExerciseLog>> getAllLogsOfUser() async {
-    try {
-      final response = await _httpClient.get(
-        '/users/me/logs',
-      );
-      final data = response['data'] as List;
-      return data
-          .map(
-            (e) => ExerciseLog.fromMap(e),
-          )
-          .toList();
-    } catch (e) {
-      rethrow;
-    }
+    final response = await _httpClient.get(
+      '/users/me/logs',
+    );
+    final data = response['data'] as List;
+    return data
+        .map(
+          (e) => ExerciseLog.fromMap(e),
+        )
+        .toList();
   }
 
   @override
   Future<void> deleteExerciseLog(int exerciseLogId) async {
-    try {
-      await _httpClient.delete('/logs/$exerciseLogId');
-    } catch (e) {
-      rethrow;
-    }
+    await _httpClient.delete('/logs/$exerciseLogId');
   }
 
   @override

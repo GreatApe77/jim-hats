@@ -21,90 +21,67 @@ class NetworkGymChallengeDataSource implements MemoryGymChallengeDataSource {
 
   @override
   Future<List<GymChallenge>> getGymChallengesOfUser(int userId) async {
-    try {
-      //final jwtToken = await _settingsDataSource.get<String>('token');
-      final response = await _httpClient.get(
-        '/users/$userId/gym-challenges',
-      );
-      final data = response['data'] as List;
-      return data
-          .map(
-            (e) => GymChallenge.fromMap(e),
-          )
-          .toList();
-    } catch (e) {
-      rethrow;
-    }
+    //final jwtToken = await _settingsDataSource.get<String>('token');
+    final response = await _httpClient.get(
+      '/users/$userId/gym-challenges',
+    );
+    final data = response['data'] as List;
+    return data
+        .map(
+          (e) => GymChallenge.fromMap(e),
+        )
+        .toList();
   }
 
   @override
   Future<List<ChallengeMember>> getMembersOfChallenge(int challengeId) async {
-    try {
-      final response = await _httpClient.get(
-        '/gym-challenges/$challengeId/members',
-      );
-      final data = response['data'] as List;
-      return data
-          .map(
-            (e) => ChallengeMember.fromMap(e),
-          )
-          .toList();
-    } catch (e) {
-      rethrow;
-    }
+    final response = await _httpClient.get(
+      '/gym-challenges/$challengeId/members',
+    );
+    final data = response['data'] as List;
+    return data
+        .map(
+          (e) => ChallengeMember.fromMap(e),
+        )
+        .toList();
   }
 
   @override
   Future<List<Ranking>> getRankingOfChallenge(int challengeId) async {
-    try {
-      final response = await _httpClient.get(
-        '/gym-challenges/$challengeId/ranking',
-      );
-      final data = response['data'] as List;
-      return data
-          .map(
-            (e) => Ranking.fromMap(e),
-          )
-          .toList();
-    } catch (e) {
-      rethrow;
-    }
+    final response = await _httpClient.get(
+      '/gym-challenges/$challengeId/ranking',
+    );
+    final data = response['data'] as List;
+    return data
+        .map(
+          (e) => Ranking.fromMap(e),
+        )
+        .toList();
   }
 
   @override
   Future<void> createGymChallenge(
-      CreateGymChallengeDto createGymChallengeDto) async {
-    try {
-      await _httpClient.post(
-        '/gym-challenges',
-        data: createGymChallengeDto.toMap(),
-      );
-    } catch (e) {
-      rethrow;
-    }
+    CreateGymChallengeDto createGymChallengeDto,
+  ) async {
+    await _httpClient.post(
+      '/gym-challenges',
+      data: createGymChallengeDto.toMap(),
+    );
   }
 
   @override
   Future<void> joinChallenge(String joinId) async {
-    try {
-      await _httpClient.get(
-        '/gym-challenges/$joinId/join',
-      );
-    } catch (e) {
-      rethrow;
-    }
+    await _httpClient.get(
+      '/gym-challenges/$joinId/join',
+    );
   }
 
   @override
   Future<void> updateChallenge(
       int challengeId, UpdateGymChallengeDto updateGymChallengeDto) async {
-    try {
-      await _httpClient.patch(
-        '/gym-challenges/$challengeId',
-        data: updateGymChallengeDto.toMap(),
-      );
-    } catch (e) {
-      rethrow;
-    }
+    await _httpClient.patch(
+      '/gym-challenges/$challengeId',
+      data: updateGymChallengeDto.toMap(),
+    );
   }
 }

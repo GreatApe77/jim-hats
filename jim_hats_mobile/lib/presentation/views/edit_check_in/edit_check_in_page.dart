@@ -3,7 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jim_hats_mobile/core/constants/app_spacings.dart';
-import 'package:jim_hats_mobile/core/utils/form_validators.dart';
+import 'package:jim_hats_mobile/core/utils/validators/title_validator.dart';
+import 'package:jim_hats_mobile/core/utils/validators/validatable.dart';
 import 'package:jim_hats_mobile/locator.dart';
 import 'package:jim_hats_mobile/presentation/cubits/edit_check_in_page/edit_check_in_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/routing/app_routes.dart';
@@ -40,6 +41,7 @@ class EditCheckInView extends StatefulWidget {
 
 class _EditCheckInViewState extends State<EditCheckInView> {
   final _formKey = GlobalKey<FormState>();
+  final Validatable<String> _titleValidator = TitleValidator();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,8 +97,8 @@ class _EditCheckInViewState extends State<EditCheckInView> {
       ),
       body: SafeArea(
           child: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: AppSpacings.horizontalPadding),
+        padding:
+            EdgeInsets.symmetric(horizontal: AppSpacings.horizontalPadding),
         child: Form(
           key: _formKey,
           child: ListView(
@@ -106,7 +108,7 @@ class _EditCheckInViewState extends State<EditCheckInView> {
               ),
               TextFormField(
                 initialValue: widget.editCheckInPageArguments.exerciseLog.title,
-                validator: FormValidators.validateLogTitle,
+                validator: _titleValidator.validate,
                 onChanged: (value) {
                   context.read<EditCheckInPageCubit>().updateTitle(value);
                 },

@@ -40,4 +40,14 @@ abstract class DateHelper {
   static String _zeroToLeft(int num) {
     return num < 10 ? '0$num' : '$num';
   }
+
+  ///Formats to HH:MM
+  static String formatHourAndMinute(DateTime date) {
+    int hour = date.hour;
+    int minute = date.minute;
+    bool minuteLessThan10 = minute < 10;
+    bool hourLessThan10 = hour < 10;
+
+    return '${_zeroToLeft(date.hour)}:${_zeroToLeft(date.minute)}';
+  }
 }

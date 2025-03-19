@@ -9,8 +9,8 @@ abstract class GymChallengeDataSource {
   Future<List<GymChallenge>> getGymChallengesOfUser(int userId);
   Future<List<Ranking>> getRankingOfChallenge(int challengeId);
   Future<List<ChallengeMember>> getMembersOfChallenge(int challengeId);
-  Future<void> createGymChallenge(
-      CreateGymChallengeDto createGymChallengeDto);
+  Future<void> createGymChallenge(CreateGymChallengeDto createGymChallengeDto);
   Future<void> joinChallenge(String joinId);
-  Future<void> updateChallenge(int challengeId,UpdateGymChallengeDto updateGymChallengeDto);
+  Future<void> updateChallenge(
+      int challengeId, UpdateGymChallengeDto updateGymChallengeDto);
 }

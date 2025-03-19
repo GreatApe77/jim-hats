@@ -10,7 +10,6 @@ class ChallengeMember {
     required this.username,
     this.profilePicture,
   });
-  
 
   ChallengeMember copyWith({
     int? id,
@@ -36,25 +35,28 @@ class ChallengeMember {
     return ChallengeMember(
       id: map['id'] as int,
       username: map['username'] as String,
-      profilePicture: map['profilePicture'] != null ? map['profilePicture'] as String : null,
+      profilePicture: map['profilePicture'] != null
+          ? map['profilePicture'] as String
+          : null,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory ChallengeMember.fromJson(String source) => ChallengeMember.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory ChallengeMember.fromJson(String source) =>
+      ChallengeMember.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() => 'ChallengeMember(id: $id, username: $username, profilePicture: $profilePicture)';
+  String toString() =>
+      'ChallengeMember(id: $id, username: $username, profilePicture: $profilePicture)';
 
   @override
   bool operator ==(covariant ChallengeMember other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.id == id &&
-      other.username == username &&
-      other.profilePicture == profilePicture;
+
+    return other.id == id &&
+        other.username == username &&
+        other.profilePicture == profilePicture;
   }
 
   @override

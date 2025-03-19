@@ -85,7 +85,6 @@ class _EditGymChallengeViewState extends State<EditGymChallengeView> {
             listener: (context, state) {
               if (state.status == EditGymChallengePageStatus.success) {
                 Navigator.of(context).pushNamedAndRemoveUntil(
-
                   AppRoutes.gymChallenge,
                   (route) => false,
                   arguments: GymChallengePageArguments(
@@ -195,7 +194,9 @@ class _EditGymChallengeViewState extends State<EditGymChallengeView> {
                     controller: _startAtController,
                     readOnly: true,
                     onTap: () async {
-                      final initialDate = state.startAt.isBefore(DateTime.now())? DateTime.now():state.startAt;
+                      final initialDate = state.startAt.isBefore(DateTime.now())
+                          ? DateTime.now()
+                          : state.startAt;
                       final date = await showDatePicker(
                           context: context,
                           initialDate: initialDate,

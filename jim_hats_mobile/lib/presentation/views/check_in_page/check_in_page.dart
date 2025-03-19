@@ -66,7 +66,6 @@ class CheckInView extends StatelessWidget {
                       bloc: cubit,
                       listener: (context, state) {
                         if (state is CheckInPageSuccess) {
-                          
                           Navigator.of(context).pop();
                           Navigator.of(context).pop();
                         }
@@ -131,8 +130,8 @@ class CheckInView extends StatelessWidget {
         ],
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: AppSpacings.horizontalPadding),
+        padding:
+            EdgeInsets.symmetric(horizontal: AppSpacings.horizontalPadding),
         child: SafeArea(
             child: ListView(
           children: [

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:jim_hats_mobile/core/utils/date_helper.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log_with_user.dart';
-import 'package:jim_hats_mobile/core/utils/readable_date.dart';
 import 'package:jim_hats_mobile/presentation/widgets/user_circle_avatar/user_circle_avatar.dart';
 
 class ExerciseLogTile extends StatelessWidget {
@@ -23,7 +23,6 @@ class ExerciseLogTile extends StatelessWidget {
         children: [
           Row(
             children: [
-              
               UserCircleAvatar(
                 username: exerciseLogWithUser.user.username,
                 radius: 10,
@@ -35,7 +34,7 @@ class ExerciseLogTile extends StatelessWidget {
               Text(exerciseLogWithUser.user.username)
             ],
           ),
-          Text(readableDate(exerciseLogWithUser.date))
+          Text(DateHelper.formatHourAndMinute(exerciseLogWithUser.date))
         ],
       ),
       leading: CircleAvatar(

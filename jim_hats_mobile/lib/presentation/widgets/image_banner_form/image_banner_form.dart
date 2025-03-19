@@ -43,7 +43,7 @@ class ImageBannerForm extends StatelessWidget {
                       alignment: Alignment.center,
                       child: InkWell(
                         borderRadius: BorderRadius.circular(10),
-                        onTapDown:onTapDown ,
+                        onTapDown: onTapDown,
                         child: Ink(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
@@ -92,8 +92,5 @@ class ImageBannerForm extends StatelessWidget {
         ],
       ),
     );
-
   }
-
-
 }

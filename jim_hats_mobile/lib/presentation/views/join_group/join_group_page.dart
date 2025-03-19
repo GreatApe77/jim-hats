@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jim_hats_mobile/core/constants/app_spacings.dart';
-import 'package:jim_hats_mobile/core/utils/form_validators.dart';
+import 'package:jim_hats_mobile/core/utils/uuid_service.dart';
+import 'package:jim_hats_mobile/core/utils/validators/group_code_validator.dart';
+import 'package:jim_hats_mobile/core/utils/validators/validatable.dart';
 import 'package:jim_hats_mobile/locator.dart';
 import 'package:jim_hats_mobile/presentation/cubits/join_group_page/join_group_page_cubit.dart';
 
@@ -19,21 +21,22 @@ class JoinGroupPage extends StatelessWidget {
 
 class JoinGroupView extends StatefulWidget {
   const JoinGroupView({super.key});
-
   @override
   State<JoinGroupView> createState() => _JoinGroupViewState();
 }
 
 class _JoinGroupViewState extends State<JoinGroupView> {
   final _formKey = GlobalKey<FormState>();
+  final Validatable<String> _groupCodeValidatable =
+      GroupCodeValidator(uuidService: UuidService());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: AppSpacings.horizontalPadding),
+          padding:
+              EdgeInsets.symmetric(horizontal: AppSpacings.horizontalPadding),
           child: Form(
             key: _formKey,
             child: ListView(
@@ -53,7 +56,7 @@ class _JoinGroupViewState extends State<JoinGroupView> {
                   height: 16,
                 ),
                 TextFormField(
-                  validator: (value) => FormValidators.validateGroupCode(value),
+                  validator: (value) => _groupCodeValidatable.validate(value),
                   onChanged: (value) {
                     //widget.joinGroupPageCubit.updateGroupCode(value);
                     context.read<JoinGroupPageCubit>().updateGroupCode(value);

@@ -60,7 +60,7 @@ class GymChallenge {
       'creatorId': creatorId,
     };
   }
-  
+
   factory GymChallenge.fromMap(Map<String, dynamic> map) {
     return GymChallenge(
       id: map['id'] as int,
@@ -77,7 +77,8 @@ class GymChallenge {
 
   String toJson() => json.encode(toMap());
 
-  factory GymChallenge.fromJson(String source) => GymChallenge.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory GymChallenge.fromJson(String source) =>
+      GymChallenge.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
@@ -87,30 +88,29 @@ class GymChallenge {
   @override
   bool operator ==(covariant GymChallenge other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.id == id &&
-      other.name == name &&
-      other.description == description &&
-      other.image == image &&
-      other.joinId == joinId &&
-      other.createdAt == createdAt &&
-      other.startAt == startAt &&
-      other.endAt == endAt &&
-      other.creatorId == creatorId;
+
+    return other.id == id &&
+        other.name == name &&
+        other.description == description &&
+        other.image == image &&
+        other.joinId == joinId &&
+        other.createdAt == createdAt &&
+        other.startAt == startAt &&
+        other.endAt == endAt &&
+        other.creatorId == creatorId;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      name.hashCode ^
-      description.hashCode ^
-      image.hashCode ^
-      joinId.hashCode ^
-      createdAt.hashCode ^
-      startAt.hashCode ^
-      endAt.hashCode ^
-      creatorId.hashCode;
+        name.hashCode ^
+        description.hashCode ^
+        image.hashCode ^
+        joinId.hashCode ^
+        createdAt.hashCode ^
+        startAt.hashCode ^
+        endAt.hashCode ^
+        creatorId.hashCode;
   }
 }
 

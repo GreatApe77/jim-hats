@@ -50,10 +50,7 @@ class CreateAccountPageCubit extends Cubit<CreateAccountPageState> {
         print(state.password);
         emit(state.copyWith(
             status: Status.error, errorMessage: 'Passwords do not match'));
-        emit(state.copyWith(
-          status: Status.writingForm,
-          errorMessage: ''
-        ));
+        emit(state.copyWith(status: Status.writingForm, errorMessage: ''));
         return;
       }
       emit(state.copyWith(status: Status.loading));
@@ -72,7 +69,7 @@ class CreateAccountPageCubit extends Cubit<CreateAccountPageState> {
           password: state.password,
           profilePicture: profilePicture));
       emit(state.copyWith(status: Status.success));
-      
+
       //emit(CreateAccountPageState.empty());
     } on ApplicationException catch (e) {
       emit(state.copyWith(status: Status.error, errorMessage: e.getMessage()));
