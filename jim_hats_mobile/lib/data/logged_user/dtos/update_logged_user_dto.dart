@@ -1,5 +1,3 @@
-
-
 class UpdateLoggedUserDto {
   final String? profilePicture;
 

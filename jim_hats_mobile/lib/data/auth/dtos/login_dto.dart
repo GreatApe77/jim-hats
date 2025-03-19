@@ -1,5 +1,3 @@
-
-
 class LoginDto {
   final String username;
   final String password;

@@ -72,8 +72,7 @@ class SettingsView extends StatelessWidget {
                             child: SafeArea(
                               child: Padding(
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: AppSpacings.horizontalPadding
-                                        ),
+                                    horizontal: AppSpacings.horizontalPadding),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   crossAxisAlignment:

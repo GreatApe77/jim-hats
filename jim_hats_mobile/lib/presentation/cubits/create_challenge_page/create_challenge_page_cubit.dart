@@ -38,14 +38,15 @@ class CreateChallengePageCubit extends Cubit<CreateChallengePageState> {
   void updateImage(XFile? image) {
     emit(state.copyWith(image: Nullable(image)));
   }
+
   void updateStartAt(DateTime startAt) {
     emit(state.copyWith(startAt: startAt));
-    
   }
+
   void updateEndAt(DateTime endAt) {
     emit(state.copyWith(endAt: endAt));
-   
   }
+
   void submitForm() async {
     try {
       emit(state.copyWith(status: CreateChallengePageStatus.loading));
@@ -73,6 +74,7 @@ class CreateChallengePageCubit extends Cubit<CreateChallengePageState> {
     final days = endAt.difference(startAt).inDays;
     return days;
   }
+
   String formatDate(DateTime date) {
     return '${date.day}/${date.month}/${date.year}';
   }

@@ -6,7 +6,7 @@ import 'package:image_picker/image_picker.dart';
 
 class TakePhotoWidget extends StatefulWidget {
   const TakePhotoWidget({super.key, required this.onPhotoChosen});
-  final Function(XFile ? photo) onPhotoChosen;
+  final Function(XFile? photo) onPhotoChosen;
   @override
   State<TakePhotoWidget> createState() => _TakePhotoWidgetState();
 }
@@ -114,8 +114,6 @@ class _TakePhotoWidgetState extends State<TakePhotoWidget> {
     }
   }
 
-
-
   _toggleCamera() async {
     final CameraController? camController = cameraController;
     if (camController == null || !camController.value.isInitialized) {
@@ -191,7 +189,7 @@ class _TakePhotoWidgetState extends State<TakePhotoWidget> {
                               },
                               icon: Icon(Icons.close)),
                           IconButton(
-                              onPressed:()=>widget.onPhotoChosen(photo),
+                              onPressed: () => widget.onPhotoChosen(photo),
                               icon: Icon(Icons.check))
                         ],
                 ),
@@ -204,8 +202,9 @@ class _TakePhotoWidgetState extends State<TakePhotoWidget> {
                   ? TextButton.icon(
                       style: TextButton.styleFrom(),
                       onPressed: () async {
-                        final file = await ImagePicker()
-                            .pickImage(source: ImageSource.gallery,);
+                        final file = await ImagePicker().pickImage(
+                          source: ImageSource.gallery,
+                        );
                         if (file == null) {
                           return;
                         }

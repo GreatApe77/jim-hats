@@ -97,8 +97,8 @@ class _EditCheckInViewState extends State<EditCheckInView> {
       ),
       body: SafeArea(
           child: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: AppSpacings.horizontalPadding),
+        padding:
+            EdgeInsets.symmetric(horizontal: AppSpacings.horizontalPadding),
         child: Form(
           key: _formKey,
           child: ListView(

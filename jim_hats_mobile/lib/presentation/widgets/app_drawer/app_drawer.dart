@@ -42,9 +42,9 @@ class _AppDrawerState extends State<AppDrawer> {
                       AppRoutes.userStats,
                   onTap: () {
                     Navigator.of(context).pop();
-                    Navigator.of(context).pushReplacementNamed(AppRoutes.userStats);
+                    Navigator.of(context)
+                        .pushReplacementNamed(AppRoutes.userStats);
                   },
-                  
                   leading: UserCircleAvatar(
                     username: state.loggedUser.username,
                     avatarUrl: state.loggedUser.profilePicture,

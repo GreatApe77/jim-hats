@@ -2,7 +2,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'settings_data_source.dart';
 
 class SharedPreferencesSettingsDataSource implements SettingsDataSource {
-  Future<SharedPreferences> get _prefs async => await SharedPreferences.getInstance();
+  Future<SharedPreferences> get _prefs async =>
+      await SharedPreferences.getInstance();
 
   @override
   Future<T?> get<T>(String settingKey) async {
@@ -38,18 +39,17 @@ class SharedPreferencesSettingsDataSource implements SettingsDataSource {
     } else if (value is List<String>) {
       await sh.setStringList(settingKey, value);
     } else {
-      throw UnsupportedError("Type ${value.runtimeType} is not supported by SharedPreferences");
+      throw UnsupportedError(
+          "Type ${value.runtimeType} is not supported by SharedPreferences");
     }
   }
 
-  
   @override
   Future<void> remove(String settingKey) async {
     final sh = await _prefs;
     await sh.remove(settingKey);
   }
 
-  
   Future<void> clear() async {
     final sh = await _prefs;
     await sh.clear();

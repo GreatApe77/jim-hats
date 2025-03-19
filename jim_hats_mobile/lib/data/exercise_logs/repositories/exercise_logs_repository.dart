@@ -12,12 +12,9 @@ class ExerciseLogsRepository {
   final CacheService _cacheService;
   ExerciseLogsRepository(
       {required ExerciseLogDataSource? exerciseLogDataSource,
-      
-      required CacheService cacheService
-      })
-      :
-      _cacheService=cacheService,
-       _exerciseLogDataSource =
+      required CacheService cacheService})
+      : _cacheService = cacheService,
+        _exerciseLogDataSource =
             exerciseLogDataSource ?? locator.get<ExerciseLogDataSource>();
 
   Future<List<ExerciseLogWithUser>> getLogsOfChallenge(int challengeId) async {

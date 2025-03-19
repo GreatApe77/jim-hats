@@ -71,18 +71,15 @@ class Calendar extends StatelessWidget {
               ? Stack(
                   fit: StackFit.expand,
                   children: [
-
                     IconButton(
-                      onPressed: () => onDayTap(day,groupedByDay[day]!),
+                      onPressed: () => onDayTap(day, groupedByDay[day]!),
                       icon: Badge.count(
                         count: groupedByDay[day]!.length,
                         child: Container(
-                          
-                          width: 50,
-                          child: Center(child: Text(day.toString()))),
+                            width: 50,
+                            child: Center(child: Text(day.toString()))),
                       ),
                     )
-
                   ],
                 )
               : Center(

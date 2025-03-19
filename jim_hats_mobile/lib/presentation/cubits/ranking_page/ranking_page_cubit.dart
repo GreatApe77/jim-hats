@@ -41,7 +41,7 @@ class RankingPageCubit extends Cubit<RankingPageState> {
   }
 
   //double getAverageOfWorkoutsPerDay(Map<String,Ranking> rankingsGroupedByDay){
-    //int[] averageOfDay;
+  //int[] averageOfDay;
   //}
 
   int countTotalOfLogs(List<Ranking> rankings) {
@@ -52,5 +52,4 @@ class RankingPageCubit extends Cubit<RankingPageState> {
 
     return total;
   }
-
 }

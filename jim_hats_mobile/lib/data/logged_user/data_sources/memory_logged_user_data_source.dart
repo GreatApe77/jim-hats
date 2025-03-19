@@ -10,7 +10,8 @@ class MemoryLoggedUserDataSource implements LoggedUserDataSource {
       'username': 'Mateus',
       'id': 4,
       'email': 'mateus@gmail.com',
-      'profilePicture': 'https://avatars.githubusercontent.com/u/67892495?s=200&v=4'
+      'profilePicture':
+          'https://avatars.githubusercontent.com/u/67892495?s=200&v=4'
     }));
   }
 

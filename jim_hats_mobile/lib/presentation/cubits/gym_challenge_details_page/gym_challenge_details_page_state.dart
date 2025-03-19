@@ -17,6 +17,6 @@ final class GymChallengeDetailsPageLoadSuccess
   final ChallengeMember admin;
   final List<ChallengeMember> members;
   final GymChallenge challenge;
-  GymChallengeDetailsPageLoadSuccess( 
-      {required this.members, required this.admin,required this.challenge});
+  GymChallengeDetailsPageLoadSuccess(
+      {required this.members, required this.admin, required this.challenge});
 }

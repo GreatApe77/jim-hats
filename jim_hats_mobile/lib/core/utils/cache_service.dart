@@ -1,4 +1,4 @@
-abstract  class CacheService {
+abstract class CacheService {
   void store<V>(
     String key,
     V value, {

@@ -23,7 +23,6 @@ class ExerciseLogTile extends StatelessWidget {
         children: [
           Row(
             children: [
-              
               UserCircleAvatar(
                 username: exerciseLogWithUser.user.username,
                 radius: 10,

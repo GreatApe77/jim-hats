@@ -1,4 +1,3 @@
-
 class UpdateGymChallengeDto {
   final String? name;
   final String? description;
@@ -25,6 +24,4 @@ class UpdateGymChallengeDto {
       'image': image,
     };
   }
-
-
 }
