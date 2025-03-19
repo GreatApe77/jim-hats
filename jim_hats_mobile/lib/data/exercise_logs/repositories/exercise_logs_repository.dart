@@ -5,7 +5,6 @@ import 'package:jim_hats_mobile/data/exercise_logs/dtos/update_exercise_log_dto.
 import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log_with_user.dart';
 import 'package:jim_hats_mobile/locator.dart';
-import 'package:jim_hats_mobile/core/utils/memory_cache.dart';
 
 class ExerciseLogsRepository {
   final ExerciseLogDataSource _exerciseLogDataSource;

@@ -24,6 +24,11 @@ void main() {
           expect(message, expectedInitializationMethod);
         },
       );
+      test('Should display runtype type in toString method', () {
+        String expectedResult ='ApplicationException: _MockApplicationException';
+        String result = _MockApplicationException().toString();
+        expect(result,expectedResult);
+      },);
     },
   );
 }

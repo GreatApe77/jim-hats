@@ -4,7 +4,6 @@ import 'package:jim_hats_mobile/data/logged_user/dtos/update_logged_user_dto.dar
 import 'package:jim_hats_mobile/data/logged_user/models/logged_user.dart';
 import 'package:jim_hats_mobile/core/exceptions/time_out_exception.dart';
 import 'package:jim_hats_mobile/locator.dart';
-import 'package:jim_hats_mobile/core/utils/memory_cache.dart';
 
 class LoggedUserRepository {
   final LoggedUserDataSource _loggedUserDataSource;

@@ -23,7 +23,6 @@ import 'package:jim_hats_mobile/data/settings/repositories/settings_repository.d
 import 'package:jim_hats_mobile/data/uploads/data_sources/network_upload_data_source.dart';
 import 'package:jim_hats_mobile/data/uploads/data_sources/upload_data_source.dart';
 import 'package:jim_hats_mobile/data/uploads/repositories/upload_repository.dart';
-import 'package:jim_hats_mobile/core/network/http_client.dart';
 import 'package:jim_hats_mobile/presentation/cubits/auth/auth_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/app_drawer/app_drawer_cubit.dart';
 import 'package:jim_hats_mobile/presentation/blocs/theme/theme_bloc.dart';
@@ -52,11 +51,7 @@ Future<void> setupDependencies() async {
     ..registerSingleton<CacheService>(MemoryCacheService())
     ..registerSingleton<SettingsDataSource>(
         SharedPreferencesSettingsDataSource())
-    ..registerSingleton<HttpClient>(
-      HttpClient(
-        dio: Dio(),
-      ),
-    )
+    
     ..registerSingleton<HttpService>(
       DioHttpService(
         settingsDataSource: locator.get<SettingsDataSource>(),

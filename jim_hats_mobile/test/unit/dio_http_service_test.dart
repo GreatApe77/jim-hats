@@ -24,6 +24,10 @@ void main() {
   final sampleErrorResponse = {
     'data': {'message': 'error message'}
   };
+  // final sampleFilePath = '';
+  // final sampleFileField = 'file';
+  // final sampleContentType = 'image/png';
+
   setUp(
     () {
       mockSettingsDataSource = MockSettingsDataSource();
@@ -353,4 +357,5 @@ void main() {
       );
     },
   );
+ 
 }
