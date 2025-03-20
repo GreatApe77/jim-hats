@@ -10,37 +10,36 @@ class LoggedUserRepository {
   final CacheService _cacheService;
   // cache???
 
-  LoggedUserRepository(
-      {required LoggedUserDataSource? loggedUserDataSource,
-      required CacheService cacheService})
-      : _cacheService = cacheService,
+  LoggedUserRepository({
+    required LoggedUserDataSource? loggedUserDataSource,
+    required CacheService cacheService,
+  })  : _cacheService = cacheService,
         _loggedUserDataSource =
             loggedUserDataSource ?? locator.get<LoggedUserDataSource>();
 
   Future<LoggedUser> getLoggedUser() async {
-    try {
-      var loggedUser = _cacheService.get<LoggedUser>('loggedUser');
-      if (loggedUser == null) {
-        //await Future.delayed(Duration(seconds: 2));
-        loggedUser = await _loggedUserDataSource.getLoggedUser();
-        _cacheService.store('loggedUser', loggedUser,
-            duration: Duration(minutes: 1));
-      }
-      return loggedUser;
-    } on TimeOutException {
-      rethrow;
+    var loggedUser = _cacheService.get<LoggedUser>('loggedUser');
+    if (loggedUser == null) {
+      //await Future.delayed(Duration(seconds: 2));
+      loggedUser = await _loggedUserDataSource.getLoggedUser();
+      _cacheService.store(
+        'loggedUser',
+        loggedUser,
+        duration: Duration(
+          minutes: 1,
+        ),
+      );
     }
+    return loggedUser;
   }
 
   Future<LoggedUser> updateLoggedUser(
-      UpdateLoggedUserDto updateLoggedUserDto) async {
-    try {
-      await _loggedUserDataSource.updateLoggedUser(updateLoggedUserDto);
-      final loggedUser = await getLoggedUser();
-      return loggedUser.copyWith(
-          profilePicture: updateLoggedUserDto.profilePicture);
-    } on TimeOutException {
-      rethrow;
-    }
+    UpdateLoggedUserDto updateLoggedUserDto,
+  ) async {
+    await _loggedUserDataSource.updateLoggedUser(updateLoggedUserDto);
+    final loggedUser = await getLoggedUser();
+    return loggedUser.copyWith(
+      profilePicture: updateLoggedUserDto.profilePicture,
+    );
   }
 }
