@@ -20,5 +20,4 @@ class UpdateExerciseLogDto {
     };
   }
 
-  String toJson() => json.encode(toMap());
 }

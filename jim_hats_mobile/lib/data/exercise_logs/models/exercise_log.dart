@@ -98,17 +98,3 @@ class ExerciseLog {
         gymChallengeId.hashCode;
   }
 }
-
-// model ExerciseLog {
-//   id             Int          @id @default(autoincrement())
-//   title          String       @db.VarChar(255)
-//   description    String?
-//   image          String?
-//   date           DateTime
-//   user           User         @relation(fields: [userId], references: [id])
-//   gymChallenge   GymChallenge @relation(fields: [gymChallengeId], references: [id])
-//   userId         Int          @map("user_id")
-//   gymChallengeId Int          @map("gym_challenge_id")
-
-//   @@map("exercise_logs")
-// }
