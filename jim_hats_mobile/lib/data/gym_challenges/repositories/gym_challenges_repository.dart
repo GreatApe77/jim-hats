@@ -79,7 +79,8 @@ class GymChallengesRepository {
     UpdateGymChallengeDto updateGymChallengeDto,
   ) async {
     await _gymChallengeDataSource.updateChallenge(
-        challengeId, updateGymChallengeDto);
-    _cacheService.remove('challenges-$challengeId');
+      challengeId,
+      updateGymChallengeDto,
+    );
   }
 }
