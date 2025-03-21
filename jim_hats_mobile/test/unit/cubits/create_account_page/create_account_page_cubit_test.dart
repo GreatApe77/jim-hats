@@ -235,6 +235,44 @@ void main() {
               ),
         ],
       );
+      blocTest<CreateAccountPageCubit, CreateAccountPageState>(
+        'Should emit error state when the form submission fails (Unknown Exception)',
+        setUp: () {
+          when(
+            mockAuthRepository.register(
+              any,
+            ),
+          ).thenThrow(
+            Error(),
+          );
+        },
+        build: () => sut,
+        act: (cubit) {
+          cubit.submitForm();
+        },
+        verify: (bloc) {
+          verify(mockAuthRepository.register(any)).called(1);
+          verifyZeroInteractions(mockUploadRepository);
+        },
+        expect: () => [
+          isA<CreateAccountPageState>().having(
+            (state) => state.status,
+            'Status',
+            Status.loading,
+          ),
+          isA<CreateAccountPageState>()
+              .having(
+                (state) => state.status,
+                'Status',
+                Status.error,
+              )
+              .having(
+                (state) => state.errorMessage,
+                'Error message',
+                'Unknown error while submiting the form',
+              ),
+        ],
+      );
     },
   );
 }
