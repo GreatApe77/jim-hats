@@ -46,8 +46,6 @@ class CreateAccountPageCubit extends Cubit<CreateAccountPageState> {
   void submitForm() async {
     try {
       if (state.confirmPassword != state.password) {
-        print(state.confirmPassword);
-        print(state.password);
         emit(state.copyWith(
             status: Status.error, errorMessage: 'Passwords do not match'));
         emit(state.copyWith(status: Status.writingForm, errorMessage: ''));
@@ -62,22 +60,37 @@ class CreateAccountPageCubit extends Cubit<CreateAccountPageState> {
             .uploadFile(UploadDto(fileToUpload: state.image!));
         //    print("Depois do erro");
       }
-      await Future.delayed(Duration(seconds: 1));
-      await _authRepository.register(RegisterDto(
+
+      await _authRepository.register(
+        RegisterDto(
           username: state.username,
           email: state.email,
           password: state.password,
-          profilePicture: profilePicture));
-      emit(state.copyWith(status: Status.success));
+          profilePicture: profilePicture,
+        ),
+      );
+      emit(
+        state.copyWith(
+          status: Status.success,
+        ),
+      );
 
       //emit(CreateAccountPageState.empty());
     } on ApplicationException catch (e) {
-      emit(state.copyWith(status: Status.error, errorMessage: e.getMessage()));
+      emit(
+        state.copyWith(
+          status: Status.error,
+          errorMessage: e.getMessage(),
+        ),
+      );
     } catch (e) {
       //print(e);
-      emit(state.copyWith(
+      emit(
+        state.copyWith(
           status: Status.error,
-          errorMessage: 'Unknown error while submiting the form'));
+          errorMessage: 'Unknown error while submiting the form',
+        ),
+      );
 
       //emit(CreateAccountPageState.empty());
     }
