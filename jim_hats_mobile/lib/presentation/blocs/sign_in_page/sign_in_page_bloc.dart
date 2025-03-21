@@ -37,7 +37,8 @@ class SignInPageBloc extends Bloc<SignInPageEvent, SignInPageState> {
             message: e.getMessage(),
           ));
         } catch (e) {
-          emit(state.copywith(status: SignInPageStatus.failure));
+          
+          emit(state.copywith(status: SignInPageStatus.failure,message: 'Unknown error while signing in'));
           //emit(SignInPageState.empty());
         }
       },
