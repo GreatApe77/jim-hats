@@ -18,10 +18,11 @@ class NewCheckInPageCubit extends Cubit<NewCheckInPageState> {
         _exerciseLogsRepository = exerciseLogsRepositoy,
         super(
           NewCheckInPageState(
-              status: NewCheckInPageStatus.idle,
-              photo: null,
-              title: '',
-              description: ''),
+            status: NewCheckInPageStatus.idle,
+            photo: null,
+            title: '',
+            description: '',
+          ),
         );
 
   void updateTitle(String title) {
@@ -42,12 +43,16 @@ class NewCheckInPageCubit extends Cubit<NewCheckInPageState> {
 
       String? photoUrl;
       if (state.photo != null) {
-        photoUrl = await _uploadRepository
-            .uploadFile(UploadDto(fileToUpload: state.photo!));
+        photoUrl = await _uploadRepository.uploadFile(
+          UploadDto(fileToUpload: state.photo!),
+        );
       }
 
       final dto = AddExerciseLogToChallengeDto(
-          title: state.title, description: state.description, image: photoUrl);
+        title: state.title,
+        description: state.description,
+        image: photoUrl,
+      );
 
       await _exerciseLogsRepository.addExerciseLogToChallenge(challengeId, dto);
       emit(state.copyWith(status: NewCheckInPageStatus.success));
