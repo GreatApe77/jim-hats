@@ -36,8 +36,12 @@ class RankingPageCubit extends Cubit<RankingPageState> {
       (challenge) => challenge.id == challengeId,
     );
 
-    emit(RankingPagedDataLoadSuccess(
-        rankings: rankings, challenge: currentChallenge));
+    emit(
+      RankingPagedDataLoadSuccess(
+        rankings: rankings,
+        challenge: currentChallenge,
+      ),
+    );
   }
 
   //double getAverageOfWorkoutsPerDay(Map<String,Ranking> rankingsGroupedByDay){
