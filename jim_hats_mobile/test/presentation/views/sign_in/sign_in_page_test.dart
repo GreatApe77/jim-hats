@@ -6,15 +6,17 @@ import 'package:jim_hats_mobile/presentation/blocs/sign_in_page/sign_in_page_blo
 import 'package:jim_hats_mobile/presentation/views/sign_in/sign_in_page.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockSignInPageBloc extends MockBloc<SignInPageEvent, SignInPageState>
+
+class _MockSignInPageBloc extends MockBloc<SignInPageEvent, SignInPageState>
     implements SignInPageBloc {}
 
 //@GenerateNiceMocks([MockSpec<SignInPageBloc>()])
 void main() {
-  late MockSignInPageBloc mockSignInPageBloc;
+  
+  late _MockSignInPageBloc mockSignInPageBloc;
   setUp(
     () {
-      mockSignInPageBloc = MockSignInPageBloc();
+      mockSignInPageBloc = _MockSignInPageBloc();
       locator.registerFactory<SignInPageBloc>(
         () => mockSignInPageBloc,
       );
@@ -22,6 +24,7 @@ void main() {
   );
   tearDown(
     () {
+      
       locator.unregister<SignInPageBloc>();
     },
   );
@@ -30,7 +33,8 @@ void main() {
   //     locator.unregister<SignInPageBloc>();
   //   },
   // );
-  testWidgets('sign in page ...', (tester) async {
+  testWidgets('Should update bloc state when typing on username form field',
+      (tester) async {
     when(() => mockSignInPageBloc.state).thenReturn(
       SignInPageState(
           username: 'username',
@@ -38,9 +42,14 @@ void main() {
           password: '',
           message: ''),
     );
+    
     await tester.pumpWidget(MaterialApp(
       home: SignInPage(),
     ));
-    
+    final usernameTextField = find.byKey(Key('SignInView.username_field'));
+
+    await tester.enterText(usernameTextField, 'Mateus');
+    //await tester.pumpAndSettle();
+    verify(() => mockSignInPageBloc.add(SignInUsernameChanged(username: 'Mateus')),).called(1);
   });
 }

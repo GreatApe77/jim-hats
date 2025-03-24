@@ -78,6 +78,7 @@ class SignInView extends StatelessWidget {
                     height: 16,
                   ),
                   TextFormField(
+                    key: Key('SignInView.username_field'),
                     validator: _usernameValidator.validate,
                     onChanged: (value) {
                       context.read<SignInPageBloc>().add(SignInUsernameChanged(
@@ -95,6 +96,7 @@ class SignInView extends StatelessWidget {
                       listenable: hidePasswordController,
                       builder: (context, child) {
                         return TextFormField(
+                          key: Key('SignInView.password_field'),
                           validator: _passwordValidator.validate,
                           onChanged: (value) {
                             context
@@ -121,6 +123,7 @@ class SignInView extends StatelessWidget {
                         previous.status != current.status,
                     builder: (context, state) {
                       return FilledButton(
+                        key: Key('SignInView.sign_in_button'),
                           onPressed: state.status == SignInPageStatus.loading
                               ? null
                               : () => _submitSignIn(context),
