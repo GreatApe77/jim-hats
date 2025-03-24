@@ -128,9 +128,7 @@ void main() {
     act: (cubit) => cubit.updateLoggedUserProfilePicture(
       null,
     ),
-    expect: () => [
-      isA<SettingsDataLoadInProgress>(),
-      isA<SettingsDataFailed>()
-    ],
+    expect: () =>
+        [isA<SettingsDataLoadInProgress>(), isA<SettingsDataFailed>()],
   );
 }

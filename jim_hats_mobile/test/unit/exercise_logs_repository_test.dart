@@ -197,7 +197,7 @@ void main() {
             (_) async => sampleExerciseLogWithUserList,
           );
           final result = await sut.getLogsOfChallenge(sampleChallengeId);
-          
+
           expect(result, isA<List<ExerciseLogWithUser>>());
           expect(result.length, 1);
           expect(result[0].title, 'title');

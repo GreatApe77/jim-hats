@@ -39,15 +39,17 @@ void main() {
     act: (cubit) => cubit.loadDrawerData(),
     expect: () => [
       isA<AppDrawerLoadDataInProgress>(),
-      isA<AppDrawerLoadDataSuccess>().having(
-        (state) => state.loggedUser,
-        'Logged user',
-        isA<LoggedUser>(),
-      ).having(
-        (state) => state.challenges,
-        'Challenges',
-        isA<List<GymChallenge>>(),
-      ),
+      isA<AppDrawerLoadDataSuccess>()
+          .having(
+            (state) => state.loggedUser,
+            'Logged user',
+            isA<LoggedUser>(),
+          )
+          .having(
+            (state) => state.challenges,
+            'Challenges',
+            isA<List<GymChallenge>>(),
+          ),
     ],
   );
 }

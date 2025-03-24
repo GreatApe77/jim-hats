@@ -50,7 +50,6 @@ Future<void> setupDependencies() async {
     ..registerSingleton<CacheService>(MemoryCacheService())
     ..registerSingleton<SettingsDataSource>(
         SharedPreferencesSettingsDataSource())
-    
     ..registerSingleton<HttpService>(
       DioHttpService(
         settingsDataSource: locator.get<SettingsDataSource>(),

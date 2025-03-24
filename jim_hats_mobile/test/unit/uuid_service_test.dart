@@ -1,9 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:jim_hats_mobile/core/utils/uuid_service.dart';
 
-
-
-
 void main() {
   final String invalidUuid = 'notuuid';
   final String validUuid = 'a7943b35-b62c-41c0-afd8-2f0434d8ea3c';

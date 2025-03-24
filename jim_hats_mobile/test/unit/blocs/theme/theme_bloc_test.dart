@@ -24,8 +24,9 @@ void main() {
   test(
     'Inital state must be dark',
     () {
-      final customSut = ThemeBloc(settingsRepository: mockSettingsRepository, themeState: ThemeDark());
-      expect(customSut.state,isA<ThemeDark>());
+      final customSut = ThemeBloc(
+          settingsRepository: mockSettingsRepository, themeState: ThemeDark());
+      expect(customSut.state, isA<ThemeDark>());
     },
   );
   test(

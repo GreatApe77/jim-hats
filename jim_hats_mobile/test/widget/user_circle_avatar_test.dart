@@ -16,7 +16,7 @@ void main() {
       );
 
       final initialsFinder = find.text('MA');
-      expect(initialsFinder,findsOne);
+      expect(initialsFinder, findsOne);
     },
   );
 }

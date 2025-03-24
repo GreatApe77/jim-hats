@@ -31,7 +31,7 @@ void main() {
       );
 
       final result = await sut.uploadFile(sampleUploadDto);
-      expect(result,sampleUploadResponse);
+      expect(result, sampleUploadResponse);
     },
   );
 }

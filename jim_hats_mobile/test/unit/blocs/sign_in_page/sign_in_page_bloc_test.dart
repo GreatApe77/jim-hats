@@ -77,9 +77,7 @@ void main() {
       blocTest<SignInPageBloc, SignInPageState>(
         'Should submit the form but throws a expected Application error',
         setUp: () {
-          when(mockAuthRepository.login(any)).thenThrow(
-            sampleTimeoutException
-          );
+          when(mockAuthRepository.login(any)).thenThrow(sampleTimeoutException);
         },
         build: () => sut,
         act: (bloc) => bloc.add(SignInFormSubmitted()),
@@ -102,12 +100,10 @@ void main() {
               ),
         ],
       );
-       blocTest<SignInPageBloc, SignInPageState>(
+      blocTest<SignInPageBloc, SignInPageState>(
         'Should submit the form but throws an unknown error',
         setUp: () {
-          when(mockAuthRepository.login(any)).thenThrow(
-            Exception()
-          );
+          when(mockAuthRepository.login(any)).thenThrow(Exception());
         },
         build: () => sut,
         act: (bloc) => bloc.add(SignInFormSubmitted()),
@@ -123,11 +119,8 @@ void main() {
                 'status',
                 SignInPageStatus.failure,
               )
-              .having(
-                (state) => state.message,
-                'error message',
-                'Unknown error while signing in'
-              ),
+              .having((state) => state.message, 'error message',
+                  'Unknown error while signing in'),
         ],
       );
     },

@@ -110,7 +110,6 @@ void main() {
     act: (cubit) {
       cubit.submitForm(sampleChallengeId);
     },
-
     expect: () => [
       isA<NewCheckInPageState>().having(
         (state) => state.status,

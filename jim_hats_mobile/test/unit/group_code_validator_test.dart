@@ -25,9 +25,12 @@ void main() {
         );
       });
 
-      test('Should setup with a uuid service as a dependency if none is provided',() {
-        expect(()=>GroupCodeValidator(), returnsNormally);
-      },);
+      test(
+        'Should setup with a uuid service as a dependency if none is provided',
+        () {
+          expect(() => GroupCodeValidator(), returnsNormally);
+        },
+      );
       test(
         'Should return null if group code is valid',
         () {

@@ -78,7 +78,8 @@ void main() {
           final result = await sut.updateLoggedUser(
             sampleUpdateLoggedUserDto,
           );
-          expect(result.profilePicture, sampleUpdateLoggedUserDto.profilePicture);
+          expect(
+              result.profilePicture, sampleUpdateLoggedUserDto.profilePicture);
         },
       );
     },

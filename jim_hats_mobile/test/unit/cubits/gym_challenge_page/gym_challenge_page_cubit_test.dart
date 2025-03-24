@@ -131,11 +131,8 @@ void main() {
             'Logs',
             isA<List<ExerciseLogWithUser>>(),
           )
-          .having(
-            (state) => state.logsGroupedByDate['01/01/2025'],
-            'Logs grouped by date',
-            isA<List<ExerciseLogWithUser>>()
-          )
+          .having((state) => state.logsGroupedByDate['01/01/2025'],
+              'Logs grouped by date', isA<List<ExerciseLogWithUser>>())
           .having(
             (state) => state.challenge.id,
             'Challenge id',

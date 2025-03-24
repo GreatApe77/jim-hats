@@ -18,5 +18,4 @@ class UpdateExerciseLogDto {
       'image': image,
     };
   }
-
 }

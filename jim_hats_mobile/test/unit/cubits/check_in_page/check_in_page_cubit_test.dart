@@ -70,7 +70,7 @@ void main() {
       ),
     ],
   );
-   blocTest<CheckInPageCubit, CheckInPageState>(
+  blocTest<CheckInPageCubit, CheckInPageState>(
     'Should fail to delete and catch an unknown exception',
     build: () => sut,
     setUp: () {
