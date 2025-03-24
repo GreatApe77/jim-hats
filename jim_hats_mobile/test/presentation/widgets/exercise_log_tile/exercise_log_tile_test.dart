@@ -42,6 +42,35 @@ void main() {
           );
         },
       );
+      testWidgets(
+        'Should execute the onTap function',
+        (tester) async {
+          mockNetworkImagesFor(
+            () async {
+              bool callbackCalled = false;
+              void sampleCallback() {
+                callbackCalled = true;
+              }
+
+              await tester.pumpWidget(
+                MaterialApp(
+                  home: Scaffold(
+                    body: ExerciseLogTile(
+                      exerciseLogWithUser: sampleExerciseLog,
+                      onTap: sampleCallback,
+                    ),
+                  ),
+                ),
+              );
+              final listTile = find.byKey(Key('ExerciseLogTile.ListTile'));
+
+              await tester.tap(listTile);
+              await tester.pumpAndSettle();
+              expect(callbackCalled, isTrue);
+            },
+          );
+        },
+      );
     },
   );
 }

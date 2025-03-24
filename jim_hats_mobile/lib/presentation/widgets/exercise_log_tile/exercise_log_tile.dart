@@ -15,6 +15,7 @@ class ExerciseLogTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      key: Key('ExerciseLogTile.ListTile'),
       onTap: onTap,
       tileColor: Theme.of(context).colorScheme.surfaceContainerHigh,
       title: Text(exerciseLogWithUser.title),
