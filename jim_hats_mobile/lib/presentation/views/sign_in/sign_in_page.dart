@@ -105,14 +105,18 @@ class SignInView extends StatelessWidget {
                           },
                           obscureText: hidePasswordController.isHidden,
                           decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              label: Text('Password'),
-                              suffixIcon: IconButton(
-                                key: Key('SignInView.toggle_password_btn'),
-                                  onPressed: () => _toggleHidePassword(),
-                                  icon: Icon(hidePasswordController.isHidden
-                                      ? Icons.visibility_off
-                                      : Icons.visibility))),
+                            border: OutlineInputBorder(),
+                            label: Text('Password'),
+                            suffixIcon: IconButton(
+                              key: Key('SignInView.toggle_password_btn'),
+                              onPressed: () => _toggleHidePassword(),
+                              icon: Icon(
+                                hidePasswordController.isHidden
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                              ),
+                            ),
+                          ),
                         );
                       }),
                   SizedBox(
@@ -124,7 +128,7 @@ class SignInView extends StatelessWidget {
                         previous.status != current.status,
                     builder: (context, state) {
                       return FilledButton(
-                        key: Key('SignInView.sign_in_button'),
+                          key: Key('SignInView.sign_in_button'),
                           onPressed: state.status == SignInPageStatus.loading
                               ? null
                               : () => _submitSignIn(context),

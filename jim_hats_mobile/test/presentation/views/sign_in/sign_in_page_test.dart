@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:jim_hats_mobile/locator.dart';
 import 'package:jim_hats_mobile/presentation/blocs/sign_in_page/sign_in_page_bloc.dart';
+import 'package:jim_hats_mobile/presentation/routing/app_routes.dart';
 import 'package:jim_hats_mobile/presentation/views/sign_in/sign_in_page.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -160,5 +161,121 @@ void main() {
     expect(find.text('Invalid credentials'), findsOneWidget);
     expect(find.byType(SnackBar), findsOneWidget);
   });
-
+  testWidgets(
+    'Should toggle show/hide password',
+    (widgetTester) async {
+      when(
+        () => mockSignInPageBloc.state,
+      ).thenReturn(
+        SignInPageState(
+            username: '',
+            status: SignInPageStatus.writingForm,
+            password: '',
+            message: ''),
+      );
+      await widgetTester.pumpWidget(
+        MaterialApp(
+          home: SignInPage(),
+        ),
+      );
+      await widgetTester.enterText(find.byKey(passwordTextFieldKey), 'secret');
+      await widgetTester.tap(find.byKey(togglePasswordBtnKey));
+      await widgetTester.pump();
+      expect(find.byIcon(Icons.visibility), findsOne);
+      await widgetTester.tap(find.byKey(togglePasswordBtnKey));
+      await widgetTester.pump();
+      expect(find.byIcon(Icons.visibility_off), findsOne);
+    },
+  );
+  testWidgets(
+    'Should navigate to splash page if login is successfull',
+    (widgetTester) async {
+      whenListen(
+        mockSignInPageBloc,
+        Stream<SignInPageState>.fromIterable(
+          [
+            SignInPageState(
+              username: 'valid_user',
+              status: SignInPageStatus.loading,
+              password: 'valid_pass',
+              message: '',
+            ),
+            SignInPageState(
+              username: '',
+              status: SignInPageStatus.success,
+              password: '',
+              message: '',
+            ),
+          ],
+        ),
+        initialState: SignInPageState(
+            username: '',
+            status: SignInPageStatus.writingForm,
+            password: '',
+            message: ''),
+      );
+      await widgetTester.pumpWidget(
+        MaterialApp(
+          home: SignInPage(),
+          routes: {
+            AppRoutes.splash: (context) => Scaffold(
+                  body: Text('Splash'),
+                )
+          },
+        ),
+      );
+      await widgetTester.enterText(
+        find.byKey(usernameTextFieldKey),
+        'sample_username',
+      );
+      await widgetTester.enterText(
+        find.byKey(passwordTextFieldKey),
+        'sample_password123',
+      );
+      await widgetTester.tap(find.byKey(signInBtnKey));
+      await widgetTester.pumpAndSettle();
+      expect(find.text('Splash'), findsOneWidget);
+    },
+  );
+  testWidgets(
+    'Should ensure button is in loading state',
+    (widgetTester) async {
+      whenListen(
+        mockSignInPageBloc,
+        Stream<SignInPageState>.fromIterable(
+          [
+            SignInPageState(
+              username: 'valid_user',
+              status: SignInPageStatus.loading,
+              password: 'valid_pass',
+              message: '',
+            ),
+            
+          ],
+        ),
+        initialState: SignInPageState(
+            username: '',
+            status: SignInPageStatus.writingForm,
+            password: '',
+            message: ''),
+      );
+      await widgetTester.pumpWidget(
+        MaterialApp(
+          home: SignInPage(),
+          
+        ),
+      );
+      await widgetTester.enterText(
+        find.byKey(usernameTextFieldKey),
+        'sample_username',
+      );
+      await widgetTester.enterText(
+        find.byKey(passwordTextFieldKey),
+        'sample_password123',
+      );
+      await widgetTester.tap(find.byKey(signInBtnKey));
+      await widgetTester.pumpAndSettle();
+      expect(find.text('Signing in...'), findsOneWidget);
+    },
+  );
 }
