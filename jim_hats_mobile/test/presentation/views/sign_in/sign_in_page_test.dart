@@ -15,6 +15,7 @@ void main() {
   final signInBtnKey = Key('SignInView.sign_in_button');
   final usernameTextFieldKey = Key('SignInView.username_field');
   final passwordTextFieldKey = Key('SignInView.password_field');
+  final togglePasswordBtnKey = Key('SignInView.toggle_password_btn');
   setUp(
     () {
       mockSignInPageBloc = _MockSignInPageBloc();
@@ -124,4 +125,40 @@ void main() {
       expect(find.textContaining(requiredPasswordErrorMessage), findsOne);
     },
   );
+  testWidgets('Should display error message when sign-in fails',
+      (tester) async {
+    whenListen(
+      mockSignInPageBloc,
+      Stream<SignInPageState>.fromIterable([
+        SignInPageState(
+          username: '',
+          status: SignInPageStatus.failure, // Simulate failure
+          password: '',
+          message: 'Invalid credentials',
+        ),
+      ]),
+      initialState: SignInPageState(
+        username: '',
+        status: SignInPageStatus.writingForm,
+        password: '',
+        message: '',
+      ),
+    );
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: SignInPage(),
+      ),
+    );
+
+    await tester.enterText(find.byKey(usernameTextFieldKey), 'valid_username');
+    await tester.enterText(find.byKey(passwordTextFieldKey), 'supersecret123');
+
+    await tester.tap(find.byKey(signInBtnKey));
+    await tester.pump();
+
+    expect(find.text('Invalid credentials'), findsOneWidget);
+    expect(find.byType(SnackBar), findsOneWidget);
+  });
+
 }

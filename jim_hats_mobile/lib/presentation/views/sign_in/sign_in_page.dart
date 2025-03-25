@@ -108,6 +108,7 @@ class SignInView extends StatelessWidget {
                               border: OutlineInputBorder(),
                               label: Text('Password'),
                               suffixIcon: IconButton(
+                                key: Key('SignInView.toggle_password_btn'),
                                   onPressed: () => _toggleHidePassword(),
                                   icon: Icon(hidePasswordController.isHidden
                                       ? Icons.visibility_off
