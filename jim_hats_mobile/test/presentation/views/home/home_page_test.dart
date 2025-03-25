@@ -38,8 +38,11 @@ void main() {
   testWidgets(
     'Should display nothing in inital data',
     (widgetTester) async {
-      whenListen(mockHomePageCubit, Stream<HomePageState>.fromIterable([]),
-          initialState: HomePageDataInitial());
+      whenListen(
+        mockHomePageCubit,
+        Stream<HomePageState>.fromIterable([]),
+        initialState: HomePageDataInitial(),
+      );
 
       await widgetTester.pumpWidget(
         MaterialApp(
