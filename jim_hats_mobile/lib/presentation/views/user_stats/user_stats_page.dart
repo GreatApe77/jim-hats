@@ -74,6 +74,7 @@ class _UserStatsView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             StatsItem(
+                              key: Key('UserStatsView.total_stats_item'),
                               label: 'Check-ins',
                               value: state.logsOfUser.length.toString(),
                             ),
