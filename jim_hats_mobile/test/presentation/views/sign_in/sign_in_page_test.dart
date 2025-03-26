@@ -232,7 +232,7 @@ void main() {
         find.byKey(passwordTextFieldKey),
         'sample_password123',
       );
-      await widgetTester.tap(find.byKey(signInBtnKey));
+      await widgetTester.tap(find.byKey(signInBtnKey),warnIfMissed: false);
       await widgetTester.pumpAndSettle();
       expect(find.text('Splash'), findsOneWidget);
     },
