@@ -51,6 +51,7 @@ class CheckInView extends StatelessWidget {
                 },
               ),
               PopupMenuItem(
+                key: Key('CheckInView.remove_check_in_popup_btn'),
                 child: Text(
                   'Remove check-in',
                   style: TextStyle(color: Theme.of(context).colorScheme.error),
@@ -85,6 +86,7 @@ class CheckInView extends StatelessWidget {
                           content: Text('This action cannot be reversed.'),
                           actions: [
                             TextButton(
+                              key: Key('CheckInView.cancel_remove_btn'),
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },
