@@ -34,9 +34,6 @@ class RankingView extends StatelessWidget {
       body: BlocBuilder<RankingPageCubit, RankingPageState>(
         bloc: context.read<RankingPageCubit>(),
         builder: (context, state) {
-          if (state is RankingPageInitial) {
-            return SizedBox.shrink();
-          }
           if (state is RankingPageDataLoadInProgress) {
             return Center(
               child: CircularProgressIndicator(),
@@ -118,7 +115,7 @@ class RankingView extends StatelessWidget {
                       ],
                     )));
           }
-          return SizedBox.shrink();
+          return SizedBox.shrink(key: Key('RankingView.shrinked_sized_box'),);
         },
       ),
     );

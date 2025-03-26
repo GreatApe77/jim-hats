@@ -113,7 +113,7 @@ Future<void> setupDependencies() async {
       ),
     );
   //load settings
-  await loadSettings();
+  await loadSettings(locator.get<SettingsRepository>());
 
   //Cubits
   locator
@@ -192,8 +192,8 @@ Future<void> setupDependencies() async {
         ));
 }
 
-Future<void> loadSettings() async {
-  await locator.get<SettingsRepository>().loadSettings();
+Future<void> loadSettings(SettingsRepository settingsRepository) async {
+  await settingsRepository.loadSettings();
 }
 
 final blocProviders = [
