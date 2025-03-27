@@ -7,8 +7,12 @@ class ImageBannerForm extends StatelessWidget {
   final Function(TapDownDetails details) onTapDown;
   final String imageUrl;
   final XFile? image;
-  const ImageBannerForm(
-      {super.key, this.image, required this.onTapDown, required this.imageUrl});
+  const ImageBannerForm({
+    super.key,
+    this.image,
+    required this.onTapDown,
+    required this.imageUrl,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -42,13 +46,16 @@ class ImageBannerForm extends StatelessWidget {
                   ? Align(
                       alignment: Alignment.center,
                       child: InkWell(
+                        key: Key('ImageBannerForm.file_image_inkwell'),
                         borderRadius: BorderRadius.circular(10),
                         onTapDown: onTapDown,
                         child: Ink(
+                          
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: Theme.of(context).colorScheme.onSurface,
                             image: DecorationImage(
+                              
                               fit: BoxFit.cover,
                               image: FileImage(
                                 File(image!.path),
@@ -62,6 +69,7 @@ class ImageBannerForm extends StatelessWidget {
                   : Align(
                       alignment: Alignment.center,
                       child: InkWell(
+                        key: Key('ImageBannerForm.network_image_ink_well'),
                         borderRadius: BorderRadius.circular(10),
                         onTapDown: onTapDown,
                         child: Ink(
