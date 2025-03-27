@@ -1,8 +1,4 @@
 abstract class FormSanitizers {
-  static String _trim(String? value) {
-    return value?.trim() ?? '';
-  }
-
   static String _removeSpaces(String? value) {
     return value?.replaceAll(' ', '') ?? '';
   }
