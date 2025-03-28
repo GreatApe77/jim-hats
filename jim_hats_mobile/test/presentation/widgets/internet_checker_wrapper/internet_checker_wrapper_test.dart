@@ -12,6 +12,8 @@ class MockInternetConnectivityCubit extends MockCubit<InternetConnectivityState>
 
 void main() {
   late MockInternetConnectivityCubit mockInternetConnectivityCubit;
+  final bannerMessage =
+      'No internet connection! Enable your wifi or mobile data to continue';
   setUp(
     () {
       mockInternetConnectivityCubit = MockInternetConnectivityCubit();
@@ -45,24 +47,66 @@ void main() {
             status: InternetConnectivityStatus.disconnected,
           )
         ]),
-        initialState: InternetConnectivityStatus.disconnected,
+        initialState: InternetConnectivityState(
+          status: InternetConnectivityStatus.connected,
+        ),
       );
+
       await widgetTester.pumpWidget(
         BlocProvider<InternetConnectivityCubit>(
           create: (context) => mockInternetConnectivityCubit,
           child: MaterialApp(
             scaffoldMessengerKey: scaffoldMessengerKey,
             home: InternetCheckerWrapper(
-              child: Scaffold(
-                body: Text('HERE'),
-              ),
+              child: Scaffold(body: Text('Test Content')),
             ),
           ),
         ),
       );
-      await widgetTester.pumpAndSettle();
-      expect(find.text('No internet connection! Enable your wifi or mobile data to continue'),findsOne);
-      //await expect(find.text('HERE'), findsOne);
+
+      await widgetTester.pump();
+
+      expect(find.text(bannerMessage), findsOneWidget);
+    },
+  );
+  testWidgets(
+    'Should remove MaterialBanner when internet is reconnected',
+    (widgetTester) async {
+      whenListen(
+        mockInternetConnectivityCubit,
+        Stream<InternetConnectivityState>.fromIterable([
+          InternetConnectivityState(
+            status: InternetConnectivityStatus.disconnected,
+          ),
+          InternetConnectivityState(
+            status: InternetConnectivityStatus.connected,
+          ),
+        ]),
+        initialState: InternetConnectivityState(
+          status: InternetConnectivityStatus.connected,
+        ),
+      );
+
+      await widgetTester.pumpWidget(
+        BlocProvider<InternetConnectivityCubit>(
+          create: (context) => mockInternetConnectivityCubit,
+          child: MaterialApp(
+            scaffoldMessengerKey: scaffoldMessengerKey,
+            home: InternetCheckerWrapper(
+              child: Scaffold(body: Text('Test Content')),
+            ),
+          ),
+        ),
+      );
+
+      await widgetTester.pump();
+      //expect(find.text(bannerMessage), findsOneWidget);
+
+      
+      //await widgetTester.pump(const Duration(milliseconds: 500));
+
+      
+      expect(find.text(bannerMessage), findsNothing);
     },
   );
 }
