@@ -48,4 +48,28 @@ void main() {
       },
     );
   });
+
+  testWidgets('Should display file image', (tester) async {
+    mockNetworkImagesFor(
+      () async {
+        await tester.pumpWidget(
+          MaterialApp(
+            home: Material(
+              child: ImageBannerForm(
+                onTapDown: (details) {},
+                imageUrl: '',
+                image: XFile('any'),
+                //       image: XFile(''),
+              ),
+            ),
+          ),
+        );
+        expect(find.byIcon(Icons.image), findsNothing);
+        //ImageBannerForm.file_image_inkwell
+        expect(find.byKey(Key('ImageBannerForm.file_image_inkwell')),
+            findsOne);
+        expect(find.byIcon(Icons.camera_alt), findsOneWidget);
+      },
+    );
+  });
 }
