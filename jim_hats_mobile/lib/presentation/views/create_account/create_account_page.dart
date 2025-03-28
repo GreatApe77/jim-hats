@@ -16,7 +16,6 @@ import 'package:jim_hats_mobile/presentation/cubits/create_account_page/create_a
 
 class CreateAccountPage extends StatelessWidget {
   const CreateAccountPage({super.key});
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider<CreateAccountPageCubit>(
@@ -29,7 +28,24 @@ class CreateAccountPage extends StatelessWidget {
 
 class CreateAccountView extends StatefulWidget {
   const CreateAccountView({super.key});
-
+  static const usernameTextFieldKey =
+      Key('CreateAccountView.username_text_field');
+  static const passwordTextFieldKey =
+      Key('CreateAccountView.password_text_field');
+  static const confirmPasswordTextFieldKey =
+      Key('CreateAccountView.confirm_password_text_field');
+  static const emailTextFieldKey = Key('CreateAccountView.email_text_field');
+  static const createAccountBtnKey =
+      Key('CreateAccountView.create_account_btn');
+  static const imageInkKey = Key('CreateAccountView.image_ink');
+  static const selectImageInkWellKey =
+      Key('CreateAccountView.select_image_ink_well');
+  static const changeImageInkWellKey =
+      Key('CreateAccountView.change_image_ink_well');
+  static const clearProfilePicBtnKey =
+      Key('CreateAccountView.clear_profile_pic_btn');
+  static const toggleHidePasswordBtnKey =
+      Key('CreateAccountView.toggle_hide_password');
   @override
   State<CreateAccountView> createState() => _CreateAccountViewState();
 }
@@ -127,6 +143,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                           height: 100,
                           width: 100,
                           child: InkWell(
+                            key: CreateAccountView.changeImageInkWellKey,
                             customBorder: CircleBorder(),
                             onTap: () {
                               final bloc =
@@ -147,6 +164,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                               ));
                             },
                             child: Ink(
+                              key: CreateAccountView.imageInkKey,
                               decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   image: DecorationImage(
@@ -191,6 +209,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                           color: Theme.of(context).colorScheme.surfaceContainer,
                           shape: CircleBorder(),
                           child: InkWell(
+                            key: CreateAccountView.selectImageInkWellKey,
                             customBorder: CircleBorder(),
                             onTap: () {
                               final bloc =
@@ -257,12 +276,12 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                     if (state.image != null) {
                       return Align(
                         child: TextButton(
-                            onPressed: () {
-                              context
-                                  .read<CreateAccountPageCubit>()
-                                  .clearImage();
-                            },
-                            child: Text('Clear profile picture')),
+                          key: CreateAccountView.clearProfilePicBtnKey,
+                          onPressed: () {
+                            context.read<CreateAccountPageCubit>().clearImage();
+                          },
+                          child: Text('Clear profile picture'),
+                        ),
                       );
                     }
                     return SizedBox.shrink();
@@ -272,13 +291,14 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                   height: 16,
                 ),
                 TextFormField(
+                  key: CreateAccountView.usernameTextFieldKey,
                   initialValue:
                       context.read<CreateAccountPageCubit>().state.username,
                   validator: _usernameValidator.validate,
                   onChanged: (value) {
-                    context
-                        .read<CreateAccountPageCubit>()
-                        .updateUsername(FormSanitizers.sanitizeUsername(value));
+                    context.read<CreateAccountPageCubit>().updateUsername(
+                          FormSanitizers.sanitizeUsername(value),
+                        );
                   },
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -289,6 +309,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                   height: 16,
                 ),
                 TextFormField(
+                  key: CreateAccountView.emailTextFieldKey,
                   initialValue:
                       context.read<CreateAccountPageCubit>().state.email,
                   validator: _emailValidator.validate,
@@ -309,6 +330,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                   listenable: hidePasswordController,
                   builder: (context, child) {
                     return TextFormField(
+                      key: CreateAccountView.passwordTextFieldKey,
                       initialValue:
                           context.read<CreateAccountPageCubit>().state.password,
                       obscureText: hidePasswordController.isHidden,
@@ -319,13 +341,15 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                       },
                       validator: _passwordValidator.validate,
                       decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          label: Text('Password'),
-                          suffixIcon: IconButton(
-                              onPressed: () => _toggleHidePassword(),
-                              icon: Icon(hidePasswordController.isHidden
-                                  ? Icons.visibility_off
-                                  : Icons.visibility))),
+                        border: OutlineInputBorder(),
+                        label: Text('Password'),
+                        suffixIcon: IconButton(
+                          onPressed: () => _toggleHidePassword(),
+                          icon: Icon(hidePasswordController.isHidden
+                              ? Icons.visibility_off
+                              : Icons.visibility),
+                        ),
+                      ),
                     );
                   },
                 ),
@@ -336,6 +360,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                   listenable: hidePasswordController,
                   builder: (context, child) {
                     return TextFormField(
+                      key: CreateAccountView.confirmPasswordTextFieldKey,
                       obscureText: hidePasswordController.isHidden,
                       initialValue: context
                           .read<CreateAccountPageCubit>()
@@ -351,10 +376,13 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                         border: OutlineInputBorder(),
                         label: Text('Confirm password'),
                         suffixIcon: IconButton(
+                          key: CreateAccountView.toggleHidePasswordBtnKey,
                           onPressed: () => _toggleHidePassword(),
-                          icon: Icon(hidePasswordController.isHidden
-                              ? Icons.visibility_off
-                              : Icons.visibility),
+                          icon: Icon(
+                            hidePasswordController.isHidden
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                          ),
                         ),
                       ),
                     );
@@ -373,12 +401,15 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                           current.status != previous.status,
                       builder: (context, state) {
                         return FilledButton(
+                          key: CreateAccountView.createAccountBtnKey,
                           onPressed: state.status == Status.loading
                               ? null
                               : () => _submitForm(context),
-                          child: Text(state.status == Status.loading
-                              ? 'Creating...'
-                              : 'Create account'),
+                          child: Text(
+                            state.status == Status.loading
+                                ? 'Creating...'
+                                : 'Create account',
+                          ),
                         );
                       },
                     )
