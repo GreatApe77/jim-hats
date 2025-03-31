@@ -39,6 +39,18 @@ class EditGymChallengePage extends StatelessWidget {
 
 class EditGymChallengeView extends StatefulWidget {
   final EditGymChallengePageArguments editGymChallengePageArguments;
+  static const challengeNameTextFieldKey =
+      Key('EditGymChallengeView.challenge_name_text_field');
+  static const challengeDescriptionTextFieldKey =
+      Key('EditGymChallengeView.challenge_description_text_field');
+  static const saveChallengeBtnKey =
+      Key('EditGymChallengeView.save_edite_challenge_btn_key');
+  static const startDateTextFieldKey =
+      Key('EditGymChallengeView.start_date_text_field');
+  static const endDateTextFieldKey =
+      Key('EditGymChallengeView.end_date_text_field');
+      static const scrollableListViewKey=
+      Key('EditGymChallengeView.scrollable_list_view');
 
   const EditGymChallengeView({
     super.key,
@@ -106,6 +118,7 @@ class _EditGymChallengeViewState extends State<EditGymChallengeView> {
                 previous.status != current.status,
             builder: (context, state) {
               return TextButton(
+                key: EditGymChallengeView.saveChallengeBtnKey,
                 onPressed: state.status == EditGymChallengePageStatus.loading
                     ? null
                     : () => context
@@ -129,6 +142,7 @@ class _EditGymChallengeViewState extends State<EditGymChallengeView> {
             horizontal: AppSpacings.horizontalPadding,
           ),
           child: ListView(
+            key: EditGymChallengeView.scrollableListViewKey,
             children: [
               BlocBuilder<EditGymChallengePageCubit, EditGymChallengePageState>(
                 bloc: context.read<EditGymChallengePageCubit>(),
@@ -153,6 +167,7 @@ class _EditGymChallengeViewState extends State<EditGymChallengeView> {
                 },
               ),
               TextFormField(
+                key: EditGymChallengeView.challengeNameTextFieldKey,
                 initialValue:
                     widget.editGymChallengePageArguments.gymChallenge.name,
                 onChanged: (value) {
@@ -166,6 +181,7 @@ class _EditGymChallengeViewState extends State<EditGymChallengeView> {
                 height: 16,
               ),
               TextFormField(
+                key: EditGymChallengeView.challengeDescriptionTextFieldKey,
                 onChanged: (value) {
                   context
                       .read<EditGymChallengePageCubit>()
@@ -187,6 +203,7 @@ class _EditGymChallengeViewState extends State<EditGymChallengeView> {
                     previous.startAt != current.startAt,
                 builder: (context, state) {
                   return TextFormField(
+                    key: EditGymChallengeView.startDateTextFieldKey,
                     // initialValue: DateHelper.formatDateSlashSeparated(
                     //   widget.editGymChallengePageArguments.gymChallenge.startAt,
                     // ),
@@ -236,6 +253,7 @@ class _EditGymChallengeViewState extends State<EditGymChallengeView> {
                     previous.endAt != current.endAt,
                 builder: (context, state) {
                   return TextFormField(
+                    key: EditGymChallengeView.endDateTextFieldKey,
                     // initialValue: DateHelper.formatDateSlashSeparated(
                     //   widget.editGymChallengePageArguments.gymChallenge.startAt,
                     // ),
