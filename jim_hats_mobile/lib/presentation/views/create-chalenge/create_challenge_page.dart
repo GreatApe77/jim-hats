@@ -29,6 +29,7 @@ class CreateChallengeView extends StatefulWidget {
   static const endAtTextFieldKey = Key('CreateChallengeView.end_at_text_field');
   static const createChallengeBtnKey =
       Key('CreateChallengeView.create_challenge_btn');
+  static const imageInkKey = Key('CreateChallengeView.image_ink');
   @override
   State<CreateChallengeView> createState() => _CreateChallengeViewState();
 }
@@ -75,9 +76,12 @@ class _CreateChallengeViewState extends State<CreateChallengeView> {
                 previous.status != current.status,
             listener: (context, state) {
               if (state.status == CreateChallengePageStatus.error) {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
                     backgroundColor: Theme.of(context).colorScheme.error,
-                    content: Text(state.errorMessage)));
+                    content: Text(state.errorMessage),
+                  ),
+                );
               }
               if (state.status == CreateChallengePageStatus.success) {
                 Navigator.of(context).pop();
@@ -147,6 +151,7 @@ class _CreateChallengeViewState extends State<CreateChallengeView> {
                             );
                           },
                           child: Ink(
+                            key: CreateChallengeView.imageInkKey,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               image: DecorationImage(
@@ -177,6 +182,7 @@ class _CreateChallengeViewState extends State<CreateChallengeView> {
               TextFormField(
                 key: CreateChallengeView.nameTextFieldKey,
                 controller: _nameController,
+                
                 onChanged: (value) {
                   context
                       .read<CreateChallengePageCubit>()
