@@ -3,20 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/gym_challenge.dart';
+import 'package:jim_hats_mobile/data/logged_user/models/logged_user.dart';
 import 'package:jim_hats_mobile/locator.dart';
 import 'package:jim_hats_mobile/presentation/blocs/theme/theme_bloc.dart';
 import 'package:jim_hats_mobile/presentation/cubits/app_drawer/app_drawer_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/auth/auth_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/edit_gym_challenge_page/edit_gym_challenge_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/internet_connectivity/cubit/internet_connectivity_cubit.dart';
+import 'package:jim_hats_mobile/presentation/cubits/join_group_page/join_group_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/settings_page/settings_cubit.dart';
 import 'package:jim_hats_mobile/presentation/routing/app_router.dart';
 import 'package:jim_hats_mobile/presentation/routing/app_routes.dart';
 import 'package:jim_hats_mobile/presentation/views/create-chalenge/create_challenge_page.dart';
 import 'package:jim_hats_mobile/presentation/views/edit_gym_challenge/edit_gym_challenge_page.dart';
 import 'package:jim_hats_mobile/presentation/views/edit_gym_challenge/edit_gym_challenge_page_arguments.dart';
+import 'package:jim_hats_mobile/presentation/views/join_group/join_group_page.dart';
 import 'package:jim_hats_mobile/presentation/views/server_down/server_down_alert_page.dart';
 import 'package:jim_hats_mobile/presentation/views/settings/settings_page.dart';
+import 'package:jim_hats_mobile/presentation/views/user_calendars_page/user_calendars_page.dart';
+import 'package:jim_hats_mobile/presentation/views/user_calendars_page/user_calendars_page_arguments.dart';
 import 'package:jim_hats_mobile/presentation/views/welcome/welcome_page.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -28,6 +33,9 @@ class MockAppDrawerCubit extends MockCubit<AppDrawerState>
 
 class MockEditGymChallengePageCubit extends MockCubit<EditGymChallengePageState>
     implements EditGymChallengePageCubit {}
+
+class MockJoinGroupPageCubit extends MockCubit<JoinGroupPageState>
+    implements JoinGroupPageCubit {}
 
 void main() {
   testWidgets(
@@ -187,6 +195,80 @@ void main() {
           );
           await widgetTester.pumpAndSettle();
           expect(find.byType(EditGymChallengePage), findsOneWidget);
+        },
+      );
+    },
+  );
+  group(
+    'User calendars page ',
+    () {
+      testWidgets(
+        'Should route to User calendars page',
+        (widgetTester) async {
+          await widgetTester.pumpWidget(
+            MaterialApp(
+              initialRoute: AppRoutes.serverDown,
+              onGenerateRoute: AppRouter.ongenerateRoute,
+            ),
+          );
+          final NavigatorState navigator =
+              widgetTester.state(find.byType(Navigator));
+          navigator.pushNamed(AppRoutes.userCalendars,
+              arguments: UserCalendarsPageArguments(
+                exerciseLogsGroupedByDate: {},
+                loggedUser:
+                    LoggedUser(id: 1, username: 'username', email: 'email'),
+              ));
+          await widgetTester.pumpAndSettle();
+          expect(find.byType(UserCalendarsPage), findsOneWidget);
+        },
+      );
+    },
+  );
+  group(
+    'Join group page ',
+    () {
+      late MockJoinGroupPageCubit mockJoinGroupPageCubit;
+      late MockAppDrawerCubit mockAppDrawerCubit;
+      setUp(
+        () {
+          mockAppDrawerCubit = MockAppDrawerCubit();
+          mockJoinGroupPageCubit = MockJoinGroupPageCubit();
+          locator.registerFactory<JoinGroupPageCubit>(
+            () => mockJoinGroupPageCubit,
+          );
+          locator.registerFactory<AppDrawerCubit>(
+            () => mockAppDrawerCubit,
+          );
+        },
+      );
+      tearDown(
+        () async {
+          await locator.reset();
+        },
+      );
+      testWidgets(
+        'Should route to join group page',
+        (widgetTester) async {
+          when(
+            () => mockJoinGroupPageCubit.state,
+          ).thenReturn(JoinGroupPageState(
+              groupCode: '',
+              status: JoinGroupPageStatus.idle,
+              errorMessage: ''));
+          await widgetTester.pumpWidget(
+            MaterialApp(
+              initialRoute: AppRoutes.serverDown,
+              onGenerateRoute: AppRouter.ongenerateRoute,
+            ),
+          );
+          final NavigatorState navigator =
+              widgetTester.state(find.byType(Navigator));
+          navigator.pushNamed(
+            AppRoutes.joinGroup,
+          );
+          await widgetTester.pumpAndSettle();
+          expect(find.byType(JoinGroupPage), findsOneWidget);
         },
       );
     },
