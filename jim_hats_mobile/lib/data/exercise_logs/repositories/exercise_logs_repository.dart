@@ -9,10 +9,10 @@ import 'package:jim_hats_mobile/locator.dart';
 class ExerciseLogsRepository {
   final ExerciseLogDataSource _exerciseLogDataSource;
   final CacheService _cacheService;
-  ExerciseLogsRepository(
-      {required ExerciseLogDataSource? exerciseLogDataSource,
-      required CacheService cacheService})
-      : _cacheService = cacheService,
+  ExerciseLogsRepository({
+    required ExerciseLogDataSource? exerciseLogDataSource,
+    required CacheService cacheService,
+  })  : _cacheService = cacheService,
         _exerciseLogDataSource =
             exerciseLogDataSource ?? locator.get<ExerciseLogDataSource>();
 
@@ -36,14 +36,10 @@ class ExerciseLogsRepository {
     int challengeId,
     AddExerciseLogToChallengeDto addExerciseLogToChallengeDto,
   ) async {
-    try {
-      //print(addExerciseLogToChallengeDto.toMap());
-      await _exerciseLogDataSource.addExerciseLogToChallenge(
-          challengeId, addExerciseLogToChallengeDto);
-      _cacheService.remove('logs-$challengeId');
-    } catch (e) {
-      rethrow;
-    }
+    //print(addExerciseLogToChallengeDto.toMap());
+    await _exerciseLogDataSource.addExerciseLogToChallenge(
+        challengeId, addExerciseLogToChallengeDto);
+    _cacheService.remove('logs-$challengeId');
   }
 
   Future<List<ExerciseLog>> getAllExerciseLogsOfUser() async {
@@ -58,15 +54,11 @@ class ExerciseLogsRepository {
   }
 
   Future<void> deleteExerciseLog(int exerciseLogId, int challengeId) async {
-    try {
-      //print(addExerciseLogToChallengeDto.toMap());
-      await _exerciseLogDataSource.deleteExerciseLog(
-        exerciseLogId,
-      );
-      _cacheService.remove('logs-$challengeId');
-    } catch (e) {
-      rethrow;
-    }
+    //print(addExerciseLogToChallengeDto.toMap());
+    await _exerciseLogDataSource.deleteExerciseLog(
+      exerciseLogId,
+    );
+    _cacheService.remove('logs-$challengeId');
   }
 
   Future<void> updateExerciseLog({
@@ -74,15 +66,11 @@ class ExerciseLogsRepository {
     required int exerciseLogId,
     required UpdateExerciseLogDto updateExerciseLogDto,
   }) async {
-    try {
-      //print(addExerciseLogToChallengeDto.toMap());
-      await _exerciseLogDataSource.updateExerciseLog(
-        exerciseLogId,
-        updateExerciseLogDto,
-      );
-      _cacheService.remove('logs-$challengeId');
-    } catch (e) {
-      rethrow;
-    }
+    //print(addExerciseLogToChallengeDto.toMap());
+    await _exerciseLogDataSource.updateExerciseLog(
+      exerciseLogId,
+      updateExerciseLogDto,
+    );
+    _cacheService.remove('logs-$challengeId');
   }
 }

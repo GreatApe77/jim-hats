@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:jim_hats_mobile/core/exceptions/wrong_password_exception.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:jim_hats_mobile/core/utils/application_exception.dart';
 import 'package:jim_hats_mobile/data/auth/dtos/login_dto.dart';
 import 'package:jim_hats_mobile/data/auth/repositories/auth_repository.dart';
@@ -38,7 +39,9 @@ class SignInPageBloc extends Bloc<SignInPageEvent, SignInPageState> {
             message: e.getMessage(),
           ));
         } catch (e) {
-          emit(state.copywith(status: SignInPageStatus.failure));
+          emit(state.copywith(
+              status: SignInPageStatus.failure,
+              message: 'Unknown error while signing in'));
           //emit(SignInPageState.empty());
         }
       },

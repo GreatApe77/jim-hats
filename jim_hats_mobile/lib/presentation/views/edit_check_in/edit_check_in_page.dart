@@ -7,10 +7,7 @@ import 'package:jim_hats_mobile/core/utils/validators/title_validator.dart';
 import 'package:jim_hats_mobile/core/utils/validators/validatable.dart';
 import 'package:jim_hats_mobile/locator.dart';
 import 'package:jim_hats_mobile/presentation/cubits/edit_check_in_page/edit_check_in_page_cubit.dart';
-import 'package:jim_hats_mobile/presentation/routing/app_routes.dart';
 import 'package:jim_hats_mobile/presentation/views/edit_check_in/edit_check_in_page_arguments.dart';
-import 'package:jim_hats_mobile/presentation/views/gym_challenge/gym_challenge_page_arguments.dart';
-import 'package:jim_hats_mobile/presentation/widgets/custom_page_route/custom_page_route.dart';
 import 'package:jim_hats_mobile/presentation/widgets/take_photo_widget/take_photo_widget.dart';
 
 class EditCheckInPage extends StatelessWidget {

@@ -11,8 +11,8 @@ void main() {
       DateTime date2004 = DateTime(
         2004,
       );
-      int daysBetween = getDaysBetweenDates(date2003,date2004);
-      expect(daysBetween,365);
+      int daysBetween = getDaysBetweenDates(date2003, date2004);
+      expect(daysBetween, 365);
     },
   );
   test(
@@ -24,8 +24,8 @@ void main() {
       DateTime date2004 = DateTime(
         2004,
       );
-      int daysBetween = getDaysBetweenDates(date2004,date2003);
-      expect(daysBetween,365);
+      int daysBetween = getDaysBetweenDates(date2004, date2003);
+      expect(daysBetween, 365);
     },
   );
 }

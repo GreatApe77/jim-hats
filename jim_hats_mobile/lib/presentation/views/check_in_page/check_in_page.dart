@@ -7,9 +7,7 @@ import 'package:jim_hats_mobile/locator.dart';
 import 'package:jim_hats_mobile/presentation/cubits/check_in_page/check_in_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/routing/app_routes.dart';
 import 'package:jim_hats_mobile/presentation/views/check_in_page/check_in_page_arguments.dart';
-import 'package:jim_hats_mobile/presentation/views/edit_check_in/edit_check_in_page.dart';
 import 'package:jim_hats_mobile/presentation/views/edit_check_in/edit_check_in_page_arguments.dart';
-import 'package:jim_hats_mobile/presentation/views/gym_challenge/gym_challenge_page_arguments.dart';
 import 'package:jim_hats_mobile/presentation/widgets/user_circle_avatar/user_circle_avatar.dart';
 
 class CheckInPage extends StatelessWidget {
@@ -53,6 +51,7 @@ class CheckInView extends StatelessWidget {
                 },
               ),
               PopupMenuItem(
+                key: Key('CheckInView.remove_check_in_popup_btn'),
                 child: Text(
                   'Remove check-in',
                   style: TextStyle(color: Theme.of(context).colorScheme.error),
@@ -87,6 +86,7 @@ class CheckInView extends StatelessWidget {
                           content: Text('This action cannot be reversed.'),
                           actions: [
                             TextButton(
+                              key: Key('CheckInView.cancel_remove_btn'),
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },

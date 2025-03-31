@@ -38,9 +38,7 @@ class _UserStatsView extends StatelessWidget {
       body: BlocBuilder<UserStatsCubit, UserStatsState>(
         bloc: context.read<UserStatsCubit>(),
         builder: (context, state) {
-          if (state is UserStatsInitial) {
-            return SizedBox.shrink();
-          }
+          
           if (state is UserStatsDataLoadInProgess) {
             return Center(
               child: CircularProgressIndicator(),
@@ -76,6 +74,7 @@ class _UserStatsView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             StatsItem(
+                              key: Key('UserStatsView.total_stats_item'),
                               label: 'Check-ins',
                               value: state.logsOfUser.length.toString(),
                             ),
@@ -159,7 +158,7 @@ class _UserStatsView extends StatelessWidget {
               ),
             );
           }
-          return SizedBox.shrink();
+          return SizedBox.shrink(key: Key('UserStatsView.shrinked_sized_box'),);
         },
       ),
     );

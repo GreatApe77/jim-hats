@@ -66,7 +66,12 @@ class CreateChallengePageCubit extends Cubit<CreateChallengePageState> {
       );
       emit(state.copyWith(status: CreateChallengePageStatus.success));
     } catch (e) {
-      emit(state.copyWith(errorMessage: e.toString()));
+      emit(
+        state.copyWith(
+          status: CreateChallengePageStatus.error,
+          errorMessage: e.toString(),
+        ),
+      );
     }
   }
 

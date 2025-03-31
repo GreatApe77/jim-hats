@@ -37,9 +37,6 @@ class SettingsView extends StatelessWidget {
           child: BlocBuilder<SettingsCubit, SettingsState>(
         bloc: context.read<SettingsCubit>(),
         builder: (context, state) {
-          if (state is SettingsInitial) {
-            return SizedBox.shrink();
-          }
           if (state is SettingsDataLoadInProgress) {
             return Center(
               child: CircularProgressIndicator(),
@@ -60,6 +57,7 @@ class SettingsView extends StatelessWidget {
                       height: 12,
                     ),
                     ListTile(
+                      key: Key('SettingsView.profile_pic_list_tile'),
                       onTap: () {
                         final settingsCubit =
                             BlocProvider.of<SettingsCubit>(context);
@@ -79,6 +77,7 @@ class SettingsView extends StatelessWidget {
                                       CrossAxisAlignment.stretch,
                                   children: [
                                     Text(
+
                                       'Photo Selection',
                                       style: Theme.of(context)
                                           .textTheme
@@ -91,6 +90,7 @@ class SettingsView extends StatelessWidget {
                                       leading: Icon(Icons.image),
                                     ),
                                     ListTile(
+                                      key: Key('SettingsView.remove_photo_list_tile'),
                                       onTap: () =>
                                           _removePhoto(context, settingsCubit),
                                       title: Text(
@@ -150,6 +150,7 @@ class SettingsView extends StatelessWidget {
                               : Icon(Icons.light_mode),
                           title: Text('Toggle'),
                           trailing: Switch(
+                            key: Key('SettingsView.change_theme_switch'),
                             value: state is ThemeDark,
                             onChanged: (value) {
                               context
@@ -175,6 +176,7 @@ class SettingsView extends StatelessWidget {
                         }
                       },
                       child: ListTile(
+                        key: Key('SettingsView.sign_out_btn'),
                         onTap: () => _logOut(context),
                         leading: Icon(Icons.logout_outlined),
                         title: Text('Sign out'),
@@ -193,7 +195,9 @@ class SettingsView extends StatelessWidget {
               ),
             );
           }
-          return SizedBox.shrink();
+          return SizedBox.shrink(
+            key: Key('SettingsView.shrinked_sized_box'),
+          );
         },
       )),
     );

@@ -21,6 +21,10 @@ class JoinGroupPage extends StatelessWidget {
 
 class JoinGroupView extends StatefulWidget {
   const JoinGroupView({super.key});
+  static const groupCodeTextFieldKey =
+      Key('JoinGroupView.group_code_text_field');
+  static const joinGroupBtnKey = Key('JoinGroupView.join_group_btn');
+
   @override
   State<JoinGroupView> createState() => _JoinGroupViewState();
 }
@@ -56,6 +60,7 @@ class _JoinGroupViewState extends State<JoinGroupView> {
                   height: 16,
                 ),
                 TextFormField(
+                  key: JoinGroupView.groupCodeTextFieldKey,
                   validator: (value) => _groupCodeValidatable.validate(value),
                   onChanged: (value) {
                     //widget.joinGroupPageCubit.updateGroupCode(value);
@@ -106,6 +111,7 @@ class _JoinGroupViewState extends State<JoinGroupView> {
                           previous.status != current.status,
                       builder: (context, state) {
                         return FilledButton(
+                          key: JoinGroupView.joinGroupBtnKey,
                           onPressed: state.status == JoinGroupPageStatus.loading
                               ? null
                               : _submitForm,

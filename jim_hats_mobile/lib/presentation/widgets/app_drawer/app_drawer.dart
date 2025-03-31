@@ -28,9 +28,6 @@ class _AppDrawerState extends State<AppDrawer> {
           BlocBuilder<AppDrawerCubit, AppDrawerState>(
             bloc: widget.appDrawerCubit,
             builder: (context, state) {
-              if (state is AppDrawerInitial) {
-                return SizedBox.shrink();
-              }
               if (state is AppDrawerLoadDataInProgress) {
                 return ListTile(
                   leading: CircularProgressIndicator(),
@@ -52,7 +49,9 @@ class _AppDrawerState extends State<AppDrawer> {
                   title: Text(state.loggedUser.username),
                 );
               }
-              return SizedBox.shrink();
+              return SizedBox.shrink(
+                key: Key('AppDrawer.empty_logged_user'),
+              );
             },
           ),
           Divider(
@@ -128,6 +127,7 @@ class _AppDrawerState extends State<AppDrawer> {
           ),
           Divider(),
           ListTile(
+            key: Key('AppDrawer.settings_list_tile'),
             selected:
                 ModalRoute.of(context)?.settings.name == AppRoutes.settings,
             onTap: () {

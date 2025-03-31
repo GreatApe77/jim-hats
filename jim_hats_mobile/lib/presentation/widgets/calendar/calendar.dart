@@ -6,17 +6,19 @@ class Calendar extends StatelessWidget {
   final DateTime date;
   final List<ExerciseLog> logsOfTheMonth;
   final Function(int day, List<ExerciseLog> logs) onDayTap;
-  const Calendar(
-      {super.key,
-      required this.date,
-      required this.logsOfTheMonth,
-      required this.onDayTap});
+  const Calendar({
+    super.key,
+    required this.date,
+    required this.logsOfTheMonth,
+    required this.onDayTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Text(
+          key:Key('Calendar.title'),
           '${DateHelper.monthNumberToName[date.month]} ${date.year}',
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
@@ -66,12 +68,14 @@ class Calendar extends StatelessWidget {
     for (int day = 1; day <= daysInMonth; day++) {
       dayWidgets.add(
         Container(
+          key: Key('Calendar.days'),
           margin: EdgeInsets.all(4),
           child: groupedByDay.containsKey(day)
               ? Stack(
                   fit: StackFit.expand,
                   children: [
                     IconButton(
+                      key: Key('Calendar.dayWithActivity'),
                       onPressed: () => onDayTap(day, groupedByDay[day]!),
                       icon: Badge.count(
                         count: groupedByDay[day]!.length,

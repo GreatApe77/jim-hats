@@ -1,14 +1,11 @@
 import 'dart:async';
 
-import 'package:dio/dio.dart';
 import 'package:jim_hats_mobile/core/exceptions/http_exceptions.dart';
 import 'package:jim_hats_mobile/core/exceptions/invalid_token_exception.dart';
 import 'package:jim_hats_mobile/core/network/http_service.dart';
 import 'package:jim_hats_mobile/data/logged_user/data_sources/logged_user_data_source.dart';
 import 'package:jim_hats_mobile/data/logged_user/dtos/update_logged_user_dto.dart';
 import 'package:jim_hats_mobile/data/logged_user/models/logged_user.dart';
-import 'package:jim_hats_mobile/data/settings/data_sources/settings_data_source.dart';
-import 'package:jim_hats_mobile/core/exceptions/time_out_exception.dart';
 
 class NetworkLoggedUserDataSource implements LoggedUserDataSource {
   final HttpService _httpClient;

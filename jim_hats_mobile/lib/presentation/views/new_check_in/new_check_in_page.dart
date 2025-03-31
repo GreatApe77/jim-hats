@@ -34,7 +34,11 @@ class NewCheckInPage extends StatelessWidget {
 class NewCheckInView extends StatefulWidget {
   final NewCheckInPageArguments pageArguments;
   const NewCheckInView({super.key, required this.pageArguments});
-
+  static const exerciseLogTitleTextFieldKey =
+      Key('NewCheckInView.exercise_log_title_text_field');
+  static const exerciseLogDescriptionTextFieldKey =
+      Key('NewCheckInView.exercise_log_description_text_field');
+  static const postButtonKey = Key('NewCheckInView.post_button');
   @override
   State<NewCheckInView> createState() => _NewCheckInViewState();
 }
@@ -80,10 +84,12 @@ class _NewCheckInViewState extends State<NewCheckInView> {
                 );
               }
               return TextButton(
-                  onPressed: () => _submitForm(
-                        context.read<NewCheckInPageCubit>(),
-                      ),
-                  child: Text('Post'));
+                key: NewCheckInView.postButtonKey,
+                onPressed: () => _submitForm(
+                  context.read<NewCheckInPageCubit>(),
+                ),
+                child: Text('Post'),
+              );
             },
           )
         ],
@@ -100,24 +106,29 @@ class _NewCheckInViewState extends State<NewCheckInView> {
                 height: 16,
               ),
               TextFormField(
+                key: NewCheckInView.exerciseLogTitleTextFieldKey,
                 validator: _logTitleValidator.validate,
                 onChanged: (value) {
                   context.read<NewCheckInPageCubit>().updateTitle(value);
                 },
                 decoration: InputDecoration(
-                    label: Text('Title'), border: OutlineInputBorder()),
+                  label: Text('Title'),
+                  border: OutlineInputBorder(),
+                ),
               ),
               SizedBox(
                 height: 16,
               ),
               TextFormField(
+                key: NewCheckInView.exerciseLogDescriptionTextFieldKey,
                 onChanged: (value) {
                   context.read<NewCheckInPageCubit>().updateDescription(value);
                 },
                 maxLines: 5,
                 decoration: InputDecoration(
-                    label: Text('Description (optional)'),
-                    border: OutlineInputBorder()),
+                  label: Text('Description (optional)'),
+                  border: OutlineInputBorder(),
+                ),
               ),
               SizedBox(
                 height: 16,

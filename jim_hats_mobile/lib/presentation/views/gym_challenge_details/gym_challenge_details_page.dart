@@ -24,7 +24,11 @@ class GymChallengeDetailsPage extends StatelessWidget {
 
 class GymChallengeDetailsView extends StatelessWidget {
   const GymChallengeDetailsView({super.key});
-
+  static const shrinkedSizedBoxKey =
+      Key('GymChallengeDetailsView.shrinked_sized_box');
+  static const errorTextKey = Key('GymChallengeDetailsView.error_text');
+  static const loadingIndicatorKey =
+      Key('GymChallengeDetailsView.loading_indicator');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,12 +44,17 @@ class GymChallengeDetailsView extends StatelessWidget {
             builder: (context, state) {
               if (state is GymChallengeDetailsPageLoadDataInProgress) {
                 return Center(
-                  child: const CircularProgressIndicator(),
+                  child: const CircularProgressIndicator(
+                    key: loadingIndicatorKey,
+                  ),
                 );
               }
               if (state is GymChallengeDetailsPageLoadError) {
                 return Center(
-                  child: const Text('Error'),
+                  child: const Text(
+                    'Error',
+                    key: errorTextKey,
+                  ),
                 );
               }
               if (state is GymChallengeDetailsPageLoadSuccess) {
@@ -113,7 +122,9 @@ class GymChallengeDetailsView extends StatelessWidget {
                   ],
                 );
               }
-              return SizedBox.shrink();
+              return SizedBox.shrink(
+                key: shrinkedSizedBoxKey,
+              );
             },
           ),
         ),

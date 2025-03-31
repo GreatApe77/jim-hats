@@ -32,8 +32,8 @@ void main() {
           'data': {'fullPath': sampleResultUrl}
         },
       );
-      final result= await sut.uploadFile(sampleUploadDto);
-      expect(result,sampleResultUrl);
+      final result = await sut.uploadFile(sampleUploadDto);
+      expect(result, sampleResultUrl);
     },
   );
 }

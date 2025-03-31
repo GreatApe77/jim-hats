@@ -40,7 +40,9 @@ class GymChallengeView extends StatelessWidget {
     required this.gymChallengePageArguments,
   });
   final GymChallengePageArguments gymChallengePageArguments;
-
+  static const emptySizedBoxAppBarKey =
+      Key('GymChallengeView.empty_sized_box_app_bar');
+  static const emptySizedBoxBody = Key('GymChallengeView.empty_sized_body');
   @override
   Widget build(BuildContext context) {
     //return const Placeholder();
@@ -116,7 +118,9 @@ class GymChallengeView extends StatelessWidget {
                     },
                     icon: Icon(Icons.more_horiz));
               }
-              return SizedBox.shrink();
+              return SizedBox.shrink(
+                key: GymChallengeView.emptySizedBoxAppBarKey,
+              );
             },
           )
         ],
@@ -124,9 +128,6 @@ class GymChallengeView extends StatelessWidget {
       body: BlocBuilder<GymChallengePageCubit, GymChallengePageState>(
         bloc: context.read<GymChallengePageCubit>(),
         builder: (context, state) {
-          if (state is GymChallengePageInitial) {
-            return SizedBox.shrink();
-          }
           if (state is GymChallengePageDataLoadInProgress) {
             return Center(
               child: CircularProgressIndicator(),
@@ -222,7 +223,9 @@ class GymChallengeView extends StatelessWidget {
                       })),
             );
           }
-          return SizedBox.shrink();
+          return SizedBox.shrink(
+            key: GymChallengeView.emptySizedBoxBody,
+          );
         },
       ),
     );

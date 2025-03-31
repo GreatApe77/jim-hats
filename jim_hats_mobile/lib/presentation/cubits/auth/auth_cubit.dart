@@ -29,9 +29,12 @@ class AuthCubit extends Cubit<AuthState> {
         return;
       }
       final loggedUser = await _loggedUserRepository.getLoggedUser();
-      emit(state.copyWith(
+      emit(
+        state.copyWith(
           authStatus: AuthStatus.authenticated,
-          loggedUser: Nullable(loggedUser)));
+          loggedUser: Nullable(loggedUser),
+        ),
+      );
     } on TokenNotFoundException {
       emit(state.copyWith(authStatus: AuthStatus.unauthenticated));
     } on InvalidTokenException {

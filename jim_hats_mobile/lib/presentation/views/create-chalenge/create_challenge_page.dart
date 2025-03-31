@@ -21,7 +21,14 @@ class CreateChallengePage extends StatelessWidget {
 
 class CreateChallengeView extends StatefulWidget {
   const CreateChallengeView({super.key});
-
+  static const nameTextFieldKey = Key('CreateChallengeView.name_text_field');
+  static const descriptionTextFieldKey =
+      Key('CreateChallengeView.description_text_field');
+  static const startAtTextFieldKey =
+      Key('CreateChallengeView.start_at_text_field');
+  static const endAtTextFieldKey = Key('CreateChallengeView.end_at_text_field');
+  static const createChallengeBtnKey =
+      Key('CreateChallengeView.create_challenge_btn');
   @override
   State<CreateChallengeView> createState() => _CreateChallengeViewState();
 }
@@ -82,6 +89,7 @@ class _CreateChallengeViewState extends State<CreateChallengeView> {
                 return CircularProgressIndicator();
               }
               return TextButton(
+                key: CreateChallengeView.createChallengeBtnKey,
                 child: Text('Create'),
                 onPressed: () {
                   context.read<CreateChallengePageCubit>().submitForm();
@@ -167,6 +175,7 @@ class _CreateChallengeViewState extends State<CreateChallengeView> {
                 ]),
               ),
               TextFormField(
+                key: CreateChallengeView.nameTextFieldKey,
                 controller: _nameController,
                 onChanged: (value) {
                   context
@@ -181,6 +190,7 @@ class _CreateChallengeViewState extends State<CreateChallengeView> {
                 height: 16,
               ),
               TextFormField(
+                key: CreateChallengeView.descriptionTextFieldKey,
                 controller: _descriptionController,
                 onChanged: (value) => context
                     .read<CreateChallengePageCubit>()
@@ -194,6 +204,7 @@ class _CreateChallengeViewState extends State<CreateChallengeView> {
                 height: 16,
               ),
               TextFormField(
+                key: CreateChallengeView.startAtTextFieldKey,
                 controller: _startAtController,
                 onTap: () async {
                   final date = await showDatePicker(
@@ -218,6 +229,7 @@ class _CreateChallengeViewState extends State<CreateChallengeView> {
                 height: 16,
               ),
               TextFormField(
+                key: CreateChallengeView.endAtTextFieldKey,
                 controller: _endAtController,
                 onTap: () async {
                   final date = await showDatePicker(

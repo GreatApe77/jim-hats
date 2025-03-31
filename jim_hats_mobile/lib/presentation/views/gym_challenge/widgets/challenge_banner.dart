@@ -5,6 +5,8 @@ import 'package:jim_hats_mobile/core/utils/get_days_between_dates.dart';
 import 'package:jim_hats_mobile/presentation/widgets/user_circle_avatar/user_circle_avatar.dart';
 
 class ChallengeBanner extends StatelessWidget {
+  static const daysLeftKey = Key('ChallengeBanner.days_left_text');
+   static const mainInkWellKey= Key('ChallengeBanner.main_ink_well');
   final Function() onTap;
   final GymChallenge challenge;
   final Ranking leader;
@@ -20,6 +22,7 @@ class ChallengeBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      key: ChallengeBanner.mainInkWellKey,
       borderRadius: BorderRadius.circular(8),
       onTap: () => onTap(),
       child: SizedBox(
@@ -89,7 +92,10 @@ class ChallengeBanner extends StatelessWidget {
                   ),
                   child: ListTile(
                     contentPadding: EdgeInsets.zero,
-                    title: Text('${_daysLeft()}'),
+                    title: Text(
+                      key: ChallengeBanner.daysLeftKey,
+                      '${_daysLeft()}',
+                    ),
                     subtitle: Text('Days left'),
                     leading: Icon(
                       Icons.calendar_month,
