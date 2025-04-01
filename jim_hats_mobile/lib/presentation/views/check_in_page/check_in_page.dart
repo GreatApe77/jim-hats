@@ -39,6 +39,7 @@ class CheckInView extends StatelessWidget {
           PopupMenuButton(
             itemBuilder: (context) => [
               PopupMenuItem(
+                key: Key('CheckInView.edit_check_in_btn'),
                 child: Text('Edit'),
                 onTap: () {
                   final arguments = EditCheckInPageArguments(
@@ -93,6 +94,7 @@ class CheckInView extends StatelessWidget {
                               child: Text('Cancel'),
                             ),
                             TextButton(
+                               key: Key('CheckInView.confirm_remove_btn'),
                               style: TextButton.styleFrom(
                                 foregroundColor:
                                     Theme.of(context).colorScheme.error,
