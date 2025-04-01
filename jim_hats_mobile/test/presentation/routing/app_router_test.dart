@@ -15,6 +15,7 @@ import 'package:jim_hats_mobile/presentation/cubits/auth/auth_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/check_in_page/check_in_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/create_account_page/create_account_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/create_challenge_page/create_challenge_page_cubit.dart';
+import 'package:jim_hats_mobile/presentation/cubits/edit_check_in_page/edit_check_in_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/edit_gym_challenge_page/edit_gym_challenge_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/gym_challenge_details_page/gym_challenge_details_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/gym_challenge_page/gym_challenge_page_cubit.dart';
@@ -31,6 +32,8 @@ import 'package:jim_hats_mobile/presentation/views/check_in_page/check_in_page.d
 import 'package:jim_hats_mobile/presentation/views/check_in_page/check_in_page_arguments.dart';
 import 'package:jim_hats_mobile/presentation/views/create-chalenge/create_challenge_page.dart';
 import 'package:jim_hats_mobile/presentation/views/create_account/create_account_page.dart';
+import 'package:jim_hats_mobile/presentation/views/edit_check_in/edit_check_in_page.dart';
+import 'package:jim_hats_mobile/presentation/views/edit_check_in/edit_check_in_page_arguments.dart';
 import 'package:jim_hats_mobile/presentation/views/edit_gym_challenge/edit_gym_challenge_page.dart';
 import 'package:jim_hats_mobile/presentation/views/edit_gym_challenge/edit_gym_challenge_page_arguments.dart';
 import 'package:jim_hats_mobile/presentation/views/gym_challenge/gym_challenge_page.dart';
@@ -91,7 +94,12 @@ class MockHomePageCubit extends MockCubit<HomePageState>
 class MockSignInPageBloc extends MockBloc<SignInPageEvent, SignInPageState>
     implements SignInPageBloc {}
 
-class MockCreateAccountPageCubit extends MockCubit<CreateAccountPageState> implements CreateAccountPageCubit {}
+class MockEditCheckInPageCubit extends MockCubit<EditCheckInPageState>
+    implements EditCheckInPageCubit {}
+
+class MockCreateAccountPageCubit extends MockCubit<CreateAccountPageState>
+    implements CreateAccountPageCubit {}
+
 void main() {
   testWidgets(
     'Should route to welcome page',
@@ -765,7 +773,7 @@ void main() {
       );
     },
   );
-    group(
+  group(
     'Create account page',
     () {
       //late MockSignInPageBloc mockSignInPageBloc;
@@ -807,6 +815,89 @@ void main() {
           navigator.pushNamed(AppRoutes.createAccount);
           await widgetTester.pumpAndSettle();
           expect(find.byType(CreateAccountPage), findsOneWidget);
+        },
+      );
+    },
+  );
+  group(
+    'Edit check in',
+    () {
+      //late MockCreateAccountPageCubit mockCreateAccountPageCubit;
+      late MockEditCheckInPageCubit mockEditCheckInPageCubit;
+      late MockAppDrawerCubit mockAppDrawerCubit;
+      setUp(
+        () {
+          mockAppDrawerCubit = MockAppDrawerCubit();
+          mockEditCheckInPageCubit = MockEditCheckInPageCubit();
+          locator.registerFactory<EditCheckInPageCubit>(
+            () => mockEditCheckInPageCubit,
+          );
+          locator.registerFactory<AppDrawerCubit>(
+            () => mockAppDrawerCubit,
+          );
+        },
+      );
+      tearDown(
+        () async {
+          await locator.reset();
+        },
+      );
+      testWidgets(
+        'Should route to edit check in page',
+        (widgetTester) async {
+          when(
+            () => mockEditCheckInPageCubit.state,
+          ).thenReturn(EditCheckInPageState(
+            imageUrl: '',
+            errorMessage: '',
+            title: '',
+            status: EditCheckInPageStatus.idle,
+          ));
+          await widgetTester.pumpWidget(
+            MaterialApp(
+              initialRoute: AppRoutes.serverDown,
+              onGenerateRoute: AppRouter.ongenerateRoute,
+            ),
+          );
+          final NavigatorState navigator =
+              widgetTester.state(find.byType(Navigator));
+          navigator.pushNamed(
+            AppRoutes.editCheckin,
+            arguments: EditCheckInPageArguments(
+              exerciseLog: ExerciseLog(
+                id: 1,
+                title: '',
+                date: DateTime(2025),
+                userId: 1,
+                gymChallengeId: 99,
+              ),
+            ),
+          );
+          await widgetTester.pumpAndSettle();
+          expect(find.byType(EditCheckInPage), findsOneWidget);
+        },
+      );
+    },
+  );
+  group(
+    'Welcome',
+    () {
+      testWidgets(
+        'Should route to welcome page',
+        (widgetTester) async {
+          await widgetTester.pumpWidget(
+            MaterialApp(
+              initialRoute: AppRoutes.serverDown,
+              onGenerateRoute: AppRouter.ongenerateRoute,
+            ),
+          );
+          final NavigatorState navigator =
+              widgetTester.state(find.byType(Navigator));
+          navigator.pushNamed(
+            AppRoutes.welcome,
+          );
+          await widgetTester.pumpAndSettle();
+          expect(find.byType(WelcomePage), findsOneWidget);
         },
       );
     },
