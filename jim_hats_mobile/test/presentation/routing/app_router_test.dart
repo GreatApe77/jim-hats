@@ -8,6 +8,7 @@ import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log_with_user
 import 'package:jim_hats_mobile/data/gym_challenges/models/gym_challenge.dart';
 import 'package:jim_hats_mobile/data/logged_user/models/logged_user.dart';
 import 'package:jim_hats_mobile/locator.dart';
+import 'package:jim_hats_mobile/presentation/blocs/sign_in_page/sign_in_page_bloc.dart';
 import 'package:jim_hats_mobile/presentation/blocs/theme/theme_bloc.dart';
 import 'package:jim_hats_mobile/presentation/cubits/app_drawer/app_drawer_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/auth/auth_cubit.dart';
@@ -41,6 +42,7 @@ import 'package:jim_hats_mobile/presentation/views/ranking/ranking_page.dart';
 import 'package:jim_hats_mobile/presentation/views/ranking/ranking_page_arguments.dart';
 import 'package:jim_hats_mobile/presentation/views/server_down/server_down_alert_page.dart';
 import 'package:jim_hats_mobile/presentation/views/settings/settings_page.dart';
+import 'package:jim_hats_mobile/presentation/views/sign_in/sign_in_page.dart';
 import 'package:jim_hats_mobile/presentation/views/user_calendars_page/user_calendars_page.dart';
 import 'package:jim_hats_mobile/presentation/views/user_calendars_page/user_calendars_page_arguments.dart';
 import 'package:jim_hats_mobile/presentation/views/user_stats/user_stats_page.dart';
@@ -83,6 +85,9 @@ class MockGymChallengeDetailsPageCubit
 
 class MockHomePageCubit extends MockCubit<HomePageState>
     implements HomePageCubit {}
+
+class MockSignInPageBloc extends MockBloc<SignInPageEvent, SignInPageState>
+    implements SignInPageBloc {}
 
 void main() {
   testWidgets(
@@ -669,44 +674,92 @@ void main() {
       );
     },
   );
-  group('Home page', () {
-    late MockHomePageCubit mockHomePageCubit;
-    late MockAppDrawerCubit mockAppDrawerCubit;
-    setUp(
-      () {
-        mockAppDrawerCubit = MockAppDrawerCubit();
-        mockHomePageCubit = MockHomePageCubit();
-        locator.registerFactory<HomePageCubit>(
-          () => mockHomePageCubit,
-        );
-        locator.registerFactory<AppDrawerCubit>(
-          () => mockAppDrawerCubit,
-        );
-      },
-    );
-    tearDown(
-      () async {
-        await locator.reset();
-      },
-    );
-    testWidgets(
-      'Should route to home page',
-      (widgetTester) async {
-        when(
-          () => mockHomePageCubit.state,
-        ).thenReturn(HomePageDataInitial());
-        await widgetTester.pumpWidget(
-          MaterialApp(
-            initialRoute: AppRoutes.serverDown,
-            onGenerateRoute: AppRouter.ongenerateRoute,
-          ),
-        );
-        final NavigatorState navigator =
-            widgetTester.state(find.byType(Navigator));
-        navigator.pushNamed(AppRoutes.home);
-        await widgetTester.pumpAndSettle();
-        expect(find.byType(HomePage), findsOneWidget);
-      },
-    );
-  },);
+  group(
+    'Home page',
+    () {
+      late MockHomePageCubit mockHomePageCubit;
+      late MockAppDrawerCubit mockAppDrawerCubit;
+      setUp(
+        () {
+          mockAppDrawerCubit = MockAppDrawerCubit();
+          mockHomePageCubit = MockHomePageCubit();
+          locator.registerFactory<HomePageCubit>(
+            () => mockHomePageCubit,
+          );
+          locator.registerFactory<AppDrawerCubit>(
+            () => mockAppDrawerCubit,
+          );
+        },
+      );
+      tearDown(
+        () async {
+          await locator.reset();
+        },
+      );
+      testWidgets(
+        'Should route to home page',
+        (widgetTester) async {
+          when(
+            () => mockHomePageCubit.state,
+          ).thenReturn(HomePageDataInitial());
+          await widgetTester.pumpWidget(
+            MaterialApp(
+              initialRoute: AppRoutes.serverDown,
+              onGenerateRoute: AppRouter.ongenerateRoute,
+            ),
+          );
+          final NavigatorState navigator =
+              widgetTester.state(find.byType(Navigator));
+          navigator.pushNamed(AppRoutes.home);
+          await widgetTester.pumpAndSettle();
+          expect(find.byType(HomePage), findsOneWidget);
+        },
+      );
+    },
+  );
+  group(
+    'Sign in page',
+    () {
+      late MockSignInPageBloc mockSignInPageBloc;
+      late MockAppDrawerCubit mockAppDrawerCubit;
+      setUp(
+        () {
+          mockAppDrawerCubit = MockAppDrawerCubit();
+          mockSignInPageBloc = MockSignInPageBloc();
+          locator.registerFactory<SignInPageBloc>(
+            () => mockSignInPageBloc,
+          );
+          locator.registerFactory<AppDrawerCubit>(
+            () => mockAppDrawerCubit,
+          );
+        },
+      );
+      tearDown(
+        () async {
+          await locator.reset();
+        },
+      );
+      testWidgets(
+        'Should route to sign in page',
+        (widgetTester) async {
+          when(
+            () => mockSignInPageBloc.state,
+          ).thenReturn(
+            SignInPageState.empty(),
+          );
+          await widgetTester.pumpWidget(
+            MaterialApp(
+              initialRoute: AppRoutes.serverDown,
+              onGenerateRoute: AppRouter.ongenerateRoute,
+            ),
+          );
+          final NavigatorState navigator =
+              widgetTester.state(find.byType(Navigator));
+          navigator.pushNamed(AppRoutes.signin);
+          await widgetTester.pumpAndSettle();
+          expect(find.byType(SignInPage), findsOneWidget);
+        },
+      );
+    },
+  );
 }
