@@ -11,14 +11,14 @@ part 'ranking_page_state.dart';
 class RankingPageCubit extends Cubit<RankingPageState> {
   final GymChallengesRepository _gymChallengesRepository;
   final LoggedUserRepository _loggedUserRepository;
-  RankingPageCubit(
-      {GymChallengesRepository? gymChallengesRepository,
-      LoggedUserRepository? loggedUserRepository})
-      : _loggedUserRepository =
-            loggedUserRepository ?? locator.get<LoggedUserRepository>(),
-        _gymChallengesRepository =
-            gymChallengesRepository ?? locator.get<GymChallengesRepository>(),
-        super(RankingPageInitial());
+  RankingPageCubit({
+    required GymChallengesRepository gymChallengesRepository,
+    required LoggedUserRepository loggedUserRepository,
+  })  : _loggedUserRepository = loggedUserRepository,
+        _gymChallengesRepository = gymChallengesRepository,
+        super(
+          RankingPageInitial(),
+        );
 
   Future<void> loadData(int challengeId) async {
     emit(RankingPageDataLoadInProgress());

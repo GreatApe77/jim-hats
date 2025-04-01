@@ -116,6 +116,10 @@ Future<void> setupDependencies() async {
   //load settings
   await loadSettings(locator.get<SettingsRepository>());
 
+  await registerCubitsAndBlocs();
+}
+
+Future<void> registerCubitsAndBlocs() async {
   //Cubits
   locator
     ..registerFactory<EditGymChallengePageCubit>(
@@ -187,10 +191,12 @@ Future<void> setupDependencies() async {
           exerciseLogRepository: locator.get<ExerciseLogsRepository>(),
           loggedUserRepository: locator.get<LoggedUserRepository>(),
         ))
-    ..registerFactory<RankingPageCubit>(() => RankingPageCubit(
-        //gymChallengesRepository: null,
-        //loggedUserRepository: null
-        ));
+    ..registerFactory<RankingPageCubit>(
+      () => RankingPageCubit(
+        gymChallengesRepository: locator.get<GymChallengesRepository>(),
+        loggedUserRepository: locator.get<LoggedUserRepository>(),
+      ),
+    );
 }
 
 Future<void> loadSettings(SettingsRepository settingsRepository) async {

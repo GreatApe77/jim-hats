@@ -13,11 +13,14 @@ part 'create_account_page_state.dart';
 class CreateAccountPageCubit extends Cubit<CreateAccountPageState> {
   final AuthRepository _authRepository;
   final UploadRepository _uploadRepository;
-  CreateAccountPageCubit(
-      {AuthRepository? authRepository, UploadRepository? uploadRepository})
-      : _uploadRepository = uploadRepository ?? locator.get<UploadRepository>(),
-        _authRepository = authRepository ?? locator.get<AuthRepository>(),
-        super(CreateAccountPageState.empty());
+  CreateAccountPageCubit({
+    required AuthRepository authRepository,
+    required UploadRepository uploadRepository,
+  })  : _uploadRepository = uploadRepository,
+        _authRepository = authRepository,
+        super(
+          CreateAccountPageState.empty(),
+        );
 
   void addImage(XFile image) {
     emit(state.copyWith(image: Nullable<XFile>(image)));
