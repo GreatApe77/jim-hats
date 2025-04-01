@@ -100,6 +100,8 @@ class MockEditCheckInPageCubit extends MockCubit<EditCheckInPageState>
 class MockCreateAccountPageCubit extends MockCubit<CreateAccountPageState>
     implements CreateAccountPageCubit {}
 
+class MockAuthCubit extends MockCubit<AuthState> implements AuthCubit {}
+
 void main() {
   testWidgets(
     'Should route to welcome page',
@@ -902,4 +904,47 @@ void main() {
       );
     },
   );
+  // group(
+  //   'Splash',
+  //   () {
+  //     late MockAuthCubit mockAuthCubit;
+  //     setUp(
+  //       () {
+  //         mockAuthCubit = MockAuthCubit();
+  //         locator.registerFactory<AuthCubit>(
+  //           () => mockAuthCubit,
+  //         );
+  //       },
+  //     );
+  //     tearDown(
+  //       () async {
+  //         await locator.reset();
+  //       },
+  //     );
+  //     testWidgets(
+  //       'Should navigate to welcome page if user is unauthenticaded',
+  //       (widgetTester) async {
+  //         whenListen(
+  //             mockAuthCubit,
+  //             Stream<AuthState>.fromIterable([
+  //               AuthState(
+  //                 authStatus: AuthStatus.unauthenticated,
+  //                 failed: false,
+  //               )
+  //             ]));
+  //         await widgetTester.pumpWidget(
+  //           BlocProvider.value(
+  //             value: mockAuthCubit,
+  //             child: MaterialApp(
+  //               initialRoute: AppRouter.initialRoute,
+  //               onGenerateRoute: AppRouter.ongenerateRoute,
+  //             ),
+  //           ),
+  //         );
+  //         await widgetTester.pumpAndSettle();
+  //         expect(find.byType(WelcomePage), findsOneWidget);
+  //       },
+  //     );
+  //   },
+  // );
 }

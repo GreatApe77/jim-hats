@@ -8,14 +8,14 @@ part 'internet_connectivity_state.dart';
 class InternetConnectivityCubit extends Cubit<InternetConnectivityState> {
   late StreamSubscription<List<ConnectivityResult>> subscription;
 
-  InternetConnectivityCubit()
+  InternetConnectivityCubit({required Connectivity connectivity})
       : super(
           InternetConnectivityState(
             status: InternetConnectivityStatus.unknown,
           ),
         ) {
     subscription =
-        Connectivity().onConnectivityChanged.listen(_connectivityListener);
+        connectivity.onConnectivityChanged.listen(_connectivityListener);
   }
 
   void _connectivityListener(List<ConnectivityResult> result) {
