@@ -11,11 +11,11 @@ class GymChallengesRepository {
   final GymChallengeDataSource _gymChallengeDataSource;
   final CacheService _cacheService;
   GymChallengesRepository({
-    required GymChallengeDataSource? gymChallengeDataSource,
+    required GymChallengeDataSource gymChallengeDataSource,
     required CacheService cacheService,
   })  : _cacheService = cacheService,
         _gymChallengeDataSource =
-            gymChallengeDataSource ?? locator.get<GymChallengeDataSource>();
+            gymChallengeDataSource;
 
   Future<List<GymChallenge>> getGymChallengesOfUser(int userId) async {
     List<GymChallenge>? challenges =

@@ -23,7 +23,13 @@ void main() {
       expect(updatedRanking.logCount, 50);
       expect(updatedRanking.id, ranking.id); // unchanged
     });
-
+    test(
+      'Should copy with empty values',
+      () {
+        final updatedRanking = ranking.copyWith();
+        expect(updatedRanking, ranking);
+      },
+    );
     test('toMap converts Ranking to a map', () {
       final map = ranking.toMap();
 

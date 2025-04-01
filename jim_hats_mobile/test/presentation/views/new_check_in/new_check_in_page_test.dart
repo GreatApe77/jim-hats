@@ -7,6 +7,7 @@ import 'package:jim_hats_mobile/presentation/cubits/new_check_in_page/new_check_
 import 'package:jim_hats_mobile/presentation/routing/app_routes.dart';
 import 'package:jim_hats_mobile/presentation/views/new_check_in/new_check_in_page.dart';
 import 'package:jim_hats_mobile/presentation/views/new_check_in/new_check_in_page_arguments.dart';
+import 'package:jim_hats_mobile/presentation/widgets/take_photo_widget/take_photo_widget.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockNewCheckInPageCubit extends MockCubit<NewCheckInPageState>
@@ -197,6 +198,69 @@ void main() {
         find.text('Add a Photo'),
         findsOneWidget,
       );
+    },
+  );
+  testWidgets(
+    'Should display modal when media inkwell is clicked',
+    (widgetTester) async {
+      when(
+        () => mockNewCheckInPageCubit.state,
+      ).thenReturn(
+        NewCheckInPageState(
+          status: NewCheckInPageStatus.idle,
+          photo: null,
+          title: '',
+          description: '',
+        ),
+      );
+      await widgetTester.pumpWidget(
+        MaterialApp(
+          home: NewCheckInPage(
+            pageArguments: samplePageArguments,
+          ),
+        ),
+      );
+      await widgetTester.pumpAndSettle();
+
+      await widgetTester.tap(
+        find.byKey(NewCheckInView.mediaCardInkwellKey),
+      );
+      await widgetTester.pumpAndSettle();
+      expect(find.text('Photo Selection'), findsOne);
+    },
+  );
+  testWidgets(
+    'Should display Take picture widget when clicking on Update Photo btn',
+    (widgetTester) async {
+      when(
+        () => mockNewCheckInPageCubit.state,
+      ).thenReturn(
+        NewCheckInPageState(
+          status: NewCheckInPageStatus.idle,
+          photo: null,
+          title: '',
+          description: '',
+        ),
+      );
+      await widgetTester.pumpWidget(
+        MaterialApp(
+          home: NewCheckInPage(
+            pageArguments: samplePageArguments,
+          ),
+        ),
+      );
+      await widgetTester.pumpAndSettle();
+
+      await widgetTester.tap(
+        find.byKey(NewCheckInView.mediaCardInkwellKey),
+      );
+      await widgetTester.pumpAndSettle();
+      //Update photo
+      await widgetTester.tap(
+        find.text('Update photo'),
+      );
+      await widgetTester.pumpAndSettle();
+      expect(find.byType(TakePhotoWidget), findsOneWidget);
     },
   );
 }

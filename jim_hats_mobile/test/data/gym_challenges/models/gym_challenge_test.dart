@@ -28,7 +28,10 @@ void main() {
       expect(
           updatedGymChallenge.createdAt, gymChallenge.createdAt); // unchanged
     });
-
+    test('Should copyWith with the same values',() {
+      final copied = gymChallenge.copyWith();
+      expect(copied, gymChallenge);
+    },);
     test('toMap converts GymChallenge to a map', () {
       final map = gymChallenge.toMap();
 

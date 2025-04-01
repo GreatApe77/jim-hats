@@ -197,4 +197,18 @@ void main() {
       );
     },
   );
+
+  test(
+    'Should throw unimplement method for get challenge by id',
+    () async {
+      //expect(sut.getGymChallengeById(1),throwsUnimplementedError);
+      //  await expectLater(sut.getGymChallengeById(1), throwsUnimplementedError);
+      await expectLater(
+        ()=>sut.getGymChallengeById(1),
+        throwsA(
+          isA<UnimplementedError>(),
+        ),
+      );
+    },
+  );
 }

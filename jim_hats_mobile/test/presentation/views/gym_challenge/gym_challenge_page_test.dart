@@ -11,6 +11,8 @@ import 'package:jim_hats_mobile/presentation/cubits/gym_challenge_page/gym_chall
 import 'package:jim_hats_mobile/presentation/routing/app_routes.dart';
 import 'package:jim_hats_mobile/presentation/views/gym_challenge/gym_challenge_page.dart';
 import 'package:jim_hats_mobile/presentation/views/gym_challenge/gym_challenge_page_arguments.dart';
+import 'package:jim_hats_mobile/presentation/views/gym_challenge/widgets/challenge_banner.dart';
+import 'package:jim_hats_mobile/presentation/widgets/take_photo_widget/take_photo_widget.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 
@@ -213,6 +215,119 @@ void main() {
         await tester.pumpAndSettle();
 
         expect(find.text(AppRoutes.ranking), findsOne);
+      },
+    );
+  });
+  testWidgets('Should navigate to ranking page when clicking on challenge banner', (tester) async {
+    mockNetworkImagesFor(
+      () async {
+        when(
+          () => mockGymChallengePageCubit.state,
+        ).thenReturn(
+          GymChallengePageDataSuccess(
+            challenge: sampleChallenge,
+            leader: sampleLeader,
+            userRanking: sampleUserRanking,
+            logs: [],
+            logsGroupedByDate: sampleLogsGroupedByDate,
+          ),
+        );
+        await tester.pumpWidget(
+          MaterialApp(
+            routes: {
+              AppRoutes.ranking: (context) => Scaffold(
+                    body: Text(
+                      AppRoutes.ranking,
+                    ),
+                  )
+            },
+            home: GymChallengePage(
+              gymChallengePageArguments:
+                  GymChallengePageArguments(challengeId: 1),
+            ),
+          ),
+        );
+        await tester.tap(find.byType(ChallengeBanner));
+        await tester.pumpAndSettle();
+
+        expect(find.text(AppRoutes.ranking), findsOne);
+      },
+    );
+  });
+  testWidgets(
+      'Should display take photo widget when clickin on Floating action button',
+      (tester) async {
+    mockNetworkImagesFor(
+      () async {
+        when(
+          () => mockGymChallengePageCubit.state,
+        ).thenReturn(
+          GymChallengePageDataSuccess(
+            challenge: sampleChallenge,
+            leader: sampleLeader,
+            userRanking: sampleUserRanking,
+            logs: [],
+            logsGroupedByDate: sampleLogsGroupedByDate,
+          ),
+        );
+        await tester.pumpWidget(
+          MaterialApp(
+            routes: {
+              AppRoutes.ranking: (context) => Scaffold(
+                    body: Text(
+                      AppRoutes.ranking,
+                    ),
+                  )
+            },
+            home: GymChallengePage(
+              gymChallengePageArguments:
+                  GymChallengePageArguments(challengeId: 1),
+            ),
+          ),
+        );
+        await tester.tap(find.byType(FloatingActionButton));
+        await tester.pumpAndSettle();
+        expect(find.byType(TakePhotoWidget), findsOneWidget);
+        //expect(find.text(AppRoutes.ranking), findsOne);
+      },
+    );
+  });
+  testWidgets(
+      'Should navigate to edit photo page when clicking on icon button',
+      (tester) async {
+    mockNetworkImagesFor(
+      () async {
+        when(
+          () => mockGymChallengePageCubit.state,
+        ).thenReturn(
+          GymChallengePageDataSuccess(
+            challenge: sampleChallenge,
+            leader: sampleLeader,
+            userRanking: sampleUserRanking,
+            logs: [],
+            logsGroupedByDate: sampleLogsGroupedByDate,
+          ),
+        );
+        await tester.pumpWidget(
+          MaterialApp(
+            routes: {
+              AppRoutes.editGymChallenge: (context) => Scaffold(
+                    body: Text(
+                      AppRoutes.editGymChallenge,
+                    ),
+                  )
+            },
+            home: GymChallengePage(
+              gymChallengePageArguments:
+                  GymChallengePageArguments(challengeId: 1),
+            ),
+          ),
+        );
+        await tester.tap(find.byIcon(Icons.more_horiz));
+        await tester.pumpAndSettle();
+        expect(find.text(AppRoutes.editGymChallenge), findsOne);
+        //expect(find.byType(TakePhotoWidget), findsOneWidget);
+        //expect(find.text(AppRoutes.ranking), findsOne);
       },
     );
   });

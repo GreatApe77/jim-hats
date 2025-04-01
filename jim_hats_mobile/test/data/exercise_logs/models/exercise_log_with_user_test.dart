@@ -30,6 +30,14 @@ void main() {
         },
       );
       test(
+        'Should copyWith empty values',
+        () {
+          final copied = sampleUser.copyWith();
+          expect(copied, sampleUser);
+        },
+      );
+
+      test(
         'Should transform to Map',
         () {
           final generatedMap = sampleUser.toMap();
