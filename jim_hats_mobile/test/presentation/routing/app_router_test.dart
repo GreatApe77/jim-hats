@@ -13,6 +13,7 @@ import 'package:jim_hats_mobile/presentation/blocs/theme/theme_bloc.dart';
 import 'package:jim_hats_mobile/presentation/cubits/app_drawer/app_drawer_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/auth/auth_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/check_in_page/check_in_page_cubit.dart';
+import 'package:jim_hats_mobile/presentation/cubits/create_account_page/create_account_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/create_challenge_page/create_challenge_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/edit_gym_challenge_page/edit_gym_challenge_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/gym_challenge_details_page/gym_challenge_details_page_cubit.dart';
@@ -29,6 +30,7 @@ import 'package:jim_hats_mobile/presentation/routing/app_routes.dart';
 import 'package:jim_hats_mobile/presentation/views/check_in_page/check_in_page.dart';
 import 'package:jim_hats_mobile/presentation/views/check_in_page/check_in_page_arguments.dart';
 import 'package:jim_hats_mobile/presentation/views/create-chalenge/create_challenge_page.dart';
+import 'package:jim_hats_mobile/presentation/views/create_account/create_account_page.dart';
 import 'package:jim_hats_mobile/presentation/views/edit_gym_challenge/edit_gym_challenge_page.dart';
 import 'package:jim_hats_mobile/presentation/views/edit_gym_challenge/edit_gym_challenge_page_arguments.dart';
 import 'package:jim_hats_mobile/presentation/views/gym_challenge/gym_challenge_page.dart';
@@ -89,6 +91,7 @@ class MockHomePageCubit extends MockCubit<HomePageState>
 class MockSignInPageBloc extends MockBloc<SignInPageEvent, SignInPageState>
     implements SignInPageBloc {}
 
+class MockCreateAccountPageCubit extends MockCubit<CreateAccountPageState> implements CreateAccountPageCubit {}
 void main() {
   testWidgets(
     'Should route to welcome page',
@@ -758,6 +761,52 @@ void main() {
           navigator.pushNamed(AppRoutes.signin);
           await widgetTester.pumpAndSettle();
           expect(find.byType(SignInPage), findsOneWidget);
+        },
+      );
+    },
+  );
+    group(
+    'Create account page',
+    () {
+      //late MockSignInPageBloc mockSignInPageBloc;
+      late MockCreateAccountPageCubit mockCreateAccountPageCubit;
+      late MockAppDrawerCubit mockAppDrawerCubit;
+      setUp(
+        () {
+          mockAppDrawerCubit = MockAppDrawerCubit();
+          mockCreateAccountPageCubit = MockCreateAccountPageCubit();
+          locator.registerFactory<CreateAccountPageCubit>(
+            () => mockCreateAccountPageCubit,
+          );
+          locator.registerFactory<AppDrawerCubit>(
+            () => mockAppDrawerCubit,
+          );
+        },
+      );
+      tearDown(
+        () async {
+          await locator.reset();
+        },
+      );
+      testWidgets(
+        'Should route to sign in page',
+        (widgetTester) async {
+          when(
+            () => mockCreateAccountPageCubit.state,
+          ).thenReturn(
+            CreateAccountPageState.empty(),
+          );
+          await widgetTester.pumpWidget(
+            MaterialApp(
+              initialRoute: AppRoutes.serverDown,
+              onGenerateRoute: AppRouter.ongenerateRoute,
+            ),
+          );
+          final NavigatorState navigator =
+              widgetTester.state(find.byType(Navigator));
+          navigator.pushNamed(AppRoutes.createAccount);
+          await widgetTester.pumpAndSettle();
+          expect(find.byType(CreateAccountPage), findsOneWidget);
         },
       );
     },
