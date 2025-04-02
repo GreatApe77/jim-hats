@@ -43,6 +43,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
 flutter_launcher_icons:
   android: "launcher_icon" # can specify file name here e.g. "ic_launcher"
   ios: "AppIcon" # can specify file name here e.g. "My-Launcher-Icon"
