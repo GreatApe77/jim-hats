@@ -45,7 +45,7 @@ flutter:
   uses-material-design: true
 
 flutter_launcher_icons:
-  android: "launcher_icon" # can specify file name here e.g. "ic_launcher"
+  android: "ic_launcher" # can specify file name here e.g. "ic_launcher"
   ios: "AppIcon" # can specify file name here e.g. "My-Launcher-Icon"
   image_path: "assets/icons/icon.png"
   min_sdk_android: 21 # android min sdk min:16, default 21
