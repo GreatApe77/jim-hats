@@ -75,7 +75,7 @@ class Calendar extends StatelessWidget {
                   fit: StackFit.expand,
                   children: [
                     IconButton(
-                      key: Key('Calendar.dayWithActivity'),
+                      key: Key('Calendar.dayWithActitvity_$day/${date.month}/${date.year}'),
                       onPressed: () => onDayTap(day, groupedByDay[day]!),
                       icon: Badge.count(
                         count: groupedByDay[day]!.length,

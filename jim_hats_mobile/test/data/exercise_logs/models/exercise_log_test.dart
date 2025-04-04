@@ -18,11 +18,17 @@ void main() {
         title: 'Evening Run',
         description: 'Ran 10km in the park',
       );
-      
+
       expect(updatedExerciseLog.title, 'Evening Run');
       expect(updatedExerciseLog.description, 'Ran 10km in the park');
-      expect(updatedExerciseLog.id, exerciseLog.id); // unchanged
-      expect(updatedExerciseLog.date, exerciseLog.date); // unchanged
+      expect(updatedExerciseLog.id, exerciseLog.id);
+      expect(updatedExerciseLog.date, exerciseLog.date);
+
+    });
+    test('Should copyWith the same values', () {
+      final updatedExerciseLog = exerciseLog.copyWith();
+
+      expect(updatedExerciseLog,exerciseLog);
     });
 
     test('Should convert to map', () {
@@ -56,11 +62,13 @@ void main() {
     test('Should convert model to json string', () {
       final json = exerciseLog.toJson();
 
-      expect(json, '{"id":1,"title":"Morning Run","description":"Ran 5km in the park","image":"http://example.com/image.jpg","date":1743044400000,"userId":101,"gymChallengeId":202}');
+      expect(json,
+          '{"id":1,"title":"Morning Run","description":"Ran 5km in the park","image":"http://example.com/image.jpg","date":1743044400000,"userId":101,"gymChallengeId":202}');
     });
 
     test('Should convert json string to model', () {
-      final json = '{"id":1,"title":"Morning Run","description":"Ran 5km in the park","image":"http://example.com/image.jpg","date":1743044400000,"userId":101,"gymChallengeId":202}';
+      final json =
+          '{"id":1,"title":"Morning Run","description":"Ran 5km in the park","image":"http://example.com/image.jpg","date":1743044400000,"userId":101,"gymChallengeId":202}';
 
       final fromJsonExerciseLog = ExerciseLog.fromJson(json);
 
@@ -70,7 +78,8 @@ void main() {
     test('Should be a readable toString()', () {
       final string = exerciseLog.toString();
 
-      expect(string, 'ExerciseLog(id: 1, title: Morning Run, description: Ran 5km in the park, image: http://example.com/image.jpg, date: 2025-03-27 00:00:00.000, userId: 101, gymChallengeId: 202)');
+      expect(string,
+          'ExerciseLog(id: 1, title: Morning Run, description: Ran 5km in the park, image: http://example.com/image.jpg, date: 2025-03-27 00:00:00.000, userId: 101, gymChallengeId: 202)');
     });
 
     test('Should test equality of props', () {
@@ -90,13 +99,15 @@ void main() {
     test('Should  return correct hash code', () {
       final hashCode = exerciseLog.hashCode;
 
-      expect(hashCode, exerciseLog.id.hashCode ^
-          exerciseLog.title.hashCode ^
-          exerciseLog.description.hashCode ^
-          exerciseLog.image.hashCode ^
-          exerciseLog.date.hashCode ^
-          exerciseLog.userId.hashCode ^
-          exerciseLog.gymChallengeId.hashCode);
+      expect(
+          hashCode,
+          exerciseLog.id.hashCode ^
+              exerciseLog.title.hashCode ^
+              exerciseLog.description.hashCode ^
+              exerciseLog.image.hashCode ^
+              exerciseLog.date.hashCode ^
+              exerciseLog.userId.hashCode ^
+              exerciseLog.gymChallengeId.hashCode);
     });
   });
 }

@@ -30,7 +30,13 @@ void main() {
       );
     },
   );
-
+  test('Should get day difference between 2 dates', () {
+    final startAt = DateTime(2025, 10, 1);
+    final endAt = DateTime(2025, 10, 31);
+    final difference = sut.getDayCount(startAt, endAt);
+    expect(difference, 30);
+  });
+  
   test(
     'Should start with initial state',
     () {

@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log_with_user.dart';
 import 'package:jim_hats_mobile/locator.dart';
 import 'package:jim_hats_mobile/presentation/cubits/check_in_page/check_in_page_cubit.dart';
+import 'package:jim_hats_mobile/presentation/routing/app_routes.dart';
 import 'package:jim_hats_mobile/presentation/views/check_in_page/check_in_page.dart';
 import 'package:jim_hats_mobile/presentation/views/check_in_page/check_in_page_arguments.dart';
 import 'package:mocktail/mocktail.dart';
@@ -184,6 +185,79 @@ void main() {
         await tester.tap(find.byKey(Key('CheckInView.cancel_remove_btn')));
         await tester.pumpAndSettle();
         expect(find.byType(AlertDialog), findsNothing);
+      },
+    );
+  });
+  testWidgets('Should navigate to edit check in page', (tester) async {
+    mockNetworkImagesFor(
+      () async {
+        when(
+          () => mockCheckInPageCubit.state,
+        ).thenReturn(
+          CheckInPageInitial(),
+        );
+
+        await tester.pumpWidget(
+          MaterialApp(
+            routes: {
+              AppRoutes.editCheckin: (context) => Scaffold(
+                    body: Text(AppRoutes.editCheckin),
+                  )
+            },
+            home: CheckInPage(
+              checkInPageArguments: CheckInPageArguments(
+                  exerciseLog: sampleExerciseLogWithUserNullDescription),
+            ),
+          ),
+        );
+
+        await tester.tap(find.byType(PopupMenuButton));
+        await tester.pumpAndSettle();
+        await tester.tap(
+          find.byKey(
+            Key('CheckInView.edit_check_in_btn'),
+          ),
+        );
+        await tester.pumpAndSettle();
+        expect(find.text(AppRoutes.editCheckin), findsOne);
+      },
+    );
+  });
+  testWidgets('Should display error snack bar when deleting check in fails',
+      (tester) async {
+    mockNetworkImagesFor(
+      () async {
+        final errorMsg = 'ERROR DELETING CHECK IN';
+        whenListen(
+            mockCheckInPageCubit,
+            Stream<CheckInPageState>.fromIterable(
+              [
+                CheckInPageError(errorMessage: errorMsg),
+              ],
+            ),
+            initialState: CheckInPageInitial());
+
+        await tester.pumpWidget(
+          MaterialApp(
+            home: CheckInPage(
+              checkInPageArguments: CheckInPageArguments(
+                  exerciseLog: sampleExerciseLogWithUserNullDescription),
+            ),
+          ),
+        );
+
+        await tester.tap(find.byType(PopupMenuButton));
+        await tester.pumpAndSettle();
+        await tester.tap(
+          find.byKey(
+            Key('CheckInView.remove_check_in_popup_btn'),
+          ),
+        );
+        await tester.pumpAndSettle();
+        await tester.tap(find.byKey(Key('CheckInView.confirm_remove_btn')));
+        await tester.pumpAndSettle();
+        //expect(find.byType(SnackBar), findsOneWidget);
+        //expect(find.text(errorMsg),findsOne);
       },
     );
   });

@@ -10,11 +10,10 @@ class LoggedUserRepository {
   // cache???
 
   LoggedUserRepository({
-    required LoggedUserDataSource? loggedUserDataSource,
+    required LoggedUserDataSource loggedUserDataSource,
     required CacheService cacheService,
   })  : _cacheService = cacheService,
-        _loggedUserDataSource =
-            loggedUserDataSource ?? locator.get<LoggedUserDataSource>();
+        _loggedUserDataSource = loggedUserDataSource;
 
   Future<LoggedUser> getLoggedUser() async {
     var loggedUser = _cacheService.get<LoggedUser>('loggedUser');

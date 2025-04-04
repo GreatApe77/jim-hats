@@ -31,7 +31,11 @@ class EditCheckInPage extends StatelessWidget {
 class EditCheckInView extends StatefulWidget {
   final EditCheckInPageArguments editCheckInPageArguments;
   const EditCheckInView({super.key, required this.editCheckInPageArguments});
-
+  static const editBtnKey = Key('EditCheckInView.edit_btn_key');
+  static const titleTextFieldKey = Key('EditCheckInView.title_text_field');
+  static const descriptionTextFieldKey =
+      Key('EditCheckInView.description_text_field');
+  static const editImgBtnKey = Key('EditCheckInView.edit_image_btn');
   @override
   State<EditCheckInView> createState() => _EditCheckInViewState();
 }
@@ -74,6 +78,7 @@ class _EditCheckInViewState extends State<EditCheckInView> {
               //   );
               // }
               return TextButton(
+                key: EditCheckInView.editBtnKey,
                 onPressed: state.status == EditCheckInPageStatus.loading
                     ? null
                     : () => context.read<EditCheckInPageCubit>().submitForm(
@@ -104,6 +109,7 @@ class _EditCheckInViewState extends State<EditCheckInView> {
                 height: 16,
               ),
               TextFormField(
+                key: EditCheckInView.titleTextFieldKey,
                 initialValue: widget.editCheckInPageArguments.exerciseLog.title,
                 validator: _titleValidator.validate,
                 onChanged: (value) {
@@ -118,6 +124,7 @@ class _EditCheckInViewState extends State<EditCheckInView> {
                 height: 16,
               ),
               TextFormField(
+                key: EditCheckInView.descriptionTextFieldKey,
                 initialValue:
                     widget.editCheckInPageArguments.exerciseLog.description,
                 onChanged: (value) {
@@ -139,6 +146,7 @@ class _EditCheckInViewState extends State<EditCheckInView> {
                 builder: (context, state) {
                   return Material(
                     child: InkWell(
+                      key: EditCheckInView.editImgBtnKey,
                       borderRadius: BorderRadius.circular(10),
                       onTap: () {
                         final cubit = context.read<EditCheckInPageCubit>();

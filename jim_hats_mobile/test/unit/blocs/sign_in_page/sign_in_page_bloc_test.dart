@@ -125,4 +125,10 @@ void main() {
       );
     },
   );
+  test('SignInFormSubmitted should be equal to another instance',
+  () {
+    final instance1= SignInFormSubmitted();
+    final instance2 = SignInFormSubmitted();
+    expect(instance2, instance1);
+  },);
 }

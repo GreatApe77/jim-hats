@@ -39,6 +39,7 @@ class NewCheckInView extends StatefulWidget {
   static const exerciseLogDescriptionTextFieldKey =
       Key('NewCheckInView.exercise_log_description_text_field');
   static const postButtonKey = Key('NewCheckInView.post_button');
+  static const mediaCardInkwellKey = Key('NewCheckInView.media_card_ink_well_key');
   @override
   State<NewCheckInView> createState() => _NewCheckInViewState();
 }
@@ -140,6 +141,7 @@ class _NewCheckInViewState extends State<NewCheckInView> {
                 builder: (context, state) {
                   return Material(
                     child: InkWell(
+                      key: NewCheckInView.mediaCardInkwellKey,
                       borderRadius: BorderRadius.circular(10),
                       onTap: state.photo == null
                           ?

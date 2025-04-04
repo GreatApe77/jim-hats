@@ -113,19 +113,3 @@ class GymChallenge {
         creatorId.hashCode;
   }
 }
-
-// model GymChallenge {
-//   id          Int           @id @default(autoincrement())
-//   name        String        @db.VarChar(255)
-//   description String
-//   image       String?
-//   joinId      String?       @unique @default(uuid()) @db.VarChar(255)
-//   createdAt   DateTime      @default(now()) @map("created_at")
-//   startAt     DateTime      @map("start_at")
-//   endAt       DateTime      @map("end_at")
-//   creatorId   Int           @map("creator_id")
-//   members     User[]
-//   logs        ExerciseLog[]
-
-//   @@map("gym_challenges")
-// }

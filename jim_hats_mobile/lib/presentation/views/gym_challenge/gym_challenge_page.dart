@@ -203,6 +203,7 @@ class GymChallengeView extends StatelessWidget {
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 2),
                                       child: ExerciseLogTile(
+                                        key: Key('GymChallengeView.exercise_log_tile_n$index2'),
                                         onTap: () {
                                           final arguments =
                                               CheckInPageArguments(

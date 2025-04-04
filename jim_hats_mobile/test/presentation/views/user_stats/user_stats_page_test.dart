@@ -1,4 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
+import 'package:fake_async/fake_async.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log.dart';
@@ -10,6 +11,7 @@ import 'package:jim_hats_mobile/presentation/cubits/user_stats_page/user_stats_c
 import 'package:jim_hats_mobile/presentation/views/user_stats/user_stats_page.dart';
 import 'package:jim_hats_mobile/presentation/views/user_stats/widgets/stats_item.dart';
 import 'package:jim_hats_mobile/presentation/widgets/calendar/calendar.dart';
+import 'package:jim_hats_mobile/presentation/widgets/exercise_log_tile/exercise_log_tile.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 
@@ -27,14 +29,14 @@ void main() {
     ExerciseLog(
       id: 1,
       title: 'title1',
-      date: DateTime(2025),
+      date: DateTime(2025, 2, 5),
       userId: 1,
       gymChallengeId: 2,
     ),
     ExerciseLog(
       id: 1,
       title: 'title1',
-      date: DateTime(2025),
+      date: DateTime(2025, 2, 6),
       userId: 1,
       gymChallengeId: 2,
     ),
@@ -139,4 +141,32 @@ void main() {
       //Key('UserStatsView.shrinked_sized_box')
     },
   );
+  // testWidgets(
+  //   'Should display modal on day tap',
+  //   (widgetTester) async {
+  //     fakeAsync((async) async {
+  //       whenListen(
+  //         mockUserStatsCubit,
+  //         Stream<UserStatsState>.fromIterable([
+  //           UsersStatsDataSuccess(
+  //             loggedUser: sampleLoggedUser,
+  //             logsOfUser: sampleLogsOfUser,
+  //           )
+  //         ]),
+  //         initialState: UserStatsInitial(),
+  //       );
+  //       await widgetTester.pumpWidget(
+  //         MaterialApp(
+  //           home: UserStatsPage(),
+  //         ),
+  //       );
+  //       final february5of2025 =
+  //           find.byKey(Key('Calendar.dayWithActitvity_5/2/2025'));
+  //       await widgetTester.tap(february5of2025);
+  //       await widgetTester.pumpAndSettle();
+  //       expect(find.byType(ExerciseLogTile), findsAny);
+  //     }, initialTime: DateTime(2025, 2, 20));
+  //     //Key('UserStatsView.shrinked_sized_box')
+  //   },
+  // );
 }

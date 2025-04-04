@@ -35,6 +35,7 @@ class _AppDrawerState extends State<AppDrawer> {
               }
               if (state is AppDrawerLoadDataSuccess) {
                 return ListTile(
+                  key: Key('AppDrawer.logged_user_list_tile'),
                   selected: ModalRoute.of(context)?.settings.name ==
                       AppRoutes.userStats,
                   onTap: () {
@@ -60,9 +61,7 @@ class _AppDrawerState extends State<AppDrawer> {
           BlocBuilder<AppDrawerCubit, AppDrawerState>(
             bloc: widget.appDrawerCubit,
             builder: (context, state) {
-              if (state is AppDrawerInitial) {
-                return SizedBox.shrink();
-              }
+              
               if (state is AppDrawerLoadDataInProgress) {
                 return ListTile(
                   leading: CircularProgressIndicator(),
@@ -108,6 +107,7 @@ class _AppDrawerState extends State<AppDrawer> {
             height: 32,
           ),
           ListTile(
+            key: Key('AppDrawer.create_group_list_tile'),
             onTap: () {
               Navigator.of(context).pushNamed(AppRoutes.createChallenge);
             },
@@ -115,6 +115,7 @@ class _AppDrawerState extends State<AppDrawer> {
             title: Text('Create group'),
           ),
           ListTile(
+            key: Key('AppDrawer.join_group_list_tile'),
             onTap: () {
               Navigator.of(context).pushNamed(AppRoutes.joinGroup);
             },

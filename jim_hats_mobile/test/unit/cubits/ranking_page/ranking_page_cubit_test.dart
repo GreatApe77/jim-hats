@@ -1,6 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/gym_challenge.dart';
+import 'package:jim_hats_mobile/data/gym_challenges/models/ranking.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/repositories/gym_challenges_repository.dart';
 import 'package:jim_hats_mobile/data/logged_user/models/logged_user.dart';
 import 'package:jim_hats_mobile/data/logged_user/repositories/logged_user_repository.dart';
@@ -52,6 +53,25 @@ void main() {
     },
   );
 
+  test(
+    'Should count total of logs of Ranking list',
+    () {
+      final sampleRankings = [
+        Ranking(
+          id: 1,
+          username: 'username',
+          logCount: 100,
+        ),
+        Ranking(
+          id: 2,
+          username: 'username2',
+          logCount: 101,
+        )
+      ];
+      final result = sut.countTotalOfLogs(sampleRankings);
+      expect(result, 201);
+    },
+  );
   test(
     'Should start with empty inital state',
     () {

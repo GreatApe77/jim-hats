@@ -1,3 +1,5 @@
+// coverage:ignore-file
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -41,7 +43,6 @@ import 'package:jim_hats_mobile/presentation/cubits/ranking_page/ranking_page_cu
 import 'package:jim_hats_mobile/presentation/cubits/settings_page/settings_cubit.dart';
 import 'package:jim_hats_mobile/presentation/blocs/sign_in_page/sign_in_page_bloc.dart';
 import 'package:jim_hats_mobile/presentation/cubits/user_stats_page/user_stats_cubit.dart';
-import 'package:jim_hats_mobile/presentation/views/check_in_page/check_in_page.dart';
 
 final locator = GetIt.instance;
 
@@ -116,6 +117,10 @@ Future<void> setupDependencies() async {
   //load settings
   await loadSettings(locator.get<SettingsRepository>());
 
+  await registerCubitsAndBlocs();
+}
+
+Future<void> registerCubitsAndBlocs() async {
   //Cubits
   locator
     ..registerFactory<EditGymChallengePageCubit>(
@@ -136,7 +141,9 @@ Future<void> setupDependencies() async {
       ),
     )
     ..registerFactory<InternetConnectivityCubit>(
-      () => InternetConnectivityCubit(),
+      () => InternetConnectivityCubit(
+        connectivity: Connectivity(),
+      ),
     )
     ..registerFactory<JoinGroupPageCubit>(
       () => JoinGroupPageCubit(
@@ -187,10 +194,12 @@ Future<void> setupDependencies() async {
           exerciseLogRepository: locator.get<ExerciseLogsRepository>(),
           loggedUserRepository: locator.get<LoggedUserRepository>(),
         ))
-    ..registerFactory<RankingPageCubit>(() => RankingPageCubit(
-        //gymChallengesRepository: null,
-        //loggedUserRepository: null
-        ));
+    ..registerFactory<RankingPageCubit>(
+      () => RankingPageCubit(
+        gymChallengesRepository: locator.get<GymChallengesRepository>(),
+        loggedUserRepository: locator.get<LoggedUserRepository>(),
+      ),
+    );
 }
 
 Future<void> loadSettings(SettingsRepository settingsRepository) async {
