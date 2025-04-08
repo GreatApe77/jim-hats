@@ -38,7 +38,6 @@ class _UserStatsView extends StatelessWidget {
       body: BlocBuilder<UserStatsCubit, UserStatsState>(
         bloc: context.read<UserStatsCubit>(),
         builder: (context, state) {
-          
           if (state is UserStatsDataLoadInProgess) {
             return Center(
               child: CircularProgressIndicator(),
@@ -158,7 +157,9 @@ class _UserStatsView extends StatelessWidget {
               ),
             );
           }
-          return SizedBox.shrink(key: Key('UserStatsView.shrinked_sized_box'),);
+          return SizedBox.shrink(
+            key: Key('UserStatsView.shrinked_sized_box'),
+          );
         },
       ),
     );

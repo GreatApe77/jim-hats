@@ -106,7 +106,6 @@ void main() {
       NavigatorState navigatorState =
           widgetTester.state(find.byType(Navigator));
       navigatorState.pop();
-    
     },
   );
 }

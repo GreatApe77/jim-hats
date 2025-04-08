@@ -1,3 +1,4 @@
+///Abstract interface for in memory cache implementations.
 abstract class CacheService {
   void store<V>(
     String key,

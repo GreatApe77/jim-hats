@@ -77,7 +77,6 @@ class SettingsView extends StatelessWidget {
                                       CrossAxisAlignment.stretch,
                                   children: [
                                     Text(
-
                                       'Photo Selection',
                                       style: Theme.of(context)
                                           .textTheme
@@ -90,7 +89,8 @@ class SettingsView extends StatelessWidget {
                                       leading: Icon(Icons.image),
                                     ),
                                     ListTile(
-                                      key: Key('SettingsView.remove_photo_list_tile'),
+                                      key: Key(
+                                          'SettingsView.remove_photo_list_tile'),
                                       onTap: () =>
                                           _removePhoto(context, settingsCubit),
                                       title: Text(

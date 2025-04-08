@@ -182,7 +182,6 @@ class _CreateChallengeViewState extends State<CreateChallengeView> {
               TextFormField(
                 key: CreateChallengeView.nameTextFieldKey,
                 controller: _nameController,
-                
                 onChanged: (value) {
                   context
                       .read<CreateChallengePageCubit>()

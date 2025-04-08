@@ -5,7 +5,6 @@ import 'package:jim_hats_mobile/data/gym_challenges/dtos/update_gym_challenge_dt
 import 'package:jim_hats_mobile/data/gym_challenges/models/challenge_member.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/gym_challenge.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/ranking.dart';
-import 'package:jim_hats_mobile/locator.dart';
 
 class GymChallengesRepository {
   final GymChallengeDataSource _gymChallengeDataSource;
@@ -14,8 +13,7 @@ class GymChallengesRepository {
     required GymChallengeDataSource gymChallengeDataSource,
     required CacheService cacheService,
   })  : _cacheService = cacheService,
-        _gymChallengeDataSource =
-            gymChallengeDataSource;
+        _gymChallengeDataSource = gymChallengeDataSource;
 
   Future<List<GymChallenge>> getGymChallengesOfUser(int userId) async {
     List<GymChallenge>? challenges =

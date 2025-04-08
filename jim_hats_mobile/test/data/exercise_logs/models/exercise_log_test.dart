@@ -23,12 +23,11 @@ void main() {
       expect(updatedExerciseLog.description, 'Ran 10km in the park');
       expect(updatedExerciseLog.id, exerciseLog.id);
       expect(updatedExerciseLog.date, exerciseLog.date);
-
     });
     test('Should copyWith the same values', () {
       final updatedExerciseLog = exerciseLog.copyWith();
 
-      expect(updatedExerciseLog,exerciseLog);
+      expect(updatedExerciseLog, exerciseLog);
     });
 
     test('Should convert to map', () {

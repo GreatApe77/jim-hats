@@ -19,7 +19,8 @@ void main() {
 
       expect(updatedLoggedUser.username, 'jane_doe');
       expect(updatedLoggedUser.email, 'jane_doe@example.com');
-      expect(updatedLoggedUser.profilePicture, 'http://example.com/new_profile.jpg');
+      expect(updatedLoggedUser.profilePicture,
+          'http://example.com/new_profile.jpg');
       expect(updatedLoggedUser.id, loggedUser.id); // unchanged
     });
 
@@ -48,11 +49,13 @@ void main() {
     test('toJson converts LoggedUser to JSON string', () {
       final json = loggedUser.toJson();
 
-      expect(json, '{"id":1,"username":"john_doe","email":"john_doe@example.com","profilePicture":"http://example.com/profile.jpg"}');
+      expect(json,
+          '{"id":1,"username":"john_doe","email":"john_doe@example.com","profilePicture":"http://example.com/profile.jpg"}');
     });
 
     test('fromJson creates LoggedUser from JSON string', () {
-      final json = '{"id":1,"username":"john_doe","email":"john_doe@example.com","profilePicture":"http://example.com/profile.jpg"}';
+      final json =
+          '{"id":1,"username":"john_doe","email":"john_doe@example.com","profilePicture":"http://example.com/profile.jpg"}';
 
       final fromJsonLoggedUser = LoggedUser.fromJson(json);
 
@@ -62,7 +65,8 @@ void main() {
     test('toString returns correct string representation', () {
       final string = loggedUser.toString();
 
-      expect(string, 'LoggedUser(id: 1, username: john_doe, email: john_doe@example.com, profilePicture: http://example.com/profile.jpg)');
+      expect(string,
+          'LoggedUser(id: 1, username: john_doe, email: john_doe@example.com, profilePicture: http://example.com/profile.jpg)');
     });
 
     test('equality operator returns true for identical objects', () {
@@ -79,10 +83,12 @@ void main() {
     test('hashCode returns correct hash code', () {
       final hashCode = loggedUser.hashCode;
 
-      expect(hashCode, loggedUser.id.hashCode ^
-          loggedUser.username.hashCode ^
-          loggedUser.email.hashCode ^
-          loggedUser.profilePicture.hashCode);
+      expect(
+          hashCode,
+          loggedUser.id.hashCode ^
+              loggedUser.username.hashCode ^
+              loggedUser.email.hashCode ^
+              loggedUser.profilePicture.hashCode);
     });
   });
 }

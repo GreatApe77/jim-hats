@@ -6,7 +6,6 @@ import 'package:jim_hats_mobile/data/gym_challenges/repositories/gym_challenges_
 import 'package:jim_hats_mobile/data/logged_user/models/logged_user.dart';
 import 'package:jim_hats_mobile/data/logged_user/repositories/logged_user_repository.dart';
 import 'package:jim_hats_mobile/presentation/cubits/gym_challenge_details_page/gym_challenge_details_page_cubit.dart';
-import 'package:jim_hats_mobile/presentation/cubits/gym_challenge_page/gym_challenge_page_cubit.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 

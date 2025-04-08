@@ -134,8 +134,6 @@ void main() {
         ),
       );
 
-      
-      
       expect(
         find.byType(UserCircleAvatar),
         findsExactly(3),

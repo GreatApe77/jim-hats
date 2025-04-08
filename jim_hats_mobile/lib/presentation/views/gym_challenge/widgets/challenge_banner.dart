@@ -6,7 +6,7 @@ import 'package:jim_hats_mobile/presentation/widgets/user_circle_avatar/user_cir
 
 class ChallengeBanner extends StatelessWidget {
   static const daysLeftKey = Key('ChallengeBanner.days_left_text');
-   static const mainInkWellKey= Key('ChallengeBanner.main_ink_well');
+  static const mainInkWellKey = Key('ChallengeBanner.main_ink_well');
   final Function() onTap;
   final GymChallenge challenge;
   final Ranking leader;

@@ -18,7 +18,7 @@ class Calendar extends StatelessWidget {
     return Column(
       children: [
         Text(
-          key:Key('Calendar.title'),
+          key: Key('Calendar.title'),
           '${DateHelper.monthNumberToName[date.month]} ${date.year}',
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
@@ -75,7 +75,8 @@ class Calendar extends StatelessWidget {
                   fit: StackFit.expand,
                   children: [
                     IconButton(
-                      key: Key('Calendar.dayWithActitvity_$day/${date.month}/${date.year}'),
+                      key: Key(
+                          'Calendar.dayWithActitvity_$day/${date.month}/${date.year}'),
                       onPressed: () => onDayTap(day, groupedByDay[day]!),
                       icon: Badge.count(
                         count: groupedByDay[day]!.length,

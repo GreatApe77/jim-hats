@@ -10,7 +10,6 @@ import 'package:jim_hats_mobile/presentation/cubits/auth/auth_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/settings_page/settings_cubit.dart';
 import 'package:jim_hats_mobile/presentation/routing/app_routes.dart';
 import 'package:jim_hats_mobile/presentation/views/settings/settings_page.dart';
-import 'package:jim_hats_mobile/presentation/widgets/user_circle_avatar/user_circle_avatar.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockSettingsCubit extends MockCubit<SettingsState>

@@ -50,12 +50,10 @@ class ImageBannerForm extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                         onTapDown: onTapDown,
                         child: Ink(
-                          
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: Theme.of(context).colorScheme.onSurface,
                             image: DecorationImage(
-                              
                               fit: BoxFit.cover,
                               image: FileImage(
                                 File(image!.path),

@@ -4,7 +4,6 @@ import 'package:jim_hats_mobile/data/exercise_logs/dtos/add_exercise_log_to_chal
 import 'package:jim_hats_mobile/data/exercise_logs/dtos/update_exercise_log_dto.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log_with_user.dart';
-import 'package:jim_hats_mobile/locator.dart';
 
 class ExerciseLogsRepository {
   final ExerciseLogDataSource _exerciseLogDataSource;
@@ -13,8 +12,7 @@ class ExerciseLogsRepository {
     required ExerciseLogDataSource exerciseLogDataSource,
     required CacheService cacheService,
   })  : _cacheService = cacheService,
-        _exerciseLogDataSource =
-            exerciseLogDataSource;
+        _exerciseLogDataSource = exerciseLogDataSource;
 
   Future<List<ExerciseLogWithUser>> getLogsOfChallenge(int challengeId) async {
     //await Future.delayed(Duration(milliseconds: 1500));

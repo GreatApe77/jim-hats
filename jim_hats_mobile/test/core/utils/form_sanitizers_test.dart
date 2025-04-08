@@ -11,7 +11,7 @@ void main() {
       expect(result, expectedResult);
     },
   );
-   test(
+  test(
     'Should sanitize email',
     () {
       String testEmail = '   email@EMAIL.COM   ';

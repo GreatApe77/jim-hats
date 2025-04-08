@@ -20,11 +20,14 @@ void main() {
           'http://example.com/new_profile.jpg');
       expect(updatedChallengeMember.id, challengeMember.id); // unchanged
     });
-    test('Should copyWith with the same values', () {
-      final updatedChallengeMember = challengeMember.copyWith();
-      expect(updatedChallengeMember, challengeMember);
-      //expect(actual, matcher)
-    },);
+    test(
+      'Should copyWith with the same values',
+      () {
+        final updatedChallengeMember = challengeMember.copyWith();
+        expect(updatedChallengeMember, challengeMember);
+        //expect(actual, matcher)
+      },
+    );
     test('toMap converts ChallengeMember to a map', () {
       final map = challengeMember.toMap();
 

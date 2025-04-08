@@ -6,7 +6,6 @@ import 'package:jim_hats_mobile/data/uploads/repositories/upload_repository.dart
 import 'package:jim_hats_mobile/presentation/cubits/create_challenge_page/create_challenge_page_cubit.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'dart:math' as math;
 import 'create_challenge_cubit_page_test.mocks.dart';
 
 // final UploadRepository _uploadRepository;
@@ -36,7 +35,7 @@ void main() {
     final difference = sut.getDayCount(startAt, endAt);
     expect(difference, 30);
   });
-  
+
   test(
     'Should start with initial state',
     () {

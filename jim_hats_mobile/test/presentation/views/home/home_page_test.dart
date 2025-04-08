@@ -6,7 +6,6 @@ import 'package:jim_hats_mobile/locator.dart';
 import 'package:jim_hats_mobile/presentation/cubits/app_drawer/app_drawer_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/home_page/home_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/views/home/home_page.dart';
-import 'package:mocktail/mocktail.dart';
 
 class MockHomePageCubit extends MockCubit<HomePageState>
     implements HomePageCubit {}

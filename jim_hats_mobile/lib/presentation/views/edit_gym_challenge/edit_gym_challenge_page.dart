@@ -49,7 +49,7 @@ class EditGymChallengeView extends StatefulWidget {
       Key('EditGymChallengeView.start_date_text_field');
   static const endDateTextFieldKey =
       Key('EditGymChallengeView.end_date_text_field');
-      static const scrollableListViewKey=
+  static const scrollableListViewKey =
       Key('EditGymChallengeView.scrollable_list_view');
 
   const EditGymChallengeView({

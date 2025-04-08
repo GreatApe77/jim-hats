@@ -50,7 +50,9 @@ class HomeView extends StatelessWidget {
               ),
             );
           }
-          return SizedBox.shrink(key: Key('HomeView.shrinked_sized_box'),);
+          return SizedBox.shrink(
+            key: Key('HomeView.shrinked_sized_box'),
+          );
         },
       ),
     );

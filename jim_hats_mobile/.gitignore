@@ -53,4 +53,6 @@ test/full_coverage_test.dart
 /shell-scripts
 
 #Environment
-.env.*
+.env.development
+.env.staging
+.env.production

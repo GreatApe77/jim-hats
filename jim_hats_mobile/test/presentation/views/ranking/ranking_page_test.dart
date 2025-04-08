@@ -110,7 +110,7 @@ void main() {
       ),
     );
     await tester.pump();
-    expect(find.byKey(Key('RankingView.total_count_text')),findsOneWidget);
+    expect(find.byKey(Key('RankingView.total_count_text')), findsOneWidget);
     expect(find.text('150'), findsOne);
     //expect(find.byKey(Key('RankingView.shrinked_sized_box')), findsOneWidget);
   });

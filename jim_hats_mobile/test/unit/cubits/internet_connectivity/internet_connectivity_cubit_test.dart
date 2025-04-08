@@ -1,8 +1,6 @@
-import 'package:bloc_test/bloc_test.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:jim_hats_mobile/presentation/cubits/internet_connectivity/cubit/internet_connectivity_cubit.dart';
-import 'package:jim_hats_mobile/presentation/widgets/internet_checker_wrapper/internet_checker_wrapper.dart';
 import 'package:mockito/annotations.dart';
 
 import 'internet_connectivity_cubit_test.mocks.dart';
@@ -24,13 +22,14 @@ void main() {
       expect(sut.state.status, InternetConnectivityStatus.unknown);
     },
   );
-  test('Should close bloc', ()async {
-    await sut.close();
+  test(
+    'Should close bloc',
+    () async {
+      await sut.close();
 
-    expect(sut.isClosed, isTrue);
-  },);
-
-  
+      expect(sut.isClosed, isTrue);
+    },
+  );
 
   // blocTest<InternetConnectivityCubit, InternetConnectivityState>(
   //   'emits [MyState] when MyEvent is added.',

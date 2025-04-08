@@ -15,12 +15,10 @@ final class SignInPasswordChanged extends SignInPageEvent {
 
   SignInPasswordChanged({required this.password});
   @override
- 
   List<Object?> get props => [password];
 }
 
 final class SignInFormSubmitted extends SignInPageEvent {
   @override
-  
   List<Object?> get props => [];
 }

@@ -204,7 +204,7 @@ void main() {
       //expect(sut.getGymChallengeById(1),throwsUnimplementedError);
       //  await expectLater(sut.getGymChallengeById(1), throwsUnimplementedError);
       await expectLater(
-        ()=>sut.getGymChallengeById(1),
+        () => sut.getGymChallengeById(1),
         throwsA(
           isA<UnimplementedError>(),
         ),

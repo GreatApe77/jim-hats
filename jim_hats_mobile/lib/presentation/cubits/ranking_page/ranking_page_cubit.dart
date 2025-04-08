@@ -3,7 +3,6 @@ import 'package:jim_hats_mobile/data/gym_challenges/models/gym_challenge.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/models/ranking.dart';
 import 'package:jim_hats_mobile/data/gym_challenges/repositories/gym_challenges_repository.dart';
 import 'package:jim_hats_mobile/data/logged_user/repositories/logged_user_repository.dart';
-import 'package:jim_hats_mobile/locator.dart';
 import 'package:meta/meta.dart';
 
 part 'ranking_page_state.dart';

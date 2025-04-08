@@ -2,7 +2,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:jim_hats_mobile/data/settings/data_sources/settings_data_source.dart';
 import 'package:jim_hats_mobile/data/settings/models/settings.dart';
 import 'package:jim_hats_mobile/data/settings/repositories/settings_repository.dart';
-import 'package:meta/meta.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -38,13 +37,12 @@ void main() {
       );
     },
   );
-   test(
+  test(
     'Should set isDarkTheme to false',
     () async {
       await sut.loadSettings();
       await sut.setIsDarkTheme(false);
       expect(sut.settings.isDarkTheme, isFalse);
-      
     },
   );
 }

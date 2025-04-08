@@ -191,7 +191,7 @@ void main() {
           status: EditCheckInPageStatus.idle,
         ),
       );
- 
+
       await widgetTester.pumpWidget(
         MaterialApp(
           home: EditCheckInPage(
@@ -309,5 +309,4 @@ void main() {
       );
     },
   );
-   
 }

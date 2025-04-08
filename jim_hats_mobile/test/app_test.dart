@@ -2,11 +2,9 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:jim_hats_mobile/app.dart';
-import 'package:jim_hats_mobile/locator.dart';
 import 'package:jim_hats_mobile/presentation/blocs/theme/theme_bloc.dart';
 import 'package:jim_hats_mobile/presentation/cubits/auth/auth_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/internet_connectivity/cubit/internet_connectivity_cubit.dart';
-import 'package:jim_hats_mobile/presentation/views/welcome/welcome_page.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockThemeBloc extends MockBloc<ThemeEvent, ThemeState>

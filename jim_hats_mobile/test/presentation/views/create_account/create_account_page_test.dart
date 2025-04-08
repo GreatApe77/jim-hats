@@ -498,14 +498,13 @@ void main() {
           home: CreateAccountPage(),
         ),
       );
-      expect(find.byIcon(Icons.visibility_off),findsAny);
+      expect(find.byIcon(Icons.visibility_off), findsAny);
       await widgetTester.tap(
         find.byKey(CreateAccountView.toggleHidePasswordBtnKey),
       );
       await widgetTester.pump();
-      expect(find.byIcon(Icons.visibility_off),findsNothing);
-      expect(find.byIcon(Icons.visibility),findsAny);
-      
+      expect(find.byIcon(Icons.visibility_off), findsNothing);
+      expect(find.byIcon(Icons.visibility), findsAny);
     },
   );
 }

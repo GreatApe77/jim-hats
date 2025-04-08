@@ -102,10 +102,8 @@ void main() {
       await widgetTester.pump();
       //expect(find.text(bannerMessage), findsOneWidget);
 
-      
       //await widgetTester.pump(const Duration(milliseconds: 500));
 
-      
       expect(find.text(bannerMessage), findsNothing);
     },
   );

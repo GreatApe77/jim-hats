@@ -2,7 +2,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:jim_hats_mobile/data/settings/repositories/settings_repository.dart';
 import 'package:jim_hats_mobile/locator.dart';
 import 'package:mockito/annotations.dart';
-import 'package:mocktail/mocktail.dart';
 import 'package:mockito/mockito.dart' as mockito;
 import 'locator_test.mocks.dart';
 
@@ -11,11 +10,11 @@ import 'locator_test.mocks.dart';
 ])
 void main() {
   late SettingsRepository mockSettingsRepository;
-  tearDown(() async {
-    await locator.reset();
-  
-    
-  },);
+  tearDown(
+    () async {
+      await locator.reset();
+    },
+  );
   test(
     'Should load inital settings of settings repository',
     () async {
@@ -104,8 +103,11 @@ void main() {
       ),
     );
 } */
-  test('Should setup cubits and blocs',() async {
+  test(
+    'Should setup cubits and blocs',
+    () async {
       late MockSettingsRepository mockSettingsRepository;
       await registerCubitsAndBlocs();
-  },);
+    },
+  );
 }

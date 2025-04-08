@@ -10,7 +10,6 @@ void main() {
       await widgetTester.pumpWidget(
         MaterialApp(
           home: ServerDownAlertPage(),
-          
         ),
       );
       expect(
@@ -38,7 +37,6 @@ void main() {
       await widgetTester.tap(retryBtn);
       await widgetTester.pumpAndSettle();
       expect(find.text(AppRoutes.splash), findsOne);
-      
     },
   );
 }

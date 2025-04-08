@@ -94,7 +94,7 @@ class CheckInView extends StatelessWidget {
                               child: Text('Cancel'),
                             ),
                             TextButton(
-                               key: Key('CheckInView.confirm_remove_btn'),
+                              key: Key('CheckInView.confirm_remove_btn'),
                               style: TextButton.styleFrom(
                                 foregroundColor:
                                     Theme.of(context).colorScheme.error,

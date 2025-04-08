@@ -61,7 +61,6 @@ class _AppDrawerState extends State<AppDrawer> {
           BlocBuilder<AppDrawerCubit, AppDrawerState>(
             bloc: widget.appDrawerCubit,
             builder: (context, state) {
-              
               if (state is AppDrawerLoadDataInProgress) {
                 return ListTile(
                   leading: CircularProgressIndicator(),

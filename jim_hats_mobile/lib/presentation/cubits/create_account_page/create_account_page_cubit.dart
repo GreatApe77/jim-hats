@@ -4,7 +4,6 @@ import 'package:jim_hats_mobile/data/auth/dtos/register_dto.dart';
 import 'package:jim_hats_mobile/data/auth/repositories/auth_repository.dart';
 import 'package:jim_hats_mobile/data/uploads/dtos/upload_dto.dart';
 import 'package:jim_hats_mobile/data/uploads/repositories/upload_repository.dart';
-import 'package:jim_hats_mobile/locator.dart';
 import 'package:jim_hats_mobile/core/utils/application_exception.dart';
 import 'package:jim_hats_mobile/core/utils/nullable.dart';
 

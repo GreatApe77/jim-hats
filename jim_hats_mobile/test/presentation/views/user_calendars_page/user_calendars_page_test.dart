@@ -5,7 +5,6 @@ import 'package:jim_hats_mobile/data/logged_user/models/logged_user.dart';
 import 'package:jim_hats_mobile/presentation/routing/app_routes.dart';
 import 'package:jim_hats_mobile/presentation/views/user_calendars_page/user_calendars_page.dart';
 import 'package:jim_hats_mobile/presentation/views/user_calendars_page/user_calendars_page_arguments.dart';
-import 'package:jim_hats_mobile/presentation/widgets/calendar/calendar.dart';
 import 'package:jim_hats_mobile/presentation/widgets/exercise_log_tile/exercise_log_tile.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 
@@ -124,7 +123,7 @@ void main() {
           await tester.pumpAndSettle();
           await tester.tap(find.byType(ExerciseLogTile));
           await tester.pumpAndSettle();
-          expect(find.text(AppRoutes.checkIn),findsOne);
+          expect(find.text(AppRoutes.checkIn), findsOne);
         },
       );
     },

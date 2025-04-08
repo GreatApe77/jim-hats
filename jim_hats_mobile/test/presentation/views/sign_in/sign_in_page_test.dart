@@ -232,7 +232,7 @@ void main() {
         find.byKey(passwordTextFieldKey),
         'sample_password123',
       );
-      await widgetTester.tap(find.byKey(signInBtnKey),warnIfMissed: false);
+      await widgetTester.tap(find.byKey(signInBtnKey), warnIfMissed: false);
       await widgetTester.pumpAndSettle();
       expect(find.text('Splash'), findsOneWidget);
     },
@@ -250,7 +250,6 @@ void main() {
               password: 'valid_pass',
               message: '',
             ),
-            
           ],
         ),
         initialState: SignInPageState(
@@ -262,7 +261,6 @@ void main() {
       await widgetTester.pumpWidget(
         MaterialApp(
           home: SignInPage(),
-          
         ),
       );
       await widgetTester.enterText(

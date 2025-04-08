@@ -1,5 +1,4 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:fake_async/fake_async.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:jim_hats_mobile/data/exercise_logs/models/exercise_log.dart';
@@ -11,8 +10,6 @@ import 'package:jim_hats_mobile/presentation/cubits/user_stats_page/user_stats_c
 import 'package:jim_hats_mobile/presentation/views/user_stats/user_stats_page.dart';
 import 'package:jim_hats_mobile/presentation/views/user_stats/widgets/stats_item.dart';
 import 'package:jim_hats_mobile/presentation/widgets/calendar/calendar.dart';
-import 'package:jim_hats_mobile/presentation/widgets/exercise_log_tile/exercise_log_tile.dart';
-import 'package:mocktail/mocktail.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 
 class MockAppDrawerCubit extends MockCubit<AppDrawerState>

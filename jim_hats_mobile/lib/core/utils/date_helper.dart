@@ -27,12 +27,11 @@ abstract class DateHelper {
   static String formatDateShort(DateTime date) {
     return '${monthNumberToName[date.month]} ${date.day}, ${date.year}';
   }
-
+  ///Example: Sunday, February 8 08:14
   static String formatDateExtended(DateTime date) {
     return '${weekDayToName[date.weekday]}, ${monthNumberToName[date.month]} ${date.day} ${_zeroToLeft(date.hour)}:${_zeroToLeft(date.minute)}';
-    //return '${}'
   }
-
+  ///Example: 01/01/2000
   static String formatDateSlashSeparated(DateTime date) {
     return '${_zeroToLeft(date.day)}/${_zeroToLeft(date.month)}/${date.year}';
   }

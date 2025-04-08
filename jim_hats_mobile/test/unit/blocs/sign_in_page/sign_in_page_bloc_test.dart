@@ -1,7 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:jim_hats_mobile/core/exceptions/time_out_exception.dart';
-import 'package:jim_hats_mobile/data/auth/dtos/login_dto.dart';
 import 'package:jim_hats_mobile/data/auth/repositories/auth_repository.dart';
 import 'package:jim_hats_mobile/presentation/blocs/sign_in_page/sign_in_page_bloc.dart';
 import 'package:mockito/annotations.dart';
@@ -125,10 +124,12 @@ void main() {
       );
     },
   );
-  test('SignInFormSubmitted should be equal to another instance',
-  () {
-    final instance1= SignInFormSubmitted();
-    final instance2 = SignInFormSubmitted();
-    expect(instance2, instance1);
-  },);
+  test(
+    'SignInFormSubmitted should be equal to another instance',
+    () {
+      final instance1 = SignInFormSubmitted();
+      final instance2 = SignInFormSubmitted();
+      expect(instance2, instance1);
+    },
+  );
 }
