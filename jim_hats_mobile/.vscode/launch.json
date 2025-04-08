@@ -1,0 +1,31 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "jim_hats_mobile flavor=development, type=debug",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--flavor",
+                "development",
+                "--dart-define-from-file=.env.development"
+            ],
+            "flutterMode": "debug"
+        },
+        {
+            "name": "jim_hats_mobile (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "jim_hats_mobile (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}
