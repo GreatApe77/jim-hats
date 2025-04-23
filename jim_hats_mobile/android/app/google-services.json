@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "989821449537",
+    "project_id": "jim-hats",
+    "storage_bucket": "jim-hats.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:989821449537:android:39d4fada9f76f5748bddc0",
+        "android_client_info": {
+          "package_name": "com.mateusnavarro77.jim_hats_mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAf_01KOa-OPiy9dEmbNL1RGdVxbS5UQ6c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
