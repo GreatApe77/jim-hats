@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:jim_hats_mobile/core/network/dio/dio_http_service.dart';
+import 'package:jim_hats_mobile/core/network/firebase/firebase_push_notification_service.dart';
 import 'package:jim_hats_mobile/core/network/http_service.dart';
 import 'package:jim_hats_mobile/core/utils/cache_service.dart';
 import 'package:jim_hats_mobile/core/utils/memory_cache_service.dart';
@@ -39,6 +40,7 @@ import 'package:jim_hats_mobile/presentation/cubits/internet_connectivity/cubit/
 import 'package:jim_hats_mobile/presentation/cubits/join_group_page/join_group_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/home_page/home_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/new_check_in_page/new_check_in_page_cubit.dart';
+import 'package:jim_hats_mobile/presentation/cubits/notification/cubit/notification_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/ranking_page/ranking_page_cubit.dart';
 import 'package:jim_hats_mobile/presentation/cubits/settings_page/settings_cubit.dart';
 import 'package:jim_hats_mobile/presentation/blocs/sign_in_page/sign_in_page_bloc.dart';
@@ -49,6 +51,9 @@ final locator = GetIt.instance;
 Future<void> setupDependencies() async {
   //OTHER
   locator
+    ..registerSingleton<FirebasePushNotificationService>(
+      FirebasePushNotificationService(),
+    )
     ..registerSingleton<CacheService>(MemoryCacheService())
     ..registerSingleton<SettingsDataSource>(
         SharedPreferencesSettingsDataSource())
@@ -200,6 +205,13 @@ Future<void> registerCubitsAndBlocs() async {
         loggedUserRepository: locator.get<LoggedUserRepository>(),
       ),
     );
+  await locator.get<FirebasePushNotificationService>().initialize();
+  locator.registerFactory<NotificationCubit>(
+    () => NotificationCubit(
+      firebasePushNotificationService:
+          locator.get<FirebasePushNotificationService>(),
+    ),
+  );
 }
 
 Future<void> loadSettings(SettingsRepository settingsRepository) async {
@@ -215,5 +227,8 @@ final blocProviders = [
   ),
   BlocProvider<InternetConnectivityCubit>(
     create: (context) => locator.get<InternetConnectivityCubit>(),
+  ),
+  BlocProvider<NotificationCubit>(
+    create: (context) => locator.get<NotificationCubit>(),
   ),
 ];

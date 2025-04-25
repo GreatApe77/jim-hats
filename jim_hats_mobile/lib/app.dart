@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jim_hats_mobile/presentation/cubits/notification/cubit/notification_cubit.dart';
 import 'package:jim_hats_mobile/presentation/routing/app_router.dart';
 import 'package:jim_hats_mobile/presentation/blocs/theme/theme_bloc.dart';
 import 'package:jim_hats_mobile/presentation/theme/app_theme.dart';
@@ -23,14 +24,25 @@ class App extends StatelessWidget {
       bloc: context.read<ThemeBloc>(),
       builder: (context, state) {
         return InternetCheckerWrapper(
-          child: MaterialApp(
-            scaffoldMessengerKey: scaffoldMessengerKey,
-            theme: AppTheme.light(textTheme: textTheme),
-            darkTheme: AppTheme.dark(textTheme: textTheme),
-            themeMode: state is ThemeDark ? ThemeMode.dark : ThemeMode.light,
-            onGenerateRoute: AppRouter.ongenerateRoute,
-            initialRoute: AppRouter.initialRoute,
-            debugShowCheckedModeBanner: false,
+          child: BlocListener<NotificationCubit, NotificationState>(
+            listener: (context, state) {
+              if (state is NotificationLoaded) {
+                scaffoldMessengerKey.currentState?.showSnackBar(
+                  SnackBar(
+                    content: Text(state.title),
+                  ),
+                );
+              }
+            },
+            child: MaterialApp(
+              scaffoldMessengerKey: scaffoldMessengerKey,
+              theme: AppTheme.light(textTheme: textTheme),
+              darkTheme: AppTheme.dark(textTheme: textTheme),
+              themeMode: state is ThemeDark ? ThemeMode.dark : ThemeMode.light,
+              onGenerateRoute: AppRouter.ongenerateRoute,
+              initialRoute: AppRouter.initialRoute,
+              debugShowCheckedModeBanner: false,
+            ),
           ),
         );
       },

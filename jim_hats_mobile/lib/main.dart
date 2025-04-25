@@ -13,20 +13,13 @@ import 'package:jim_hats_mobile/locator.dart';
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = MyHttpOverrides();
-  await setupDependencies();
-
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await setupDependencies();
 
-  final firebasePushNotificationService = FirebasePushNotificationService();
-  try {
-  await firebasePushNotificationService.initialize();
-    
-  } catch (e) {
-    if(kDebugMode){
-      print(e.toString());
-    }
-  }
+
+
+  
   runApp(MultiBlocProvider(providers: blocProviders, child: const App()));
 }
