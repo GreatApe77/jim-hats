@@ -1,6 +1,5 @@
 package com.mateusnavarro77.jim_hats_web_api.domain.usecases.register_user;
 
-import com.mateusnavarro77.jim_hats_web_api.domain.exceptions.DomainException;
 import com.mateusnavarro77.jim_hats_web_api.domain.exceptions.EmailAlreadyTakenException;
 import com.mateusnavarro77.jim_hats_web_api.domain.exceptions.UsernameAlreadyTakenException;
 import com.mateusnavarro77.jim_hats_web_api.domain.models.User;
