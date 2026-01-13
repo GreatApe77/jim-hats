@@ -1,47 +1,67 @@
 # API Endpoints Documentation
 
-## **Authentication (`/`)**
-- `POST /register` → Register a new user  
-- `POST /login` → Login  
+## **Authentication**
+Base path: `/`
+
+| Method | Endpoint | Description | Auth Required |
+| :--- | :--- | :--- | :--- |
+| POST | `/register` | Register a new user | No |
+| POST | `/login` | Login and receive an authentication token | No |
 
 ---
 
-## **Users (`/users`)**
-- `GET /users` → List all users  
-- `GET /users/:id` → Get a specific user by ID  
-- `GET /users/me` → Get the authenticated user’s profile  
-- `GET /users/me/logs` → Get exercise logs of the authenticated user  
-- `PATCH /users/:id` → Update user information  
-- `DELETE /users/:id` → Delete a user  
-- `GET /users/:userId/gym-challenges` → Get gym challenges of a specific user  
+## **Users**
+Base path: `/users`
+
+| Method | Endpoint | Description | Auth Required |
+| :--- | :--- | :--- | :--- |
+| GET | `/` | List all users | No |
+| GET | `/me` | Get the authenticated user's profile | Yes |
+| GET | `/me/logs` | Get exercise logs of the authenticated user | Yes |
+| GET | `/:id` | Get a specific user by ID | No |
+| PATCH | `/me` | Update the authenticated user's information | Yes |
+| DELETE | `/:id` | Delete a user | Yes |
+| GET | `/:userId/gym-challenges` | Get gym challenges of a specific user | Yes |
 
 ---
 
-## **File Uploads (`/uploads`)**
-- `POST /uploads/profile-picture` → Upload profile picture (authenticated)  
-- `POST /uploads/gym-challenges/:id` → Upload an image for a gym challenge (authenticated)  
+## **File Uploads**
+Base path: `/uploads`
+
+| Method | Endpoint | Description | Auth Required |
+| :--- | :--- | :--- | :--- |
+| POST | `/` | Upload an image file (PNG/JPEG) | No |
 
 ---
 
-## **Gym Challenges (`/gym-challenges`)**
-- `POST /gym-challenges/` → Create a new gym challenge (authenticated)  
-- `PATCH /gym-challenges/:id` → Update a gym challenge  
-- `GET /gym-challenges/:id` → Get details of a specific gym challenge (authenticated)  
-- `DELETE /gym-challenges/:id` → Delete a gym challenge (authenticated)  
-- `GET /gym-challenges/:joinId/join` → Join a gym challenge (authenticated)  
-- `GET /gym-challenges/:challengeId/members` → Get members of a gym challenge  
-- `POST /gym-challenges/:challengeId/members` → Add a member to a gym challenge (authenticated)  
-- `POST /gym-challenges/:challengeId/logs` → Add a log to a gym challenge (authenticated)  
-- `GET /gym-challenges/:challengeId/logs` → Get logs grouped by user for a gym challenge (authenticated)  
-- `GET /gym-challenges/:challengeId/ranking` → Get ranking for a gym challenge (authenticated)  
+## **Gym Challenges**
+Base path: `/gym-challenges`
+
+| Method | Endpoint | Description | Auth Required |
+| :--- | :--- | :--- | :--- |
+| POST | `/` | Create a new gym challenge | Yes |
+| GET | `/:id` | Get details of a specific gym challenge | Yes |
+| PATCH | `/:id` | Update a gym challenge | No |
+| DELETE | `/:id` | Delete a gym challenge | Yes |
+| GET | `/:joinId/join` | Join a gym challenge using a join ID | Yes |
+| GET | `/:challengeId/members` | Get all members of a specific gym challenge | No |
+| POST | `/:challengeId/members` | Add a member to a gym challenge | Yes |
+| POST | `/:challengeId/logs` | Add an exercise log to a gym challenge | Yes |
+| GET | `/:challengeId/logs` | Get logs for a challenge, grouped by user | Yes |
+| GET | `/:challengeId/ranking` | Get the ranking for a gym challenge | Yes |
 
 ---
 
-## **Health Check (`/health`)**
-- `GET /health` → Check if the API is running  
+## **Health Check**
+
+| Method | Endpoint | Description | Auth Required |
+| :--- | :--- | :--- | :--- |
+| GET | `/health` | Check if the API is running | No |
 
 ---
 
-## **404 Not Found (`*`)**
-- `ANY /*` → Catch-all route for undefined routes  
+## **404 Not Found**
 
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| ANY | `*` | Catch-all for undefined routes |
