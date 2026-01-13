@@ -25,6 +25,9 @@ public class RegisterUserUsecaseTest {
     @Mock
     private PasswordEncrypter passwordEncrypter;
 
+    // @Mock
+    // private MessageService messageService;
+
     @InjectMocks
     private RegisterUserUsecase registerUserUsecase;
 
@@ -34,11 +37,13 @@ public class RegisterUserUsecaseTest {
     }
 
     @Test
-    void execute_shouldReturnRegisterUserOutput_whenUserIsRegisteredSuccessfully() throws UsernameAlreadyTakenException, EmailAlreadyTakenException {
+    void execute_shouldReturnRegisterUserOutput_whenUserIsRegisteredSuccessfully()
+            throws UsernameAlreadyTakenException, EmailAlreadyTakenException {
         // Arrange
         RegisterUserInput input = new RegisterUserInput("testuser", "test@example.com", "password123");
         String hashedPassword = "hashedPassword";
-        User insertedUser = new User(1L, input.username(), hashedPassword, input.email(), null, LocalDateTime.now(), LocalDateTime.now());
+        User insertedUser = new User(1L, input.username(), hashedPassword, input.email(), null, LocalDateTime.now(),
+                LocalDateTime.now());
 
         when(passwordEncrypter.encrypt(input.plainTextPassword())).thenReturn(hashedPassword);
         when(usersRepository.insert(any(User.class))).thenReturn(insertedUser);
@@ -53,13 +58,15 @@ public class RegisterUserUsecaseTest {
     }
 
     @Test
-    void execute_shouldThrowUsernameAlreadyTakenException_whenUsernameIsAlreadyTaken() throws UsernameAlreadyTakenException, EmailAlreadyTakenException {
+    void execute_shouldThrowUsernameAlreadyTakenException_whenUsernameIsAlreadyTaken()
+            throws UsernameAlreadyTakenException, EmailAlreadyTakenException {
         // Arrange
         RegisterUserInput input = new RegisterUserInput("testuser", "test@example.com", "password123");
         String hashedPassword = "hashedPassword";
 
         when(passwordEncrypter.encrypt(input.plainTextPassword())).thenReturn(hashedPassword);
-        when(usersRepository.insert(any(User.class))).thenThrow(new UsernameAlreadyTakenException("Username already taken"));
+        when(usersRepository.insert(any(User.class)))
+                .thenThrow(new UsernameAlreadyTakenException("Username already taken"));
 
         // Act & Assert
         assertThrows(UsernameAlreadyTakenException.class, () -> {
@@ -68,7 +75,8 @@ public class RegisterUserUsecaseTest {
     }
 
     @Test
-    void execute_shouldThrowEmailAlreadyTakenException_whenEmailIsAlreadyTaken() throws UsernameAlreadyTakenException, EmailAlreadyTakenException {
+    void execute_shouldThrowEmailAlreadyTakenException_whenEmailIsAlreadyTaken()
+            throws UsernameAlreadyTakenException, EmailAlreadyTakenException {
         // Arrange
         RegisterUserInput input = new RegisterUserInput("testuser", "test@example.com", "password123");
         String hashedPassword = "hashedPassword";

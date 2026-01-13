@@ -1,0 +1,16 @@
+services:
+  database:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: jim_hats_db
+      MYSQL_USER: jim-hats-web-api
+      MYSQL_PASSWORD: senhasegura
+    ports:
+      - "3306:3306"
+    volumes:
+      - jim-hats-volume:/var/lib/mysql
+
+volumes:
+  jim-hats-volume:
+  
