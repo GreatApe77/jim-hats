@@ -1,16 +1,14 @@
 services:
   database:
-    image: mysql:8.0
+    image: postgres:18.1
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: jim_hats_db
-      MYSQL_USER: jim-hats-web-api
-      MYSQL_PASSWORD: senhasegura
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: jim_hats_db
+      POSTGRES_USER: jim-hats-web-api
     ports:
-      - "3306:3306"
+      - "5432:5432"
     volumes:
-      - jim-hats-volume:/var/lib/mysql
-
+      - jim-hats-volume:/var/lib/postgresql/data
 volumes:
   jim-hats-volume:
   
