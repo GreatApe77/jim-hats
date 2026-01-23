@@ -1,6 +1,7 @@
 services:
   database:
-    image: postgres:18.1
+    image: postgres:16
+    restart: always
     environment:
       POSTGRES_PASSWORD: root
       POSTGRES_DB: jim_hats_db
@@ -9,6 +10,7 @@ services:
       - "5432:5432"
     volumes:
       - jim-hats-volume:/var/lib/postgresql/data
+    
 volumes:
   jim-hats-volume:
   
