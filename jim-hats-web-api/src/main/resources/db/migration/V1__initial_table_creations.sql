@@ -1,11 +1,11 @@
 CREATE TABLE "permissions" (
     "id" BIGSERIAL PRIMARY KEY,
-    "name" VARCHAR(255) NOT NULL
+    "name" VARCHAR(255) NOT NULL UNIQUE
 );
 
 CREATE TABLE "app_roles" (
     "id" BIGSERIAL PRIMARY KEY,
-    "name" VARCHAR(255) NOT NULL
+    "name" VARCHAR(255) NOT NULL UNIQUE
 );
 
 CREATE TABLE "app_roles_assignments" (
@@ -17,7 +17,7 @@ CREATE TABLE "app_roles_assignments" (
 CREATE TABLE "users" (
     "id" BIGSERIAL PRIMARY KEY,
     "first_name" VARCHAR(255) NOT NULL,
-    "last_name" VARCHAR(255) NOT NULL,
+    "last_name" VARCHAR(255),
     "username" VARCHAR(255) UNIQUE NOT NULL,
     "email" VARCHAR(255) UNIQUE NOT NULL,
     "profile_picture_url" VARCHAR(255),
