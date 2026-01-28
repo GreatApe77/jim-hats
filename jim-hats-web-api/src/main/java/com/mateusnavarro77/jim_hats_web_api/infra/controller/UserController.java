@@ -4,15 +4,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mateusnavarro77.jim_hats_web_api.infra.dto.GetUserByIdResponseDto;
-import com.mateusnavarro77.jim_hats_web_api.infra.entity.User;
 import com.mateusnavarro77.jim_hats_web_api.infra.service.UserService;
-
-import jakarta.websocket.server.PathParam;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/users")

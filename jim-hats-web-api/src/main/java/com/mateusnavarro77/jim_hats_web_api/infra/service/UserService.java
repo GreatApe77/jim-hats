@@ -1,9 +1,6 @@
 package com.mateusnavarro77.jim_hats_web_api.infra.service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +9,6 @@ import com.mateusnavarro77.jim_hats_web_api.infra.repository.UserRepository;
 
 @Service
 public class UserService {
-    private final AuthProviderService authProviderService;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -20,7 +16,6 @@ public class UserService {
             AuthProviderService authProviderService,
             UserRepository userRepository,
             PasswordEncoder passwordEncoder) {
-        this.authProviderService = authProviderService;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
