@@ -1,5 +1,6 @@
 package com.mateusnavarro77.jim_hats_web_api.infra.config;
 
+import java.time.Instant;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -16,13 +17,17 @@ public class JwtTokenConfig {
     private String secret;
 
     private final String issuer = "jim-hats-web-api";
+    private final Long durationInSeconds = 600L; // 10 minutes
 
     public String generateToken(User user) {
         var encryptionAlgorithm = getEncryptionAlgorithm();
+        var now = Instant.now();
 
         return JWT.create()
                 .withSubject(user.getId().toString())
                 .withIssuer(issuer)
+                .withIssuedAt(now)
+                .withExpiresAt(now.plusSeconds(durationInSeconds))
                 .sign(encryptionAlgorithm);
 
     }
