@@ -3,6 +3,7 @@ package com.mateusnavarro77.jim_hats_web_api.infra.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mateusnavarro77.jim_hats_web_api.infra.dto.LoginRequestDto;
 import com.mateusnavarro77.jim_hats_web_api.infra.dto.RegisterDto;
 import com.mateusnavarro77.jim_hats_web_api.infra.service.UserService;
 
@@ -33,6 +34,12 @@ public class AuthenticationController {
                 registerDto.firstName(),
                 registerDto.lastName());
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<Void> login(@RequestBody @Valid LoginRequestDto loginRequestDto) {
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
