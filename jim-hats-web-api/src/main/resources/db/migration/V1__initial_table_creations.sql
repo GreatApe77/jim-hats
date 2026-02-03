@@ -22,8 +22,8 @@ CREATE TABLE "users" (
     "email" VARCHAR(255) UNIQUE NOT NULL,
     "profile_picture_url" VARCHAR(255),
     "password" VARCHAR(255) NOT NULL,
-    "created_at" DATE NOT NULL,
-    "updated_at" DATE NOT NULL
+    "created_at" TIMESTAMPTZ NOT NULL,
+    "updated_at" TIMESTAMPTZ NOT NULL
 );
 
 CREATE TABLE "gym_challenges" (
@@ -31,9 +31,9 @@ CREATE TABLE "gym_challenges" (
     "name" VARCHAR(255) NOT NULL,
     "description" VARCHAR(255) NOT NULL,
     "banner_img_url" VARCHAR(255) NOT NULL,
-    "created_at" DATE NOT NULL,
-    "start_at" DATE NOT NULL,
-    "end_at" DATE NOT NULL
+    "created_at" TIMESTAMPTZ NOT NULL,
+    "start_at" TIMESTAMPTZ NOT NULL,
+    "end_at" TIMESTAMPTZ NOT NULL
 );
 
 CREATE TABLE "gym_challenge_memberships" (
@@ -41,14 +41,14 @@ CREATE TABLE "gym_challenge_memberships" (
     "user_id" BIGINT NOT NULL,
     "gym_challenge_id" BIGINT NOT NULL,
     "role_id" BIGINT NOT NULL,
-    "created_at" DATE NOT NULL
+    "created_at" TIMESTAMPTZ NOT NULL
 );
 
 CREATE TABLE "exercise_check_ins" (
     "id" BIGSERIAL PRIMARY KEY,
     "title" VARCHAR(255) NOT NULL,
     "description" VARCHAR(255) NOT NULL,
-    "created_at" DATE NOT NULL,
+    "created_at" TIMESTAMPTZ NOT NULL,
     "user_id" BIGINT NOT NULL,
     "exercise_img_url" VARCHAR(255) NOT NULL
 );

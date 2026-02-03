@@ -12,7 +12,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.Instant;
 import java.time.LocalDate;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "exercise_check_ins")
@@ -32,7 +36,8 @@ public class ExerciseCheckIn {
     private String description;
 
     @Column(name = "created_at", nullable = false)
-    private LocalDate createdAt;
+    @CreationTimestamp
+    private Instant createdAt;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

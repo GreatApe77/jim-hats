@@ -2,6 +2,7 @@ package com.mateusnavarro77.jim_hats_web_api.infra.controller;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContext;
@@ -31,10 +32,10 @@ public class GymChallengeController {
         gymChallengeService.createGymChallenge(userId,
                 request.name(),
                 request.description(),
-                null,
-
-                request.startAt(),
-                request.endAt());
+                request.bannerImgUrl(),
+                
+                request.startAt().atStartOfDay(ZoneOffset.UTC).toInstant(),
+                request.endAt().atStartOfDay(ZoneOffset.UTC).toInstant());
         
         return ResponseEntity.ok().build();
     }

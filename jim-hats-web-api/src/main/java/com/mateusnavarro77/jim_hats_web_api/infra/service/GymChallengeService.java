@@ -1,5 +1,6 @@
 package com.mateusnavarro77.jim_hats_web_api.infra.service;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 import org.springframework.http.HttpStatus;
@@ -35,27 +36,24 @@ public class GymChallengeService {
         String name,
         String description,
         String bannerImgUrl,
-        LocalDateTime startAt,
-        LocalDateTime endAt
+        Instant startAt,
+        Instant endAt
     ){
         if(startAt.isAfter(endAt)){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Start date must be before end date");
         }
         
-        var now = LocalDateTime.now();
         var gymChallenge = new GymChallenge();
         gymChallenge.setName(name);
         gymChallenge.setDescription(description);
         gymChallenge.setBannerImgUrl(bannerImgUrl);
-        gymChallenge.setCreatedAt(now.toLocalDate());
-        gymChallenge.setStartAt(startAt.toLocalDate());
-        gymChallenge.setEndAt(endAt.toLocalDate());
+        gymChallenge.setStartAt(startAt);
+        gymChallenge.setEndAt(endAt);
         gymChallengeRepository.save(gymChallenge);
         var adminRoleId = 1L; 
         var adminRole = this.appRoleRepository.findById(adminRoleId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Admin role not found"));
         var creator = this.userRepository.findById(creatorId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Creator user not found"));
         var creatorMembership = new GymChallengeMembership();
-        creatorMembership.setCreatedAt(now.toLocalDate());
         creatorMembership.setGymChallenge(gymChallenge);
         creatorMembership.setUser(creator);
         creatorMembership.setRole(adminRole);

@@ -1,5 +1,6 @@
 package com.mateusnavarro77.jim_hats_web_api.infra.service;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -35,8 +36,7 @@ public class UserService {
         user.setPassword(encryptedPassword);
         user.setFirstName(firstName);
         user.setLastName(lastName);
-        var now = LocalDate.now();
-        user.setCreatedAt(now);
+        var now = Instant.now();
         user.setUpdatedAt(now);
 
         this.userRepository.save(user);
