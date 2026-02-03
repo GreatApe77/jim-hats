@@ -1,0 +1,14 @@
+
+### API HEALTH
+
+GET http://localhost:{{$}}/health
+
+
+
+POST http://localhost:8080/auth/register
+Content-Type: application/json
+
+{
+    "username": "Test_User123",
+    "email": "${}"
+}

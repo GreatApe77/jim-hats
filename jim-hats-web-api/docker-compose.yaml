@@ -1,0 +1,16 @@
+services:
+  database:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: jim_hats_db
+      POSTGRES_USER: jim-hats-web-api
+    ports:
+      - "5432:5432"
+    volumes:
+      - jim-hats-volume:/var/lib/postgresql/data
+    
+volumes:
+  jim-hats-volume:
+  
