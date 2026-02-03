@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mateusnavarro77.jim_hats_web_api.infra.dto.CreateGymChallengeRequestDto;
 import com.mateusnavarro77.jim_hats_web_api.infra.service.GymChallengeService;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import org.springframework.web.bind.annotation.RequestBody; // Correct import
 import jakarta.validation.Valid;
 
 @RestController
@@ -25,7 +25,7 @@ public class GymChallengeController {
         this.gymChallengeService = gymChallengeService;
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<Void> createGymChallenge(@RequestBody @Valid CreateGymChallengeRequestDto request) {
         var userId = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         gymChallengeService.createGymChallenge(userId,
