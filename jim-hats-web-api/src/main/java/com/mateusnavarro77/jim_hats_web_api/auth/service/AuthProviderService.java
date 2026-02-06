@@ -1,4 +1,4 @@
-package com.mateusnavarro77.jim_hats_web_api.infra.service;
+package com.mateusnavarro77.jim_hats_web_api.auth.service;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.mateusnavarro77.jim_hats_web_api.infra.config.JwtTokenConfig;
-import com.mateusnavarro77.jim_hats_web_api.infra.repository.UserRepository;
+import com.mateusnavarro77.jim_hats_web_api.users.repository.UserRepository;
 @Service
 public class AuthProviderService implements UserDetailsService {
     private UserRepository userRepository;

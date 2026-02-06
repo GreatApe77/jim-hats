@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.mateusnavarro77.jim_hats_web_api.infra.entity.User;
+import com.mateusnavarro77.jim_hats_web_api.users.entity.User;
 
 @Component
 public class JwtTokenConfig {

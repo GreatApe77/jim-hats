@@ -18,6 +18,9 @@ import java.time.LocalDate;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.mateusnavarro77.jim_hats_web_api.auth.entity.AppRole;
+import com.mateusnavarro77.jim_hats_web_api.users.entity.User;
+
 @Entity
 @Table(name = "gym_challenge_memberships")
 @NoArgsConstructor

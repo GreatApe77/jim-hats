@@ -1,4 +1,4 @@
-package com.mateusnavarro77.jim_hats_web_api.infra.entity;
+package com.mateusnavarro77.jim_hats_web_api.auth.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,19 +13,19 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "app_roles_assignments")
+@Table(name = "system_roles_assignments")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class AppRoleAssignment {
+public class SystemRoleAssignment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "app_role_id", nullable = false)
-    private AppRole appRole;
+    @JoinColumn(name = "system_role_id", nullable = false)
+    private SystemRole systemRole;
 
     @ManyToOne
     @JoinColumn(name = "permission_id", nullable = false)

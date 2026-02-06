@@ -7,13 +7,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.mateusnavarro77.jim_hats_web_api.infra.entity.AppRole;
+import com.mateusnavarro77.jim_hats_web_api.auth.entity.AppRole;
+import com.mateusnavarro77.jim_hats_web_api.auth.repository.AppRoleRepository;
 import com.mateusnavarro77.jim_hats_web_api.infra.entity.GymChallenge;
 import com.mateusnavarro77.jim_hats_web_api.infra.entity.GymChallengeMembership;
-import com.mateusnavarro77.jim_hats_web_api.infra.repository.AppRoleRepository;
 import com.mateusnavarro77.jim_hats_web_api.infra.repository.GymChallengeMembershipRepository;
 import com.mateusnavarro77.jim_hats_web_api.infra.repository.GymChallengeRepository;
-import com.mateusnavarro77.jim_hats_web_api.infra.repository.UserRepository;
+import com.mateusnavarro77.jim_hats_web_api.users.repository.UserRepository;
 
 import jakarta.transaction.Transactional;
 

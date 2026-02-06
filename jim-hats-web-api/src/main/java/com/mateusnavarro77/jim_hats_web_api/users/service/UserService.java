@@ -1,12 +1,17 @@
-package com.mateusnavarro77.jim_hats_web_api.infra.service;
+package com.mateusnavarro77.jim_hats_web_api.users.service;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.List;
+
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.mateusnavarro77.jim_hats_web_api.infra.entity.User;
-import com.mateusnavarro77.jim_hats_web_api.infra.repository.UserRepository;
+import com.mateusnavarro77.jim_hats_web_api.auth.entity.SystemRole;
+import com.mateusnavarro77.jim_hats_web_api.auth.service.AuthProviderService;
+import com.mateusnavarro77.jim_hats_web_api.users.entity.User;
+import com.mateusnavarro77.jim_hats_web_api.users.repository.UserRepository;
 
 @Service
 public class UserService {
@@ -36,6 +41,9 @@ public class UserService {
         user.setPassword(encryptedPassword);
         user.setFirstName(firstName);
         user.setLastName(lastName);
+        var  systemRole = new SystemRole();
+        systemRole.setId(2L); // 2L is the id of the MEMBER role in the database
+        user.setSystemRole(systemRole);
         var now = Instant.now();
         user.setUpdatedAt(now);
 
@@ -43,5 +51,9 @@ public class UserService {
     }
     public User getUserById(Long userId) {
         return this.userRepository.findById(userId).orElseThrow();
+    }
+    public List<User> getAllUsers(int page, int size) {
+        var pageable = PageRequest.of(page, size);
+        return this.userRepository.findAll(pageable).getContent();
     }
 }

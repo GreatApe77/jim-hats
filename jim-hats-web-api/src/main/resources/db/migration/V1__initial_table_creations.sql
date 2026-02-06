@@ -7,7 +7,15 @@ CREATE TABLE "app_roles" (
     "id" BIGSERIAL PRIMARY KEY,
     "name" VARCHAR(255) NOT NULL UNIQUE
 );
-
+CREATE TABLE "system_roles" (
+    "id" BIGSERIAL PRIMARY KEY,
+    "name" VARCHAR(255) NOT NULL UNIQUE
+);
+CREATE TABLE "system_roles_assignments" (
+    "id" BIGSERIAL PRIMARY KEY,
+    "system_role_id" BIGINT NOT NULL,
+    "permission_id" BIGINT NOT NULL
+);
 CREATE TABLE "app_roles_assignments" (
     "id" BIGSERIAL PRIMARY KEY,
     "app_role_id" BIGINT NOT NULL,
@@ -21,6 +29,7 @@ CREATE TABLE "users" (
     "username" VARCHAR(255) UNIQUE NOT NULL,
     "email" VARCHAR(255) UNIQUE NOT NULL,
     "profile_picture_url" VARCHAR(255),
+    "system_role_id" BIGINT NOT NULL,
     "password" VARCHAR(255) NOT NULL,
     "created_at" TIMESTAMPTZ NOT NULL,
     "updated_at" TIMESTAMPTZ NOT NULL
@@ -90,3 +99,11 @@ FOREIGN KEY ("app_role_id") REFERENCES "app_roles" ("id");
 ALTER TABLE "app_roles_assignments"
 ADD CONSTRAINT "app_roles_assignments_permission_id_foreign"
 FOREIGN KEY ("permission_id") REFERENCES "permissions" ("id");
+
+ALTER TABLE "system_roles_assignments"
+ADD CONSTRAINT "system_roles_assignments_system_role_id_foreign"
+FOREIGN KEY ("system_role_id") REFERENCES "system_roles" ("id");
+
+ALTER TABLE "users"
+ADD CONSTRAINT "users_system_role_id_foreign"
+FOREIGN KEY ("system_role_id") REFERENCES "system_roles" ("id");

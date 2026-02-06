@@ -1,4 +1,4 @@
-package com.mateusnavarro77.jim_hats_web_api.infra.entity;
+package com.mateusnavarro77.jim_hats_web_api.auth.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

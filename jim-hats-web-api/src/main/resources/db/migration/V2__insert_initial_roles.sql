@@ -2,3 +2,7 @@ INSERT INTO app_roles(name)
 VALUES ('ADMIN'),
     ('MEMBER'),
     ('MODERATOR') ON CONFLICT (name) DO NOTHING;
+
+INSERT INTO system_roles(name)
+VALUES ('SYSTEM_ADMIN'),
+    ('SYSTEM_USER') ON CONFLICT (name) DO NOTHING;
