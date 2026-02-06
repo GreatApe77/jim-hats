@@ -26,7 +26,7 @@ public class AdminBootstrap implements ApplicationRunner {
     @Value("${app.bootstrap.admin.email:admin@email.com}")
     private String adminEmail;
 
-    @Value("${app.bootstrap.admin.password:admin}")
+    @Value("${app.bootstrap.admin.password:adminadmin}")
     private String adminPassword;
 
     @Override

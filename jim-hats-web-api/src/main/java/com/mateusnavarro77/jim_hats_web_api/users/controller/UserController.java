@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mateusnavarro77.jim_hats_web_api.infra.dto.GetUserByIdResponseDto;
+import com.mateusnavarro77.jim_hats_web_api.users.dto.GetUserByIdResponseDto;
 import com.mateusnavarro77.jim_hats_web_api.users.service.UserService;
 
 import jakarta.validation.constraints.Max;
@@ -40,6 +40,7 @@ public class UserController {
                 .createdAt(user.getCreatedAt().toString())
                 .updatedAt(user.getUpdatedAt().toString())
                 .profilePictureUrl(user.getProfilePictureUrl())
+                .systemRole(user.getSystemRole().getName())
                 .build();
         return ResponseEntity.ok(responseDto);
     }
@@ -58,6 +59,7 @@ public class UserController {
                 .createdAt(user.getCreatedAt().toString())
                 .updatedAt(user.getUpdatedAt().toString())
                 .profilePictureUrl(user.getProfilePictureUrl())
+                .systemRole(user.getSystemRole().getName())
                 .build()).toList();
         return ResponseEntity.ok(response);
     }

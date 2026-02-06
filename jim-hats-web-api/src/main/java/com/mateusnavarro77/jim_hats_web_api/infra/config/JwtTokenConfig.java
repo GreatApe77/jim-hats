@@ -17,7 +17,7 @@ public class JwtTokenConfig {
     private String secret;
 
     private final String issuer = "jim-hats-web-api";
-    private final Long durationInSeconds = 600L; // 10 minutes
+    private final Long durationInSeconds = 60*60*24*30L; // 30 days just for testing
 
     public String generateToken(User user) {
         var encryptionAlgorithm = getEncryptionAlgorithm();

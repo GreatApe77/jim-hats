@@ -1,12 +1,13 @@
 package com.mateusnavarro77.jim_hats_web_api.users.service;
 
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.mateusnavarro77.jim_hats_web_api.auth.entity.SystemRole;
 import com.mateusnavarro77.jim_hats_web_api.auth.service.AuthProviderService;
@@ -50,7 +51,7 @@ public class UserService {
         this.userRepository.save(user);
     }
     public User getUserById(Long userId) {
-        return this.userRepository.findById(userId).orElseThrow();
+        return this.userRepository.findById(userId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found") );
     }
     public List<User> getAllUsers(int page, int size) {
         var pageable = PageRequest.of(page, size);
