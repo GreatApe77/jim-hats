@@ -13,6 +13,7 @@ import jakarta.validation.constraints.Min;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 // GET    /users/me
@@ -62,6 +63,25 @@ public class UserController {
                 .systemRole(user.getSystemRole().getName())
                 .build()).toList();
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<GetUserByIdResponseDto> getAuthenticatedUserData() {
+        var auth = SecurityContextHolder.getContext().getAuthentication();
+        var id = (Long) auth.getPrincipal();
+        var user = this.userService.getUserById(id);
+        var responseDto = GetUserByIdResponseDto.builder()
+                .id(user.getId())
+                .username(user.getUsername())
+                .email(user.getEmail())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .createdAt(user.getCreatedAt().toString())
+                .updatedAt(user.getUpdatedAt().toString())
+                .profilePictureUrl(user.getProfilePictureUrl())
+                .systemRole(user.getSystemRole().getName())
+                .build();
+        return ResponseEntity.ok(responseDto);
     }
 
 }
