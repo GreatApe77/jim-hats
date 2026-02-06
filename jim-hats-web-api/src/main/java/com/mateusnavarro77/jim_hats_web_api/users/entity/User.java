@@ -2,6 +2,7 @@ package com.mateusnavarro77.jim_hats_web_api.users.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -63,7 +64,7 @@ public class User implements UserDetails {
     @UpdateTimestamp
     private Instant updatedAt;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "system_role_id", nullable = false)
     private SystemRole systemRole;
 

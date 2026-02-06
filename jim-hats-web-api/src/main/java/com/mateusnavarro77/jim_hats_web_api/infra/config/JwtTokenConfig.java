@@ -24,6 +24,7 @@ public class JwtTokenConfig {
         var now = Instant.now();
 
         return JWT.create()
+                .withClaim("systemRole", user.getSystemRole().getName())
                 .withSubject(user.getId().toString())
                 .withIssuer(issuer)
                 .withIssuedAt(now)
@@ -32,14 +33,18 @@ public class JwtTokenConfig {
 
     }
 
-    public Optional<Long> validateToken(String token) {
+    public Optional<JwtUserData> validateToken(String token) {
         try {
             var encryptionAlgorithm = getEncryptionAlgorithm();
             var decodedJwt = JWT.require(encryptionAlgorithm)
                     .withIssuer(issuer)
                     .build().verify(token);
-            var userId = Long.parseLong(decodedJwt.getSubject());
-            return Optional.of(userId);
+            var jwtUserData = JwtUserData.builder()
+                    .id(Long.parseLong(decodedJwt.getSubject()))
+                    .systemRole(decodedJwt.getClaim("systemRole").asString())
+                    .build();
+            
+            return Optional.of(jwtUserData);
         } catch (JWTVerificationException e) {
             return Optional.empty();
         }

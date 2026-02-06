@@ -1,8 +1,10 @@
 package com.mateusnavarro77.jim_hats_web_api.infra.config;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -11,6 +13,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 @Component
 public class JwtSecurityFilter extends OncePerRequestFilter {
     private final JwtTokenConfig jwtTokenConfig;
@@ -31,11 +34,12 @@ public class JwtSecurityFilter extends OncePerRequestFilter {
         String token = authHeader.substring(7);
         var validatedTokenResult = jwtTokenConfig.validateToken(token);
         if (validatedTokenResult.isPresent()) {
-            var userId = validatedTokenResult.get();
+            var userData = validatedTokenResult.get();
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                    userId,
+                    userData.id(),
                     null,
-                    java.util.Collections.emptyList());
+                    List.of(new SimpleGrantedAuthority(userData.systemRole()))
+            );
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 
