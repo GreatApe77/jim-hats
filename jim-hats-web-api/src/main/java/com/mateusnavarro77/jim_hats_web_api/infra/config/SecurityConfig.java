@@ -31,10 +31,11 @@ public class SecurityConfig {
                 .sessionManagement(
                         sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
-                                "/auth/**",
+                    .requestMatchers(
+                        "/auth/**",
                                 "/swagger-ui/**",
-                                "/v3/api-docs/**")
+                                "/v3/api-docs/**",
+                                "/health")
                         .permitAll()
                         .anyRequest()
                         .authenticated())
