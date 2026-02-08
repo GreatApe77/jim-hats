@@ -13,14 +13,13 @@ import net.bytebuddy.utility.dispatcher.JavaDispatcher.Container;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class ApiEndToEndTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
-    @Conta
-    static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:15");
+    
+    static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16");
 
     @Test
     void shouldReachHealthEndpoint() {

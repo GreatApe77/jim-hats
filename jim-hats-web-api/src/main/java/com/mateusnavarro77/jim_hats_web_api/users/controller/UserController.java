@@ -13,6 +13,7 @@ import jakarta.validation.constraints.Min;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +31,7 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
+    @PreAuthorize("@authorizationService.check(authentication, 'USERS:READ')")
     public ResponseEntity<GetUserByIdResponseDto> getUserById(@PathVariable Long userId) {
         var user = this.userService.getUserById(userId);
         var responseDto = GetUserByIdResponseDto.builder()
