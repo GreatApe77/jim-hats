@@ -1,4 +1,4 @@
-package com.mateusnavarro77.jim_hats_web_api.infra.config;
+package com.mateusnavarro77.jim_hats_web_api.shared.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;

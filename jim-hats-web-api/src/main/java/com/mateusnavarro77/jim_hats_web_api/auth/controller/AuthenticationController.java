@@ -3,10 +3,10 @@ package com.mateusnavarro77.jim_hats_web_api.auth.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mateusnavarro77.jim_hats_web_api.auth.dto.LoginRequestDto;
+import com.mateusnavarro77.jim_hats_web_api.auth.dto.LoginResponseDto;
+import com.mateusnavarro77.jim_hats_web_api.auth.dto.RegisterDto;
 import com.mateusnavarro77.jim_hats_web_api.auth.service.AuthProviderService;
-import com.mateusnavarro77.jim_hats_web_api.infra.dto.LoginRequestDto;
-import com.mateusnavarro77.jim_hats_web_api.infra.dto.LoginResponseDto;
-import com.mateusnavarro77.jim_hats_web_api.infra.dto.RegisterDto;
 import com.mateusnavarro77.jim_hats_web_api.users.service.UserService;
 
 import jakarta.validation.Valid;

@@ -1,4 +1,4 @@
-package com.mateusnavarro77.jim_hats_web_api.infra.dto;
+package com.mateusnavarro77.jim_hats_web_api.auth.dto;
 
 import com.mateusnavarro77.jim_hats_web_api.infra.validation.annotations.FirstName;
 import com.mateusnavarro77.jim_hats_web_api.infra.validation.annotations.LastName;

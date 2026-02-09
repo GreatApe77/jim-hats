@@ -1,4 +1,4 @@
-package com.mateusnavarro77.jim_hats_web_api.infra.config;
+package com.mateusnavarro77.jim_hats_web_api.shared.config;
 
 import java.io.IOException;
 import java.util.List;
@@ -9,6 +9,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.mateusnavarro77.jim_hats_web_api.auth.service.JwtService;
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,10 +18,10 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 public class JwtSecurityFilter extends OncePerRequestFilter {
-    private final JwtTokenConfig jwtTokenConfig;
+    private final JwtService jwtService;
 
-    public JwtSecurityFilter(JwtTokenConfig jwtTokenConfig) {
-        this.jwtTokenConfig = jwtTokenConfig;
+    public JwtSecurityFilter(JwtService jwtService) {
+        this.jwtService = jwtService;
     }
 
     @Override
@@ -32,7 +34,7 @@ public class JwtSecurityFilter extends OncePerRequestFilter {
             return;
         }
         String token = authHeader.substring(7);
-        var validatedTokenResult = jwtTokenConfig.validateToken(token);
+        var validatedTokenResult = jwtService.validateToken(token);
         if (validatedTokenResult.isPresent()) {
             var userData = validatedTokenResult.get();
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(

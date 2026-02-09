@@ -1,4 +1,4 @@
-package com.mateusnavarro77.jim_hats_web_api.infra.controller;
+package com.mateusnavarro77.jim_hats_web_api.health;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.ResponseEntity;

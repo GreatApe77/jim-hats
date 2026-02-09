@@ -8,17 +8,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.mateusnavarro77.jim_hats_web_api.infra.config.JwtTokenConfig;
 import com.mateusnavarro77.jim_hats_web_api.users.repository.UserRepository;
 @Service
 public class AuthProviderService implements UserDetailsService {
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
-    private JwtTokenConfig jwtTokenConfig;
-    public AuthProviderService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtTokenConfig jwtTokenConfig) {
+    private JwtService jwtService;
+    public AuthProviderService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtService jwtService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-        this.jwtTokenConfig = jwtTokenConfig;
+        this.jwtService = jwtService;
     }
 
     @Override
@@ -37,7 +36,7 @@ public class AuthProviderService implements UserDetailsService {
         if(!passwordMatches){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
-        return this.jwtTokenConfig.generateToken(user);
+        return this.jwtService.generateToken(user);
 
     }
 
