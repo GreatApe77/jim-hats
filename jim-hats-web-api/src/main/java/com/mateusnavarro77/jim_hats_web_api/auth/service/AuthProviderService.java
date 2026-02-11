@@ -29,12 +29,12 @@ public class AuthProviderService implements UserDetailsService {
     public String login(String username,String password){
         var user = this.userRepository.findByUsername(username);
         if(user==null){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         }
         var encryptedPassword = user.getPassword();
         var passwordMatches = this.passwordEncoder.matches(password, encryptedPassword);
         if(!passwordMatches){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         }
         return this.jwtService.generateToken(user);
 

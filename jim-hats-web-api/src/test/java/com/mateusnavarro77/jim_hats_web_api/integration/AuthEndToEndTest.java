@@ -1,4 +1,4 @@
-package com.mateusnavarro77.jim_hats_web_api.auth;
+package com.mateusnavarro77.jim_hats_web_api.integration;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
