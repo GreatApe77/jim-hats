@@ -38,4 +38,11 @@ public class SystemRoleService {
         systemRole.setName(systemRoleName);
         return this.systemRoleRepository.save(systemRole);
     }
+
+    @Transactional
+    public void deleteSystemRole(Long systemRoleId) {
+        if (!this.systemRoleRepository.existsById(systemRoleId))
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "System role not found");
+        this.systemRoleRepository.deleteById(systemRoleId);
+    }
 }

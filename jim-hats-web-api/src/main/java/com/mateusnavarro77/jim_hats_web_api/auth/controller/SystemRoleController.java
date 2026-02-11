@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,4 +53,12 @@ public class SystemRoleController {
                 .toUri();
         return ResponseEntity.created(uri).build();
     }
+
+    @DeleteMapping("/{systemRoleId}")
+    @PreAuthorize("@authorizationService.check(authentication, 'ROLES:DELETE')")
+    public ResponseEntity<?> deleteSystemRole(@PathVariable @Min(1) Long systemRoleId) {
+        this.systemRoleService.deleteSystemRole(systemRoleId);
+        return ResponseEntity.noContent().build();
+    }
+
 }
