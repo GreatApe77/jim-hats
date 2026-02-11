@@ -31,4 +31,11 @@ public class AuthorizationService {
         return hasSystemLevelPermission(roleName, permission);
     }
 
+    public boolean hasSystemRole(Authentication auth, String systemRoleName) {
+        if (auth == null || auth.getAuthorities().isEmpty())
+            return false;
+        return auth.getAuthorities().stream()
+                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals(systemRoleName));
+    }
+
 }

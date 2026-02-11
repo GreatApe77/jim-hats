@@ -42,7 +42,7 @@ public class PermissionController {
     }
 
     @PostMapping
-    @PreAuthorize("@authorizationService.check(authentication, 'PERMISSIONS:CREATE')")
+    @PreAuthorize("@authorizationService.hasSystemRole(authentication, 'SYSTEM_ADMIN')")
     public ResponseEntity<?> createPermission(@RequestBody @Valid CreatePermissionDto createPermissionDto) {
         var permission = this.permissionService.createPermission(createPermissionDto.permissionName());
         var uri = ServletUriComponentsBuilder
@@ -54,7 +54,7 @@ public class PermissionController {
     }
 
     @DeleteMapping("/{permissionId}")
-    @PreAuthorize("@authorizationService.check(authentication, 'PERMISSIONS:DELETE')")
+    @PreAuthorize("@authorizationService.hasSystemRole(authentication, 'SYSTEM_ADMIN')")
     public ResponseEntity<?> deletePermission(@PathVariable @Min(1) Long permissionId) {
         this.permissionService.deletePermission(permissionId);
         return ResponseEntity.noContent().build();
