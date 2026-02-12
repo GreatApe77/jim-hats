@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.mateusnavarro77.jim_hats_web_api.auth.dto.CreateAppRoleDto;
+import com.mateusnavarro77.jim_hats_web_api.auth.dto.IncludePermissionInAppRoleRequestDto;
 import com.mateusnavarro77.jim_hats_web_api.auth.entity.AppRole;
 import com.mateusnavarro77.jim_hats_web_api.auth.service.AppRoleService;
 
@@ -58,5 +59,13 @@ public class AppRoleController {
     public ResponseEntity<?> deleteAppRole(@PathVariable @Min(1) Long appRoleId) {
         this.appRoleService.deleteAppRole(appRoleId);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/{appRoleId}/permissions")
+    @PreAuthorize("@authorizationService.check(authentication, 'ROLES:CREATE')")
+    public ResponseEntity<?> addPermissionToAppRole(@PathVariable @Min(1) Long appRoleId,
+            @RequestBody @Valid IncludePermissionInAppRoleRequestDto includePermissionInAppRoleRequestDto) {
+        this.appRoleService.addPermissionToAppRole(appRoleId, includePermissionInAppRoleRequestDto.permissionName());
+        return ResponseEntity.ok().build();
     }
 }
