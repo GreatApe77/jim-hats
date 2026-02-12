@@ -1,9 +1,9 @@
 package com.mateusnavarro77.jim_hats_web_api.auth.dto;
 
-import com.mateusnavarro77.jim_hats_web_api.infra.validation.annotations.FirstName;
-import com.mateusnavarro77.jim_hats_web_api.infra.validation.annotations.LastName;
-import com.mateusnavarro77.jim_hats_web_api.infra.validation.annotations.PlainTextPassword;
-import com.mateusnavarro77.jim_hats_web_api.infra.validation.annotations.Username;
+import com.mateusnavarro77.jim_hats_web_api.shared.validation.annotations.FirstName;
+import com.mateusnavarro77.jim_hats_web_api.shared.validation.annotations.LastName;
+import com.mateusnavarro77.jim_hats_web_api.shared.validation.annotations.PlainTextPassword;
+import com.mateusnavarro77.jim_hats_web_api.shared.validation.annotations.Username;
 
 import jakarta.validation.constraints.Email;
 

@@ -1,8 +1,7 @@
-package com.mateusnavarro77.jim_hats_web_api.infra.validation.annotations;
+package com.mateusnavarro77.jim_hats_web_api.shared.validation.annotations;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
-import jakarta.validation.ReportAsSingleViolation;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -13,14 +12,16 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = {})
 @Target({ ElementType.FIELD, ElementType.PARAMETER })
 @Retention(RetentionPolicy.RUNTIME)
-@ReportAsSingleViolation
 
 @NotBlank
-@Size(max = 40)
-@Pattern(regexp = "^\\p{L}+$", message = "First name must contain only letters and no spaces")
-public @interface FirstName {
+@Size(min = 3, max = 39)
+@Pattern(
+    regexp = "^[A-Za-z0-9_]+$",
+    message = "Username must contain only letters, numbers, and underscores, with no spaces"
+)
+public @interface Username {
 
-    String message() default "First name must not be blank, must contain only letters, and be at most 40 characters long";
+    String message() default "Invalid username";
 
     Class<?>[] groups() default {};
 

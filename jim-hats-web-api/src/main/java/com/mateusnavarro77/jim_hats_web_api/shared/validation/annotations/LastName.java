@@ -1,4 +1,4 @@
-package com.mateusnavarro77.jim_hats_web_api.infra.validation.annotations;
+package com.mateusnavarro77.jim_hats_web_api.shared.validation.annotations;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
