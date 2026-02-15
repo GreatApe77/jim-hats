@@ -1,4 +1,4 @@
-package com.mateusnavarro77.jim_hats_web_api.infra.dto;
+package com.mateusnavarro77.jim_hats_web_api.gym_challenges.dto;
 
 import java.time.Instant;
 import java.time.LocalDate;

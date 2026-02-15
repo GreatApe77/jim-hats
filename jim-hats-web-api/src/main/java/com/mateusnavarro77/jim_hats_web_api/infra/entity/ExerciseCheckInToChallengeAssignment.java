@@ -1,5 +1,7 @@
 package com.mateusnavarro77.jim_hats_web_api.infra.entity;
 
+import com.mateusnavarro77.jim_hats_web_api.gym_challenges.entity.GymChallenge;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

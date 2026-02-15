@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mateusnavarro77.jim_hats_web_api.infra.dto.CreateGymChallengeRequestDto;
-import com.mateusnavarro77.jim_hats_web_api.infra.service.GymChallengeService;
+import com.mateusnavarro77.jim_hats_web_api.gym_challenges.dto.CreateGymChallengeRequestDto;
+import com.mateusnavarro77.jim_hats_web_api.gym_challenges.service.GymChallengeService;
 
 import org.springframework.web.bind.annotation.RequestBody; // Correct import
 import jakarta.validation.Valid;
